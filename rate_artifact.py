@@ -13,17 +13,19 @@ def rate_artifact(img):
 
 	out = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 	out = cv2.threshold(out, 170, 255, cv2.THRESH_BINARY_INV)[1]
+	out = cv2.resize(out, (int(out.shape[1] * 2), int(out.shape[0] * 2)))
 
 	cv2.imwrite('out.png', out)
 
 	custom_config = r'--oem 3 --psm 11'
 	text = pytesseract.image_to_string(out, config=custom_config)
+	# print(text)
 
 	cur_stat = None
 	results = []
 	for line in text.splitlines():
 		if line:
-			if fuzz.partial_ratio(line, 'Piece Set') > 60:
+			if fuzz.partial_ratio(line, 'Piece') > 60:
 				break
 			# print(line)
 			extract = process.extractOne(line, choices, scorer=fuzz.partial_ratio)
@@ -40,7 +42,7 @@ def rate_artifact(img):
 							continue
 						stat = extract_dmg[0] + ' DMG'
 				value = reg.findall(line)
-				if not value:
+				if not value or len(max(value, key=len)) < 2:
 					cur_stat = None if cur_stat else stat
 					continue
 				cur_stat = None
@@ -88,5 +90,5 @@ def rate_artifact(img):
 	return final_pct, results
 
 if __name__ == '__main__':
-	img = cv2.imread('test.jpg')
+	img = cv2.imread('test.png')
 	rate_artifact(img)
