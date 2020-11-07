@@ -5,7 +5,6 @@ import pytesseract
 import re
 
 def rate_artifact(img):
-	custom_config = r'--oem 3 --psm 6'
 	choices = ['HP', 'Healing Bonus', 'DEF', 'Energy Recharge', 'Elemental', 'ATK', 'DMG', 'CRIT Rate']
 	elements = ['Anemo', 'Electro', 'Pyro', 'Hydro', 'Cryo', 'Geo', 'Dendro']
 	dmg_choices = elements + ['CRIT', 'Physical']
@@ -15,6 +14,9 @@ def rate_artifact(img):
 	out = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 	out = cv2.threshold(out, 170, 255, cv2.THRESH_BINARY_INV)[1]
 
+	cv2.imwrite('out.png', out)
+
+	custom_config = r'--oem 3 --psm 11'
 	text = pytesseract.image_to_string(out, config=custom_config)
 
 	cur_stat = None
@@ -86,5 +88,5 @@ def rate_artifact(img):
 	return final_pct, results
 
 if __name__ == '__main__':
-	img = cv2.imread('test.png')
+	img = cv2.imread('test.jpg')
 	rate_artifact(img)
