@@ -79,7 +79,7 @@ def parse_artifact(img, num_results):
 				else:
 					value = float(value)
 					stat += '%'
-				if any(stat in result[0] for result in results):
+				if any(stat == result[0] for result in results):
 					continue
 				results += [[stat, value]]
 				if len(results) == num_results:
@@ -120,17 +120,17 @@ def rate_artifact_char(img):
 	return final_pct, results
 
 def rate_artifact_arti(img):
-	out = prepare_image(img)
+	out = cv2.bitwise_not(prepare_image(img))
 
 	contours = cv2.findContours(out, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)[-2]
 	c = max(contours, key = cv2.contourArea)
-	_,_,_,h = cv2.boundingRect(c)
+	_,y,_,_ = cv2.boundingRect(c)
 
-	out1 = out[:h,:]
+	out1 = cv2.bitwise_not(out[:y,:])
 	cv2.imwrite('out1.png', out1)
 	results = parse_artifact(out1, 1)
 
-	out2 = cv2.bitwise_not(out[h:,:])
+	out2 = out[y:,:]
 	cv2.imwrite('out2.png', out2)
 	results += parse_artifact(out2, 4)
 
