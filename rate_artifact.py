@@ -10,7 +10,7 @@ def rate_artifact(img):
 	elements = ['Anemo', 'Electro', 'Pyro', 'Hydro', 'Cryo', 'Geo', 'Dendro']
 	dmg_choices = elements + ['CRIT', 'Physical']
 
-	reg = re.compile(r'(?:[I\d]+,)?[I\d]*\d[I\d]*(?:\.[I\d]+)?')
+	reg = re.compile(r'(?:[IntS\d]+,)?[IntS\d]*\d[IntS\d]*(?:\.[IntS\d]+)?')
 
 	out = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 	out = cv2.threshold(out, 170, 255, cv2.THRESH_BINARY_INV)[1]
@@ -23,7 +23,9 @@ def rate_artifact(img):
 		if line:
 			if fuzz.partial_ratio(line, 'Piece Set') > 60:
 				break
+			# print(line)
 			extract = process.extractOne(line, choices, scorer=fuzz.partial_ratio)
+			# print(process.extract(line, choices, scorer=fuzz.partial_ratio))
 			if (extract[1] > 80) or cur_stat:
 				print(line)
 				if cur_stat:
@@ -37,11 +39,12 @@ def rate_artifact(img):
 						stat = extract_dmg[0] + ' DMG'
 				value = reg.findall(line)
 				if not value:
-					cur_stat = stat
+					cur_stat = None if cur_stat else stat
 					continue
 				cur_stat = None
 				value = max(value, key=len)
-				value = value.replace(',','').replace('I','1')
+				comma = '.' if len(value) < 5 else ''
+				value = value.replace(',',comma).replace('I','1').replace('n','11').replace('t','1').replace('S','5')
 				if value.isdigit():
 					value = int(value)
 				else:
@@ -81,3 +84,7 @@ def rate_artifact(img):
 	final_pct = pct / total_weight
 	print(final_pct)
 	return final_pct, results
+
+if __name__ == '__main__':
+	img = cv2.imread('test.png')
+	rate_artifact(img)
