@@ -5,15 +5,16 @@ import pytesseract
 import re
 
 def rate_artifact(img):
-	choices = ['HP', 'Healing Bonus', 'DEF', 'Energy Recharge', 'Elemental', 'ATK', 'DMG', 'CRIT Rate']
+	choices = ['HP', 'Healing', 'DEF', 'Recharge', 'Elemental', 'ATK', 'DMG', 'CRIT Rate']
 	elements = ['Anemo', 'Electro', 'Pyro', 'Hydro', 'Cryo', 'Geo', 'Dendro']
 	dmg_choices = elements + ['CRIT', 'Physical']
 
-	reg = re.compile(r'(?:[IntS\d]+,)?[IntS\d]*\d[IntS\d]*(?:\.[IntS\d]+)?')
+	reg = re.compile(r'(?:[IntS/\?\d]+,)?[IntS/\?\d]*\d[IntS/\?\d]*(?:,?\.,?[IntS/\?\d]+)?')
+	backup = re.compile(r'[IntS/\?\d]*[IntS/\?]\.[IntS/\?\d]+')
 
 	out = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 	out = cv2.threshold(out, 170, 255, cv2.THRESH_BINARY_INV)[1]
-	out = cv2.resize(out, (int(out.shape[1] * 2), int(out.shape[0] * 2)))
+	out = cv2.resize(out, (int(out.shape[1] * 3), int(out.shape[0] * 3)))
 
 	cv2.imwrite('out.png', out)
 
@@ -24,31 +25,42 @@ def rate_artifact(img):
 	cur_stat = None
 	results = []
 	for line in text.splitlines():
-		if line:
-			if fuzz.partial_ratio(line, 'Piece') > 60:
+		line = line.replace(' ','')
+		if line and len(line) > 1:
+			if fuzz.partial_ratio(line, 'Piece') > 60 and len(line) > 3:
 				break
-			# print(line)
+			print(line)
 			extract = process.extractOne(line, choices, scorer=fuzz.partial_ratio)
-			# print(process.extract(line, choices, scorer=fuzz.partial_ratio))
-			if (extract[1] > 80) or cur_stat:
-				print(line)
-				if cur_stat:
-					stat = cur_stat
-				else:
+			print(process.extract(line, choices, scorer=fuzz.partial_ratio))
+			if ((extract[1] > 80) and len(line) > len(extract[0])-2) or cur_stat:
+				# print(line)
+				if (extract[1] > 80):
+					cur_stat = None
 					stat = extract[0]
 					if extract[0] == 'DMG':
 						extract_dmg = process.extractOne(line, dmg_choices, scorer=fuzz.partial_ratio)
 						if extract_dmg[1] <= 80:
 							continue
 						stat = extract_dmg[0] + ' DMG'
+				else:
+					stat = cur_stat
 				value = reg.findall(line)
 				if not value or len(max(value, key=len)) < 2:
-					cur_stat = None if cur_stat else stat
-					continue
+					value = backup.findall(line)
+					if not value or len(max(value, key=len)) < 2:
+						cur_stat = None if cur_stat else stat
+						continue
 				cur_stat = None
 				value = max(value, key=len)
-				comma = '.' if len(value) < 5 else ''
-				value = value.replace(',',comma).replace('I','1').replace('n','11').replace('t','1').replace('S','5')
+				value = value.replace('I','1').replace('n','11').replace('t','1').replace('S','5').replace('/','7').replace('?','7')
+				num_digits = sum(v.isdigit() for v in value)
+				if num_digits > 3:
+					value = value.replace(',','').replace('.','')
+				elif value[-2] == ',':
+					value = value.replace(',','').replace('.','')
+					value = value[:-1] + '.' + value[-1]
+				else:
+					value = value.replace(',','')
 				if value.isdigit():
 					value = int(value)
 				else:
