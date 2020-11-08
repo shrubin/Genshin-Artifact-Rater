@@ -9,15 +9,15 @@ from fuzzywuzzy import fuzz, process
 load_dotenv()
 API_KEY = os.getenv('OCR_SPACE_API_KEY')
 
-choices = ['HP', 'Healing Bonus', 'DEF', 'Energy Recharge', 'Elemental Mastery', 'ATK', 'CRIT DMG', 'CRIT Rate', 'Physical DMG Bonus']
+choices = ['HP', 'Healing', 'DEF', 'Energy Recharge', 'Elemental Mastery', 'ATK', 'CRIT DMG', 'CRIT Rate', 'Physical DMG']
 elements = ['Anemo', 'Electro', 'Pyro', 'Hydro', 'Cryo', 'Geo', 'Dendro']
-choices += [element + ' DMG Bonus' for element in elements]
+choices += [element + ' DMG' for element in elements]
 
 reg = re.compile(r'\d+(?:\.\d+)?')
 hp_reg = re.compile(r'\d,\d\d\d')
 
-max_mains = {'HP': [0, 0], 'ATK': [311.0, 0.5], 'ATK%': [46.6, 1], 'Energy Recharge%': [51.8, 0.5], 'Elemental Mastery': [187.0, 0.5],
-			 'Physical DMG Bonus%': [58.3, 1], 'CRIT Rate%': [31.1, 1], 'CRIT DMG%': [62.2, 1], 'Elemental DMG Bonus%': [46.6, 1]}
+max_mains = {'HP': [4780, 0], 'ATK': [311.0, 0.5], 'ATK%': [46.6, 1], 'Energy Recharge%': [51.8, 0.5], 'Elemental Mastery': [187.0, 0.5],
+			 'Physical DMG%': [58.3, 1], 'CRIT Rate%': [31.1, 1], 'CRIT DMG%': [62.2, 1], 'Elemental DMG%': [46.6, 1]}
 max_subs = {'ATK': [19.0, 0.5], 'Elemental Mastery': [23.0, 0.5], 'Energy Recharge%': [6.5, 0.5],
 			'ATK%': [5.8, 1], 'CRIT Rate%': [3.9, 1], 'CRIT DMG%': [7.8, 1]}
 
@@ -26,7 +26,10 @@ def ocr(url):
 	if size > 1e6:
 		resp = requests.get(url, stream=True).raw
 		img = np.asarray(bytearray(resp.read()), dtype="uint8")
-		img = cv2.imdecode(img, cv2.IMREAD_GRAYSCALE)
+		flag = cv2.IMREAD_GRAYSCALE
+		if size > 4e6:
+			flag = cv2.IMREAD_REDUCED_GRAYSCALE_2
+		img = cv2.imdecode(img, flag)
 		_, img = cv2.imencode('.png', img)
 		file = {'file': ('image.png', img.tostring(), 'image/png', {'Expires': '0'})}
 		ocr_url = 'https://api.ocr.space/parse/image'
@@ -88,7 +91,7 @@ def rate(results):
 		stat, value = result
 		if main:
 			main = False
-			key = stat if stat.split()[0] not in elements else 'Elemental DMG Bonus%'
+			key = stat if stat.split()[0] not in elements else 'Elemental DMG%'
 			if key in ['ATK%', 'CRIT Rate%', 'CRIT DMG%']:
 				total_weight -= 0.5
 			if key in max_mains:
@@ -102,7 +105,7 @@ def rate(results):
 	return score
 
 if __name__ == '__main__':
-	url = 'https://cdn.discordapp.com/attachments/769162931303743549/774689718293757952/image0.png'
+	url = 'https://cdn.discordapp.com/attachments/774633095160397836/775112576979435550/Capture.PNG'
 	text = ocr(url)
 	results = parse(text)
 	score = rate(results)
