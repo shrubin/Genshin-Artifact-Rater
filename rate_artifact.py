@@ -16,7 +16,7 @@ choices += [element + ' DMG Bonus' for element in elements]
 reg = re.compile(r'\d+(?:\.\d+)?')
 hp_reg = re.compile(r'\d,\d\d\d')
 
-max_mains = {'ATK': [311.0, 1], 'ATK%': [46.6, 1], 'Energy Recharge%': [51.8, 0.5], 'Elemental Mastery': [187.0, 0.5],
+max_mains = {'HP': [0, 0], 'ATK': [311.0, 0.5], 'ATK%': [46.6, 1], 'Energy Recharge%': [51.8, 0.5], 'Elemental Mastery': [187.0, 0.5],
 			 'Physical DMG Bonus%': [58.3, 1], 'CRIT Rate%': [31.1, 1], 'CRIT DMG%': [62.2, 1], 'Elemental DMG Bonus%': [46.6, 1]}
 max_subs = {'ATK': [19.0, 0.5], 'Elemental Mastery': [23.0, 0.5], 'Energy Recharge%': [6.5, 0.5],
 			'ATK%': [5.8, 1], 'CRIT Rate%': [3.9, 1], 'CRIT DMG%': [7.8, 1]}
@@ -89,12 +89,11 @@ def rate(results):
 		if main:
 			main = False
 			key = stat if stat.split()[0] not in elements else 'Elemental DMG Bonus%'
-			if key == 'HP':
-				total_weight -= main_weight
-			elif key in ['ATK%', 'CRIT Rate%', 'CRIT DMG%']:
+			if key in ['ATK%', 'CRIT Rate%', 'CRIT DMG%']:
 				total_weight -= 0.5
 			if key in max_mains:
 				score += value / max_mains[key][0] * max_mains[key][1] * main_weight
+				total_weight -= main_weight * (1 - max_mains[key][1])
 		else:
 			if stat in max_subs:
 				score += value / max_subs[stat][0] * max_subs[stat][1]
