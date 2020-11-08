@@ -1,15 +1,11 @@
 import rate_artifact as ra
 
 import os
-import requests
 from discord.ext import commands
 from dotenv import load_dotenv
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-API_KEY = os.getenv('OCR_SPACE_API_KEY')
-
-ocr_url = 'https://api.ocr.space/parse/imageurl?apikey={0}&url={1}'
 
 bot = commands.Bot(command_prefix='-')
 
@@ -20,8 +16,7 @@ async def on_ready():
 @bot.command(name='rate')
 async def rate(ctx):
 	url = ctx.message.attachments[0].url
-	resp = requests.get(ocr_url.format(API_KEY, url))
-	text = resp.json()['ParsedResults'][0]['ParsedText']
+	text = ra.ocr(url)
 	results = ra.parse(text)
 	score = ra.rate(results)
 	msg = 'Parsed Image: ' + str(results) + '\nGear Score: {0:.2f}%'.format(score * 100)

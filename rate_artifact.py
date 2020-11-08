@@ -1,6 +1,8 @@
 import os
 import re
 import requests
+import numpy as np
+from cv2 import cv2
 from dotenv import load_dotenv
 from fuzzywuzzy import fuzz, process
 
@@ -19,6 +21,22 @@ max_mains = {'ATK': [311.0, 1], 'ATK%': [46.6, 1], 'Energy Recharge%': [51.8, 0.
 max_subs = {'ATK': [19.0, 0.5], 'Elemental Mastery': [23.0, 0.5], 'Energy Recharge%': [6.5, 0.5],
 			'ATK%': [5.8, 1], 'CRIT Rate%': [3.9, 1], 'CRIT DMG%': [7.8, 1]}
 
+def ocr(url):
+	size = int(requests.get(url, stream=True).headers['Content-length'])
+	if size > 1e6:
+		resp = requests.get(url, stream=True).raw
+		img = np.asarray(bytearray(resp.read()), dtype="uint8")
+		img = cv2.imdecode(img, cv2.IMREAD_GRAYSCALE)
+		_, img = cv2.imencode('.png', img)
+		file = {'file': ('image.png', img.tostring(), 'image/png', {'Expires': '0'})}
+		ocr_url = 'https://api.ocr.space/parse/image'
+		data = {'apikey': API_KEY, 'OCREngine': 2}
+		resp = requests.post(ocr_url, data=data, files=file)
+	else:
+		ocr_url = 'https://api.ocr.space/parse/imageurl?apikey={0}&OCREngine=2&url={1}'.format(API_KEY, url)
+		resp = requests.get(ocr_url)
+	return resp.json()['ParsedResults'][0]['ParsedText']
+
 def parse(text):
 	# print(text)
 	stat = None
@@ -26,6 +44,7 @@ def parse(text):
 	for line in text.splitlines():
 		if not line:
 			continue
+		line = line.replace(':','.')
 		# print(line, fuzz.partial_ratio(line, 'Piece Set'))
 		if fuzz.partial_ratio(line, 'Piece Set') > 80 and len(line) > 4:
 			break
@@ -34,6 +53,7 @@ def parse(text):
 			print(line)
 			value = int(value[0].replace(',', ''))
 			results += [['HP', value]]
+			stat = None
 			continue
 		extract = process.extractOne(line, choices, scorer=fuzz.partial_ratio)
 		# print(process.extract(line, choices, scorer=fuzz.partial_ratio))
@@ -53,6 +73,7 @@ def parse(text):
 				value = float(value)
 				stat += '%'
 			results += [[stat, value]]
+			stat = None
 			if len(results) == 5:
 				break
 	return results
@@ -82,9 +103,7 @@ def rate(results):
 	return score
 
 if __name__ == '__main__':
-	url = 'https://cdn.discordapp.com/attachments/774633095160397836/775014885012144138/image0.png'
-	ocr_url = 'https://api.ocr.space/parse/imageurl?apikey={0}&url={1}'
-	resp = requests.get(ocr_url.format(API_KEY, url))
-	text = resp.json()['ParsedResults'][0]['ParsedText']
+	url = 'https://cdn.discordapp.com/attachments/769162931303743549/774689718293757952/image0.png'
+	text = ocr(url)
 	results = parse(text)
 	score = rate(results)
