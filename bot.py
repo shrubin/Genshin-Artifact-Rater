@@ -15,6 +15,8 @@ async def on_ready():
 
 @bot.command(name='rate')
 async def rate(ctx):
+	if not ctx.message.attachments:
+		return
 	url = ctx.message.attachments[0].url
 	text = ra.ocr(url)
 	results = ra.parse(text)

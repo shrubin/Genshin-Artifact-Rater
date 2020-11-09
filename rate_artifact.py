@@ -14,7 +14,7 @@ elements = ['Anemo', 'Electro', 'Pyro', 'Hydro', 'Cryo', 'Geo', 'Dendro']
 choices += [element + ' DMG' for element in elements]
 
 reg = re.compile(r'\d+(?:\.\d+)?')
-hp_reg = re.compile(r'\d,\d\d\d')
+hp_reg = re.compile(r'\d,\d{3}')
 
 max_mains = {'HP': [4780, 0], 'ATK': [311.0, 0.5], 'ATK%': [46.6, 1], 'Energy Recharge%': [51.8, 0.5], 'Elemental Mastery': [187.0, 0.5],
 			 'Physical DMG%': [58.3, 1], 'CRIT Rate%': [31.1, 1], 'CRIT DMG%': [62.2, 1], 'Elemental DMG%': [46.6, 1]}
@@ -47,7 +47,7 @@ def parse(text):
 	for line in text.splitlines():
 		if not line:
 			continue
-		line = line.replace(':','.')
+		line = line.replace(':','.').replace('-','').replace('0/0','%')
 		# print(line, fuzz.partial_ratio(line, 'Piece Set'))
 		if fuzz.partial_ratio(line, 'Piece Set') > 80 and len(line) > 4:
 			break
@@ -64,17 +64,20 @@ def parse(text):
 			print(line)
 			if (extract[1] > 80):
 				stat = extract[0]
+			line = line.replace(',','')
 			value = reg.findall(line)
 			if not value:
 				continue
-			value = max(value, key=len).replace(',','')
+			value = max(value, key=len)
 			if len(value) < 2:
 				continue
-			if value.isdigit():
-				value = int(value)
-			else:
+			if line.find('%', line.find(value)) and '.' not in value:
+				value = value[:-1] + '.' + value[-1]
+			if '.' in value:
 				value = float(value)
 				stat += '%'
+			else:
+				value = int(value)
 			results += [[stat, value]]
 			stat = None
 			if len(results) == 5:
