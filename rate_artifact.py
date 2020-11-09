@@ -39,9 +39,8 @@ def ocr(url):
 		ocr_url = 'https://api.ocr.space/parse/imageurl?apikey={0}&OCREngine=2&url={1}'.format(API_KEY, url)
 		resp = requests.get(ocr_url)
 	if resp.json()['OCRExitCode'] != 1:
-		print(resp.json()['ErrorMessage'])
-		return
-	return resp.json()['ParsedResults'][0]['ParsedText']
+		return False, resp.json()['ErrorMessage']
+	return True, resp.json()['ParsedResults'][0]['ParsedText']
 
 def parse(text):
 	# print(text)
@@ -87,6 +86,24 @@ def parse(text):
 				break
 	return results
 
+def validate(value, max_stat, percent):
+	while value > max_stat:
+		value = str(value)
+		removed = False
+		for i in reversed(range(1, len(value))):
+			if value[i] == value[i-1]:
+				value = value[:i-1] + value[i:]
+				removed = True
+				break
+		if not removed:
+			if percent:
+				pos = value.find('.')
+				value = value[:pos-1] + value[pos:]
+			else:
+				value = value[:-1]
+		value = float(value) if percent else int(value)
+	return value
+
 def rate(results):
 	main = True
 	score = 0.0
@@ -101,11 +118,14 @@ def rate(results):
 			if key in ['ATK%', 'CRIT Rate%', 'CRIT DMG%']:
 				total_weight -= 0.5
 			if key in max_mains:
+				value = validate(value, max_mains[key][0], '%' in stat)
 				score += value / max_mains[key][0] * max_mains[key][1] * main_weight
 				total_weight -= main_weight * (1 - max_mains[key][1])
 		else:
 			if stat in max_subs:
+				value = validate(value, max_subs[stat][0] * 6, '%' in stat)
 				score += value / max_subs[stat][0] * max_subs[stat][1]
+		result[1] = value
 	score = score / total_weight
 	print('Gear Score: {0:.2f}%'.format(score * 100))
 	return score

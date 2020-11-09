@@ -18,13 +18,13 @@ async def rate(ctx):
 	if not ctx.message.attachments:
 		return
 	url = ctx.message.attachments[0].url
-	text = ra.ocr(url)
-	if text:
+	suc, text = ra.ocr(url)
+	if suc:
 		results = ra.parse(text)
 		score = ra.rate(results)
 		msg = 'Parsed Image: ' + str(results) + '\nGear Score: {0:.2f}%'.format(score * 100)
 	else:
-		msg = 'OCR failed, please try taking a new screenshot'
+		msg = 'OCR failed. Error: ' + str(text)
 	await ctx.send(msg)
 
 @bot.command(name='char')
