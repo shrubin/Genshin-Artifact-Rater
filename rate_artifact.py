@@ -38,6 +38,9 @@ def ocr(url):
 	else:
 		ocr_url = 'https://api.ocr.space/parse/imageurl?apikey={0}&OCREngine=2&url={1}'.format(API_KEY, url)
 		resp = requests.get(ocr_url)
+	if resp.json()['OCRExitCode'] != 1:
+		print(resp.json()['ErrorMessage'])
+		return
 	return resp.json()['ParsedResults'][0]['ParsedText']
 
 def parse(text):
@@ -110,5 +113,6 @@ def rate(results):
 if __name__ == '__main__':
 	url = 'https://cdn.discordapp.com/attachments/774633095160397836/775112576979435550/Capture.PNG'
 	text = ocr(url)
-	results = parse(text)
-	score = rate(results)
+	if text:
+		results = parse(text)
+		score = rate(results)
