@@ -71,7 +71,7 @@ def parse(text):
 			value = max(value, key=len)
 			if len(value) < 2:
 				continue
-			if line.find('%', line.find(value)) and '.' not in value:
+			if line.find('%', line.find(value)) != -1 and '.' not in value:
 				value = value[:-1] + '.' + value[-1]
 			if '.' in value:
 				value = float(value)
