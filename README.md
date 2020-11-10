@@ -4,6 +4,7 @@ Discord bot that rates artifacts
 ```
 python3 -m pip install -r requirements.txt
 ```
+Store env variables for OCR Space and Discord in `.env`
 
 ### Run the bot:
 ```
