@@ -103,6 +103,8 @@ def validate(value, max_stat, percent):
 			else:
 				value = value[:-1]
 		value = float(value) if percent else int(value)
+	if int(value) == 1:
+		value += 10
 	return value
 
 def rate(results):
@@ -132,8 +134,8 @@ def rate(results):
 	return score
 
 if __name__ == '__main__':
-	url = 'https://cdn.discordapp.com/attachments/774633095160397836/775112576979435550/Capture.PNG'
-	text = ocr(url)
-	if text:
+	url = 'https://media.discordapp.net/attachments/774633095160397836/775836631794057296/unknown.png'
+	suc, text = ocr(url)
+	if suc:
 		results = parse(text)
 		score = rate(results)
