@@ -11,7 +11,7 @@ API_KEY = os.getenv('OCR_SPACE_API_KEY')
 
 choices = ['HP', 'Healing', 'DEF', 'Energy Recharge', 'Elemental Mastery', 'ATK', 'CRIT DMG', 'CRIT Rate', 'Physical DMG']
 elements = ['Anemo', 'Electro', 'Pyro', 'Hydro', 'Cryo', 'Geo', 'Dendro']
-choices += [element + ' DMG' for element in elements]
+choices += [f'{element} DMG' for element in elements]
 
 reg = re.compile(r'\d+(?:\.\d+)?')
 hp_reg = re.compile(r'\d,\d{3}')
@@ -37,7 +37,7 @@ def ocr(url):
 		data = {'apikey': API_KEY, 'OCREngine': 2}
 		resp = requests.post(ocr_url, data=data, files=file)
 	else:
-		ocr_url = 'https://api.ocr.space/parse/imageurl?apikey={0}&OCREngine=2&url={1}'.format(API_KEY, url)
+		ocr_url = f'https://api.ocr.space/parse/imageurl?apikey={API_KEY}&OCREngine=2&url={url}'
 		resp = requests.get(ocr_url)
 	if resp.json()['OCRExitCode'] != 1:
 		return False, resp.json()['ErrorMessage']
@@ -130,7 +130,7 @@ def rate(results):
 		result[1] = value
 		print(result)
 	score = score / total_weight
-	print('Gear Score: {0:.2f}%'.format(score * 100))
+	print(f'Gear Score: {score*100 : .2f}%')
 	return score
 
 if __name__ == '__main__':

@@ -9,9 +9,11 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 
 bot = commands.Bot(command_prefix='-')
 
+calls = 0
+
 @bot.event
 async def on_ready():
-    print(f'{bot.user.name} has connected to Discord!')
+    print(f'{bot.user.name} has connected to {[guild.name for guild in bot.guilds]}')
 
 @bot.command(name='rate')
 async def rate(ctx):
@@ -19,12 +21,15 @@ async def rate(ctx):
 		return
 	url = ctx.message.attachments[0].url
 	suc, text = ra.ocr(url)
+	global calls
+	calls += 1
+	print(f'Calls: {calls}')
 	if suc:
 		results = ra.parse(text)
 		score = ra.rate(results)
-		msg = 'Parsed Image: ' + str(results) + '\nGear Score: {0:.2f}%'.format(score * 100)
+		msg = f'Parsed Image: {results}\nGear Score: {score*100 : .2f}%'
 	else:
-		msg = 'OCR failed. Error: ' + str(text)
+		msg = f'OCR failed. Error: {text}'
 	await ctx.send(msg)
 
 @bot.command(name='char')
