@@ -1,6 +1,6 @@
+import aiohttp
 import os
 import re
-import requests
 import numpy as np
 from cv2 import cv2
 from dotenv import load_dotenv
@@ -22,26 +22,31 @@ max_mains = {'HP': [4780, 0], 'ATK': [311.0, 0.5], 'ATK%': [46.6, 1], 'Energy Re
 max_subs = {'ATK': [19.0, 0.5], 'Elemental Mastery': [23.0, 0.5], 'Energy Recharge%': [6.5, 0.5], 'ATK%': [5.8, 1],
 			'CRIT Rate%': [3.9, 1], 'CRIT DMG%': [7.8, 1], 'DEF': [23.0, 0], 'HP': [299.0, 0], 'DEF%': [7.3, 0], 'HP%': [5.8, 0]}
 
-def ocr(url):
-	size = int(requests.get(url, stream=True).headers['Content-length'])
-	if size > 1e6:
-		resp = requests.get(url, stream=True).raw
-		img = np.asarray(bytearray(resp.read()), dtype="uint8")
-		flag = cv2.IMREAD_GRAYSCALE
-		if size > 4e6:
-			flag = cv2.IMREAD_REDUCED_GRAYSCALE_2
-		img = cv2.imdecode(img, flag)
-		_, img = cv2.imencode('.png', img)
-		file = {'file': ('image.png', img.tostring(), 'image/png', {'Expires': '0'})}
-		ocr_url = 'https://api.ocr.space/parse/image'
-		data = {'apikey': API_KEY, 'OCREngine': 2}
-		resp = requests.post(ocr_url, data=data, files=file)
-	else:
-		ocr_url = f'https://api.ocr.space/parse/imageurl?apikey={API_KEY}&OCREngine=2&url={url}'
-		resp = requests.get(ocr_url)
-	if resp.json()['OCRExitCode'] != 1:
-		return False, resp.json()['ErrorMessage']
-	return True, resp.json()['ParsedResults'][0]['ParsedText']
+async def ocr(url):
+	async with aiohttp.ClientSession() as session:
+		async with session.get(url) as r:
+			size = int(r.headers['Content-length'])
+			if size > 1e6:
+				img = np.asarray(bytearray(await r.read()), dtype="uint8")
+				flag = cv2.IMREAD_GRAYSCALE
+				if size > 4e6:
+					flag = cv2.IMREAD_REDUCED_GRAYSCALE_2
+				img = cv2.imdecode(img, flag)
+				_, img = cv2.imencode('.png', img)
+				data = aiohttp.FormData()
+				data.add_field('apikey', API_KEY)
+				data.add_field('OCREngine', '2')
+				data.add_field('file', img.tobytes(), content_type='image/png', filename='image.png')
+				ocr_url = 'https://api.ocr.space/parse/image'
+				async with session.post(ocr_url, data=data) as r:
+					json = await r.json()
+			else:
+				ocr_url = f'https://api.ocr.space/parse/imageurl?apikey={API_KEY}&OCREngine=2&url={url}'
+				async with session.get(ocr_url) as r:
+					json = await r.json()
+			if json['OCRExitCode'] != 1:
+				return False, json['ErrorMessage']
+			return True, json['ParsedResults'][0]['ParsedText']
 
 def parse(text):
 	# print(text)
@@ -133,9 +138,11 @@ def rate(results):
 	print(f'Gear Score: {score*100 : .2f}%')
 	return score
 
+import asyncio
+
 if __name__ == '__main__':
 	url = 'https://media.discordapp.net/attachments/774633095160397836/775836631794057296/unknown.png'
-	suc, text = ocr(url)
+	suc, text = asyncio.run(ocr(url))
 	if suc:
 		results = parse(text)
 		score = rate(results)

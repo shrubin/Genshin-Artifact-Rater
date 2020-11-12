@@ -20,7 +20,7 @@ async def rate(ctx):
 	if not ctx.message.attachments:
 		return
 	url = ctx.message.attachments[0].url
-	suc, text = ra.ocr(url)
+	suc, text = await ra.ocr(url)
 	global calls
 	calls += 1
 	print(f'Calls: {calls}')
