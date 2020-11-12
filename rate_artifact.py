@@ -1,4 +1,5 @@
 import aiohttp
+import asyncio
 import os
 import re
 import numpy as np
@@ -53,7 +54,7 @@ def parse(text):
 	stat = None
 	results = []
 	for line in text.splitlines():
-		if not line:
+		if not line or line.lower() == 'in':
 			continue
 		line = line.replace(':','.').replace('-','').replace('0/0','%')
 		# print(line, fuzz.partial_ratio(line, 'Piece Set'))
@@ -66,6 +67,7 @@ def parse(text):
 			results += [['HP', value]]
 			stat = None
 			continue
+		# print(line)
 		extract = process.extractOne(line, choices, scorer=fuzz.partial_ratio)
 		# print(process.extract(line, choices, scorer=fuzz.partial_ratio))
 		if ((extract[1] > 80) and len(line) > 1) or stat:
@@ -138,11 +140,10 @@ def rate(results):
 	print(f'Gear Score: {score*100 : .2f}%')
 	return score
 
-import asyncio
-
 if __name__ == '__main__':
-	url = 'https://media.discordapp.net/attachments/774633095160397836/775836631794057296/unknown.png'
+	url = 'https://cdn.discordapp.com/attachments/774633095160397836/776452460692242502/unknown.png'
 	suc, text = asyncio.run(ocr(url))
+	print(text)
 	if suc:
 		results = parse(text)
 		score = rate(results)

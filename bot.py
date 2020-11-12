@@ -32,14 +32,4 @@ async def rate(ctx):
 		msg = f'OCR failed. Error: {text}'
 	await ctx.send(msg)
 
-@bot.command(name='char')
-async def char(ctx):
-	msg = 'Deprecated, please use -rate'
-	await ctx.send(msg)
-
-@bot.command(name='arti')
-async def arti(ctx):
-	msg = 'Deprecated, please use -rate'
-	await ctx.send(msg)
-
 bot.run(TOKEN)
