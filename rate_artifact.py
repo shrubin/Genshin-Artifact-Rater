@@ -137,15 +137,15 @@ def rate(results, options={}):
 		weight = options[key] if key in options else weights[key]
 		if main:
 			main = False
-			if key in ['ATK%', 'CRIT Rate%', 'CRIT DMG%']:
-				sub_weight -= 0.5
-			elif key in ['ATK', 'HP']:
-				main_weight *= weight
 			max_main = max_mains[key]
 			if level is not None:
 				max_main -= (max_main - min_mains[key]) * (1 - level / 20.0)
 			value = validate(value, max_mains[key], '%' in key)
 			main_score = value / max_main * weight * main_weight
+			if key in ['ATK%', 'CRIT Rate%', 'CRIT DMG%']:
+				sub_weight -= 0.5
+			elif key in ['ATK', 'HP']:
+				main_weight *= weight
 		else:
 			value = validate(value, max_subs[key] * 6, '%' in key)
 			sub_score += value / max_subs[key] * weight
@@ -158,7 +158,7 @@ def rate(results, options={}):
 	return score, main_score, sub_score
 
 if __name__ == '__main__':
-	url = 'https://cdn.discordapp.com/attachments/774633095160397836/776848767533056010/Screenshot_20201111-111041.png'
+	url = 'https://cdn.discordapp.com/attachments/774633095160397836/776888937875767336/unknown.png'
 	suc, text = asyncio.run(ocr(url))
 	print(text)
 	if suc:
