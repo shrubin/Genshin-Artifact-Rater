@@ -15,12 +15,16 @@ calls = 0
 async def on_ready():
     print(f'{bot.user.name} has connected to {[guild.name for guild in bot.guilds]}')
 
+opt_to_key = {'hp': 'HP', 'atk': 'ATK', 'atk%': 'ATK%', 'er': 'Energy Recharge%', 'em': 'Elemental Mastery',
+			  'phys': 'Physical DMG%', 'cr': 'CRIT Rate%', 'cd': 'CRIT DMG%', 'elem': 'Elemental DMG%',
+			  'hp%': 'HP%', 'def%': 'DEF%', 'heal': 'Healing%', 'def': 'DEF', 'lvl': 'Level'}
+
 @bot.command(name='rate')
 async def rate(ctx):
 	if not ctx.message.attachments:
 		return
-	# weights = ctx.message.content.split()[1:]
-	# print(weights)
+	options = ctx.message.content.split()[1:]
+	options = {opt_to_key[option.split('=')[0].lower()] : float(option.split('=')[1]) for option in options}
 	url = ctx.message.attachments[0].url
 	suc, text = await ra.ocr(url)
 	global calls
@@ -28,7 +32,7 @@ async def rate(ctx):
 	print(f'Calls: {calls}')
 	if suc:
 		results = ra.parse(text)
-		score = ra.rate(results)
+		score = ra.rate(results, options)
 		msg = f'Parsed Image: {results}\nGear Score: {score*100 : .2f}%'
 	else:
 		msg = f'OCR failed. Error: {text}'

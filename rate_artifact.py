@@ -17,11 +17,17 @@ choices += [f'{element} DMG' for element in elements]
 reg = re.compile(r'\d+(?:\.\d+)?')
 hp_reg = re.compile(r'\d,\d{3}')
 
-max_mains = {'HP': [4780, 0], 'ATK': [311.0, 0.5], 'ATK%': [46.6, 1], 'Energy Recharge%': [51.8, 0.5], 'Elemental Mastery': [187.0, 0.5],
-			 'Physical DMG%': [58.3, 1], 'CRIT Rate%': [31.1, 1], 'CRIT DMG%': [62.2, 1], 'Elemental DMG%': [46.6, 1],
-			 'HP%': [46.6, 0], 'DEF%': [58.3, 0], 'Healing%': [35.9, 0]}
-max_subs = {'ATK': [19.0, 0.5], 'Elemental Mastery': [23.0, 0.5], 'Energy Recharge%': [6.5, 0.5], 'ATK%': [5.8, 1],
-			'CRIT Rate%': [3.9, 1], 'CRIT DMG%': [7.8, 1], 'DEF': [23.0, 0], 'HP': [299.0, 0], 'DEF%': [7.3, 0], 'HP%': [5.8, 0]}
+min_mains = {'HP': 717.0, 'ATK': 47.0, 'ATK%': 7.0, 'Energy Recharge%': 7.8, 'Elemental Mastery': 28.0,
+			 'Physical DMG%': 8.7, 'CRIT Rate%': 4.7, 'CRIT DMG%': 9.3, 'Elemental DMG%': 7.0,
+			 'HP%': 7.0, 'DEF%': 8.7, 'Healing%': 5.4}
+max_mains = {'HP': 4780, 'ATK': 311.0, 'ATK%': 46.6, 'Energy Recharge%': 51.8, 'Elemental Mastery': 187.0,
+			 'Physical DMG%': 58.3, 'CRIT Rate%': 31.1, 'CRIT DMG%': 62.2, 'Elemental DMG%': 46.6,
+			 'HP%': 46.6, 'DEF%': 58.3, 'Healing%': 35.9}
+max_subs = {'ATK': 19.0, 'Elemental Mastery': 23.0, 'Energy Recharge%': 6.5, 'ATK%': 5.8,
+			'CRIT Rate%': 3.9, 'CRIT DMG%': 7.8, 'DEF': 23.0, 'HP': 299.0, 'DEF%': 7.3, 'HP%': 5.8}
+weights = {'HP': 0, 'ATK': 0.5, 'ATK%': 1, 'Energy Recharge%': 0.5, 'Elemental Mastery': 0.5,
+		   'Physical DMG%': 1, 'CRIT Rate%': 1, 'CRIT DMG%': 1, 'Elemental DMG%': 1,
+		   'HP%': 0, 'DEF%': 0, 'DEF': 0, 'Healing%': 0}
 
 async def ocr(url):
 	async with aiohttp.ClientSession() as session:
@@ -114,29 +120,37 @@ def validate(value, max_stat, percent):
 		value += 10
 	return value
 
-def rate(results):
+def rate(results, options={}):
 	main = True
 	score = 0.0
-	total_weight = 16.5
+	sub_weight = 8.5
 	main_weight = 8
+	level = None
+	if 'Level' in options:
+		level = int(options['Level'])
+		sub_weight -= (5 - level / 4)
+		main_weight -= (5 - level / 4)
 	for result in results:
 		stat, value = result
+		key = stat if stat.split()[0] not in elements else 'Elemental DMG%'
+		weight = options[key] if key in options else weights[key]
 		if main:
 			main = False
-			key = stat if stat.split()[0] not in elements else 'Elemental DMG%'
 			if key in ['ATK%', 'CRIT Rate%', 'CRIT DMG%']:
-				total_weight -= 0.5
+				sub_weight -= 0.5
 			elif key in ['ATK', 'HP']:
-				total_weight -= main_weight * (1 - max_mains[key][1])
-			if key in max_mains:
-				value = validate(value, max_mains[key][0], '%' in stat)
-				score += value / max_mains[key][0] * max_mains[key][1] * main_weight
-		elif stat in max_subs:
-			value = validate(value, max_subs[stat][0] * 6, '%' in stat)
-			score += value / max_subs[stat][0] * max_subs[stat][1]
+				main_weight *= weight
+			max_main = max_mains[key]
+			if level is not None:
+				max_main -= (max_main - min_mains[key]) * (1 - level / 20.0)
+			value = validate(value, max_mains[key], '%' in key)
+			score += value / max_main * weight * main_weight
+		else:
+			value = validate(value, max_subs[key] * 6, '%' in key)
+			score += value / max_subs[key] * weight
 		result[1] = value
 		print(result)
-	score = score / total_weight
+	score = score / (main_weight + sub_weight)
 	print(f'Gear Score: {score*100 : .2f}%')
 	return score
 
