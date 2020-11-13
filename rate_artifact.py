@@ -124,37 +124,45 @@ def rate(results, options={}):
 	main = True
 	main_score = 0.0
 	sub_score = 0.0
-	sub_weight = 8.5
+	sub_weight = 0
 	main_weight = 8
-	level = None
+	level = 20
 	if 'Level' in options:
 		level = int(options['Level'])
-		sub_weight -= (5 - level / 4)
 		main_weight -= (5 - level / 4)
+		del options['Level']
+	# Replaces weights with options
+	adj_weights = {**weights, **options}
 	for result in results:
 		stat, value = result
 		key = stat if stat.split()[0] not in elements else 'Elemental DMG%'
-		weight = options[key] if key in options else weights[key]
 		if main:
 			main = False
-			max_main = max_mains[key]
-			if level is not None:
-				max_main -= (max_main - min_mains[key]) * (1 - level / 20.0)
-			value = validate(value, max_mains[key], '%' in key)
-			main_score = value / max_main * weight * main_weight
-			if key in ['ATK%', 'CRIT Rate%', 'CRIT DMG%']:
-				sub_weight -= 0.5
-			elif key in ['ATK', 'HP']:
-				main_weight *= weight
+			max_main = max_mains[key] - (max_mains[key] - min_mains[key]) * (1 - level / 20.0)
+			value = validate(value, max_main, '%' in key)
+			main_score = value / max_main * adj_weights[key] * main_weight
+			if key in ['ATK', 'HP']:
+				main_weight *= adj_weights[key]
+			count = 0
+			for k,v in sorted(adj_weights.items(), reverse=True, key=lambda item: item[1]):
+				if k == key or k not in max_subs:
+					continue
+				if count == 0:
+					sub_weight += v * (1 + level / 4)
+				else:
+					sub_weight += v
+				count += 1
+				if count == 4:
+					break
 		else:
 			value = validate(value, max_subs[key] * 6, '%' in key)
-			sub_score += value / max_subs[key] * weight
+			sub_score += value / max_subs[key] * adj_weights[key]
 		result[1] = value
 		print(result)
 	score = (main_score + sub_score) / (main_weight + sub_weight) * 100
 	main_score = main_score / main_weight * 100 if main_weight > 0 else 100
 	sub_score = sub_score / sub_weight * 100
-	print(f'Gear Score: {score:.2f}% (main {main_score:.2f}%, sub {sub_score:.2f}%)')
+	print(f'Gear Score: {score:.2f}% (main {main_score:.2f}% {main_weight}, sub {sub_score:.2f}% {sub_weight})')
 	return score, main_score, sub_score
 
 if __name__ == '__main__':
