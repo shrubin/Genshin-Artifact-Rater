@@ -33,7 +33,7 @@ async def ocr(url):
 				if size > 4e6:
 					flag = cv2.IMREAD_REDUCED_GRAYSCALE_2
 				img = cv2.imdecode(img, flag)
-				_, img = cv2.imencode('.png', img)
+				_, img = cv2.imencode(os.path.splitext(url)[1], img)
 				data = aiohttp.FormData()
 				data.add_field('apikey', API_KEY)
 				data.add_field('OCREngine', '2')
@@ -141,7 +141,7 @@ def rate(results):
 	return score
 
 if __name__ == '__main__':
-	url = 'https://cdn.discordapp.com/attachments/774633095160397836/776452460692242502/unknown.png'
+	url = 'https://cdn.discordapp.com/attachments/774633095160397836/776682149263835136/Screenshot_20201112-213126_Genshin_Impact.jpg'
 	suc, text = asyncio.run(ocr(url))
 	print(text)
 	if suc:

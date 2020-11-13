@@ -19,6 +19,8 @@ async def on_ready():
 async def rate(ctx):
 	if not ctx.message.attachments:
 		return
+	# weights = ctx.message.content.split()[1:]
+	# print(weights)
 	url = ctx.message.attachments[0].url
 	suc, text = await ra.ocr(url)
 	global calls
