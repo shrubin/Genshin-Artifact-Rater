@@ -32,8 +32,8 @@ async def rate(ctx):
 	print(f'Calls: {calls}')
 	if suc:
 		results = ra.parse(text)
-		score = ra.rate(results, options)
-		msg = f'Parsed Image: {results}\nGear Score: {score*100 : .2f}%'
+		score, main_score, sub_score = ra.rate(results, options)
+		msg = f'Parsed Image: {results}\nGear Score: {score:.2f}% (main {main_score:.2f}%, sub {sub_score:.2f}%)'
 	else:
 		msg = f'OCR failed. Error: {text}'
 	await ctx.send(msg)

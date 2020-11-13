@@ -122,7 +122,8 @@ def validate(value, max_stat, percent):
 
 def rate(results, options={}):
 	main = True
-	score = 0.0
+	main_score = 0.0
+	sub_score = 0.0
 	sub_weight = 8.5
 	main_weight = 8
 	level = None
@@ -144,15 +145,17 @@ def rate(results, options={}):
 			if level is not None:
 				max_main -= (max_main - min_mains[key]) * (1 - level / 20.0)
 			value = validate(value, max_mains[key], '%' in key)
-			score += value / max_main * weight * main_weight
+			main_score = value / max_main * weight * main_weight
 		else:
 			value = validate(value, max_subs[key] * 6, '%' in key)
-			score += value / max_subs[key] * weight
+			sub_score += value / max_subs[key] * weight
 		result[1] = value
 		print(result)
-	score = score / (main_weight + sub_weight)
-	print(f'Gear Score: {score*100 : .2f}%')
-	return score
+	score = (main_score + sub_score) / (main_weight + sub_weight) * 100
+	main_score = main_score / main_weight * 100 if main_weight > 0 else 0
+	sub_score = sub_score / sub_weight * 100
+	print(f'Gear Score: {score:.2f}% (main {main_score:.2f}%, sub {sub_score:.2f}%)')
+	return score, main_score, sub_score
 
 if __name__ == '__main__':
 	url = 'https://cdn.discordapp.com/attachments/774633095160397836/776848767533056010/Screenshot_20201111-111041.png'
@@ -160,4 +163,4 @@ if __name__ == '__main__':
 	print(text)
 	if suc:
 		results = parse(text)
-		score = rate(results)
+		rate(results)
