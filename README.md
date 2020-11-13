@@ -25,8 +25,8 @@ Compare to specified artifact level (default: 20)
 ```
 
 #### Weights
-Set custom weights
+Set custom weights (valued between 0 and 1)
 ```
--rate hp=<weight>
+-rate hp=<weight> def=<weight> atk%=<weight>
 ```
 Options: HP, HP%, ATK, ATK%, ER (Recharge), EM, PHYS, CR (Crit Rate), CD (Crit Damage), ELEM (Elemental DMG%), Heal, DEF, DEF%
