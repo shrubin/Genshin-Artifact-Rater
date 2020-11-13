@@ -152,7 +152,7 @@ def rate(results, options={}):
 		result[1] = value
 		print(result)
 	score = (main_score + sub_score) / (main_weight + sub_weight) * 100
-	main_score = main_score / main_weight * 100 if main_weight > 0 else 0
+	main_score = main_score / main_weight * 100 if main_weight > 0 else 100
 	sub_score = sub_score / sub_weight * 100
 	print(f'Gear Score: {score:.2f}% (main {main_score:.2f}%, sub {sub_score:.2f}%)')
 	return score, main_score, sub_score
