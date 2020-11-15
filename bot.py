@@ -21,6 +21,27 @@ opt_to_key = {'hp': 'HP', 'atk': 'ATK', 'atk%': 'ATK%', 'er': 'Energy Recharge%'
 
 @bot.command(name='rate')
 async def rate(ctx):
+	'''
+	Rate an artifact against an optimal 5* artifact. Put the command and image in the same message.
+
+	-rate <image> [lvl=<level>] [<stat>=<weight> ...]
+
+	Default weights
+
+	ATK%, DMG%, Crit - 1
+	ATK, EM, Recharge - 0.5
+	Everything else - 0
+
+	Options
+
+	lvl: Compare to specified artifact level (default: 20)
+	-rate lvl=0
+
+	<stat>: Set custom weights (valued between 0 and 1)
+	-rate atk=1 er=0 atk%=0.5
+
+	<stat> = HP, HP%, ATK, ATK%, ER (Recharge), EM, PHYS, CR (Crit Rate), CD (Crit Damage), ELEM (Elemental DMG%), Heal, DEF, DEF%
+	'''
 	if not ctx.message.attachments:
 		return
 	options = ctx.message.content.split()[1:]
