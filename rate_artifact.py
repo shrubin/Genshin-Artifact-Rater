@@ -101,7 +101,7 @@ def parse(text):
 	return results
 
 def validate(value, max_stat, percent):
-	while value > max_stat:
+	while value > max_stat * 1.05:
 		value = str(value)
 		removed = False
 		for i in reversed(range(1, len(value))):
@@ -161,14 +161,15 @@ def rate(results, options={}):
 		print(result)
 	score = (main_score + sub_score) / (main_weight + sub_weight) * 100
 	main_score = main_score / main_weight * 100 if main_weight > 0 else 100
+	main_score = 100 if main_score > 99 else main_score
 	sub_score = sub_score / sub_weight * 100
 	print(f'Gear Score: {score:.2f}% (main {main_score:.2f}% {main_weight}, sub {sub_score:.2f}% {sub_weight})')
 	return score, main_score, sub_score
 
 if __name__ == '__main__':
-	url = 'https://cdn.discordapp.com/attachments/774633095160397836/776888937875767336/unknown.png'
+	url = 'https://cdn.discordapp.com/attachments/775766327189176345/778007109265784872/unknown.png'
 	suc, text = asyncio.run(ocr(url))
 	print(text)
 	if suc:
 		results = parse(text)
-		rate(results)
+		rate(results, {'Level': 0})
