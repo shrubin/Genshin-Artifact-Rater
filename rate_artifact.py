@@ -52,7 +52,7 @@ async def ocr(url):
 				async with session.get(ocr_url) as r:
 					json = await r.json()
 			if json['OCRExitCode'] != 1:
-				return False, json['ErrorMessage']
+				return False, '.'.join(json['ErrorMessage'])
 			return True, json['ParsedResults'][0]['ParsedText']
 
 def parse(text):
@@ -167,9 +167,9 @@ def rate(results, options={}):
 	return score, main_score, sub_score
 
 if __name__ == '__main__':
-	url = 'https://cdn.discordapp.com/attachments/775766327189176345/778007109265784872/unknown.png'
+	url = 'https://i.redd.it/qjzqzrzmgpz51.png'
 	suc, text = asyncio.run(ocr(url))
 	print(text)
 	if suc:
 		results = parse(text)
-		rate(results, {'Level': 0})
+		rate(results, {'Level': 20})

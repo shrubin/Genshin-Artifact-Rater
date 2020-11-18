@@ -57,6 +57,8 @@ async def rate(ctx):
 		msg = f'Parsed Image: {results}\nGear Score: {score:.2f}% (main {main_score:.2f}%, sub {sub_score:.2f}%)'
 	else:
 		msg = f'OCR failed. Error: {text}'
+		if 'Timed out' in text:
+			msg += ', please try again in a few minutes'
 	await ctx.send(msg)
 
 bot.run(TOKEN)
