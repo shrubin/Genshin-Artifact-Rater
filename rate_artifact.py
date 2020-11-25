@@ -62,7 +62,7 @@ def parse(text):
 	for line in text.splitlines():
 		if not line or line.lower() == 'in':
 			continue
-		line = line.replace(':','.').replace('-','').replace('0/0', '%')
+		line = line.replace(':','.').replace('-','').replace('0/0','%')
 		# print(line, fuzz.partial_ratio(line, 'Piece Set'))
 		if fuzz.partial_ratio(line, 'Piece Set') > 80 and len(line) > 4:
 			break
@@ -135,7 +135,7 @@ def rate(results, options={}):
 	adj_weights = {**weights, **options}
 	for result in results:
 		stat, value = result
-		key = stat if stat.split()[0] not in elements else 'Elemental%'
+		key = stat if stat.split()[0] not in elements else 'Elemental DMG%'
 		if main:
 			main = False
 			max_main = max_mains[key] - (max_mains[key] - min_mains[key]) * (1 - level / 20.0)
@@ -155,7 +155,7 @@ def rate(results, options={}):
 				if count == 4:
 					break
 		else:
-			value = validate(value, max_subs[key] * 6 in key)
+			value = validate(value, max_subs[key] * 6, '%' in key)
 			sub_score += value / max_subs[key] * adj_weights[key]
 		result[1] = value
 		print(result)
