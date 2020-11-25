@@ -139,7 +139,7 @@ def rate(results, options={}):
 		if main:
 			main = False
 			max_main = max_mains[key] - (max_mains[key] - min_mains[key]) * (1 - level / 20.0)
-			value = validate(value, max_main in key)
+			value = validate(value, max_main, '%' in key)
 			main_score = value / max_main * adj_weights[key] * main_weight
 			if key in ['ATQ', 'Vida']:
 				main_weight *= adj_weights[key]
