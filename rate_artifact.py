@@ -10,24 +10,24 @@ from fuzzywuzzy import fuzz, process
 load_dotenv()
 API_KEY = os.getenv('OCR_SPACE_API_KEY')
 
-choices = ['HP', 'Healing', 'DEF', 'Energy Recharge', 'Elemental Mastery', 'ATK', 'CRIT DMG', 'CRIT Rate', 'Physical DMG']
-elements = ['Anemo', 'Electro', 'Pyro', 'Hydro', 'Cryo', 'Geo', 'Dendro']
-choices += [f'{element} DMG' for element in elements]
+choices = ['Vida', 'Bônus de Cura', 'DEF', 'Recarga de Energia', 'Proficiência Elemental', 'ATQ', 'Dano Crítico', 'Taxa Crítica', 'Dano Físico']
+elements = ['Anemo', 'Electro', 'Pyro', 'Hydro', 'Cryo', 'GEO', 'Dendro']
+choices += [f'Bonus de Dano {element}' for element in elements]
 
 reg = re.compile(r'\d+(?:\.\d+)?')
 hp_reg = re.compile(r'\d,\d{3}')
 
-min_mains = {'HP': 717.0, 'ATK': 47.0, 'ATK%': 7.0, 'Energy Recharge%': 7.8, 'Elemental Mastery': 28.0,
-			 'Physical DMG%': 8.7, 'CRIT Rate%': 4.7, 'CRIT DMG%': 9.3, 'Elemental DMG%': 7.0,
-			 'HP%': 7.0, 'DEF%': 8.7, 'Healing%': 5.4}
-max_mains = {'HP': 4780, 'ATK': 311.0, 'ATK%': 46.6, 'Energy Recharge%': 51.8, 'Elemental Mastery': 187.0,
-			 'Physical DMG%': 58.3, 'CRIT Rate%': 31.1, 'CRIT DMG%': 62.2, 'Elemental DMG%': 46.6,
-			 'HP%': 46.6, 'DEF%': 58.3, 'Healing%': 35.9}
-max_subs = {'ATK': 19.0, 'Elemental Mastery': 23.0, 'Energy Recharge%': 6.5, 'ATK%': 5.8,
-			'CRIT Rate%': 3.9, 'CRIT DMG%': 7.8, 'DEF': 23.0, 'HP': 299.0, 'DEF%': 7.3, 'HP%': 5.8}
-weights = {'HP': 0, 'ATK': 0.5, 'ATK%': 1, 'Energy Recharge%': 0.5, 'Elemental Mastery': 0.5,
-		   'Physical DMG%': 1, 'CRIT Rate%': 1, 'CRIT DMG%': 1, 'Elemental DMG%': 1,
-		   'HP%': 0, 'DEF%': 0, 'DEF': 0, 'Healing%': 0}
+min_mains = {'Vida': 717.0, 'ATQ': 47.0, 'ATQ%': 7.0, 'Recarga de Energia%': 7.8, 'Proficiência Elemental': 28.0,
+             'Dano Físico%': 8.7, 'Taxa Crítica%': 4.7, 'Dano Crítico%': 9.3, 'Elemental DMG%': 7.0,
+             'Vida%': 7.0, 'DEF%': 8.7, 'Bônus de Cura%': 5.4}
+max_mains = {'Vida': 4780, 'ATQ': 311.0, 'ATQ%': 46.6, 'Recarga de Energia%': 51.8, 'Proficiência Elemental': 187.0,
+             'Dano Físico%': 58.3, 'Taxa Crítica%': 31.1, 'Dano Crítico%': 62.2, 'Elemental DMG%': 46.6,
+             'HP%': 46.6, 'DEF%': 58.3, 'Bônus de Cura%': 35.9}
+max_subs = {'ATQ': 19.0, 'Proficiência Elemental': 23.0, 'Recarga de Energia%': 6.5, 'ATQ%': 5.8,
+            'Taxa Crítica%': 3.9, 'Dano Crítico%': 7.8, 'DEF': 23.0, 'Vida': 299.0, 'DEF%': 7.3, 'Vida%': 5.8}
+weights = {'Vida': 0, 'ATQ': 0.5, 'ATQ%': 1, 'Recarga de Energia%': 0.5, 'Proficiência Elemental': 0.5,
+           'Dano Físico%': 1, 'Taxa Crítica%': 1, 'Dano Crítico%': 1, 'Elemental DMG%': 1,
+           'Vida%': 0, 'DEF%': 0, 'DEF': 0, 'Bônus de Cura%': 0}
 
 async def ocr(url):
 	async with aiohttp.ClientSession() as session:
@@ -62,7 +62,7 @@ def parse(text):
 	for line in text.splitlines():
 		if not line or line.lower() == 'in':
 			continue
-		line = line.replace(':','.').replace('-','').replace('0/0','%')
+		line = line.replace(':','.').replace('-','').replace('0/0', '%')
 		# print(line, fuzz.partial_ratio(line, 'Piece Set'))
 		if fuzz.partial_ratio(line, 'Piece Set') > 80 and len(line) > 4:
 			break
@@ -70,7 +70,7 @@ def parse(text):
 		if value:
 			print(line)
 			value = int(value[0].replace(',', ''))
-			results += [['HP', value]]
+			results += [['Vida', value]]
 			stat = None
 			continue
 		# print(line)
@@ -135,13 +135,13 @@ def rate(results, options={}):
 	adj_weights = {**weights, **options}
 	for result in results:
 		stat, value = result
-		key = stat if stat.split()[0] not in elements else 'Elemental DMG%'
+		key = stat if stat.split()[0] not in elements else 'Elemental%'
 		if main:
 			main = False
 			max_main = max_mains[key] - (max_mains[key] - min_mains[key]) * (1 - level / 20.0)
-			value = validate(value, max_main, '%' in key)
+			value = validate(value, max_main in key)
 			main_score = value / max_main * adj_weights[key] * main_weight
-			if key in ['ATK', 'HP']:
+			if key in ['ATQ', 'Vida']:
 				main_weight *= adj_weights[key]
 			count = 0
 			for k,v in sorted(adj_weights.items(), reverse=True, key=lambda item: item[1]):
@@ -155,7 +155,7 @@ def rate(results, options={}):
 				if count == 4:
 					break
 		else:
-			value = validate(value, max_subs[key] * 6, '%' in key)
+			value = validate(value, max_subs[key] * 6 in key)
 			sub_score += value / max_subs[key] * adj_weights[key]
 		result[1] = value
 		print(result)
@@ -163,7 +163,7 @@ def rate(results, options={}):
 	main_score = main_score / main_weight * 100 if main_weight > 0 else 100
 	main_score = 100 if main_score > 99 else main_score
 	sub_score = sub_score / sub_weight * 100 if sub_weight > 0 else 100
-	print(f'Gear Score: {score:.2f}% (main {main_score:.2f}% {main_weight}, sub {sub_score:.2f}% {sub_weight})')
+	print(f'Gear Score: {score:.2f}% (primário {main_score:.2f}% {main_weight}, secundário {sub_score:.2f}% {sub_weight})')
 	return score, main_score, sub_score
 
 if __name__ == '__main__':

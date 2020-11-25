@@ -15,9 +15,9 @@ calls = 0
 async def on_ready():
     print(f'{bot.user.name} has connected to {[guild.name for guild in bot.guilds]}')
 
-opt_to_key = {'hp': 'HP', 'atk': 'ATK', 'atk%': 'ATK%', 'er': 'Energy Recharge%', 'em': 'Elemental Mastery',
-			  'phys': 'Physical DMG%', 'cr': 'CRIT Rate%', 'cd': 'CRIT DMG%', 'elem': 'Elemental DMG%',
-			  'hp%': 'HP%', 'def%': 'DEF%', 'heal': 'Healing%', 'def': 'DEF', 'lvl': 'Level'}
+opt_to_key = {'hp': 'HP', 'atq': 'ATQ', 'atq%': 'ATQ%', 'er': 'Recarga de Energia%', 'em': 'Proficiência Elemental',
+			  'phys': 'Dano Físico%', 'cr': 'Taxa Crítica%', 'cd': 'Dano Crítico%', 'elem': 'Elemental DMG%',
+			  'vida%': 'Vida%', 'def%': 'DEF%', 'cura': 'Bônus de Cura%', 'def': 'DEF', 'lvl': 'Level'}
 
 @bot.command(name='rate')
 async def rate(ctx):
@@ -54,7 +54,7 @@ async def rate(ctx):
 	if suc:
 		results = ra.parse(text)
 		score, main_score, sub_score = ra.rate(results, options)
-		msg = f'Parsed Image: {results}\nGear Score: {score:.2f}% (main {main_score:.2f}%, sub {sub_score:.2f}%)'
+		msg = f'Parsed Image: {results}\nGear Score: {score:.2f}% (primário {main_score:.2f}%, secundário {sub_score:.2f}%)'
 	else:
 		msg = f'OCR failed. Error: {text}'
 		if 'Timed out' in text:
