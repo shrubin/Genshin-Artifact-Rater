@@ -26,6 +26,9 @@ async def rate(ctx):
 
 	-rate <image> [lvl=<level>] [<stat>=<weight> ...]
 
+	If you have any issues or want to use the bot in your private server, contact shrubin#1866 on discord.
+	Source code available at https://github.com/shrubin/Genshin-Artifact-Rater
+
 	Default weights
 
 	ATK%, DMG%, Crit - 1
@@ -40,7 +43,7 @@ async def rate(ctx):
 	<stat>: Set custom weights (valued between 0 and 1)
 	-rate atk=1 er=0 atk%=0.5
 
-	<stat> = HP, HP%, ATK, ATK%, ER (Recharge), EM, PHYS, CR (Crit Rate), CD (Crit Damage), ELEM (Elemental DMG%), Heal, DEF, DEF%
+	<stat> is any of HP, HP%, ATK, ATK%, ER (Recharge), EM, PHYS, CR (Crit Rate), CD (Crit Damage), ELEM (Elemental DMG%), Heal, DEF, DEF%
 	'''
 	if not ctx.message.attachments:
 		return
