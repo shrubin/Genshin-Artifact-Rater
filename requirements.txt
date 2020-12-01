@@ -3,5 +3,4 @@ discord.py==1.5.1
 fuzzywuzzy==0.18.0
 numpy==1.19.4
 opencv-python==4.4.0.46
-opencv-python3==1.0
 python-dotenv==0.15.0
