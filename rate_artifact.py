@@ -2,6 +2,7 @@ import aiohttp
 import asyncio
 import os
 import re
+import sys
 import numpy as np
 from cv2 import cv2
 from dotenv import load_dotenv
@@ -16,6 +17,7 @@ choices += [f'{element} DMG' for element in elements]
 
 reg = re.compile(r'\d+(?:\.\d+)?')
 hp_reg = re.compile(r'\d,\d{3}')
+lvl_reg = re.compile(r'^[+][0-9]*$')
 
 min_mains = {'HP': 717.0, 'ATK': 47.0, 'ATK%': 7.0, 'Energy Recharge%': 7.8, 'Elemental Mastery': 28.0,
 			 'Physical DMG%': 8.7, 'CRIT Rate%': 4.7, 'CRIT DMG%': 9.3, 'Elemental DMG%': 7.0,
@@ -56,28 +58,27 @@ async def ocr(url):
 			return True, json['ParsedResults'][0]['ParsedText']
 
 def parse(text):
-	# print(text)
 	stat = None
 	results = []
+	level = None 
 	for line in text.splitlines():
 		if not line or line.lower() == 'in':
 			continue
 		line = line.replace(':','.').replace('-','').replace('0/0','%')
-		# print(line, fuzz.partial_ratio(line, 'Piece Set'))
 		if fuzz.partial_ratio(line, 'Piece Set') > 80 and len(line) > 4:
 			break
+		if not(level):
+			level = lvl_reg.findall(line)
+			if level:
+				level = int(level[0].replace('+', ''))
 		value = hp_reg.search(line)
 		if value:
-			print(line)
 			value = int(value[0].replace(',', ''))
 			results += [['HP', value]]
 			stat = None
 			continue
-		# print(line)
 		extract = process.extractOne(line, choices, scorer=fuzz.partial_ratio)
-		# print(process.extract(line, choices, scorer=fuzz.partial_ratio))
 		if ((extract[1] > 80) and len(line) > 1) or stat:
-			print(line)
 			if (extract[1] > 80):
 				stat = extract[0]
 			line = line.replace(',','')
@@ -98,7 +99,7 @@ def parse(text):
 			stat = None
 			if len(results) == 5:
 				break
-	return results
+	return level, results
 
 def validate(value, max_stat, percent):
 	while value > max_stat * 1.05:
@@ -119,6 +120,14 @@ def validate(value, max_stat, percent):
 	if int(value) == 1:
 		value += 10
 	return value
+
+def grade(score):
+	if score >= 0 and score <= 50:
+		return 'Poor'
+	elif score > 50 and score < 75:
+		return 'Decent'
+	else:
+		return 'Excellent'
 
 def rate(results, options={}):
 	main = True
@@ -158,18 +167,24 @@ def rate(results, options={}):
 			value = validate(value, max_subs[key] * 6, '%' in key)
 			sub_score += value / max_subs[key] * adj_weights[key]
 		result[1] = value
-		print(result)
+		
 	score = (main_score + sub_score) / (main_weight + sub_weight) * 100 if main_weight + sub_weight > 0 else 100
 	main_score = main_score / main_weight * 100 if main_weight > 0 else 100
 	main_score = 100 if main_score > 99 else main_score
 	sub_score = sub_score / sub_weight * 100 if sub_weight > 0 else 100
+	grade_score = grade(score)
 	print(f'Gear Score: {score:.2f}% (main {main_score:.2f}% {main_weight}, sub {sub_score:.2f}% {sub_weight})')
-	return score, main_score, sub_score
+	print(grade_score)
+	return score, main_score, sub_score, grade_score
 
 if __name__ == '__main__':
-	url = 'https://i.redd.it/qjzqzrzmgpz51.png'
+	if sys.version_info[0] == 3 and sys.version_info[1] >= 8 and sys.platform.startswith('win'):
+		asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+	url = 'https://media.discordapp.net/attachments/784433926130106388/784522271258574868/unknown.png'
 	suc, text = asyncio.run(ocr(url))
-	print(text)
 	if suc:
-		results = parse(text)
-		rate(results, {'Level': 20})
+		level, results = parse(text)
+		print(level)
+		print(results)
+		rate(results, {'Level': level})
+		

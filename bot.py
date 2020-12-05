@@ -37,8 +37,8 @@ async def rate(ctx):
 
 	Options
 
-	lvl: Compare to specified artifact level (default: 20)
-	-rate lvl=0
+	lvl: Compare to specified artifact level (default: <artifact_level>)
+	-rate lvl=20
 
 	<stat>: Set custom weights (valued between 0 and 1)
 	-rate atk=1 er=0 atk%=0.5
@@ -55,9 +55,16 @@ async def rate(ctx):
 	calls += 1
 	print(f'Calls: {calls}')
 	if suc:
-		results = ra.parse(text)
-		score, main_score, sub_score = ra.rate(results, options)
-		msg = f'Parsed Image: {results}\nGear Score: {score:.2f}% (main {main_score:.2f}%, sub {sub_score:.2f}%)'
+		level, results  = ra.parse(text)
+		if not('Level' in options.keys()):
+			options = {**options, 'Level': level}
+		score, main_score, sub_score, grade_score = ra.rate(results, options)
+
+		main_score_msg = f'Main Stat: {main_score:.2f}%'
+		sub_score_msg = f'Sub Stat: {sub_score:.2f}%'
+		score_msg = f'Overall: {score:.2f}% ({grade_score})'
+		separator_msg = f'---------------------------'
+		msg = f'**Gear Score**\n{separator_msg}\n{main_score_msg}\n{sub_score_msg}\n{separator_msg}\n**{score_msg}**'
 	else:
 		msg = f'OCR failed. Error: {text}'
 		if 'Timed out' in text:
