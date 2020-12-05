@@ -64,7 +64,7 @@ async def rate(ctx):
 		sub_score_msg = f'Sub Stat: {sub_score:.2f}%'
 		score_msg = f'Overall: {score:.2f}% ({grade_score})'
 		separator_msg = f'---------------------------'
-		parsed_msg = 'OCR Result: {results}'
+		parsed_msg = f'OCR Result: {results}'
 		msg = f'{parsed_msg}\n**Gear Score**\n{separator_msg}\n{main_score_msg}\n{sub_score_msg}\n{separator_msg}\n**{score_msg}**'
 	else:
 		msg = f'OCR failed. Error: {text}'
