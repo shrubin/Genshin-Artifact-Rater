@@ -55,17 +55,20 @@ async def rate(ctx):
 	calls += 1
 	print(f'Calls: {calls}')
 	if suc:
-		level, results  = ra.parse(text)
-		if not('Level' in options.keys()):
-			options = {**options, 'Level': level}
-		score, main_score, sub_score, grade_score = ra.rate(results, options)
+		try:
+			level, results  = ra.parse(text)
+			if not('Level' in options.keys()):
+				options = {**options, 'Level': level}
+			score, main_score, sub_score, grade_score = ra.rate(results, options)
 
-		main_score_msg = f'Main Stat: {main_score:.2f}%'
-		sub_score_msg = f'Sub Stat: {sub_score:.2f}%'
-		score_msg = f'Overall: {score:.2f}% ({grade_score})'
-		separator_msg = f'---------------------------'
-		parsed_msg = f'OCR Result: {results}'
-		msg = f'{parsed_msg}\n**Gear Score**\n{separator_msg}\n{main_score_msg}\n{sub_score_msg}\n{separator_msg}\n**{score_msg}**'
+			main_score_msg = f'Main Stat: {main_score:.2f}%'
+			sub_score_msg = f'Sub Stat: {sub_score:.2f}%'
+			score_msg = f'Overall: {score:.2f}% ({grade_score})'
+			separator_msg = f'---------------------------'
+			parsed_msg = f'OCR Result: {results}'
+			msg = f'{parsed_msg}\n**Gear Score**\n{separator_msg}\n{main_score_msg}\n{sub_score_msg}\n{separator_msg}\n**{score_msg}**'
+		except:
+			msg = 'An error has occured. Please make sure that you\'re providing a correct artifact image (Character Screen -> Artifacts).'
 	else:
 		msg = f'OCR failed. Error: {text}'
 		if 'Timed out' in text:

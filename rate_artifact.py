@@ -180,11 +180,14 @@ def rate(results, options={}):
 if __name__ == '__main__':
 	if sys.version_info[0] == 3 and sys.version_info[1] >= 8 and sys.platform.startswith('win'):
 		asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-	url = 'https://media.discordapp.net/attachments/784433926130106388/784522271258574868/unknown.png'
+	url = 'https://media.discordapp.net/attachments/761852765843881994/785098986490822707/unknown.png'
 	suc, text = asyncio.run(ocr(url))
 	if suc:
-		level, results = parse(text)
-		print(level)
-		print(results)
-		rate(results, {'Level': level})
+		try:
+			level, results = parse(text)
+			print(level)
+			print(results)
+			rate(results, {'Level': level})
+		except:
+			print('An error has occured. Please make sure that you\'re providing a correct artifact image (Character Screen -> Artifacts).')
 		
