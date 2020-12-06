@@ -67,7 +67,7 @@ def parse(text):
 		line = line.replace(':','.').replace('-','').replace('0/0','%')
 		if fuzz.partial_ratio(line, 'Piece Set') > 80 and len(line) > 4:
 			break
-		if not(level):
+		if not(level) and level !=0:
 			level = lvl_reg.findall(line)
 			if level:
 				level = int(level[0].replace('+', ''))
