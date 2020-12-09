@@ -64,9 +64,13 @@ async def rate(ctx):
         else:
             level = int(options['Level'])
         score, main_score, sub_score, grade_score = ra.rate(results, options)
-        score_msg = f'**Rating:** {score:.2f}% ({grade_score})'
-        embed = discord.Embed(color=discord.Color.blue())
-        embed.add_field(name=f'Parsed Stats | Level {level}', value=f'{results_str}{score_msg}')
+        score_msg = f'**Artifact Rating: {score:.2f}%**'
+
+        colors = {1 : discord.Color.blue(),
+                  2 : discord.Color.purple(),
+                  3 : discord.Color.orange()}
+        embed = discord.Embed(color=colors[grade_score])
+        embed.add_field(name=f'**__Parsed Stats • Artifact Level +{level}__**', value=f'{results_str}{score_msg}')
         embed.set_footer(text=f'Requested by {ctx.message.author}', icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
     else:
