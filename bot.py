@@ -58,17 +58,21 @@ async def rate(ctx):
     if suc:
         level, results, results_str  = ra.parse(text)
         if not('Level' in options.keys()):
+            if isinstance(level, list):
+                level = 20
             options = {**options, 'Level': level}
+        else:
+            level = int(options['Level'])
         score, main_score, sub_score, grade_score = ra.rate(results, options)
         score_msg = f'**Rating:** {score:.2f}% ({grade_score})'
+        embed = discord.Embed(color=discord.Color.blue())
+        embed.add_field(name=f'Parsed Stats | Level {level}', value=f'{results_str}{score_msg}')
+        embed.set_footer(text=f'Requested by {ctx.message.author}', icon_url=ctx.message.author.avatar_url)
+        await ctx.send(embed=embed)
     else:
         msg = f'OCR failed. Error: {text}'
         if 'Timed out' in text:
             msg += ', please try again in a few minutes'
-
-    embed = discord.Embed(color=discord.Color.blue())
-    embed.add_field(name=f'Parsed Stats | Level {level}', value=f'{results_str}{score_msg}')
-    embed.set_footer(text=f'Requested by {ctx.message.author}', icon_url=ctx.message.author.avatar_url)
-    await ctx.send(embed=embed)
+        await ctx.send(msg)
 
 bot.run(TOKEN)
