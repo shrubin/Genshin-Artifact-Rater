@@ -76,7 +76,7 @@ def parse(text):
 		if value:
 			value = int(value[0].replace(',', ''))
 			results += [['HP', value]]
-			results_str += str(f'HP: {value}\n')
+			results_str += str(f'**{stat}: {value}**\n')
 			stat = None
 			continue
 		extract = process.extractOne(line, choices, scorer=fuzz.partial_ratio)
@@ -98,7 +98,10 @@ def parse(text):
 			else:
 				value = int(value)
 			results += [[stat, value]]
-			results_str += str(f'{stat}: {value}\n')
+			if len(results) == 1:
+				results_str += str(f'**{stat}: {value}**\n')
+			else:
+				results_str += str(f'{stat}: {value}\n')
 			stat = None
 			if len(results) == 5:
 				break
@@ -126,11 +129,11 @@ def validate(value, max_stat, percent):
 
 def grade(score):
 	if score >= 0 and score <= 50:
-		return 'Low Roll'
+		return 1
 	elif score > 50 and score < 75:
-		return 'Medium Roll'
+		return 2
 	else:
-		return 'High Roll'
+		return 3
 
 def rate(results, options={}):
 	main = True
