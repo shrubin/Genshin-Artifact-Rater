@@ -76,7 +76,10 @@ def parse(text):
 		if value:
 			value = int(value[0].replace(',', ''))
 			results += [['HP', value]]
-			results_str += str(f'**{stat}: {value}**\n')
+			if len(results) == 1:
+				results_str += str(f'**{stat}: {value}**\n')
+			else:
+				results_str += str(f'{stat}: {value}\n')
 			stat = None
 			continue
 		extract = process.extractOne(line, choices, scorer=fuzz.partial_ratio)
