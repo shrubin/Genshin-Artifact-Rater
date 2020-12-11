@@ -30,6 +30,9 @@ weights = {'HP': 0, 'ATK': 0.5, 'ATK%': 1, 'Energy Recharge%': 0.5, 'Elemental M
 		   'HP%': 0, 'DEF%': 0, 'DEF': 0, 'Healing%': 0}
 
 async def ocr(url):
+	if not API_KEY:
+		print('Error: OCR_SPACE_API_KEY not found')
+		return
 	async with aiohttp.ClientSession() as session:
 		async with session.get(url) as r:
 			size = int(r.headers['Content-length'])
@@ -56,14 +59,12 @@ async def ocr(url):
 			return True, json['ParsedResults'][0]['ParsedText']
 
 def parse(text):
-	# print(text)
 	stat = None
 	results = []
 	for line in text.splitlines():
 		if not line or line.lower() == 'in':
 			continue
 		line = line.replace(':','.').replace('-','').replace('0/0','%')
-		# print(line, fuzz.partial_ratio(line, 'Piece Set'))
 		if fuzz.partial_ratio(line, 'Piece Set') > 80 and len(line) > 4:
 			break
 		value = hp_reg.search(line)
@@ -73,9 +74,7 @@ def parse(text):
 			results += [['HP', value]]
 			stat = None
 			continue
-		# print(line)
 		extract = process.extractOne(line, choices, scorer=fuzz.partial_ratio)
-		# print(process.extract(line, choices, scorer=fuzz.partial_ratio))
 		if ((extract[1] > 80) and len(line) > 1) or stat:
 			print(line)
 			if (extract[1] > 80):

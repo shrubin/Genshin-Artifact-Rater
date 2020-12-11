@@ -1,19 +1,33 @@
 import rate_artifact as ra
 
 import os
+import sys
+import validators
 from discord.ext import commands
 from dotenv import load_dotenv
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-
-bot = commands.Bot(command_prefix='-')
+CHANNEL_ID = int(os.getenv('CHANNEL_ID', 0))
+DEVELOPMENT = os.getenv('DEVELOPMENT', 'False') == 'True'
 
 calls = 0
 
+bot = commands.Bot(command_prefix='-')
+
 @bot.event
 async def on_ready():
-    print(f'{bot.user.name} has connected to {[guild.name for guild in bot.guilds]}')
+	msg = f'{bot.user.name} has connected to {len(bot.guilds)} servers'
+	print(msg)
+	if CHANNEL_ID:
+		channel = bot.get_channel(CHANNEL_ID)
+		await channel.send(msg)
+
+@bot.event
+async def on_disconnect():
+	if CHANNEL_ID:
+		channel = bot.get_channel(CHANNEL_ID)
+		await channel.send(user, f'{bot.user.name} disconnected after {calls} calls')
 
 opt_to_key = {'hp': 'HP', 'atk': 'ATK', 'atk%': 'ATK%', 'er': 'Energy Recharge%', 'em': 'Elemental Mastery',
 			  'phys': 'Physical DMG%', 'cr': 'CRIT Rate%', 'cd': 'CRIT DMG%', 'elem': 'Elemental DMG%',
@@ -45,13 +59,17 @@ async def rate(ctx):
 
 	<stat> is any of HP, HP%, ATK, ATK%, ER (Recharge), EM, PHYS, CR (Crit Rate), CD (Crit Damage), ELEM (Elemental DMG%), Heal, DEF, DEF%
 	'''
-	if not ctx.message.attachments:
-		return
-	options = ctx.message.content.split()[1:]
-	options = {opt_to_key[option.split('=')[0].lower()] : float(option.split('=')[1]) for option in options}
-	url = ctx.message.attachments[0].url
-	suc, text = await ra.ocr(url)
 	global calls
+	options = ctx.message.content.split()[1:]
+	if options and validators.url(options[0]):
+		url = options[0]
+		options = options[1:]
+	elif ctx.message.attachments:
+		url = ctx.message.attachments[0].url
+	else:
+		return
+	options = {opt_to_key[option.split('=')[0].lower()] : float(option.split('=')[1]) for option in options}
+	suc, text = await ra.ocr(url)
 	calls += 1
 	print(f'Calls: {calls}')
 	if suc:
@@ -62,6 +80,10 @@ async def rate(ctx):
 		msg = f'OCR failed. Error: {text}'
 		if 'Timed out' in text:
 			msg += ', please try again in a few minutes'
-	await ctx.send(msg)
+	if not DEVELOPMENT:
+		await ctx.send(msg)
 
-bot.run(TOKEN)
+if TOKEN:
+	bot.run(TOKEN)
+else:
+	print('Error: DISCORD_TOKEN not found')
