@@ -3,6 +3,7 @@ import rate_artifact as ra
 import os
 import sys
 import validators
+from discord import Embed
 from discord.ext import commands
 from dotenv import load_dotenv
 
@@ -38,9 +39,12 @@ async def rate(ctx):
 	'''
 	Rate an artifact against an optimal 5* artifact. Put the command and image in the same message.
 
-	-rate <image> [lvl=<level>] [<stat>=<weight> ...]
+	If you would like to add it to your private server use the link:
+	https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=3072&scope=bot
 
-	If you have any issues or want to use the bot in your private server, contact shrubin#1866 on discord.
+	-rate <image> [url] [lvl=<level>] [<stat>=<weight> ...]
+
+	If you have any issues, please contact shrubin#1866 on discord or use the -feedback command.
 	Source code available at https://github.com/shrubin/Genshin-Artifact-Rater
 
 	Default weights
@@ -71,7 +75,6 @@ async def rate(ctx):
 	options = {opt_to_key[option.split('=')[0].lower()] : float(option.split('=')[1]) for option in options}
 	suc, text = await ra.ocr(url)
 	calls += 1
-	print(f'Calls: {calls}')
 	if suc:
 		results = ra.parse(text)
 		score, main_score, sub_score = ra.rate(results, options)
@@ -82,6 +85,24 @@ async def rate(ctx):
 			msg += ', please try again in a few minutes'
 	if not DEVELOPMENT:
 		await ctx.send(msg)
+
+@bot.command(name='feedback')
+async def feedback(ctx):
+	'''
+	Send feedback with issues or ideas for the bot. Up to one image can be sent.
+
+	-feedback <message> [image]
+	'''
+	if CHANNEL_ID:
+		channel = bot.get_channel(CHANNEL_ID)
+		embed = Embed()
+		if ctx.message.attachments:
+			embed.set_image(url=ctx.message.attachments[0].url)
+		elif ctx.message.embeds:
+			embed.set_image(url=ctx.message.embeds[0].url)
+		else:
+			embed = None
+		await channel.send(f'{ctx.message.author}: {ctx.message.content}', embed=embed)
 
 if TOKEN:
 	bot.run(TOKEN)

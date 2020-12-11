@@ -1,10 +1,13 @@
 Discord bot that rates an artifact against an optimal 5* artifact. Put the command and image in the same message.
 
+If you would like to add it to your private server use the link:
+https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=3072&scope=bot
+
 ```
--rate <image> [lvl=<level>] [<stat>=<weight> ...]
+-rate <image> [url] [lvl=<level>] [<stat>=<weight> ...]
 ```
 
-If you have any issues or want to use the bot in your private server, contact shrubin#1866 on discord.
+If you have any issues, please contact shrubin#1866 on discord or use the `-feedback` command.
 
 #### Default Weights
 
