@@ -1,3 +1,5 @@
+import translations as tr
+
 import aiohttp
 import asyncio
 import os
@@ -11,27 +13,11 @@ from fuzzywuzzy import fuzz, process
 load_dotenv()
 API_KEY = os.getenv('OCR_SPACE_API_KEY')
 
-choices = ['HP', 'Healing', 'DEF', 'Energy Recharge', 'Elemental Mastery', 'ATK', 'CRIT DMG', 'CRIT Rate', 'Physical DMG']
-elements = ['Anemo', 'Electro', 'Pyro', 'Hydro', 'Cryo', 'Geo', 'Dendro']
-choices += [f'{element} DMG' for element in elements]
-
 reg = re.compile(r'\d+(?:\.\d+)?')
 hp_reg = re.compile(r'\d,\d{3}')
 lvl_reg = re.compile(r'^\+\d\d?$')
 
-min_mains = {'HP': 717.0, 'ATK': 47.0, 'ATK%': 7.0, 'Energy Recharge%': 7.8, 'Elemental Mastery': 28.0,
-			 'Physical DMG%': 8.7, 'CRIT Rate%': 4.7, 'CRIT DMG%': 9.3, 'Elemental DMG%': 7.0,
-			 'HP%': 7.0, 'DEF%': 8.7, 'Healing%': 5.4}
-max_mains = {'HP': 4780, 'ATK': 311.0, 'ATK%': 46.6, 'Energy Recharge%': 51.8, 'Elemental Mastery': 187.0,
-			 'Physical DMG%': 58.3, 'CRIT Rate%': 31.1, 'CRIT DMG%': 62.2, 'Elemental DMG%': 46.6,
-			 'HP%': 46.6, 'DEF%': 58.3, 'Healing%': 35.9}
-max_subs = {'ATK': 19.0, 'Elemental Mastery': 23.0, 'Energy Recharge%': 6.5, 'ATK%': 5.8,
-			'CRIT Rate%': 3.9, 'CRIT DMG%': 7.8, 'DEF': 23.0, 'HP': 299.0, 'DEF%': 7.3, 'HP%': 5.8}
-weights = {'HP': 0, 'ATK': 0.5, 'ATK%': 1, 'Energy Recharge%': 0.5, 'Elemental Mastery': 0.5,
-		   'Physical DMG%': 1, 'CRIT Rate%': 1, 'CRIT DMG%': 1, 'Elemental DMG%': 1,
-		   'HP%': 0, 'DEF%': 0, 'DEF': 0, 'Healing%': 0}
-
-async def ocr(url):
+async def ocr(url, lang=tr.en):
 	if not API_KEY:
 		print('Error: OCR_SPACE_API_KEY not found')
 		return False, 'Error: OCR_SPACE_API_KEY not found'
@@ -47,7 +33,10 @@ async def ocr(url):
 				_, img = cv2.imencode(os.path.splitext(url)[1], img)
 				data = aiohttp.FormData()
 				data.add_field('apikey', API_KEY)
-				data.add_field('OCREngine', '2')
+				if lang.code == 'eng':
+					data.add_field('OCREngine', '2')
+				else:
+					data.add_field('language', lang.code)
 				data.add_field('file', img.tobytes(), content_type='image/png', filename='image.png')
 				ocr_url = 'https://api.ocr.space/parse/image'
 				async with session.post(ocr_url, data=data) as r:
@@ -57,34 +46,42 @@ async def ocr(url):
 				async with session.get(ocr_url) as r:
 					json = await r.json()
 			if json['OCRExitCode'] != 1:
-				return False, 'Error: ' + '. '.join(json['ErrorMessage'])
+				return False, f'{lang.err}: ' + '. '.join(json['ErrorMessage'])
 			if 'ParsedResults' not in json:
-				return False, 'Error: OCR failed with unknown error'
+				return False, lang.err_unknown
 			return True, json['ParsedResults'][0]['ParsedText']
 
-def parse(text):
+def parse(text, lang=tr.en):
 	stat = None
 	results = []
 	level = None
+
+	choices = [lang.hp, lang.heal, lang.df, lang.er, lang.em, lang.atk, lang.cd, lang.cr, f'{lang.phys} {lang.dmg}']
+	elements = [lang.anemo, lang.elec, lang.pyro, lang.hydro, lang.cryo, lang.geo, lang.dend]
+	choices += [f'{element} {lang.dmg}' for element in elements]
+
 	for line in text.splitlines():
-		if not line or line.lower() == 'in':
+		if not line or line.lower() in lang.ignore:
 			continue
 		line = line.replace(':','.').replace('-','').replace('0/0','%')
-		if fuzz.partial_ratio(line, 'Piece Set') > 80 and len(line) > 4:
+		if fuzz.partial_ratio(line, lang.piece_set) > 80 and len(line) > 4:
 			break
-		if level == None:
-			value = lvl_reg.findall(line)
-			if value:
+
+		value = lvl_reg.search(line)
+		if value:
+			if level == None:
 				print('1', line)
 				level = int(value[0].replace('+', ''))
-				continue
+			continue
+
 		value = hp_reg.search(line)
 		if value:
 			print('2', line)
 			value = int(value[0].replace(',', ''))
-			results += [['HP', value]]
+			results += [[lang.hp, value]]
 			stat = None
 			continue
+
 		extract = process.extractOne(line, choices, scorer=fuzz.partial_ratio)
 		if ((extract[1] > 80) and len(line) > 1) or stat:
 			print('3', line)
@@ -131,26 +128,42 @@ def validate(value, max_stat, percent):
 		value += 10
 	return value
 
-def rate(level, results, options={}):
+def rate(level, results, options={}, lang=tr.en):
 	main = True
 	main_score = 0.0
 	sub_score = 0.0
 	sub_weight = 0
 	main_weight = 3 + level / 4
+
+	elements = [lang.anemo, lang.elec, lang.pyro, lang.hydro, lang.cryo, lang.geo, lang.dend]
+
+	min_mains = {lang.hp: 717.0, lang.atk: 47.0, f'{lang.atk}%': 7.0, f'{lang.er}%': 7.8, lang.em: 28.0,
+				 f'{lang.phys} {lang.dmg}%': 8.7, f'{lang.cr}%': 4.7, f'{lang.cd}%': 9.3, f'{lang.elem} {lang.dmg}%': 7.0,
+				 f'{lang.hp}%': 7.0, f'{lang.df}%': 8.7, f'{lang.heal}%': 5.4}
+	max_mains = {lang.hp: 4780, lang.atk: 311.0, f'{lang.atk}%': 46.6, f'{lang.er}%': 51.8, lang.em: 187.0,
+				 f'{lang.phys} {lang.dmg}%': 58.3, f'{lang.cr}%': 31.1, f'{lang.cd}%': 62.2, f'{lang.elem} {lang.dmg}%': 46.6,
+				 f'{lang.hp}%': 46.6, f'{lang.df}%': 58.3, f'{lang.heal}%': 35.9}
+	max_subs = {lang.atk: 19.0, lang.em: 23.0, f'{lang.er}%': 6.5, f'{lang.atk}%': 5.8,
+				f'{lang.cr}%': 3.9, f'{lang.cd}%': 7.8, lang.df: 23.0, lang.hp: 299.0, f'{lang.df}%': 7.3, f'{lang.hp}%': 5.8}
+	weights = {lang.hp: 0, lang.atk: 0.5, f'{lang.atk}%': 1, f'{lang.er}%': 0.5, lang.em: 0.5,
+			   f'{lang.phys} {lang.dmg}%': 1, f'{lang.cr}%': 1, f'{lang.cd}%': 1, f'{lang.elem} {lang.dmg}%': 1,
+			   f'{lang.hp}%': 0, f'{lang.df}%': 0, lang.df: 0, f'{lang.heal}%': 0}
+
 	# Replaces weights with options
-	adj_weights = {**weights, **options}
+	weights = {**weights, **options}
+
 	for result in results:
 		stat, value = result
-		key = stat if stat.split()[0] not in elements else 'Elemental DMG%'
+		key = stat if stat.split()[0] not in elements else f'{lang.elem} {lang.dmg}%'
 		if main:
 			main = False
 			max_main = max_mains[key] - (max_mains[key] - min_mains[key]) * (1 - level / 20.0)
 			value = validate(value, max_main, '%' in key)
-			main_score = value / max_main * adj_weights[key] * main_weight
-			if key in ['ATK', 'HP']:
-				main_weight *= adj_weights[key]
+			main_score = value / max_main * weights[key] * main_weight
+			if key in [lang.atk, lang.hp]:
+				main_weight *= weights[key]
 			count = 0
-			for k,v in sorted(adj_weights.items(), reverse=True, key=lambda item: item[1]):
+			for k,v in sorted(weights.items(), reverse=True, key=lambda item: item[1]):
 				if k == key or k not in max_subs:
 					continue
 				if count == 0:
@@ -162,7 +175,7 @@ def rate(level, results, options={}):
 					break
 		else:
 			value = validate(value, max_subs[key] * 6, '%' in key)
-			sub_score += value / max_subs[key] * adj_weights[key]
+			sub_score += value / max_subs[key] * weights[key]
 		result[1] = value
 
 	score = (main_score + sub_score) / (main_weight + sub_weight) * 100 if main_weight + sub_weight > 0 else 100
