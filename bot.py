@@ -159,8 +159,34 @@ async def rate_en(ctx):
 @bot.command(name='rate_es')
 async def rate_es(ctx):
 	'''
-	Rate in Spanish
-	Translations provided by NeRooN#1104
+	Valora un artefacto comparándolo con los posibles stats de un 5*. Simplemente pon el comando y adjunta la imagen en el mismo mensaje.
+
+	Si quieres, puedes invitar al bot a tu propio servidor de discord con este link:
+	https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=3072&scope=bot
+
+	También puedes hablarle al bot por privado y enviarle el artefacto por ahí Artifact Rater#6924.
+
+	-rate_es <imagen/url> [lvl=<level>] [<stat>=<valoración> ...]
+
+	Si tienes algún problema, por favor, contacta con shrubin#1866 (inglés) en discord o usa el comando -feedback
+	El código del bot lo puedes encontrar aquí https://github.com/shrubin/Genshin-Artifact-Rater
+	Valores por defecto
+
+	ATQ%, DMG%, Crit -1
+	ATK, EM, Recharge - 0.5
+	Lo demás - 0
+
+	Opciones
+
+	lvl: lo compara con el nivel especificado (por defecto: <nivel_artefacto>)
+	-rate_es lvl=20
+
+	<stat>: Te permite introducir el valor deseado (entre 0 y 1)
+	-rate_es def%=1 hp%=1 atk=0
+
+	<stat> puedes introducir: HP, HP%, ATK, ATK%, ER (recarga de energía), EM (maestría elemental), CR (prob. crit), CD (daño crit),  PHYS (daño físico), ELEM (daño elemental %), Heal, DEF, DEF%
+
+	Traducción hecha por NeRooN#1104
 	'''
 	await rate(ctx, tr.es)
 
