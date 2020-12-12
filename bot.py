@@ -77,30 +77,45 @@ async def rate(ctx):
 	suc, text = await ra.ocr(url)
 	calls += 1
 	if suc:
-		level, results, results_str  = ra.parse(text)
-		if not('Level' in options.keys()):
-			if isinstance(level, list):
-				level = 20
-			options = {**options, 'Level': level}
-		else:
+		level, results = ra.parse(text)
+		if 'Level' in options:
 			level = int(options['Level'])
-		score, main_score, sub_score, grade_score = ra.rate(results, options)
-		score_msg = f'**Artifact Rating: {score:.2f}%**'
+			del options['Level']
+		elif level == None:
+			level = 20
+		score, main_score, sub_score = ra.rate(level, results, options)
 
-		colors = {1 : discord.Color.blue(),
-				  2 : discord.Color.purple(),
-				  3 : discord.Color.orange()}
-		embed = discord.Embed(color=colors[grade_score])
-		embed.add_field(name=f'**__Parsed Stats • Artifact Level +{level}__**', value=f'{results_str}{score_msg}')
+		if score <= 50:
+			color = discord.Color.blue()
+		elif score > 50 and score <= 75:
+			color = discord.Color.purple()
+		else:
+			color = discord.Color.orange()
+
+		msg = f'\n\n**{results[0][0]}: {results[0][1]}**'
+		for result in results[1:]:
+			msg += f'\n{result[0]}: {result[1]}'
+		msg += f'\n\n**Rating: {score:.2f}%**'
+
+		embed = discord.Embed(color=color)
+		embed.add_field(name=f'Artifact Level: +{level}', value=msg)
 		embed.set_footer(text=f'Requested by {ctx.message.author}', icon_url=ctx.message.author.avatar_url)
+
 		if not DEVELOPMENT:
 			await ctx.send(embed=embed)
+		elif CHANNEL_ID:
+			channel = bot.get_channel(CHANNEL_ID)
+			await channel.send(embed=embed)
 	else:
 		msg = f'OCR failed. Error: {text}'
 		if 'Timed out' in text:
 			msg += ', please try again in a few minutes'
+		print(msg)
 		if not DEVELOPMENT:
 			await ctx.send(msg)
+		elif CHANNEL_ID:
+			channel = bot.get_channel(CHANNEL_ID)
+			await channel.send(msg)
 
 @bot.command(name='feedback')
 async def feedback(ctx):

@@ -17,7 +17,7 @@ choices += [f'{element} DMG' for element in elements]
 
 reg = re.compile(r'\d+(?:\.\d+)?')
 hp_reg = re.compile(r'\d,\d{3}')
-lvl_reg = re.compile(r'^[+][0-9]*$')
+lvl_reg = re.compile(r'^\+\d\d?$')
 
 min_mains = {'HP': 717.0, 'ATK': 47.0, 'ATK%': 7.0, 'Energy Recharge%': 7.8, 'Elemental Mastery': 28.0,
 			 'Physical DMG%': 8.7, 'CRIT Rate%': 4.7, 'CRIT DMG%': 9.3, 'Elemental DMG%': 7.0,
@@ -63,7 +63,6 @@ async def ocr(url):
 def parse(text):
 	stat = None
 	results = []
-	results_str = ''
 	level = None
 	for line in text.splitlines():
 		if not line or line.lower() == 'in':
@@ -71,22 +70,22 @@ def parse(text):
 		line = line.replace(':','.').replace('-','').replace('0/0','%')
 		if fuzz.partial_ratio(line, 'Piece Set') > 80 and len(line) > 4:
 			break
-		if not(level) and level !=0:
-			level = lvl_reg.findall(line)
-			if level:
-				level = int(level[0].replace('+', ''))
+		if level == None:
+			value = lvl_reg.findall(line)
+			if value:
+				print('1', line)
+				level = int(value[0].replace('+', ''))
+				continue
 		value = hp_reg.search(line)
 		if value:
+			print('2', line)
 			value = int(value[0].replace(',', ''))
 			results += [['HP', value]]
-			if len(results) == 1:
-				results_str += str(f'**{stat}: {value}**\n')
-			else:
-				results_str += str(f'{stat}: {value}\n')
 			stat = None
 			continue
 		extract = process.extractOne(line, choices, scorer=fuzz.partial_ratio)
 		if ((extract[1] > 80) and len(line) > 1) or stat:
+			print('3', line)
 			if (extract[1] > 80):
 				stat = extract[0]
 			line = line.replace(',','')
@@ -104,14 +103,10 @@ def parse(text):
 			else:
 				value = int(value)
 			results += [[stat, value]]
-			if len(results) == 1:
-				results_str += str(f'**{stat}: {value}**\n')
-			else:
-				results_str += str(f'{stat}: {value}\n')
 			stat = None
 			if len(results) == 5:
 				break
-	return level, results, results_str
+	return level, results
 
 def validate(value, max_stat, percent):
 	while value > max_stat * 1.05:
@@ -133,25 +128,12 @@ def validate(value, max_stat, percent):
 		value += 10
 	return value
 
-def grade(score):
-	if score >= 0 and score <= 50:
-		return 1
-	elif score > 50 and score < 75:
-		return 2
-	else:
-		return 3
-
-def rate(results, options={}):
+def rate(level, results, options={}):
 	main = True
 	main_score = 0.0
 	sub_score = 0.0
 	sub_weight = 0
-	main_weight = 8
-	level = 20
-	if 'Level' in options:
-		level = int(options['Level'])
-		main_weight -= (5 - level / 4)
-		del options['Level']
+	main_weight = 3 + level / 4
 	# Replaces weights with options
 	adj_weights = {**weights, **options}
 	for result in results:
@@ -184,10 +166,8 @@ def rate(results, options={}):
 	main_score = main_score / main_weight * 100 if main_weight > 0 else 100
 	main_score = 100 if main_score > 99 else main_score
 	sub_score = sub_score / sub_weight * 100 if sub_weight > 0 else 100
-	grade_score = grade(score)
 	print(f'Gear Score: {score:.2f}% (main {main_score:.2f}% {main_weight}, sub {sub_score:.2f}% {sub_weight})')
-	print(grade_score)
-	return score, main_score, sub_score, grade_score
+	return score, main_score, sub_score
 
 if __name__ == '__main__':
 	if sys.version_info[0] == 3 and sys.version_info[1] >= 8 and sys.platform.startswith('win'):
@@ -195,8 +175,6 @@ if __name__ == '__main__':
 	url = 'https://i.redd.it/qjzqzrzmgpz51.png'
 	suc, text = asyncio.run(ocr(url))
 	if suc:
-		level, results, results_str = parse(text)
-		print(level)
-		print(results)
-		print(results_str)
-		rate(results, {'Level': level})
+		level, results = parse(text)
+		print(level, results)
+		rate(level, results)
