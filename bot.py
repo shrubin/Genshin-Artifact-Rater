@@ -95,7 +95,9 @@ async def rate(ctx):
 		msg = f'\n\n**{results[0][0]}: {results[0][1]}**'
 		for result in results[1:]:
 			msg += f'\n{result[0]}: {result[1]}'
-		msg += f'\n\n**Rating: {score:.2f}%**'
+		msg += f'\n\n**Overall Rating: {score:.2f}%**'
+		msg += f'\nMain Stat Rating: {main_score:.2f}%'
+		msg += f'\nSubstat Rating: {sub_score:.2f}%'
 
 		embed = discord.Embed(color=color)
 		embed.add_field(name=f'Artifact Level: +{level}', value=msg)
