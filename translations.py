@@ -1,6 +1,8 @@
 class en:
+	# 3-digit language code
 	code = 'eng'
 
+	# stats as they appear in-game
 	hp = 'HP'
 	heal = 'Healing'
 	df = 'DEF'
@@ -19,8 +21,8 @@ class en:
 	geo = 'Geo'
 	dend = 'Dendro'
 	dmg = 'DMG'
-	lvl = 'Level'
 
+	# shortnames for setting stat weights / level
 	hp_opt = 'hp'
 	heal_opt = 'heal'
 	df_opt = 'def'
@@ -33,16 +35,21 @@ class en:
 	elem_opt = 'elem'
 	lvl_opt = 'lvl'
 
+	# text that appears below artifact stats (2-piece set)
 	piece_set = 'Piece Set'
 
+	# lines will be ignored if they're an exact match
 	ignore = ['in']
 
+	# text for bot messages
+	lvl = 'Level'
 	score = 'Gear Score'
 	main_score = 'Main Stat Rating'
 	sub_score = 'Substat Rating'
 	art_level = 'Artifact Level'
 	requested = 'Requested by %s'
 
+	# text for bot errors
 	err = 'Error'
 	err_not_found = 'Error: No image or url found, please make sure they were sent in the same message'
 	err_parse = 'Error: Command cannot be parsed, please double check the format and spelling'
@@ -70,7 +77,6 @@ class es:
 	geo = 'Geo'
 	dend = 'Dendro'
 	dmg = 'DMG'
-	lvl = 'Level'
 
 	hp_opt = 'hp'
 	heal_opt = 'heal'
@@ -88,6 +94,7 @@ class es:
 
 	ignore = ['in']
 
+	lvl = 'Level'
 	score = 'Gear Score'
 	main_score = 'Main Stat Rating'
 	sub_score = 'Substat Rating'
