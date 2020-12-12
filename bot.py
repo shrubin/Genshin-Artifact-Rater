@@ -2,8 +2,9 @@ import rate_artifact as ra
 
 import os
 import sys
+
+import discord
 import validators
-from discord import Embed
 from discord.ext import commands
 from dotenv import load_dotenv
 
@@ -55,8 +56,8 @@ async def rate(ctx):
 
 	Options
 
-	lvl: Compare to specified artifact level (default: 20)
-	-rate lvl=0
+	lvl: Compare to specified artifact level (default: <artifact_level>)
+	-rate lvl=20
 
 	<stat>: Set custom weights (valued between 0 and 1)
 	-rate atk=1 er=0 atk%=0.5
@@ -76,15 +77,30 @@ async def rate(ctx):
 	suc, text = await ra.ocr(url)
 	calls += 1
 	if suc:
-		results = ra.parse(text)
-		score, main_score, sub_score = ra.rate(results, options)
-		msg = f'Parsed Image: {results}\nGear Score: {score:.2f}% (main {main_score:.2f}%, sub {sub_score:.2f}%)'
+		level, results, results_str  = ra.parse(text)
+		if not('Level' in options.keys()):
+			if isinstance(level, list):
+				level = 20
+			options = {**options, 'Level': level}
+		else:
+			level = int(options['Level'])
+		score, main_score, sub_score, grade_score = ra.rate(results, options)
+		score_msg = f'**Artifact Rating: {score:.2f}%**'
+
+		colors = {1 : discord.Color.blue(),
+				  2 : discord.Color.purple(),
+				  3 : discord.Color.orange()}
+		embed = discord.Embed(color=colors[grade_score])
+		embed.add_field(name=f'**__Parsed Stats • Artifact Level +{level}__**', value=f'{results_str}{score_msg}')
+		embed.set_footer(text=f'Requested by {ctx.message.author}', icon_url=ctx.message.author.avatar_url)
+		if not DEVELOPMENT:
+			await ctx.send(embed=embed)
 	else:
 		msg = f'OCR failed. Error: {text}'
 		if 'Timed out' in text:
 			msg += ', please try again in a few minutes'
-	if not DEVELOPMENT:
-		await ctx.send(msg)
+		if not DEVELOPMENT:
+			await ctx.send(msg)
 
 @bot.command(name='feedback')
 async def feedback(ctx):
@@ -95,7 +111,7 @@ async def feedback(ctx):
 	'''
 	if CHANNEL_ID:
 		channel = bot.get_channel(CHANNEL_ID)
-		embed = Embed()
+		embed = discord.Embed()
 		if ctx.message.attachments:
 			embed.set_image(url=ctx.message.attachments[0].url)
 		elif ctx.message.embeds:
