@@ -33,7 +33,8 @@ async def ocr(url, lang=tr.en):
 				_, img = cv2.imencode(os.path.splitext(url)[1], img)
 				data = aiohttp.FormData()
 				data.add_field('apikey', API_KEY)
-				if lang.code == 'eng':
+				# Western languages supported by OCR Engine 2
+				if lang.code in ['eng', 'spa']:
 					data.add_field('OCREngine', '2')
 				else:
 					data.add_field('language', lang.code)
