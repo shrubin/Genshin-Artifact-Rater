@@ -126,6 +126,8 @@ async def feedback(ctx):
 
 	-feedback <message> [image]
 	'''
+	if not DEVELOPMENT:
+		await ctx.send('Feedback received, please contact shrubin#1866 if you\'d like to add more details')
 	if CHANNEL_ID:
 		channel = bot.get_channel(CHANNEL_ID)
 		embed = discord.Embed()
