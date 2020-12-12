@@ -59,15 +59,15 @@ class en:
 class es:
 	code = 'spa'
 
-	hp = 'HP'
-	heal = 'Healing'
+	hp = 'Vida'
+	heal = 'Curación'
 	df = 'DEF'
-	er = 'Energy Recharge'
-	em = 'Elemental Mastery'
-	atk = 'ATK'
+	er = 'Recarga de Energía'
+	em = 'Maestría Elemental'
+	atk = 'ATQ'
 	cd = 'CRIT DMG'
-	cr = 'CRIT Rate'
-	phys = 'Physical'
+	cr = 'Prob. CRIT'
+	phys = 'Físico'
 	elem = 'Elemental'
 	anemo = 'Anemo'
 	elec = 'Electro'
@@ -76,7 +76,7 @@ class es:
 	cryo = 'Cryo'
 	geo = 'Geo'
 	dend = 'Dendro'
-	dmg = 'DMG'
+	dmg = 'Daño'
 
 	hp_opt = 'hp'
 	heal_opt = 'heal'
@@ -90,19 +90,19 @@ class es:
 	elem_opt = 'elem'
 	lvl_opt = 'lvl'
 
-	piece_set = 'Piece Set'
+	piece_set = 'Conjunto'
 
-	ignore = ['in']
+	ignore = []
 
-	lvl = 'Level'
+	lvl = 'lvl'
 	score = 'Gear Score'
-	main_score = 'Main Stat Rating'
-	sub_score = 'Substat Rating'
-	art_level = 'Artifact Level'
-	requested = 'Requested by %s'
+	main_score = '% Stat Principal'
+	sub_score = '% Substat'
+	art_level = 'Nivel de artefacto'
+	requested = 'Pedido por %s'
 
 	err = 'Error'
-	err_not_found = 'Error: No image or url found, please make sure they were sent in the same message'
-	err_parse = 'Error: Command cannot be parsed, please double check the format and spelling'
-	err_try_again = 'please try again in a few minutes'
-	err_unknown = 'Error: OCR failed with unknown error'
+	err_not_found = 'Error: No se encuentra la imagen o la url no funciona, asegurate de mandarla en el mismo mensaje'
+	err_parse = 'Error: el comando no ha podido ejecutarse, asegurate de que esté bien escrito y el formato sea correcto'
+	err_try_again = 'por favor, prueba de nuevo en un rato'
+	err_unknown = 'Error: el OCR ha fallado con un error desconocido'

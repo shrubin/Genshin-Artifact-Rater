@@ -158,6 +158,10 @@ async def rate_en(ctx):
 
 @bot.command(name='rate_es')
 async def rate_es(ctx):
+	'''
+	Rate in Spanish
+	Translations provided by NeRooN#1104
+	'''
 	await rate(ctx, tr.es)
 
 @bot.command(name='feedback')
