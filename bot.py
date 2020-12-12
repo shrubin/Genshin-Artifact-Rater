@@ -51,8 +51,8 @@ async def count():
 
 def create_opt_to_key(lang):
 	return {lang.hp_opt: lang.hp, lang.atk_opt: lang.atk, f'{lang.atk_opt}%': f'{lang.atk}%',
-			lang.er_opt: f'{lang.er}%', lang.em_opt: lang.em, lang.phys_opt: f'{lang.phys} {lang.dmg}%',
-			lang.cr_opt: f'{lang.cr}%', lang.cd_opt: f'{lang.cd}%', lang.elem_opt: f'{lang.elem} {lang.dmg}%',
+			lang.er_opt: f'{lang.er}%', lang.em_opt: lang.em, lang.phys_opt: f'{lang.phys}%',
+			lang.cr_opt: f'{lang.cr}%', lang.cd_opt: f'{lang.cd}%', lang.elem_opt: f'{lang.elem}%',
 			f'{lang.hp_opt}%': f'{lang.hp}%', f'{lang.df_opt}%': f'{lang.df}%',
 			lang.heal_opt: f'{lang.heal}%', lang.df_opt: lang.df, lang.lvl_opt: lang.lvl}
 

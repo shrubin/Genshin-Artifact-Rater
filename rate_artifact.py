@@ -56,12 +56,17 @@ def parse(text, lang=tr.en):
 	stat = None
 	results = []
 	level = None
+	prev = None
+	del_prev = True
 
-	choices = [lang.hp, lang.heal, lang.df, lang.er, lang.em, lang.atk, lang.cd, lang.cr, f'{lang.phys} {lang.dmg}']
 	elements = [lang.anemo, lang.elec, lang.pyro, lang.hydro, lang.cryo, lang.geo, lang.dend]
-	choices += [f'{element} {lang.dmg}' for element in elements]
+	choices = elements + [lang.hp, lang.heal, lang.df, lang.er, lang.em, lang.atk, lang.cd, lang.cr, lang.phys]
 
 	for line in text.splitlines():
+		if del_prev:
+			prev = None
+		del_prev = True
+
 		if not line or line.lower() in lang.ignore:
 			continue
 		line = line.replace(':','.').replace('-','').replace('0/0','%')
@@ -91,7 +96,10 @@ def parse(text, lang=tr.en):
 			line = line.replace(',','')
 			value = reg.findall(line)
 			if not value:
-				continue
+				if not prev:
+					continue
+				print('4', prev)
+				value = prev
 			value = max(value, key=len)
 			if len(value) < 2:
 				continue
@@ -106,6 +114,12 @@ def parse(text, lang=tr.en):
 			stat = None
 			if len(results) == 5:
 				break
+			continue
+
+		line = line.replace(',','')
+		prev = reg.findall(line)
+		del_prev = False
+
 	print(level, results)
 	return level, results
 
@@ -139,15 +153,15 @@ def rate(level, results, options={}, lang=tr.en):
 	elements = [lang.anemo, lang.elec, lang.pyro, lang.hydro, lang.cryo, lang.geo, lang.dend]
 
 	min_mains = {lang.hp: 717.0, lang.atk: 47.0, f'{lang.atk}%': 7.0, f'{lang.er}%': 7.8, lang.em: 28.0,
-				 f'{lang.phys} {lang.dmg}%': 8.7, f'{lang.cr}%': 4.7, f'{lang.cd}%': 9.3, f'{lang.elem} {lang.dmg}%': 7.0,
+				 f'{lang.phys}%': 8.7, f'{lang.cr}%': 4.7, f'{lang.cd}%': 9.3, f'{lang.elem}%': 7.0,
 				 f'{lang.hp}%': 7.0, f'{lang.df}%': 8.7, f'{lang.heal}%': 5.4}
 	max_mains = {lang.hp: 4780, lang.atk: 311.0, f'{lang.atk}%': 46.6, f'{lang.er}%': 51.8, lang.em: 187.0,
-				 f'{lang.phys} {lang.dmg}%': 58.3, f'{lang.cr}%': 31.1, f'{lang.cd}%': 62.2, f'{lang.elem} {lang.dmg}%': 46.6,
+				 f'{lang.phys}%': 58.3, f'{lang.cr}%': 31.1, f'{lang.cd}%': 62.2, f'{lang.elem}%': 46.6,
 				 f'{lang.hp}%': 46.6, f'{lang.df}%': 58.3, f'{lang.heal}%': 35.9}
 	max_subs = {lang.atk: 19.0, lang.em: 23.0, f'{lang.er}%': 6.5, f'{lang.atk}%': 5.8,
 				f'{lang.cr}%': 3.9, f'{lang.cd}%': 7.8, lang.df: 23.0, lang.hp: 299.0, f'{lang.df}%': 7.3, f'{lang.hp}%': 5.8}
 	weights = {lang.hp: 0, lang.atk: 0.5, f'{lang.atk}%': 1, f'{lang.er}%': 0.5, lang.em: 0.5,
-			   f'{lang.phys} {lang.dmg}%': 1, f'{lang.cr}%': 1, f'{lang.cd}%': 1, f'{lang.elem} {lang.dmg}%': 1,
+			   f'{lang.phys}%': 1, f'{lang.cr}%': 1, f'{lang.cd}%': 1, f'{lang.elem}%': 1,
 			   f'{lang.hp}%': 0, f'{lang.df}%': 0, lang.df: 0, f'{lang.heal}%': 0}
 
 	# Replaces weights with options
@@ -155,7 +169,7 @@ def rate(level, results, options={}, lang=tr.en):
 
 	for result in results:
 		stat, value = result
-		key = stat if stat.split()[0] not in elements else f'{lang.elem} {lang.dmg}%'
+		key = stat if stat[:-1] not in elements else f'{lang.elem}%'
 		if main:
 			main = False
 			max_main = max_mains[key] - (max_mains[key] - min_mains[key]) * (1 - level / 20.0)
@@ -189,8 +203,9 @@ def rate(level, results, options={}, lang=tr.en):
 if __name__ == '__main__':
 	if sys.version_info[0] == 3 and sys.version_info[1] >= 8 and sys.platform.startswith('win'):
 		asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-	url = 'https://i.redd.it/qjzqzrzmgpz51.png'
-	suc, text = asyncio.run(ocr(url))
+	url = 'https://cdn.discordapp.com/attachments/785792560622075947/787440513442643998/unknown.png'
+	lang = tr.es
+	suc, text = asyncio.run(ocr(url, lang))
 	if suc:
-		level, results = parse(text)
-		rate(level, results)
+		level, results = parse(text, lang)
+		rate(level, results, {}, lang)
