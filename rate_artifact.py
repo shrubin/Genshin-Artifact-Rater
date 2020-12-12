@@ -34,7 +34,7 @@ weights = {'HP': 0, 'ATK': 0.5, 'ATK%': 1, 'Energy Recharge%': 0.5, 'Elemental M
 async def ocr(url):
 	if not API_KEY:
 		print('Error: OCR_SPACE_API_KEY not found')
-		return
+		return False, 'Error: OCR_SPACE_API_KEY not found'
 	async with aiohttp.ClientSession() as session:
 		async with session.get(url) as r:
 			size = int(r.headers['Content-length'])
@@ -57,7 +57,9 @@ async def ocr(url):
 				async with session.get(ocr_url) as r:
 					json = await r.json()
 			if json['OCRExitCode'] != 1:
-				return False, '.'.join(json['ErrorMessage'])
+				return False, 'Error: ' + '. '.join(json['ErrorMessage'])
+			if 'ParsedResults' not in json:
+				return False, 'Error: OCR failed with unknown error'
 			return True, json['ParsedResults'][0]['ParsedText']
 
 def parse(text):
@@ -106,6 +108,7 @@ def parse(text):
 			stat = None
 			if len(results) == 5:
 				break
+	print(level, results)
 	return level, results
 
 def validate(value, max_stat, percent):
@@ -176,5 +179,4 @@ if __name__ == '__main__':
 	suc, text = asyncio.run(ocr(url))
 	if suc:
 		level, results = parse(text)
-		print(level, results)
 		rate(level, results)
