@@ -1,6 +1,8 @@
 class en:
 	# 3-digit language code
 	code = 'eng'
+	# Supported by OCR Engine 2
+	supported = True
 
 	# stats as they appear in-game
 	hp = 'HP'
@@ -57,6 +59,7 @@ class en:
 
 class es:
 	code = 'spa'
+	supported = True
 
 	hp = 'Vida'
 	heal = 'Curación'
@@ -107,6 +110,7 @@ class es:
 
 class de:
 	code = 'deu'
+	supported = True
 
 	hp = 'LP'
 	heal = 'Heilungsbonus'

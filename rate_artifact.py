@@ -34,8 +34,7 @@ async def ocr(url, lang=tr.en):
 				_, img = cv2.imencode('.png', img)
 				data = aiohttp.FormData()
 				data.add_field('apikey', API_KEY)
-				# Western languages supported by OCR Engine 2
-				if lang.code in ['eng', 'spa', 'deu']:
+				if lang.supported:
 					data.add_field('OCREngine', '2')
 				else:
 					data.add_field('language', lang.code)
@@ -44,7 +43,11 @@ async def ocr(url, lang=tr.en):
 				async with session.post(ocr_url, data=data) as r:
 					json = await r.json()
 			else:
-				ocr_url = f'https://api.ocr.space/parse/imageurl?apikey={API_KEY}&OCREngine=2&url={url}'
+				ocr_url = f'https://api.ocr.space/parse/imageurl?apikey={API_KEY}&url={url}'
+				if lang.supported:
+					ocr_url += '&OCREngine=2'
+				else:
+					ocr_url += f'&language={lang.code}'
 				async with session.get(ocr_url) as r:
 					json = await r.json()
 			if json['OCRExitCode'] != 1:
