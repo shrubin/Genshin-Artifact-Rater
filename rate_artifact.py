@@ -16,6 +16,7 @@ API_KEY = os.getenv('OCR_SPACE_API_KEY')
 reg = re.compile(r'\d+(?:\.\d+)?')
 hp_reg = re.compile(r'\d,\d{3}')
 lvl_reg = re.compile(r'^\+\d\d?$')
+bad_lvl_reg = re.compile(r'^\+?\d\d?$')
 
 async def ocr(url, lang=tr.en):
 	if not API_KEY:
@@ -116,9 +117,11 @@ def parse(text, lang=tr.en):
 				break
 			continue
 
-		line = line.replace(',','')
-		prev = reg.findall(line)
-		del_prev = False
+		value = bad_lvl_reg.search(line)
+		if not value:
+			line = line.replace(',','')
+			prev = reg.findall(line)
+			del_prev = False
 
 	print(level, results)
 	return level, results
@@ -203,9 +206,10 @@ def rate(level, results, options={}, lang=tr.en):
 if __name__ == '__main__':
 	if sys.version_info[0] == 3 and sys.version_info[1] >= 8 and sys.platform.startswith('win'):
 		asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-	url = 'https://cdn.discordapp.com/attachments/785792560622075947/787440513442643998/unknown.png'
-	lang = tr.es
+	url = 'https://cdn.discordapp.com/attachments/767639579078819900/787517859051339786/unknown.png'
+	lang = tr.en
 	suc, text = asyncio.run(ocr(url, lang))
+	print(text)
 	if suc:
 		level, results = parse(text, lang)
 		rate(level, results, {}, lang)
