@@ -151,6 +151,6 @@ class es:
 
 	err = 'Fehler'
 	err_not_found = 'Fehler: Kein Bild oder URL gefunden, bitte stelle sicher das sich das Bild in der selben Nachicht befindet.'
-	err_parse = 'Fehler: Kein Command gefunden, bitte schau das du ihn richtig geschrieben und im richtigen Format.'
+	err_parse = 'Fehler: Kein Command gefunden, bitte schau das du ihn richtig und im korrekten Format geschrieben hast.'
 	err_try_again = 'Bitte versuche es in ein paar Minunten nochmal'
 	err_unknown = 'Fehler: OCR fehlgeschlagen mit unbekanntem Fehler'
