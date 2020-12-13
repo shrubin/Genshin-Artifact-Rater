@@ -88,9 +88,9 @@ async def rate(ctx, lang):
 		if not suc:
 			if 'Timed out' in text:
 				text += f', {lang.err_try_again}'
-			print(msg)
+			print(text)
 			if not DEVELOPMENT:
-				await ctx.send(msg)
+				await ctx.send(text)
 			return
 
 		level, results = ra.parse(text, lang)
