@@ -143,14 +143,14 @@ class de:
 	ignore = []
 
 	lvl = 'Level'
-	score = 'Gear Score'
-	main_score = '% Haupt-Stat'
-	sub_score = '% Unterer-Stat'
+	score = 'Gear Bewertung'
+	main_score = 'Haupt-Stat'
+	sub_score = 'Unter-Stat'
 	art_level = 'Artifakt Level'
 	requested = 'Angefragt von %s'
 
 	err = 'Fehler'
-	err_not_found = 'Fehler: Kein/e Bild oder URL gefunden, bitte stelle sicher das sich das Bild in der selben Nachicht befindet.'
+	err_not_found = 'Fehler: Kein Bild oder URL gefunden, bitte stelle sicher das sich das Bild in der selben Nachicht befindet.'
 	err_parse = 'Fehler: Kein Command gefunden, bitte schau das du ihn richtig und im korrekten Format geschrieben hast.'
 	err_try_again = 'bitte versuche es in ein paar Minuten nochmal'
 	err_unknown = 'Fehler: OCR fehlgeschlagen mit unbekanntem Fehler'
