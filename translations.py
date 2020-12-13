@@ -105,7 +105,7 @@ class es:
 	err_try_again = 'por favor, prueba de nuevo en un rato'
 	err_unknown = 'Error: el OCR ha fallado con un error desconocido'
 
-	class de:
+class de:
 	code = 'deu'
 
 	hp = 'LP'
@@ -152,5 +152,5 @@ class es:
 	err = 'Fehler'
 	err_not_found = 'Fehler: Kein Bild oder URL gefunden, bitte stelle sicher das sich das Bild in der selben Nachicht befindet.'
 	err_parse = 'Fehler: Kein Command gefunden, bitte schau das du ihn richtig und im korrekten Format geschrieben hast.'
-	err_try_again = 'Bitte versuche es in ein paar Minunten nochmal'
+	err_try_again = 'bitte versuche es in ein paar Minunten nochmal'
 	err_unknown = 'Fehler: OCR fehlgeschlagen mit unbekanntem Fehler'

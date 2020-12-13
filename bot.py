@@ -86,9 +86,8 @@ async def rate(ctx, lang):
 		suc, text = await ra.ocr(url, lang)
 
 		if not suc:
-			msg = f'{lang.err}: {text}'
 			if 'Timed out' in text:
-				msg += f', {lang.err_try_again}'
+				text += f', {lang.err_try_again}'
 			print(msg)
 			if not DEVELOPMENT:
 				await ctx.send(msg)
@@ -201,6 +200,13 @@ async def rate_es(ctx):
 	Traducción hecha por NeRooN#1104
 	'''
 	await rate(ctx, tr.es)
+
+@bot.command(name='rate_de')
+async def rate_de(ctx):
+	'''
+	Translated by NekoNeko#0440
+	'''
+	await rate(ctx, tr.de)
 
 @bot.command(name='feedback')
 async def feedback(ctx):

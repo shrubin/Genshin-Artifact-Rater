@@ -35,7 +35,7 @@ async def ocr(url, lang=tr.en):
 				data = aiohttp.FormData()
 				data.add_field('apikey', API_KEY)
 				# Western languages supported by OCR Engine 2
-				if lang.code in ['eng', 'spa']:
+				if lang.code in ['eng', 'spa', 'deu']:
 					data.add_field('OCREngine', '2')
 				else:
 					data.add_field('language', lang.code)
