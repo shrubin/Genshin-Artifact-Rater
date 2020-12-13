@@ -36,6 +36,8 @@ Set custom weights (valued between 0 and 1)
 \<stat> is any of HP, HP%, ATK, ATK%, ER (Recharge), EM, PHYS, CR (Crit Rate), CD (Crit Damage), ELEM (Elemental DMG%), Heal, DEF, DEF%
 
 ## Development
+If you need help or want to contribute, feel free to DM shrubin#1866 or join https://discord.gg/SyGmBxds3M
+
 ### Setup
 ```
 python3.8 -m pip install -r requirements.txt
