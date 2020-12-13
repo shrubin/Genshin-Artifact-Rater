@@ -81,23 +81,35 @@ async def rate(ctx, lang):
 		return
 
 	calls += 1
-	suc, text = await ra.ocr(url, lang)
+	print(url)
+	try:
+		suc, text = await ra.ocr(url, lang)
 
-	if not suc:
-		msg = f'{lang.err}: {text}'
-		if 'Timed out' in text:
-			msg += f', {lang.err_try_again}'
-		print(msg)
+		if not suc:
+			msg = f'{lang.err}: {text}'
+			if 'Timed out' in text:
+				msg += f', {lang.err_try_again}'
+			print(msg)
+			if not DEVELOPMENT:
+				await ctx.send(msg)
+			return
+
+		level, results = ra.parse(text, lang)
+		if lang.lvl in options:
+			level = int(options[lang.lvl])
+			del options[lang.lvl]
+		elif level == None:
+			level = 20
+		score, main_score, sub_score = ra.rate(level, results, options, lang)
+
+	except:
+		print('Uncaught exception')
 		if not DEVELOPMENT:
-			await ctx.send(msg)
-
-	level, results = ra.parse(text, lang)
-	if lang.lvl in options:
-		level = int(options[lang.lvl])
-		del options[lang.lvl]
-	elif level == None:
-		level = 20
-	score, main_score, sub_score = ra.rate(level, results, options, lang)
+			await ctx.send('Unknown error')
+		if CHANNEL_ID:
+			channel = bot.get_channel(CHANNEL_ID)
+			await channel.send(f'Uncaught exception with command:\n{ctx.message.content}\n{url}')
+		return
 
 	if score <= 50:
 		color = discord.Color.blue()
