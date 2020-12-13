@@ -158,3 +158,54 @@ class de:
 	err_parse = 'Fehler: Kein Command gefunden, bitte schau das du ihn richtig und im korrekten Format geschrieben hast.'
 	err_try_again = 'bitte versuche es in ein paar Minuten nochmal'
 	err_unknown = 'Fehler: OCR fehlgeschlagen mit unbekanntem Fehler'
+
+class fr:
+	code = 'fra'
+	supported = True
+
+	hp = 'PV'
+	heal = 'Bonus de soins'
+	df = 'DÉF'
+	er = 'Recharge d\'énergie'
+	em = 'Maîtrise élémentaire'
+	atk = 'ATQ'
+	cd = 'DGT CRIT'
+	cr = 'Taux CRIT'
+	phys = 'Bonus de DGT physiques'
+	elem = 'Bonus de DGT élémentaire'
+	anemo = 'Bonus de DGT Anémo'
+	elec = 'Bonus de DGT Électro'
+	pyro = 'Bonus de DGT Pyro'
+	hydro = 'Bonus de DGT Hydro'
+	cryo = 'Bonus de DGT Cryo'
+	geo = 'Bonus de DGT Géo'
+	dend = 'Bonus de DGT Dendro'
+
+	hp_opt = 'pv'
+	heal_opt = 'soins'
+	df_opt = 'def'
+	er_opt = 're'
+	em_opt = 'me'
+	atk_opt = 'atq'
+	cr_opt = '%crt'
+	cd_opt = 'crtdmg'
+	phys_opt = 'phys'
+	elem_opt = 'elem'
+	lvl_opt = 'niv'
+
+	piece_set = 'Set de pièces'
+
+	ignore = []
+
+	lvl = 'Niveau'
+	score = 'Puissance de l\'artefact'
+	main_score = '% Stat principale'
+	sub_score = '% Stats secondaires'
+	art_level = 'Niveau d\'Artefact'
+	requested = 'Demandé par %s'
+
+	err = 'Erreur'
+	err_not_found = 'Erreur: Aucune image ou url n\'a été trouvée, s\'il vous plait assurez vous qu\'elle a était envoyée avec le message'
+	err_parse = 'Erreur: La commande ne peut pas être analyser, vérifier le format et l\'orthographe'
+	err_try_again = 'Merci de réessayer dans quelques minutes'
+	err_unknown = 'Erreur: OCR a échoué a cause d\'une erreur inconnue'

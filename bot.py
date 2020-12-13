@@ -208,6 +208,13 @@ async def rate_de(ctx):
 	'''
 	await rate(ctx, tr.de)
 
+@bot.command(name='rate_fr')
+async def rate_fr(ctx):
+	'''
+	Translated by Miloki#3998
+	'''
+	await rate(ctx, tr.fr)
+
 @bot.command(name='feedback')
 async def feedback(ctx):
 	'''
