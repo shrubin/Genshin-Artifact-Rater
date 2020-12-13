@@ -9,6 +9,7 @@ import numpy as np
 from cv2 import cv2
 from dotenv import load_dotenv
 from fuzzywuzzy import fuzz, process
+from unidecode import unidecode
 
 load_dotenv()
 API_KEY = os.getenv('OCR_SPACE_API_KEY')
@@ -65,16 +66,19 @@ def parse(text, lang=tr.en):
 
 	elements = [lang.anemo, lang.elec, lang.pyro, lang.hydro, lang.cryo, lang.geo, lang.dend]
 	choices = elements + [lang.hp, lang.heal, lang.df, lang.er, lang.em, lang.atk, lang.cd, lang.cr, lang.phys]
+	choices = {unidecode(choice).lower(): choice for choice in choices}
 
 	for line in text.splitlines():
+		if not line:
+			continue
+
 		if del_prev:
 			prev = None
 		del_prev = True
 
-		if not line or line.lower() in lang.ignore:
-			continue
+		line = unidecode(line).lower()
 		line = line.replace(':','.').replace('-','').replace('0/0','%')
-		if fuzz.partial_ratio(line, lang.piece_set) > 80 and len(line) > 4:
+		if line in lang.ignore or (fuzz.partial_ratio(line, unidecode(lang.piece_set).lower()) > 80 and len(line) > 4):
 			break
 
 		value = lvl_reg.search(line)
@@ -92,11 +96,11 @@ def parse(text, lang=tr.en):
 			stat = None
 			continue
 
-		extract = process.extractOne(line, choices, scorer=fuzz.partial_ratio)
+		extract = process.extractOne(line, list(choices), scorer=fuzz.partial_ratio)
 		if ((extract[1] > 80) and len(line) > 1) or stat:
 			print('3', line)
 			if (extract[1] > 80):
-				stat = extract[0]
+				stat = choices[extract[0]]
 			line = line.replace(',','')
 			value = reg.findall(line)
 			if not value:
@@ -209,10 +213,10 @@ def rate(level, results, options={}, lang=tr.en):
 if __name__ == '__main__':
 	if sys.version_info[0] == 3 and sys.version_info[1] >= 8 and sys.platform.startswith('win'):
 		asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-	url = 'https://cdn.discordapp.com/attachments/694134826604691496/787729472307855370/unknown.png'
-	lang = tr.en
+	url = 'https://cdn.discordapp.com/attachments/787747793228922910/787805566093230140/131335710_682869272595268_7150391407492443119_n_1.jpg'
+	lang = tr.fr
 	suc, text = asyncio.run(ocr(url, lang))
 	print(text)
 	if suc:
 		level, results = parse(text, lang)
-		rate(level, results, {'HP%':1,'ER':1}, lang)
+		rate(level, results, {}, lang)
