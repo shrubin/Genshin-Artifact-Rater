@@ -104,3 +104,53 @@ class es:
 	err_parse = 'Error: el comando no ha podido ejecutarse, asegurate de que esté bien escrito y el formato sea correcto'
 	err_try_again = 'por favor, prueba de nuevo en un rato'
 	err_unknown = 'Error: el OCR ha fallado con un error desconocido'
+
+	class de:
+	code = 'deu'
+
+	hp = 'LP'
+	heal = 'Heilungsbonus'
+	df = 'VTD'
+	er = 'Aufladerate'
+	em = 'Elementarkunde'
+	atk = 'ANG'
+	cd = 'KSCH'
+	cr = 'KT'
+	phys = 'Physischer SCH-Bonus'
+	elem = 'Elementarer Schaden'
+	anemo = 'Anemo SCH-Bonus'
+	elec = 'Elektro SCH-Bonus'
+	pyro = 'Pyro SCH-Bonus'
+	hydro = 'Hydro SCH-Bonus'
+	cryo = 'Cryo SCH-Bonus'
+	geo = 'Geo SCH-Bonus'
+	dend = 'Dendro SCH-Bonus'
+
+	hp_opt = 'hp'
+	heal_opt = 'heal'
+	df_opt = 'def'
+	er_opt = 'er'
+	em_opt = 'em'
+	atk_opt = 'atk'
+	cr_opt = 'cr'
+	cd_opt = 'cd'
+	phys_opt = 'phys'
+	elem_opt = 'elem'
+	lvl_opt = 'lvl'
+
+	piece_set = 'Set mit 2 Teilen'
+
+	ignore = []
+
+	lvl = 'Level'
+	score = 'Gear Score'
+	main_score = '% Haupt-Stat'
+	sub_score = '% Unterer-Stat'
+	art_level = 'Artifakt Level'
+	requested = 'Angefragt von %s'
+
+	err = 'Fehler'
+	err_not_found = 'Fehler: Kein Bild oder URL gefunden, bitte stelle sicher das sich das Bild in der selben Nachicht befindet.'
+	err_parse = 'Fehler: Kein Command gefunden, bitte schau das du ihn richtig und im korrekten Format geschrieben hast.'
+	err_try_again = 'Bitte versuche es in ein paar Minunten nochmal'
+	err_unknown = 'Fehler: OCR fehlgeschlagen mit unbekanntem Fehler'
