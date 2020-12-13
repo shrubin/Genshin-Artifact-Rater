@@ -117,7 +117,7 @@ class es:
 	cd = 'KSCH'
 	cr = 'KT'
 	phys = 'Physischer SCH-Bonus'
-	elem = 'Elementar Schaden'
+	elem = 'Elementarer Schaden'
 	anemo = 'Anemo SCH-Bonus'
 	elec = 'Elektro SCH-Bonus'
 	pyro = 'Pyro SCH-Bonus'
