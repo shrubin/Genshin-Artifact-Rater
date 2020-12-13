@@ -28,10 +28,10 @@ async def ocr(url, lang=tr.en):
 			if size > 1e6:
 				img = np.asarray(bytearray(await r.read()), dtype="uint8")
 				flag = cv2.IMREAD_GRAYSCALE
-				if size > 2e6:
+				if size > 2e6 or os.path.splitext(url)[1] == '.jpg':
 					flag = cv2.IMREAD_REDUCED_GRAYSCALE_2
 				img = cv2.imdecode(img, flag)
-				_, img = cv2.imencode(os.path.splitext(url)[1], img)
+				_, img = cv2.imencode('.png', img)
 				data = aiohttp.FormData()
 				data.add_field('apikey', API_KEY)
 				# Western languages supported by OCR Engine 2
@@ -206,10 +206,10 @@ def rate(level, results, options={}, lang=tr.en):
 if __name__ == '__main__':
 	if sys.version_info[0] == 3 and sys.version_info[1] >= 8 and sys.platform.startswith('win'):
 		asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-	url = 'https://cdn.discordapp.com/attachments/767639579078819900/787517859051339786/unknown.png'
+	url = 'https://cdn.discordapp.com/attachments/694134826604691496/787729472307855370/unknown.png'
 	lang = tr.en
 	suc, text = asyncio.run(ocr(url, lang))
 	print(text)
 	if suc:
 		level, results = parse(text, lang)
-		rate(level, results, {}, lang)
+		rate(level, results, {'HP%':1,'ER':1}, lang)
