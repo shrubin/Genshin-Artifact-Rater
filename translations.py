@@ -93,7 +93,7 @@ class es(translation):
 	sub_score = '% Substat'
 	art_level = 'Nivel de artefacto'
 	requested = 'Pedido por %s'
-	join = 'Si tienes algún problema, únete al [servidor oficial]%s'
+	join = 'Si tienes algún problema, [únete al servidor]%s oficial'
 	feedback = 'Feedback recibido, por favor, únete al servidor si deseas añadir más detalles: https://discord.gg/SyGmBxds3M'
 
 	err = 'Error'
@@ -194,7 +194,7 @@ class fr(translation):
 	sub_score = '% Stats secondaires'
 	art_level = 'Niveau d\'Artefact'
 	requested = 'Demandé par %s'
-	join = 'Si vous rencontrez d\'autres problemes, rejoignez le serveur [Artifact Rater]%s'
+	join = 'Si vous rencontrez d\'autres problemes, [rejoignez le serveur]%s Artifact Rater'
 	feedback = 'Si vous avez un retour d\'informations, s\'il vous plait rejoignez https://discord.gg/SyGmBxds3M si vous voulez rajouter plus de détails'
 
 	err = 'Erreur'
