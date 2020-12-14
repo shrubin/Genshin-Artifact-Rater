@@ -54,7 +54,7 @@ async def ocr(url, lang=tr.en):
 			if json['OCRExitCode'] != 1:
 				return False, f'{lang.err}: ' + '. '.join(json['ErrorMessage'])
 			if 'ParsedResults' not in json:
-				return False, lang.err_unknown
+				return False, lang.err_unknown_ocr
 			return True, json['ParsedResults'][0]['ParsedText']
 
 def parse(text, lang=tr.en):
@@ -213,8 +213,8 @@ def rate(level, results, options={}, lang=tr.en):
 if __name__ == '__main__':
 	if sys.version_info[0] == 3 and sys.version_info[1] >= 8 and sys.platform.startswith('win'):
 		asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-	url = 'https://cdn.discordapp.com/attachments/787747793228922910/787805566093230140/131335710_682869272595268_7150391407492443119_n_1.jpg'
-	lang = tr.fr
+	url = 'https://cdn.discordapp.com/attachments/767639579078819900/788121667993993267/aaaaaaaaaa.png'
+	lang = tr.en
 	suc, text = asyncio.run(ocr(url, lang))
 	print(text)
 	if suc:

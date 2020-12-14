@@ -104,7 +104,7 @@ async def rate(ctx, lang):
 	except Exception:
 		print(f'Uncaught exception\n{traceback.format_exc()}')
 		if not DEVELOPMENT:
-			await ctx.send('Unknown error, try using an image from the inventory\'s artifact page')
+			await ctx.send(lang.err_unknown)
 		if CHANNEL_ID:
 			channel = bot.get_channel(CHANNEL_ID)
 			await channel.send(f'Uncaught exception in {ctx.guild} #{ctx.channel}\n{ctx.message.content}\n{url}\n{traceback.format_exc()}')
@@ -123,7 +123,7 @@ async def rate(ctx, lang):
 	msg += f'\n\n**{lang.score}: {score:.2f}%**'
 	msg += f'\n{lang.main_score}: {main_score:.2f}%'
 	msg += f'\n{lang.sub_score}: {sub_score:.2f}%'
-	msg += '\n\nFor issues, join the [Artifact Rater Server](https://discord.gg/SyGmBxds3M)'
+	msg += f'\n\n{lang.join % "(https://discord.gg/SyGmBxds3M)"}'
 
 	embed = discord.Embed(color=color)
 	embed.set_author(name=ctx.message.author.display_name, icon_url=ctx.message.author.avatar_url)
@@ -174,6 +174,8 @@ async def rate_en(ctx):
 async def rate_es(ctx):
 	'''
 	Valora un artefacto comparándolo con los posibles stats de un 5*. Simplemente pon el comando y adjunta la imagen en el mismo mensaje.
+
+	Si estás usando windows 10, puedes usar Shift + Windows + S y seleccionar el artefacto, después ir a discord y pegarlo con Ctrl + V.
 
 	Si quieres, puedes invitar al bot a tu propio servidor de discord con este link:
 	https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=3072&scope=bot
@@ -276,15 +278,9 @@ async def rate_fr(ctx):
 	'''
 	await rate(ctx, tr.fr)
 
-@bot.command(name='feedback')
-async def feedback(ctx):
-	'''
-	Send feedback with issues or ideas for the bot. Up to one image can be sent.
-
-	-feedback <message> [image]
-	'''
+async def feedback(ctx, lang):
 	if not DEVELOPMENT:
-		await ctx.send('Feedback received, please join https://discord.gg/SyGmBxds3M if you\'d like to add more details')
+		await ctx.send(lang.feedback)
 	if CHANNEL_ID:
 		channel = bot.get_channel(CHANNEL_ID)
 		embed = discord.Embed()
@@ -295,6 +291,24 @@ async def feedback(ctx):
 		else:
 			embed = None
 		await channel.send(f'{ctx.message.author}: {ctx.message.content}', embed=embed)
+
+@bot.command(name='feedback')
+async def feedback_en(ctx):
+	'''
+	Send feedback with issues or ideas for the bot. Up to one image can be sent.
+
+	-feedback <message> [image]
+	'''
+	await feedback(ctx, tr.en)
+
+@bot.command(name='feedback_es')
+async def feedback_es(ctx):
+	'''
+	Envía feedback con los problemas o sugerencias para el bot. Puedes adjuntar solo una imagen.
+
+	-feedback <mensaje> [imagen]
+	'''
+	await feedback(ctx, tr.es)
 
 if TOKEN:
 	bot.run(TOKEN)

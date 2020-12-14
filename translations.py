@@ -1,4 +1,4 @@
-class en:
+class translation:
 	# 3-digit language code
 	code = 'eng'
 	# Supported by OCR Engine 2
@@ -40,7 +40,7 @@ class en:
 	piece_set = 'Piece Set'
 
 	# lines will be ignored if they're an exact match
-	ignore = ['in']
+	ignore = []
 
 	# text for bot messages
 	lvl = 'Level'
@@ -49,15 +49,21 @@ class en:
 	sub_score = 'Substat Rating'
 	art_level = 'Artifact Level'
 	requested = 'Requested by %s'
+	join = 'For issues, join the [Artifact Rater Server]%s'
+	feedback = 'Feedback received, please join https://discord.gg/SyGmBxds3M if you\'d like to add more details'
 
 	# text for bot errors
 	err = 'Error'
 	err_not_found = 'Error: No image or url found, please make sure they were sent in the same message'
 	err_parse = 'Error: Command cannot be parsed, please double check the format and spelling'
 	err_try_again = 'please try again in a few minutes'
-	err_unknown = 'Error: OCR failed with unknown error'
+	err_unknown_ocr = 'Error: OCR failed with unknown error'
+	err_unknown = 'Unknown error, try using an image from the inventory\'s artifact page'
 
-class es:
+class en(translation):
+	ignore = ['in']
+
+class es(translation):
 	code = 'spa'
 	supported = True
 
@@ -79,21 +85,7 @@ class es:
 	geo = 'Geo'
 	dend = 'Dendro'
 
-	hp_opt = 'hp'
-	heal_opt = 'heal'
-	df_opt = 'def'
-	er_opt = 'er'
-	em_opt = 'em'
-	atk_opt = 'atk'
-	cr_opt = 'cr'
-	cd_opt = 'cd'
-	phys_opt = 'phys'
-	elem_opt = 'elem'
-	lvl_opt = 'lvl'
-
 	piece_set = 'Conjunto'
-
-	ignore = []
 
 	lvl = 'lvl'
 	score = 'Gear Score'
@@ -101,14 +93,17 @@ class es:
 	sub_score = '% Substat'
 	art_level = 'Nivel de artefacto'
 	requested = 'Pedido por %s'
+	join = 'Si tienes algún problema, únete al [servidor oficial]%s'
+	feedback = 'Feedback recibido, por favor, únete al servidor si deseas añadir más detalles: https://discord.gg/SyGmBxds3M'
 
 	err = 'Error'
 	err_not_found = 'Error: No se encuentra la imagen o la url no funciona, asegurate de mandarla en el mismo mensaje'
 	err_parse = 'Error: el comando no ha podido ejecutarse, asegurate de que esté bien escrito y el formato sea correcto'
 	err_try_again = 'por favor, prueba de nuevo en un rato'
-	err_unknown = 'Error: el OCR ha fallado con un error desconocido'
+	err_unknown_ocr = 'Error: el OCR ha fallado con un error desconocido'
+	err_unknown = 'Error desconocido, intenta subir una imagen con la página de artefactos completa'
 
-class de:
+class de(translation):
 	code = 'deu'
 	supported = True
 
@@ -144,8 +139,6 @@ class de:
 
 	piece_set = 'Set mit 2 Teilen'
 
-	ignore = []
-
 	lvl = 'Level'
 	score = 'Gear Bewertung'
 	main_score = 'Haupt-Stat'
@@ -157,9 +150,9 @@ class de:
 	err_not_found = 'Fehler: Kein Bild oder URL gefunden, bitte stelle sicher das sich das Bild in der selben Nachicht befindet.'
 	err_parse = 'Fehler: Kein Command gefunden, bitte schau das du ihn richtig und im korrekten Format geschrieben hast.'
 	err_try_again = 'bitte versuche es in ein paar Minuten nochmal'
-	err_unknown = 'Fehler: OCR fehlgeschlagen mit unbekanntem Fehler'
+	err_unknown_ocr = 'Fehler: OCR fehlgeschlagen mit unbekanntem Fehler'
 
-class fr:
+class fr(translation):
 	code = 'fra'
 	supported = True
 
@@ -195,8 +188,6 @@ class fr:
 
 	piece_set = 'Set de pièces'
 
-	ignore = []
-
 	lvl = 'Niveau'
 	score = 'Puissance de l\'artefact'
 	main_score = '% Stat principale'
@@ -208,4 +199,4 @@ class fr:
 	err_not_found = 'Erreur: Aucune image ou url n\'a été trouvée, s\'il vous plait assurez vous qu\'elle a était envoyée avec le message'
 	err_parse = 'Erreur: La commande ne peut pas être analyser, vérifier le format et l\'orthographe'
 	err_try_again = 'Merci de réessayer dans quelques minutes'
-	err_unknown = 'Erreur: OCR a échoué a cause d\'une erreur inconnue'
+	err_unknown_ocr = 'Erreur: OCR a échoué a cause d\'une erreur inconnue'
