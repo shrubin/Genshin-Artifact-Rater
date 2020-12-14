@@ -101,13 +101,13 @@ async def rate(ctx, lang):
 			level = 20
 		score, main_score, sub_score = ra.rate(level, results, options, lang)
 
-	except:
-		print('Uncaught exception')
+	except Exception as e:
+		print('Uncaught exception', e)
 		if not DEVELOPMENT:
 			await ctx.send('Unknown error')
 		if CHANNEL_ID:
 			channel = bot.get_channel(CHANNEL_ID)
-			await channel.send(f'Uncaught exception with command:\n{ctx.message.content}\n{url}')
+			await channel.send(f'Uncaught exception with command:\n{ctx.message.content}\n{url}\n{e}')
 		return
 
 	if score <= 50:
