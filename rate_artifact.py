@@ -103,7 +103,6 @@ def parse(text, lang=tr.en):
 				stat = choices[extract[0]]
 			line = line.replace(',','')
 			value = reg.findall(line.replace(' ',''))
-			print(line.replace(' ',''))
 			if not value:
 				if not prev:
 					continue
@@ -214,7 +213,7 @@ def rate(level, results, options={}, lang=tr.en):
 if __name__ == '__main__':
 	if sys.version_info[0] == 3 and sys.version_info[1] >= 8 and sys.platform.startswith('win'):
 		asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-	url = 'https://cdn.discordapp.com/attachments/775766327189176345/788068709981356062/Screenshot_20201214-154143.jpg'
+	url = 'https://cdn.discordapp.com/attachments/788013290885873709/788074077565878354/2020-12-15.png'
 	lang = tr.en
 	suc, text = asyncio.run(ocr(url, lang))
 	print(text)

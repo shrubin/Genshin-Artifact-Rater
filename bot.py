@@ -101,13 +101,13 @@ async def rate(ctx, lang):
 			level = 20
 		score, main_score, sub_score = ra.rate(level, results, options, lang)
 
-	except Exception as e:
-		print('Uncaught exception', e)
+	except Exception:
+		print(f'Uncaught exception\n{traceback.format_exc()}')
 		if not DEVELOPMENT:
-			await ctx.send('Unknown error')
+			await ctx.send('Unknown error, try using an image from the inventory\'s artifact page')
 		if CHANNEL_ID:
 			channel = bot.get_channel(CHANNEL_ID)
-			await channel.send(f'Uncaught exception with command:\n{ctx.message.content}\n{url}\n{e}')
+			await channel.send(f'Uncaught exception in {ctx.guild} #{ctx.channel}\n{ctx.message.content}\n{url}\n{traceback.format_exc()}')
 		return
 
 	if score <= 50:
