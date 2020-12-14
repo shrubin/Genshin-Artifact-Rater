@@ -204,7 +204,40 @@ async def rate_es(ctx):
 @bot.command(name='rate_de')
 async def rate_de(ctx):
 	'''
-	Translated by NekoNeko#0440
+	Bewerten sie ein Artefakt anhand eines 5* Artefakt mit optimalen Stats.
+	Fügen sie den Befehl und das Bild in die selbe Nachicht ein.
+	
+	Wenn sie den Bot auf ihrem privaten Discord Server nutzen wollen verwenden sie diesen Link:
+	https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=3072&scope=bot
+	
+	Sie können den Bot auch direkt eine private Nachicht schicken mit dem Befehl an Artifact Rater#6924
+	
+	Befehle:	
+	rate_de_de <Bild / Url> [lvl=<level>][stat=stat...]
+	
+	Wenn sie irgendwelche Probleme haben wenden sie sich bitte an shrubin#1866 oder benutzen sie den Befehl: -feedback ( in englisch bitte )
+	
+	Quellcode ist vorhanden auf Github unter:
+	https://github.com/shrubin/Genshin-Artifact-Rater
+	
+	Standardstats:
+	ANG%, DMG%, Crit -1, 
+	ANG, Aufladerate, Elementarkunde 0,5
+	Alles andere -0
+	
+	Optionen:
+	
+	lvl: Vergleiche mit dem angegebenen Artefaktlevel (Standard: <actifact_level>) -rate_de lvl=20
+	
+	<stat>: Legen sie benutzerdefinierte Stats fest (Wert zwischen 0 und 1)
+	-rate_de ang=1 aufladerate=0 ang%=0,5
+	<stat> ist LP, LP%, ANG, ANG%, Aufladerate, Elementarkunde, Physischbonus, KT, KSCH, Elementarbonus,  
+	Heilungsbonus, VTD, VTD%
+	
+	Beispiel:
+	-rate_de <bild/url> lvl=20
+	
+	Translated by NekoNeko#0440 | Übersetzung von NekoNeko#0440
 	'''
 	await rate(ctx, tr.de)
 
