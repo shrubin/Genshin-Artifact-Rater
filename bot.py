@@ -197,7 +197,7 @@ async def rate_es(ctx):
 
 	<stat> puedes introducir: HP, HP%, ATK, ATK%, ER (recarga de energía), EM (maestría elemental), CR (prob. crit), CD (daño crit),  PHYS (daño físico), ELEM (daño elemental %), Heal, DEF, DEF%
 
-	Traducción hecha por NeRooN#1104
+	Translated by NeRooN#1104 | Traducción hecha por NeRooN#1104
 	'''
 	await rate(ctx, tr.es)
 
@@ -244,7 +244,32 @@ async def rate_de(ctx):
 @bot.command(name='rate_fr')
 async def rate_fr(ctx):
 	'''
-	Translated by Miloki#3998
+	Évaluez votre artefact grâce à un artefact optimal de 5 étoiles. Entrez la commande avec l’image dans le même message.
+
+	Si vous voulez vous joindre à notre serveur privé, utilisez ce lien :
+	https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=3072&scope=bot
+	Vous pouvez aussi utiliser le bot en envoyant un MP à Artifact Rater#6924.
+
+	-rate_fr <image/url>  [lvl=<niveau>][<stat>=<valeur par défaut> ...]
+
+	Si vous rencontrez un problème, merci de contacter shrubin#1866 sur discord ou d’utiliser la commande –feedback
+	Code source disponible sur https://github.com/shrubin/Genshin-Artifact-Rater
+
+	Valeur par défaut :
+	ATQ%, DMG%, Crit - 1
+	ATK, EM, Recharge - 0.5
+	Les autres stats – 0
+
+	Options :
+	lvl: Compare à un niveau d’artefact spécifique(Défaut: < artifact_level >)
+	-rate_fr lvl=20
+
+	<stat> : Personnalise la valeur par défaut (valeur entre 0 et 1)
+	-rate_fr def%=1 hp%=1 atk=0
+
+	<stat> peut être utilisé sur toutes les statistiques : PV, PV%, ATQ, ATQ%, RE (Recharge d’énergie), ME (Maîtrise élémentaire), %CRT (Taux Critique), CRTDMG (DGT Critique),  PHYS (DGT Physique), ELEM (DGT élémentaire%), Soins, DEF, DEF%
+
+	Translated by Miloki#3998 | Traduit par Miloki#3998
 	'''
 	await rate(ctx, tr.fr)
 
