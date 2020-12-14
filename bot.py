@@ -17,6 +17,8 @@ DEVELOPMENT = os.getenv('DEVELOPMENT', 'False') == 'True'
 
 bot = commands.Bot(command_prefix='-')
 
+calls = 0
+
 async def send(msg):
 	print(msg)
 	if CHANNEL_ID:
@@ -25,8 +27,6 @@ async def send(msg):
 
 @bot.event
 async def on_ready():
-	global calls
-	calls = 0
 	await send(f'{bot.user.name} has connected to {len(bot.guilds)} servers')
 	count.start()
 
@@ -123,10 +123,11 @@ async def rate(ctx, lang):
 	msg += f'\n\n**{lang.score}: {score:.2f}%**'
 	msg += f'\n{lang.main_score}: {main_score:.2f}%'
 	msg += f'\n{lang.sub_score}: {sub_score:.2f}%'
+	msg += '\n\nFor issues, visit the [Artifact Rater Server](https://discord.gg/SyGmBxds3M)'
 
 	embed = discord.Embed(color=color)
+	embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
 	embed.add_field(name=f'{lang.art_level}: {level}', value=msg)
-	embed.set_footer(text=lang.requested % ctx.message.author, icon_url=ctx.message.author.avatar_url)
 
 	if not DEVELOPMENT:
 		await ctx.send(embed=embed)
