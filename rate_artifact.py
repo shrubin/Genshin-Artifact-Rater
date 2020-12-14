@@ -213,8 +213,8 @@ def rate(level, results, options={}, lang=tr.en):
 if __name__ == '__main__':
 	if sys.version_info[0] == 3 and sys.version_info[1] >= 8 and sys.platform.startswith('win'):
 		asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-	url = 'https://cdn.discordapp.com/attachments/788013290885873709/788074077565878354/2020-12-15.png'
-	lang = tr.en
+	url = 'https://cdn.discordapp.com/attachments/787747793228922910/787805566093230140/131335710_682869272595268_7150391407492443119_n_1.jpg'
+	lang = tr.fr
 	suc, text = asyncio.run(ocr(url, lang))
 	print(text)
 	if suc:

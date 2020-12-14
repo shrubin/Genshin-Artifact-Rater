@@ -140,6 +140,8 @@ async def rate_en(ctx):
 	'''
 	Rate an artifact against an optimal 5* artifact. Put the command and image in the same message.
 
+	If you are using Windows 10, you can use Shift + Windows + S and drag your cursor over the artifact, then go to discord and paste it with Ctrl+V.
+
 	If you would like to add it to your private server use the link:
 	https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=3072&scope=bot
 
