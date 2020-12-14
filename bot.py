@@ -123,10 +123,10 @@ async def rate(ctx, lang):
 	msg += f'\n\n**{lang.score}: {score:.2f}%**'
 	msg += f'\n{lang.main_score}: {main_score:.2f}%'
 	msg += f'\n{lang.sub_score}: {sub_score:.2f}%'
-	msg += '\n\nFor issues, visit the [Artifact Rater Server](https://discord.gg/SyGmBxds3M)'
+	msg += '\n\nFor issues, join the [Artifact Rater Server](https://discord.gg/SyGmBxds3M)'
 
 	embed = discord.Embed(color=color)
-	embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+	embed.set_author(name=ctx.message.author.display_name, icon_url=ctx.message.author.avatar_url)
 	embed.add_field(name=f'{lang.art_level}: {level}', value=msg)
 
 	if not DEVELOPMENT:
@@ -282,7 +282,7 @@ async def feedback(ctx):
 	-feedback <message> [image]
 	'''
 	if not DEVELOPMENT:
-		await ctx.send('Feedback received, please contact shrubin#1866 if you\'d like to add more details')
+		await ctx.send('Feedback received, please join https://discord.gg/SyGmBxds3M if you\'d like to add more details')
 	if CHANNEL_ID:
 		channel = bot.get_channel(CHANNEL_ID)
 		embed = discord.Embed()
