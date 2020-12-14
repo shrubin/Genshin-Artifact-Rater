@@ -251,6 +251,8 @@ async def rate_fr(ctx):
 	'''
 	Évaluez votre artefact grâce à un artefact optimal de 5 étoiles. Entrez la commande avec l’image dans le même message.
 
+	Si vous utilisez Windows 10 vous pouvez utiliser utiliser shift + Windows +S et vous pouvez passer votre curseur par-dessus l'artefact, puis allez sur discord et le coller avec Ctrl+V.
+
 	Si vous voulez vous joindre à notre serveur privé, utilisez ce lien :
 	https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=3072&scope=bot
 	Vous pouvez aussi utiliser le bot en envoyant un MP à Artifact Rater#6924.
@@ -309,6 +311,15 @@ async def feedback_es(ctx):
 	-feedback <mensaje> [imagen]
 	'''
 	await feedback(ctx, tr.es)
+
+@bot.command(name='feedback_fr')
+async def feedback_fr(ctx):
+	'''
+	Envoyez un feedback avec les problèmes ou les idées pour le bot. Il peut être envoyé jusqu'à une image à la fois.
+
+	-feedback <message> [image]
+	'''
+	await feedback(ctx, tr.fr)
 
 if TOKEN:
 	bot.run(TOKEN)

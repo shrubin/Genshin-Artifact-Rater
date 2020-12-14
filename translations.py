@@ -147,8 +147,8 @@ class de(translation):
 	requested = 'Angefragt von %s'
 
 	err = 'Fehler'
-	err_not_found = 'Fehler: Kein Bild oder URL gefunden, bitte stelle sicher das sich das Bild in der selben Nachicht befindet.'
-	err_parse = 'Fehler: Kein Command gefunden, bitte schau das du ihn richtig und im korrekten Format geschrieben hast.'
+	err_not_found = 'Fehler: Kein Bild oder URL gefunden, bitte stelle sicher das sich das Bild in der selben Nachicht befindet'
+	err_parse = 'Fehler: Kein Command gefunden, bitte schau das du ihn richtig und im korrekten Format geschrieben hast'
 	err_try_again = 'bitte versuche es in ein paar Minuten nochmal'
 	err_unknown_ocr = 'Fehler: OCR fehlgeschlagen mit unbekanntem Fehler'
 
@@ -194,9 +194,12 @@ class fr(translation):
 	sub_score = '% Stats secondaires'
 	art_level = 'Niveau d\'Artefact'
 	requested = 'Demandé par %s'
+	join = 'Si vous rencontrez d\'autres problemes, rejoignez le serveur [Artifact Rater]%s'
+	feedback = 'Si vous avez un retour d\'informations, s\'il vous plait rejoignez https://discord.gg/SyGmBxds3M si vous voulez rajouter plus de détails'
 
 	err = 'Erreur'
 	err_not_found = 'Erreur: Aucune image ou url n\'a été trouvée, s\'il vous plait assurez vous qu\'elle a était envoyée avec le message'
 	err_parse = 'Erreur: La commande ne peut pas être analyser, vérifier le format et l\'orthographe'
 	err_try_again = 'Merci de réessayer dans quelques minutes'
 	err_unknown_ocr = 'Erreur: OCR a échoué a cause d\'une erreur inconnue'
+	err_unknown = 'Erreur inconnue, essayer d\'utiliser une image d\'artefact venant de la page d\'inventaire'
