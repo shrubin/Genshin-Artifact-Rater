@@ -5,6 +5,7 @@ import os
 import sys
 
 import discord
+import heroku3
 import traceback
 import validators
 from discord.ext import commands, tasks
@@ -14,11 +15,20 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 CHANNEL_ID = int(os.getenv('CHANNEL_ID', 0))
 DEVELOPMENT = os.getenv('DEVELOPMENT', 'False') == 'True'
+HEROKU_API_KEY = os.getenv('HEROKU_API_KEY')
+HEROKU_APP_ID = os.getenv('HEROKU_APP_ID')
+
+if HEROKU_API_KEY and HEROKU_APP_ID:
+	heroku_conn = heroku3.from_key(HEROKU_API_KEY)
+	app = heroku_conn.apps()[HEROKU_APP_ID]
+
+RETRIES = 1
+MAX_CRASHES = 10
+
+calls = 0
+crashes = 0
 
 bot = commands.Bot(command_prefix='-')
-
-retries = 1
-calls = 0
 
 async def send(msg):
 	print(msg)
@@ -58,7 +68,7 @@ def create_opt_to_key(lang):
 			lang.heal_opt: f'{lang.heal}%', lang.df_opt: lang.df, lang.lvl_opt: lang.lvl}
 
 async def rate(ctx, lang):
-	global calls
+	global calls, crashes
 
 	options = ctx.message.content.split()[1:]
 	if options and validators.url(options[0]):
@@ -88,7 +98,7 @@ async def rate(ctx, lang):
 
 	calls += 1
 	print(url)
-	for i in range(retries + 1):
+	for i in range(RETRIES + 1):
 		try:
 			suc, text = await ra.ocr(url, lang)
 
@@ -96,10 +106,14 @@ async def rate(ctx, lang):
 				if 'Timed out' in text:
 					text += f', {lang.err_try_again}'
 				print(text)
-				if i < retries:
+				if i < RETRIES:
 					continue
 				if not DEVELOPMENT:
 					await ctx.send(text)
+				crashes += 1
+				if crashes >= MAX_CRASHES and HEROKU_API_KEY and HEROKU_APP_ID:
+					print(f'Crashed {MAX_CRASHES} times, restarting')
+					app.restart()
 				return
 
 			level, results = ra.parse(text, lang)
@@ -108,17 +122,22 @@ async def rate(ctx, lang):
 			elif level == None:
 				level = 20
 			score, main_score, sub_score = ra.rate(level, results, options, lang)
+			crashes = 0
 			break
 
 		except Exception:
 			print(f'Uncaught exception\n{traceback.format_exc()}')
-			if i < retries:
+			if i < RETRIES:
 				continue
 			if not DEVELOPMENT:
 				await ctx.send(lang.err_unknown)
 			if CHANNEL_ID:
 				channel = bot.get_channel(CHANNEL_ID)
 				await channel.send(f'Uncaught exception in {ctx.guild} #{ctx.channel}\n{ctx.message.content}\n{url}\n{traceback.format_exc()}')
+			crashes += 1
+			if crashes >= MAX_CRASHES and HEROKU_API_KEY and HEROKU_APP_ID:
+				print(f'Crashed {MAX_CRASHES} times, restarting')
+				app.restart()
 			return
 
 	if score <= 50:

@@ -12,7 +12,7 @@ from fuzzywuzzy import fuzz, process
 from unidecode import unidecode
 
 load_dotenv()
-API_KEY = os.getenv('OCR_SPACE_API_KEY')
+OCR_API_KEY = os.getenv('OCR_SPACE_API_KEY')
 
 reg = re.compile(r'\d+(?:\.\d+)?')
 hp_reg = re.compile(r'\d,\d{3}')
@@ -21,7 +21,7 @@ bad_lvl_reg_1 = re.compile(r'^\+?\d\d?$')
 bad_lvl_reg_2 = re.compile(r'^\d{4}\d*$')
 
 async def ocr(url, lang=tr.en):
-	if not API_KEY:
+	if not OCR_API_KEY:
 		print('Error: OCR_SPACE_API_KEY not found')
 		return False, 'Error: OCR_SPACE_API_KEY not found'
 	async with aiohttp.ClientSession() as session:
@@ -35,7 +35,7 @@ async def ocr(url, lang=tr.en):
 				img = cv2.imdecode(img, flag)
 				_, img = cv2.imencode('.png', img)
 				data = aiohttp.FormData()
-				data.add_field('apikey', API_KEY)
+				data.add_field('apikey', OCR_API_KEY)
 				if lang.supported:
 					data.add_field('OCREngine', '2')
 				else:
@@ -45,7 +45,7 @@ async def ocr(url, lang=tr.en):
 				async with session.post(ocr_url, data=data) as r:
 					json = await r.json()
 			else:
-				ocr_url = f'https://api.ocr.space/parse/imageurl?apikey={API_KEY}&url={url}'
+				ocr_url = f'https://api.ocr.space/parse/imageurl?apikey={OCR_API_KEY}&url={url}'
 				if lang.supported:
 					ocr_url += '&OCREngine=2'
 				else:
