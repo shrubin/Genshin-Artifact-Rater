@@ -153,6 +153,7 @@ class de(translation):
 	err_parse = 'Fehler: Kein Befehl gefunden, bitte schau das du ihn richtig und im korrekten Format geschrieben hast'
 	err_try_again = 'bitte versuche es in ein paar Minuten nochmal'
 	err_unknown_ocr = 'Fehler: OCR fehlgeschlagen mit unbekanntem Fehler'
+	err_unknown = 'Unbekannter Fehler, verwende ein Bild von der Inventar Artefakt Seite'
 
 class fr(translation):
 	code = 'fra'

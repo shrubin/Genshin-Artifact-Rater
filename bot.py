@@ -219,6 +219,9 @@ async def rate_de(ctx):
 	'''
 	Bewerten sie ein Artefakt anhand eines 5* Artefakt mit optimalen Stats.
 	Fügen sie den Befehl und das Bild in die selbe Nachicht ein.
+
+	Wenn Sie Windows 10 verwenden, können Sie Umschalt + Windows + S(Shift+Windows+S) verwenden und den Cursor über das Artefakt ziehen.
+	Gehen Sie dann zu Discord und fügen Sie es mit Strg + V ein.
 	
 	Wenn sie den Bot auf ihrem privaten Discord Server nutzen wollen verwenden sie diesen Link:
 	https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=3072&scope=bot
@@ -319,6 +322,15 @@ async def feedback_es(ctx):
 	-feedback <mensaje> [imagen]
 	'''
 	await feedback(ctx, tr.es)
+
+@bot.command(name='feedback_de')
+async def feedback_de(ctx):
+	'''
+	Senden Sie Feedback mit Problemen oder Ideen für den Bot. Du kannst ein Bild anhängen.
+
+	-feeback <Nachicht> [Bild]
+	'''
+	await feedback(ctx, tr.de)
 
 @bot.command(name='feedback_fr')
 async def feedback_fr(ctx):
