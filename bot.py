@@ -17,6 +17,7 @@ DEVELOPMENT = os.getenv('DEVELOPMENT', 'False') == 'True'
 
 bot = commands.Bot(command_prefix='-')
 
+retries = 1
 calls = 0
 
 async def send(msg):
@@ -84,33 +85,38 @@ async def rate(ctx, lang):
 
 	calls += 1
 	print(url)
-	try:
-		suc, text = await ra.ocr(url, lang)
+	for i in range(retries + 1):
+		try:
+			suc, text = await ra.ocr(url, lang)
 
-		if not suc:
-			if 'Timed out' in text:
-				text += f', {lang.err_try_again}'
-			print(text)
+			if not suc:
+				if 'Timed out' in text:
+					text += f', {lang.err_try_again}'
+				print(text)
+				if i < retries:
+					continue
+				if not DEVELOPMENT:
+					await ctx.send(text)
+				return
+
+			level, results = ra.parse(text, lang)
+			if lang.lvl in options:
+				level = int(options[lang.lvl])
+			elif level == None:
+				level = 20
+			score, main_score, sub_score = ra.rate(level, results, options, lang)
+			break
+
+		except Exception:
+			print(f'Uncaught exception\n{traceback.format_exc()}')
+			if i < retries:
+				continue
 			if not DEVELOPMENT:
-				await ctx.send(text)
+				await ctx.send(lang.err_unknown)
+			if CHANNEL_ID:
+				channel = bot.get_channel(CHANNEL_ID)
+				await channel.send(f'Uncaught exception in {ctx.guild} #{ctx.channel}\n{ctx.message.content}\n{url}\n{traceback.format_exc()}')
 			return
-
-		level, results = ra.parse(text, lang)
-		if lang.lvl in options:
-			level = int(options[lang.lvl])
-			del options[lang.lvl]
-		elif level == None:
-			level = 20
-		score, main_score, sub_score = ra.rate(level, results, options, lang)
-
-	except Exception:
-		print(f'Uncaught exception\n{traceback.format_exc()}')
-		if not DEVELOPMENT:
-			await ctx.send(lang.err_unknown)
-		if CHANNEL_ID:
-			channel = bot.get_channel(CHANNEL_ID)
-			await channel.send(f'Uncaught exception in {ctx.guild} #{ctx.channel}\n{ctx.message.content}\n{url}\n{traceback.format_exc()}')
-		return
 
 	if score <= 50:
 		color = discord.Color.blue()
