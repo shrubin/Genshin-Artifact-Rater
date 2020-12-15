@@ -328,7 +328,7 @@ async def feedback_de(ctx):
 	'''
 	Senden Sie Feedback mit Problemen oder Ideen für den Bot. Du kannst ein Bild anhängen.
 
-	-feeback <Nachicht> [Bild]
+	-feedback <Nachicht> [Bild]
 	'''
 	await feedback(ctx, tr.de)
 
