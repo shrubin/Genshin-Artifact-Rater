@@ -145,10 +145,12 @@ class de(translation):
 	sub_score = 'Unter-Stat'
 	art_level = 'Artifakt Level'
 	requested = 'Angefragt von %s'
+	join = 'Bei Problemen join dem Discord [Artifact Rater Server]%s'
+	feedback = 'Feedback erhalten, bitte joine https://discord.gg/SyGmBxds3M wenn du weitere Details hinzufügen möchtest'
 
 	err = 'Fehler'
 	err_not_found = 'Fehler: Kein Bild oder URL gefunden, bitte stelle sicher das sich das Bild in der selben Nachicht befindet'
-	err_parse = 'Fehler: Kein Command gefunden, bitte schau das du ihn richtig und im korrekten Format geschrieben hast'
+	err_parse = 'Fehler: Kein Befehl gefunden, bitte schau das du ihn richtig und im korrekten Format geschrieben hast'
 	err_try_again = 'bitte versuche es in ein paar Minuten nochmal'
 	err_unknown_ocr = 'Fehler: OCR fehlgeschlagen mit unbekanntem Fehler'
 
