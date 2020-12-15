@@ -52,6 +52,7 @@ async def ocr(url, lang=tr.en):
 					ocr_url += f'&language={lang.code}'
 				async with session.get(ocr_url) as r:
 					json = await r.json()
+			print(f'OCR Response: {json}')
 			if json['OCRExitCode'] != 1:
 				return False, f'{lang.err}: ' + '. '.join(json['ErrorMessage'])
 			if 'ParsedResults' not in json:

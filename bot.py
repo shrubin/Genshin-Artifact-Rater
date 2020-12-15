@@ -64,8 +64,11 @@ async def rate(ctx, lang):
 	if options and validators.url(options[0]):
 		url = options[0]
 		options = options[1:]
-		if 'imgur' in url and '.' not in url.split('/')[-1]:
-			url += '.png'
+		if '.' not in url.split('?')[0].split('/')[-1]:
+			if '?' in url:
+				url = '.png?'.join(url.split('?'))
+			else:
+				url += '.png'
 	elif ctx.message.attachments:
 		url = ctx.message.attachments[0].url
 	else:
