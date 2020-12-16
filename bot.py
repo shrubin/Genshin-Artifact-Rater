@@ -32,7 +32,7 @@ RATE_LIMIT_TIME = 10
 calls = 0
 crashes = 0
 
-bot = commands.Bot(command_prefix='-')
+bot = commands.Bot(command_prefix='-', activity=discord.Game(name='Genshin Impact | -help'))
 
 async def send(msg):
 	print(msg)
