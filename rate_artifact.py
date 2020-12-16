@@ -211,12 +211,12 @@ def rate(level, results, options={}, lang=tr.en):
 	main_score = 100 if main_score > 99 else main_score
 	sub_score = sub_score / sub_weight * 100 if sub_weight > 0 else 100
 	print(f'Gear Score: {score:.2f}% (main {main_score:.2f}% {main_weight}, sub {sub_score:.2f}% {sub_weight})')
-	return score, main_score, sub_score
+	return score, main_score, main_weight, sub_score, sub_weight
 
 if __name__ == '__main__':
 	if sys.version_info[0] == 3 and sys.version_info[1] >= 8 and sys.platform.startswith('win'):
 		asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-	url = 'https://cdn.discordapp.com/attachments/781564333335248928/788294276282449931/Screenshot_47.png'
+	url = 'https://cdn.discordapp.com/attachments/767639579078819900/788646752588267540/unknown.png'
 	lang = tr.en
 	suc, text = asyncio.run(ocr(url, lang))
 	print(text)
