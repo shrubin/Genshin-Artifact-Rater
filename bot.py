@@ -11,6 +11,7 @@ import validators
 
 from discord.ext import commands, tasks
 from dotenv import load_dotenv
+from langdetect import detect
 from signal import SIGINT, SIGTERM
 
 load_dotenv()
@@ -124,6 +125,12 @@ async def rate(ctx, lang):
 					app.restart()
 				return
 
+			if lang.uid == 'en':
+				uid = detect(text)
+				if uid != lang.uid and uid in tr.languages:
+					lang = tr.languages[uid]
+					print(f'Converting language to {lang.uid}')
+
 			level, results = ra.parse(text, lang)
 			if lang.lvl in options:
 				level = int(options[lang.lvl])
@@ -195,7 +202,7 @@ def make_f(cb, lang):
 		await cb(ctx, lang)
 	return _f
 
-for lang in tr.languages:
+for lang in tr.languages.values():
 	_rate = make_f(rate, lang)
 	_rate.help = lang.help_rate
 	_rate.brief = lang.help_rate.split('\n')[0]

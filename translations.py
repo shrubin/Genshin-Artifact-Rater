@@ -372,8 +372,8 @@ lvl: Compare à un niveau d’artefact spécifique(Défaut: < artifact_level >)
 Translated by Miloki#3998 | Traduit par Miloki#3998
 '''
 
-class vn(translation):
-	uid = 'vn'
+class vi(translation):
+	uid = 'vi'
 	code = 'vie'
 	supported = True
 
@@ -397,4 +397,4 @@ class vn(translation):
 
 	piece_set = 'Bộ 2 món'
 
-languages = [en, es, de, fr, vn]
+languages = {lang.uid: lang for lang in [en, es, de, fr, vi]}
