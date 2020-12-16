@@ -1,15 +1,17 @@
 import rate_artifact as ra
 import translations as tr
 
-import os
-import sys
-
+import asyncio
 import discord
 import heroku3
+import os
+import sys
 import traceback
 import validators
+
 from discord.ext import commands, tasks
 from dotenv import load_dotenv
+from signal import SIGINT, SIGTERM
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -47,11 +49,15 @@ async def on_resumed():
 
 @bot.event
 async def on_disconnect():
-	await send(f'{bot.user.name} disconnected after {calls} calls')
+	print(f'{bot.user.name} disconnected')
 
 @bot.event
 async def on_error(event, *args, **kwargs):
 	await send(f'{bot.user.name} raised an exception in {event}\n' + traceback.format_exc())
+
+@bot.event
+async def on_termination():
+	await send(f'{bot.user.name} terminated after {calls} calls')
 
 @tasks.loop(hours=24.0)
 async def count():
@@ -363,7 +369,23 @@ async def feedback_fr(ctx):
 	'''
 	await feedback(ctx, tr.fr)
 
-if TOKEN:
-	bot.run(TOKEN)
-else:
-	print('Error: DISCORD_TOKEN not found')
+if __name__ == '__main__':
+	if not TOKEN:
+		print('Error: DISCORD_TOKEN not found')
+		sys.exit(1)
+
+	loop = asyncio.get_event_loop()
+
+	def interrupt():
+		raise KeyboardInterrupt
+
+	loop.add_signal_handler(SIGINT, interrupt)
+	loop.add_signal_handler(SIGTERM, interrupt)
+
+	try:
+		loop.run_until_complete(bot.start(TOKEN))
+	except KeyboardInterrupt:
+		pass
+	finally:
+		loop.run_until_complete(bot.on_termination())
+		loop.run_until_complete(bot.logout())

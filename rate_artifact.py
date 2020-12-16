@@ -6,6 +6,7 @@ import os
 import re
 import sys
 import numpy as np
+
 from cv2 import cv2
 from dotenv import load_dotenv
 from fuzzywuzzy import fuzz, process
