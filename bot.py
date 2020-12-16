@@ -26,6 +26,8 @@ if HEROKU_API_KEY and HEROKU_APP_ID:
 
 RETRIES = 1
 MAX_CRASHES = 10
+RATE_LIMIT_N = 5
+RATE_LIMIT_TIME = 10
 
 calls = 0
 crashes = 0
@@ -172,6 +174,7 @@ async def rate(ctx, lang):
 		await channel.send(embed=embed)
 
 @bot.command(name='rate')
+@commands.cooldown(RATE_LIMIT_N, RATE_LIMIT_TIME, commands.BucketType.user)
 async def rate_en(ctx):
 	'''
 	Rate an artifact against an optimal 5* artifact. Put the command and image in the same message.
@@ -207,6 +210,7 @@ async def rate_en(ctx):
 	await rate(ctx, tr.en)
 
 @bot.command(name='rate_es')
+@commands.cooldown(RATE_LIMIT_N, RATE_LIMIT_TIME, commands.BucketType.user)
 async def rate_es(ctx):
 	'''
 	Valora un artefacto comparándolo con los posibles stats de un 5*. Simplemente pon el comando y adjunta la imagen en el mismo mensaje.
@@ -243,6 +247,7 @@ async def rate_es(ctx):
 	await rate(ctx, tr.es)
 
 @bot.command(name='rate_de')
+@commands.cooldown(RATE_LIMIT_N, RATE_LIMIT_TIME, commands.BucketType.user)
 async def rate_de(ctx):
 	'''
 	Bewerten sie ein Artefakt anhand eines 5* Artefakt mit optimalen Stats.
@@ -286,6 +291,7 @@ async def rate_de(ctx):
 	await rate(ctx, tr.de)
 
 @bot.command(name='rate_fr')
+@commands.cooldown(RATE_LIMIT_N, RATE_LIMIT_TIME, commands.BucketType.user)
 async def rate_fr(ctx):
 	'''
 	Évaluez votre artefact grâce à un artefact optimal de 5 étoiles. Entrez la commande avec l’image dans le même message.
@@ -334,6 +340,7 @@ async def feedback(ctx, lang):
 		await channel.send(f'{ctx.message.author}: {ctx.message.content}', embed=embed)
 
 @bot.command(name='feedback')
+@commands.cooldown(RATE_LIMIT_N, RATE_LIMIT_TIME, commands.BucketType.user)
 async def feedback_en(ctx):
 	'''
 	Send feedback with issues or ideas for the bot. Up to one image can be sent.
@@ -343,6 +350,7 @@ async def feedback_en(ctx):
 	await feedback(ctx, tr.en)
 
 @bot.command(name='feedback_es')
+@commands.cooldown(RATE_LIMIT_N, RATE_LIMIT_TIME, commands.BucketType.user)
 async def feedback_es(ctx):
 	'''
 	Envía feedback con los problemas o sugerencias para el bot. Puedes adjuntar solo una imagen.
@@ -352,6 +360,7 @@ async def feedback_es(ctx):
 	await feedback(ctx, tr.es)
 
 @bot.command(name='feedback_de')
+@commands.cooldown(RATE_LIMIT_N, RATE_LIMIT_TIME, commands.BucketType.user)
 async def feedback_de(ctx):
 	'''
 	Senden Sie Feedback mit Problemen oder Ideen für den Bot. Du kannst ein Bild anhängen.
@@ -361,6 +370,7 @@ async def feedback_de(ctx):
 	await feedback(ctx, tr.de)
 
 @bot.command(name='feedback_fr')
+@commands.cooldown(RATE_LIMIT_N, RATE_LIMIT_TIME, commands.BucketType.user)
 async def feedback_fr(ctx):
 	'''
 	Envoyez un feedback avec les problèmes ou les idées pour le bot. Il peut être envoyé jusqu'à une image à la fois.
