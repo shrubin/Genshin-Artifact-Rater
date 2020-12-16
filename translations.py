@@ -372,4 +372,29 @@ lvl: Compare à un niveau d’artefact spécifique(Défaut: < artifact_level >)
 Translated by Miloki#3998 | Traduit par Miloki#3998
 '''
 
-languages = [en, es, de, fr]
+class vn(translation):
+	uid = 'vn'
+	code = 'vie'
+	supported = True
+
+	hp = 'HP'
+	heal = 'Tăng Trị Liệu'
+	df = 'Phòng Ngự'
+	er = 'Hiệu Quả Nạp Nguyên Tố'
+	em = 'Tinh Thông Nguyên Tố'
+	atk = 'Tấn Công'
+	cd = 'ST Bạo Kích'
+	cr = 'Tỷ Lệ Bạo Kích'
+	phys = 'Tăng Sát Thương Vật Lý'
+	elem = 'Tăng ST Nguyên Tố'
+	anemo = 'Tăng ST Nguyên Tố Phong'
+	elec = 'Tăng ST Nguyên Tố Lôi'
+	pyro = 'Tăng ST Nguyên Tố Hỏa'
+	hydro = 'Tăng ST Nguyên Tố Thủy'
+	cryo = 'Tăng ST Nguyên Tố Băng'
+	geo = 'Tăng ST Nguyên Tố Nham'
+	dend = 'Tăng ST Nguyên Tố Thảo'
+
+	piece_set = 'Hiệu Quả Bộ'
+
+languages = [en, es, de, fr, vn]
