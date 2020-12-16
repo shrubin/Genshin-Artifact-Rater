@@ -395,6 +395,6 @@ class vn(translation):
 	geo = 'Tăng ST Nguyên Tố Nham'
 	dend = 'Tăng ST Nguyên Tố Thảo'
 
-	piece_set = 'Hiệu Quả Bộ'
+	piece_set = 'Bộ 2 món'
 
 languages = [en, es, de, fr, vn]

@@ -81,7 +81,9 @@ def parse(text, lang=tr.en):
 
 		line = unidecode(line).lower()
 		line = line.replace(':','.').replace('-','').replace('0/0','%')
-		if line.replace(' ','') in lang.ignore or (fuzz.partial_ratio(line, unidecode(lang.piece_set).lower()) > 80 and len(line) > 4):
+		if line.replace(' ','') in lang.ignore:
+			continue
+		if  fuzz.partial_ratio(line, unidecode(lang.piece_set).lower()) > 80 and len(line) > 4:
 			break
 
 		value = lvl_reg.search(line.replace(' ',''))
@@ -216,8 +218,8 @@ def rate(level, results, options={}, lang=tr.en):
 if __name__ == '__main__':
 	if sys.version_info[0] == 3 and sys.version_info[1] >= 8 and sys.platform.startswith('win'):
 		asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-	url = 'https://cdn.discordapp.com/attachments/767639579078819900/788646752588267540/unknown.png'
-	lang = tr.en
+	url = 'https://cdn.discordapp.com/attachments/787533173004173343/788671855548563466/gfdgdgdfgdfgf.PNG'
+	lang = tr.vn
 	suc, text = asyncio.run(ocr(url, lang))
 	print(text)
 	if suc:
