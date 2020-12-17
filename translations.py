@@ -43,6 +43,7 @@ class translation:
 
 	# lines will be ignored if they're an exact match
 	ignore = []
+	replace = {}
 
 	# text for bot messages
 	lvl = 'Level'
@@ -525,6 +526,8 @@ class ja(translation):
 	lvl_opt = 'レベル'
 
 	piece_set = '2セット'
+
+	replace = {'カ': '力'}
 
 	lvl = 'レベル'
 	score = 'ギアスコア'

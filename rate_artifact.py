@@ -79,6 +79,8 @@ def parse(text, lang=tr.en):
 			prev = None
 		del_prev = True
 
+		for k,v in lang.replace.items():
+			line = line.replace(k,v)
 		line = unidecode(line).lower()
 		line = line.replace(':','.').replace('-','').replace('0/0','%')
 		if line.replace(' ','') in lang.ignore:
@@ -218,10 +220,12 @@ def rate(level, results, options={}, lang=tr.en):
 if __name__ == '__main__':
 	if sys.version_info[0] == 3 and sys.version_info[1] >= 8 and sys.platform.startswith('win'):
 		asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-	url = 'https://cdn.discordapp.com/attachments/407109747234308118/789133720015732742/unknown.png'
-	lang = tr.en
+	url = 'https://cdn.discordapp.com/attachments/788086842406731836/789252629800812544/20201217221123.jpg'
+	lang = tr.ja
 	suc, text = asyncio.run(ocr(url, 1, lang))
 	print(text)
 	if suc:
 		level, results = parse(text, lang)
+		if level == None:
+			level = 20
 		rate(level, results, {}, lang)
