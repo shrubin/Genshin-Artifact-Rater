@@ -28,10 +28,10 @@ async def ocr(url, lang=tr.en):
 	async with aiohttp.ClientSession() as session:
 		async with session.get(url) as r:
 			size = int(r.headers['Content-length'])
-			if size > 1e6:
+			if size > 5e6:
 				img = np.asarray(bytearray(await r.read()), dtype="uint8")
 				flag = cv2.IMREAD_GRAYSCALE
-				if size > 2e6 or os.path.splitext(url)[1] == '.jpg':
+				if size > 8e6 or os.path.splitext(url)[1] == '.jpg':
 					flag = cv2.IMREAD_REDUCED_GRAYSCALE_2
 				img = cv2.imdecode(img, flag)
 				_, img = cv2.imencode('.png', img)
