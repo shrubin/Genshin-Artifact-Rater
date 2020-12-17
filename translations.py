@@ -583,4 +583,63 @@ lvl: 特定の聖遺物レベルと比較する (デフォルト: <聖遺物_レ
 Translated by plastiquedoll#1393 | plastiquedoll#1393によって翻訳されました。
 '''
 
-languages = {lang.uid: lang for lang in [en, es, de, fr, vi, pt, ja]}
+class pl(translation):
+	uid = 'pl'
+	code = 'pol'
+	supported = True
+
+	lvl = 'Level'
+	score = 'Wynik ogólny'
+	main_score = 'Ocena głównej statystyki'
+	sub_score = 'Ocena podstatystyk'
+	art_level = 'Poziom artefaktów'
+	requested = 'Wywołano przez %s'
+	join = 'W przypadku problemów, dołącz na [Artifact Rater Server]%s'
+	feedback = 'Otrzymaliśmy feedback, dołącz na serwer https://discord.gg/SyGmBxds3M jeżeli chciałbyś dodać więcej szczegółów.'
+
+	err = 'Błąd'
+	err_not_found = 'Błąd: Nie znaleziono URL ani obrazu, upewnij się czy zostały wysłane w tej samej wiadomości.'
+	err_parse = 'Błąd: Komenda nie może zostać sparsowana, sprawdź jeszcze raz jej format i pisownię.'
+	err_try_again = 'spróbuj ponownie za kilka minut'
+	err_unknown_ocr = 'Błąd: OCR zawiódł z nieznanym błędem.'
+	err_unknown = 'Nieznany błąd, spróbuj użyć zrzutu ekranu zawierającego zakładkę z artefaktami w ekwipunku'
+
+	help_feedback = '''\
+Prześlij feedback z problemami albo pomysłami dotyczącymi bota. Możesz dołączyć jeden obrazek.
+-feedback <wiadomość> [obrazek]
+'''
+
+	help_rate = '''\
+Porównaj swój artefakt do optymalnego 5* artefaktu. Wpisz komendę i wrzuć zrzut ekranu w tej samej wiadomości.
+
+Jeżeli używasz Windows 10, możesz użyć skrótu Shift + Windows + S i zaznaczyć swój artefakt, a następnie przejść na Discord i wkleić go za pomocą Ctrl+V.
+
+Jeżeli chcesz go dodać do swojego serwera, użyj tego linku:
+https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot
+
+Możesz również użyć tego bota poprzez wysłanie komendy w prywatnej wiadomości do Artifact Rater#6924.
+-rate <obrazek/url> [lvl=<level>] [<stat>=<wartość> ...]
+
+Jeżeli uświadczyłeś problemów, skontaktuj się z shrubin#1866 na discordzie albo użyj komendy -feedback.
+Kod źródłowy dostępny na https://github.com/shrubin/Genshin-Artifact-Rater
+
+Wartości domyślne
+
+ATK%, DMG%, Crit - 1
+ATK, EM, Recharge - 0.5
+Wszystko inne - 0
+
+Opcje
+
+lvl: Porównaj do artefaktu o określonym poziomie (domyślnie: <artifact_level>)
+-rate_pl lvl=20
+
+<stat>: Ustaw własne wartości (wartości między 0 i 1)
+-rate_pl atk=1 er=0 atk%=0.5
+
+<stat> jest którymś z: HP, HP%, ATK, ATK%, ER (Recharge), EM, PHYS, CR (Crit Rate), CD (Crit Damage), ELEM (Elemental DMG%), Heal, DEF, DEF
+
+Translated by qtFox#9773 | Przetłumaczone przez qtFox#9773
+'''
+
+languages = {lang.uid: lang for lang in [en, es, de, fr, vi, pt, ja, pl]}
