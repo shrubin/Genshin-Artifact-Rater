@@ -34,7 +34,7 @@ RATE_LIMIT_TIME = 10
 calls = 0
 crashes = 0
 
-bot = commands.Bot(command_prefix='-', activity=discord.Game(name='Genshin Impact | -help'))
+bot = commands.AutoShardedBot(command_prefix='-', shard_count=10, activity=discord.Game(name='-help'))
 
 async def send(msg, channel_id=CHANNEL_ID):
 	print(msg)
