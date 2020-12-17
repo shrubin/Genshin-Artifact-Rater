@@ -17,6 +17,7 @@ from signal import SIGINT, SIGTERM
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 CHANNEL_ID = int(os.getenv('CHANNEL_ID', 0))
+ERR_CHANNEL_ID = int(os.getenv('ERR_CHANNEL_ID', 0))
 DEVELOPMENT = os.getenv('DEVELOPMENT', 'False') == 'True'
 HEROKU_API_KEY = os.getenv('HEROKU_API_KEY')
 HEROKU_APP_ID = os.getenv('HEROKU_APP_ID')
@@ -35,10 +36,10 @@ crashes = 0
 
 bot = commands.Bot(command_prefix='-', activity=discord.Game(name='Genshin Impact | -help'))
 
-async def send(msg):
+async def send(msg, channel_id=CHANNEL_ID):
 	print(msg)
-	if CHANNEL_ID:
-		channel = bot.get_channel(CHANNEL_ID)
+	if channel_id:
+		channel = bot.get_channel(channel_id)
 		await channel.send(msg)
 
 @bot.event
@@ -59,7 +60,7 @@ async def on_disconnect():
 
 @bot.event
 async def on_error(event, *args, **kwargs):
-	await send(f'{bot.user.name} raised an exception in {event}\n' + traceback.format_exc())
+	await send(f'{bot.user.name} raised an exception in {event}\n' + traceback.format_exc(), ERR_CHANNEL_ID)
 
 @bot.event
 async def on_termination():
@@ -149,8 +150,8 @@ async def rate(ctx, lang):
 				continue
 			if not DEVELOPMENT:
 				await ctx.send(lang.err_unknown)
-			if CHANNEL_ID:
-				channel = bot.get_channel(CHANNEL_ID)
+			if ERR_CHANNEL_ID:
+				channel = bot.get_channel(ERR_CHANNEL_ID)
 				await channel.send(f'Uncaught exception in {ctx.guild} #{ctx.channel}\n{ctx.message.content}\n{url}\n{traceback.format_exc()}')
 			crashes += 1
 			if crashes >= MAX_CRASHES and HEROKU_API_KEY and HEROKU_APP_ID:
@@ -179,8 +180,8 @@ async def rate(ctx, lang):
 
 	if not DEVELOPMENT:
 		await ctx.send(embed=embed)
-	elif CHANNEL_ID:
-		channel = bot.get_channel(CHANNEL_ID)
+	elif ERR_CHANNEL_ID:
+		channel = bot.get_channel(ERR_CHANNEL_ID)
 		await channel.send(embed=embed)
 
 async def feedback(ctx, lang):
