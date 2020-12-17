@@ -52,7 +52,10 @@ async def on_resumed():
 
 @bot.event
 async def on_disconnect():
-	print(f'{bot.user.name} disconnected')
+	try:
+		await send(f'{bot.user.name} disconnected')
+	except:
+		pass
 
 @bot.event
 async def on_error(event, *args, **kwargs):
