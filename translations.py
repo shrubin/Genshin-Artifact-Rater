@@ -509,8 +509,8 @@ class ja(translation):
 	pyro = '炎元素ダメージ'
 	hydro = '水元素ダメージ'
 	cryo = '氷元素ダメージ'
-	geo = '岩ダメージ'
-	dend = '草ダメージ'
+	geo = '岩元素ダメージ'
+	dend = '草元素ダメージ'
 
 	hp_opt = 'hp'
 	heal_opt = '治癒'
@@ -532,7 +532,7 @@ class ja(translation):
 	sub_score = 'サブステータス評価'
 	art_level = '聖遺物レベル'
 	requested = '％sからのリクエスト'
-	join = '問題がある場合は、[公式サーバー] %sに参加する'
+	join = '[公式サーバー]%sに参加する'
 	feedback = 'フィードバックを受け取りました。詳細を追加したい場合は、 https://discord.gg/SyGmBxds3Mに参加して下さい。'
 
 	err = 'エラー'
