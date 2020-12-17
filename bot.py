@@ -69,7 +69,7 @@ async def on_termination():
 @tasks.loop(hours=24.0)
 async def count():
 	global calls
-	if calls != 0:
+	if calls > 100:
 		await send(f'{bot.user.name} has been called {calls} times in the past day')
 	calls = 0
 
