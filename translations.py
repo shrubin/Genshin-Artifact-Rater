@@ -441,7 +441,7 @@ class pt(translation):
 	art_level = 'Nível do Artefato'
 	requested = 'Solicitado por %s'
 	join = 'Se encontrar problemas, junte-se ao [Artifact Rater Server]%s'
-	feedback = 'Feedback recebido, por favor junte-se ao servidor se quiser adicionar mais detalhes: https://discord.gg/SyGmBxds3M
+	feedback = 'Feedback recebido, por favor junte-se ao servidor se quiser adicionar mais detalhes: https://discord.gg/SyGmBxds3M'
 
 	err = 'Erro'
 	err_not_found = 'Erro: Nenhuma imagem ou url encontrada, certifique-se de que foram enviadas na mesma mensagem'
