@@ -3,7 +3,7 @@
 Discord bot that rates an artifact against an optimal 5* artifact. Put the command and image in the same message.
 
 If you would like to add it to your private server use the link: \
-https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=3072&scope=bot
+https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot
 
 You can also use the bot by sending the command in a DM to Artifact Rater#6924.
 

@@ -74,7 +74,7 @@ Rate an artifact against an optimal 5* artifact. Put the command and image in th
 If you are using Windows 10, you can use Shift + Windows + S and drag your cursor over the artifact, then go to discord and paste it with Ctrl+V.
 
 If you would like to add it to your private server use the link:
-https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=3072&scope=bot
+https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot
 
 You can also use the bot by sending the command in a DM to Artifact Rater#6924.
 
@@ -156,7 +156,7 @@ Valora un artefacto comparándolo con los posibles stats de un 5*. Simplemente p
 Si estás usando windows 10, puedes usar Shift + Windows + S y seleccionar el artefacto, después ir a discord y pegarlo con Ctrl + V.
 
 Si quieres, puedes invitar al bot a tu propio servidor de discord con este link:
-https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=3072&scope=bot
+https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot
 
 También puedes hablarle al bot por privado y enviarle el artefacto por ahí Artifact Rater#6924.
 
@@ -250,7 +250,7 @@ Wenn Sie Windows 10 verwenden, können Sie Umschalt + Windows + S(Shift+Windows+
 Gehen Sie dann zu Discord und fügen Sie es mit Strg + V ein.
 
 Wenn sie den Bot auf ihrem privaten Discord Server nutzen wollen verwenden sie diesen Link:
-https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=3072&scope=bot
+https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot
 
 Sie können den Bot auch direkt eine private Nachicht schicken mit dem Befehl an Artifact Rater#6924
 
@@ -347,7 +347,7 @@ Envoyez un feedback avec les problèmes ou les idées pour le bot. Il peut être
 Si vous utilisez Windows 10 vous pouvez utiliser utiliser shift + Windows +S et vous pouvez passer votre curseur par-dessus l'artefact, puis allez sur discord et le coller avec Ctrl+V.
 
 Si vous voulez vous joindre à notre serveur privé, utilisez ce lien :
-https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=3072&scope=bot
+https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot
 Vous pouvez aussi utiliser le bot en envoyant un MP à Artifact Rater#6924.
 
 -rate_fr <image/url>  [lvl=<niveau>][<stat>=<valeur par défaut> ...]
