@@ -397,4 +397,187 @@ class vi(translation):
 
 	piece_set = 'Bộ 2 món'
 
-languages = {lang.uid: lang for lang in [en, es, de, fr, vi]}
+class pt(translation):
+	uid = 'pt'
+	code = 'por'
+	supported = True
+
+	hp = 'Vida'
+	heal = 'Bônus de Cura'
+	df = 'DEF'
+	er = 'Recarga de Energia'
+	em = 'Proficiência Elemental'
+	atk = 'ATQ'
+	cd = 'Dano Crítico'
+	cr = 'Taxa Crítica'
+	phys = 'Bônus de Dano Físico'
+	elem = 'Bônus de Dano Elemental'
+	anemo = 'Bônus de Dano Anemo'
+	elec = 'Bônus de Dano Electro'
+	pyro = 'Bônus de Dano Pyro'
+	hydro = 'Bônus de Dano Hydro'
+	cryo = 'Bônus de Dano Cryo'
+	geo = 'Bônus de Dano Geo'
+	dend = 'Bônus de Dano Dendro'
+
+	hp_opt = 'vida'
+	heal_opt = 'cura'
+	df_opt = 'def'
+	er_opt = 're'
+	em_opt = 'pe'
+	atk_opt = 'atq'
+	cr_opt = 'txcrit'
+	cd_opt = 'danocrit'
+	phys_opt = 'fis'
+	elem_opt = 'elem'
+	lvl_opt = 'lvl'
+
+	piece_set = 'Conjunto'
+
+	lvl = 'Nível'
+	score = 'Qualidade do Artefato'
+	main_score = 'Nota Status Principal'
+	sub_score = 'Nota Substats'
+	art_level = 'Nível do Artefato'
+	requested = 'Solicitado por %s'
+	join = 'Se encontrar problemas, junte-se ao [Artifact Rater Server]%s'
+	feedback = 'Feedback recebido, por favor junte-se ao servidor se quiser adicionar mais detalhes: https://discord.gg/SyGmBxds3M
+
+	err = 'Erro'
+	err_not_found = 'Erro: Nenhuma imagem ou url encontrada, certifique-se de que foram enviadas na mesma mensagem'
+	err_parse = 'Erro: Comando não pôde ser executado, por favor cheque a formatação e a ortografia'
+	err_try_again = 'por favor tente novamente em alguns minutos'
+	err_unknown_ocr = 'Erro: OCR falhou com um erro desconhecido'
+	err_unknown = 'Erro desconhecido, tente usar uma imagem da página de artefatos'
+
+	help_feedback = '''\
+Mande um feedback com problemas ou ideias para o bot. Apenas uma imagem pode ser enviada
+-feedback <mensagem> [imagem]
+'''
+
+	help_rate = '''\
+Avalia um artefato em comparação com um artefato perfeito 5*. Coloque o comando e a imagem na mesma mensagem.
+
+Se estiver usando Windows 10, você pode usar Shift + Windows + S e arrastar o cursor sobre o artefato, depois vá para o discord e cole com Ctrl+V.
+
+Se quiser adicionar ao seu servidor privado use o link:
+https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=3072&scope=bot
+
+Você também pode usar o bot mandando uma mensagem privada para Artifact Rater#6924.
+
+-rate_pt <imagem/url> [lvl=<nível>] [<status>=<peso> ...]
+
+Se tiver problemas, entre em contato com shrubin#1866 no discord ou use o comando -feedback.
+Código-fonte disponível em: https://github.com/shrubin/Genshin-Artifact-Rater
+
+Pesos padrão
+
+ATQ%, Bônus de Dano%, Crit - 1
+ATQ, Prof.Elemental, Recarga - 0.5
+Todo o resto - 0
+
+Opções
+
+lvl: Compara com o nível de artefato específicado (default: <artifact_level>)
+-rate_pt lvl=20
+
+<status>: Define pesos padrão (valor entre 0 e 1)
+-rate_pt atk=1 er=0 atk%=0.5
+
+<status> é qualquer um dos atributos: HP, HP%, ATQ, ATQ%, ER (Recarga de Energia), EM(Maestria Elemental),PHYS(Bônus de Dano Físico%), CR (Taxa Crítica), CD (Dano Crítico), ELEM (Bônus de Dano Elemental%), Cura, DEF, DEF%
+
+Translated by Dale#4801
+'''
+
+class ja(translation):
+	uid = 'ja'
+	code = 'jpn'
+	supported = False
+
+	hp = 'HP'
+	heal = '治癒効果'
+	df = '防御力'
+	er = '元素チャージ効率'
+	em = '元素熟知'
+	atk = '攻撃力'
+	cd = '会心ダメージ'
+	cr = '会心率'
+	phys = '物理ダメージ'
+	elem = '元素ダメージ'
+	anemo = '風元素ダメージ'
+	elec = '雷元素ダメージ'
+	pyro = '炎元素ダメージ'
+	hydro = '水元素ダメージ'
+	cryo = '氷元素ダメージ'
+	geo = '岩ダメージ'
+	dend = '草ダメージ'
+
+	hp_opt = 'hp'
+	heal_opt = '治癒'
+	df_opt = '防御'
+	er_opt = '元素チャージ'
+	em_opt = '元素熟知'
+	atk_opt = '攻撃'
+	cr_opt = '会心'
+	cd_opt = '会心ダメージ'
+	phys_opt = '物理'
+	elem_opt = '元素'
+	lvl_opt = 'レベル'
+
+	piece_set = '2セット'
+
+	lvl = 'レベル'
+	score = 'ギアスコア'
+	main_score = 'メインステータス評価'
+	sub_score = 'サブステータス評価'
+	art_level = '聖遺物レベル'
+	requested = '％sからのリクエスト'
+	join = '問題がある場合は、[公式サーバー] %sに参加する'
+	feedback = 'フィードバックを受け取りました。詳細を追加したい場合は、 https://discord.gg/SyGmBxds3Mに参加して下さい。'
+
+	err = 'エラー'
+	err_not_found = 'エラー：画像またはURLが見つかりませんでした。同じメッセージで送信されたことを確認してください。'
+	err_parse = 'エラー：コマンドを解析できません。形式とスペルを再確認してください。'
+	err_try_again = 'エラー：数分後にもう一度お試しください。'
+	err_unknown_ocr = 'エラー：OCRが不明なエラーで失敗しました。'
+	err_unknown = '不明なエラーが発生しました。インベントリの聖遺物ページのイメージを使用してみてください。'
+
+	help_feedback = '''\
+BOTの問題やアイデアについてフィードバックを送信します。 最大1つの画像を送信できます。
+
+-feedback <メッセージ> [イメージ]
+'''
+
+	help_rate = '''\
+自分の聖遺物を最適な５＊聖遺物と比べます。同じメッセージにコマンドとイメージ両方を入れて下さい。
+
+Windows 10を使っている場合は、Shift + Windows + Sを押すながら聖遺物の上にカーソルをドラッグし、ディスコードを開くと、Ctrl + Vで貼り付けることができます。
+
+自分のプライベートサーバーに追加する場合は、次のリンクを使用して下さい：https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=3072&scope=bot
+
+さらに、次のコマンドをArtifact Rater#6924にダイレクトメッセージ（D M）を送ると、BOT も使えます。
+
+-rate_jp <image/url> [lvl=<レベル>] [<stat>=<デフォルトの重み付け> ...]
+
+問題がある場合は、ディスコードでshrubin#1866に連絡するか、英語の -feedbackコマンドを使って下さい。ソースコードをご覧になりたい場合は、こちらへ：https://github.com/shrubin/Genshin-Artifact-Rater
+
+デフォルトの重み付け
+
+攻撃力％、各種ダメージバフ％、会心 – 1
+攻撃力、元素熟知、元素チャージ効率 – 0.5
+他 – 0
+
+選択肢
+
+lvl: 特定の聖遺物レベルと比較する (デフォルト: <聖遺物_レベル>)
+-rate_jp lvl=20
+
+<stat>: カスタムの重み付けを設定します（値は0から1の間）
+-rate_jp 攻撃力=1 元素チャージ効率=0 攻撃力％=0.5
+
+<stat> においてHP、HP%、攻撃力、攻撃力％、元素チャージ効率 、元素熟知、物理ダメージ、会心率、会心ダメージ、元素ダメージ、治癒効果、防御力を使えることができます。
+
+Translated by plastiquedoll#1393 | plastiquedoll#1393によって翻訳されました。
+'''
+
+languages = {lang.uid: lang for lang in [en, es, de, fr, vi, pt, ja]}
