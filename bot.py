@@ -113,7 +113,7 @@ async def rate(ctx, lang):
 	print(url)
 	for i in range(RETRIES + 1):
 		try:
-			suc, text = await ra.ocr(url, lang)
+			suc, text = await ra.ocr(url, i+1, lang)
 
 			if not suc:
 				if 'Timed out' in text:

@@ -21,7 +21,7 @@ lvl_reg = re.compile(r'^\+\d\d?$')
 bad_lvl_reg_1 = re.compile(r'^\+?\d\d?$')
 bad_lvl_reg_2 = re.compile(r'^\d{4}\d*$')
 
-async def ocr(url, lang=tr.en):
+async def ocr(url, num, lang=tr.en):
 	if not OCR_API_KEY:
 		print('Error: OCR_SPACE_API_KEY not found')
 		return False, 'Error: OCR_SPACE_API_KEY not found'
@@ -42,11 +42,11 @@ async def ocr(url, lang=tr.en):
 				else:
 					data.add_field('language', lang.code)
 				data.add_field('file', img.tobytes(), content_type='image/png', filename='image.png')
-				ocr_url = 'https://apipro1.ocr.space/parse/image'
+				ocr_url = f'https://apipro{num}.ocr.space/parse/image'
 				async with session.post(ocr_url, data=data) as r:
 					json = await r.json()
 			else:
-				ocr_url = f'https://apipro1.ocr.space/parse/imageurl?apikey={OCR_API_KEY}&url={url}'
+				ocr_url = f'https://apipro{num}.ocr.space/parse/imageurl?apikey={OCR_API_KEY}&url={url}'
 				if lang.supported:
 					ocr_url += '&OCREngine=2'
 				else:
@@ -220,7 +220,7 @@ if __name__ == '__main__':
 		asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 	url = 'https://cdn.discordapp.com/attachments/787533173004173343/788834497554022470/unknown.png'
 	lang = tr.fr
-	suc, text = asyncio.run(ocr(url, lang))
+	suc, text = asyncio.run(ocr(url, 1, lang))
 	print(text)
 	if suc:
 		level, results = parse(text, lang)
