@@ -584,6 +584,10 @@ Translated by plastiquedoll#1393 | plastiquedoll#1393によって翻訳されま
 '''
 
 class pl(translation):
+	uid = 'pl'
+	code = 'pol'
+	supported = True
+
 	lvl = 'Level'
 	score = 'Wynik ogólny'
 	main_score = 'Ocena głównej statystyki'
