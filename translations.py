@@ -647,7 +647,7 @@ class ru(translation):
 	code = 'rus'
 	supported = False
 
-	hp = 'HP'
+	hp = 'НР'
 	heal = 'Бонус лечения'
 	df = 'Защита'
 	er = 'Восст. энергии'
@@ -665,7 +665,7 @@ class ru(translation):
 	geo = 'Бонус Гео урона'
 	dend = 'Бонус Дендро урона'
 
-	hp_opt = 'HP'
+	hp_opt = 'НР'
 	heal_opt = 'Лечение'
 	df_opt = 'Защита'
 	er_opt = 'Восст'
