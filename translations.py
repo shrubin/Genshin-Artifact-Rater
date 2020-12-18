@@ -63,41 +63,31 @@ class translation:
 	err_unknown_ocr = 'Error: OCR failed with unknown error'
 	err_unknown = 'Unknown error, try using an image from the inventory\'s artifact page'
 
-	help_feedback = '''\
-Send feedback with issues or ideas for the bot. Up to one image can be sent.
+	help_description = '''If you would like to add it to your private server use the [link](https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot)
+	You can also use the bot by sending the command in a DM to Artifact Rater#6924.'''
 
--feedback <message> [image]
-'''
+	help_source = '''If you have any issues, please contact shrubin#1866 on discord or use the -feedback command.
+	Source code available at [GitHub](https://github.com/shrubin/Genshin-Artifact-Rater)'''
 
-	help_rate = '''\
+	help_feedback_name = '-feedback <message> [image]'
+	help_feedback_value = 'Send feedback with issues or ideas for the bot. Up to one image can be sent.'
+
+	help_rate_name = '-rate <image/url> [lvl=<level>] [<stat>=<weight> ...]'
+	help_rate_value = '''\
 Rate an artifact against an optimal 5* artifact. Put the command and image in the same message.
 
 If you are using Windows 10, you can use Shift + Windows + S and drag your cursor over the artifact, then go to discord and paste it with Ctrl+V.
 
-If you would like to add it to your private server use the link:
-https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot
-
-You can also use the bot by sending the command in a DM to Artifact Rater#6924.
-
--rate <image/url> [lvl=<level>] [<stat>=<weight> ...]
-
-If you have any issues, please contact shrubin#1866 on discord or use the -feedback command.
-Source code available at https://github.com/shrubin/Genshin-Artifact-Rater
-
 Default weights
-
 ATK%, DMG%, Crit - 1
 ATK, EM, Recharge - 0.5
 Everything else - 0
 
 Options
-
 lvl: Compare to specified artifact level (default: <artifact_level>)
 -rate lvl=20
-
 <stat>: Set custom weights (valued between 0 and 1)
 -rate atk=1 er=0 atk%=0.5
-
 <stat> is any of HP, HP%, ATK, ATK%, ER (Recharge), EM, PHYS, CR (Crit Rate), CD (Crit Damage), ELEM (Elemental DMG%), Heal, DEF, DEF
 '''
 
@@ -145,42 +135,32 @@ class es(translation):
 	err_unknown_ocr = 'Error: el OCR ha fallado con un error desconocido'
 	err_unknown = 'Error desconocido, intenta subir una imagen con la página de artefactos completa'
 
-	help_feedback = '''\
-Envía feedback con los problemas o sugerencias para el bot. Puedes adjuntar solo una imagen.
+	help_description = '''Si quieres, puedes invitar al bot a tu propio servidor de discord con este [link](https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot)
+	También puedes hablarle al bot por privado y enviarle el artefacto por ahí Artifact Rater#6924.'''
 
--feedback <mensaje> [imagen]
-'''
+	help_source = '''Si tienes algún problema, por favor, contacta con shrubin#1866 (inglés) en discord o usa el comando -feedback
+	El código del bot lo puedes encontrar aquí [GitHub](https://github.com/shrubin/Genshin-Artifact-Rater)'''
 
-	help_rate = '''\
+	help_feedback_name = '-feedback <mensaje> [imagen]'
+	help_feedback_value = 'Envía feedback con los problemas o sugerencias para el bot. Puedes adjuntar solo una imagen.'
+
+	help_rate_name = '-rate_es <imagen/url> [lvl=<level>] [<stat>=<valoración> ...]'
+	help_rate_value = '''\
 Valora un artefacto comparándolo con los posibles stats de un 5*. Simplemente pon el comando y adjunta la imagen en el mismo mensaje.
 
 Si estás usando windows 10, puedes usar Shift + Windows + S y seleccionar el artefacto, después ir a discord y pegarlo con Ctrl + V.
 
-Si quieres, puedes invitar al bot a tu propio servidor de discord con este link:
-https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot
-
-También puedes hablarle al bot por privado y enviarle el artefacto por ahí Artifact Rater#6924.
-
--rate_es <imagen/url> [lvl=<level>] [<stat>=<valoración> ...]
-
-Si tienes algún problema, por favor, contacta con shrubin#1866 (inglés) en discord o usa el comando -feedback
-El código del bot lo puedes encontrar aquí https://github.com/shrubin/Genshin-Artifact-Rater
 Valores por defecto
-
 ATQ%, DMG%, Crit -1
 ATK, EM, Recharge - 0.5
 Lo demás - 0
 
 Opciones
-
 lvl: lo compara con el nivel especificado (por defecto: <nivel_artefacto>)
 -rate_es lvl=20
-
 <stat>: Te permite introducir el valor deseado (entre 0 y 1)
 -rate_es def%=1 hp%=1 atk=0
-
 <stat> puedes introducir: HP, HP%, ATK, ATK%, ER (recarga de energía), EM (maestría elemental), CR (prob. crit), CD (daño crit),  PHYS (daño físico), ELEM (daño elemental %), Heal, DEF, DEF%
-
 Translated by NeRooN#1104 | Traducción hecha por NeRooN#1104
 '''
 
@@ -237,31 +217,21 @@ class de(translation):
 	err_unknown_ocr = 'Fehler: OCR fehlgeschlagen mit unbekanntem Fehler'
 	err_unknown = 'Unbekannter Fehler, verwende ein Bild von der Inventar Artefakt Seite'
 
-	help_feedback = '''\
-Senden Sie Feedback mit Problemen oder Ideen für den Bot. Du kannst ein Bild anhängen.
+	help_description = '''Wenn sie den Bot auf ihrem privaten Discord Server nutzen wollen verwenden sie diesen [Link](https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot)
+	Sie können den Bot auch direkt eine private Nachicht schicken mit dem Befehl an Artifact Rater#6924'''
 
--feedback <Nachicht> [Bild]
-'''
+	help_source = '''Wenn sie irgendwelche Probleme haben wenden sie sich bitte an shrubin#1866 oder benutzen sie den Befehl: -feedback ( in englisch bitte )
+	Quellcode ist vorhanden auf [Github](https://github.com/shrubin/Genshin-Artifact-Rater) unter'''
 
-	help_rate = '''\
-Bewerten sie ein Artefakt anhand eines 5* Artefakt mit optimalen Stats.
-Fügen sie den Befehl und das Bild in die selbe Nachicht ein.
+	help_feedback_name = '-feedback <Nachicht> [Bild]'
+	help_feedback_value = 'Senden Sie Feedback mit Problemen oder Ideen für den Bot. Du kannst ein Bild anhängen.'
+
+	help_rate_name = 'rate_de <Bild / Url> [lvl=<level>][stat=stat...]'
+	help_rate_value = '''\
+Bewerten sie ein Artefakt anhand eines 5* Artefakt mit optimalen Stats. Fügen sie den Befehl und das Bild in die selbe Nachicht ein.
 
 Wenn Sie Windows 10 verwenden, können Sie Umschalt + Windows + S(Shift+Windows+S) verwenden und den Cursor über das Artefakt ziehen.
 Gehen Sie dann zu Discord und fügen Sie es mit Strg + V ein.
-
-Wenn sie den Bot auf ihrem privaten Discord Server nutzen wollen verwenden sie diesen Link:
-https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot
-
-Sie können den Bot auch direkt eine private Nachicht schicken mit dem Befehl an Artifact Rater#6924
-
-Befehle:
-rate_de_de <Bild / Url> [lvl=<level>][stat=stat...]
-
-Wenn sie irgendwelche Probleme haben wenden sie sich bitte an shrubin#1866 oder benutzen sie den Befehl: -feedback ( in englisch bitte )
-
-Quellcode ist vorhanden auf Github unter:
-https://github.com/shrubin/Genshin-Artifact-Rater
 
 Standardstats:
 ANG%, DMG%, Crit -1,
@@ -269,17 +239,13 @@ ANG, Aufladerate, Elementarkunde 0,5
 Alles andere -0
 
 Optionen:
-
 lvl: Vergleiche mit dem angegebenen Artefaktlevel (Standard: <actifact_level>) -rate_de lvl=20
-
 <stat>: Legen sie benutzerdefinierte Stats fest (Wert zwischen 0 und 1)
 -rate_de ang=1 aufladerate=0 ang%=0,5
 <stat> ist LP, LP%, ANG, ANG%, Aufladerate, Elementarkunde, Physischbonus, KT, KSCH, Elementarbonus,
 Heilungsbonus, VTD, VTD%
-
 Beispiel:
 -rate_de <bild/url> lvl=20
-
 Translated by NekoNeko#0440 | Übersetzung von NekoNeko#0440
 '''
 
@@ -336,40 +302,30 @@ class fr(translation):
 	err_unknown_ocr = 'Erreur: OCR a échoué a cause d\'une erreur inconnue'
 	err_unknown = 'Erreur inconnue, essayer d\'utiliser une image d\'artefact venant de la page d\'inventaire'
 
-	help_feedback = '''\
-Envoyez un feedback avec les problèmes ou les idées pour le bot. Il peut être envoyé jusqu'à une image à la fois.
+	help_description = '''Si vous voulez vous joindre à notre serveur privé, utilisez ce [lien](https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot)
+	Vous pouvez aussi utiliser le bot en envoyant un MP à Artifact Rater#6924.'''
 
--feedback <message> [image]
-'''
+	help_source = '''Si vous rencontrez un problème, merci de contacter shrubin#1866 sur discord ou d’utiliser la commande –feedback
+	Code source disponible sur [GitHub](https://github.com/shrubin/Genshin-Artifact-Rater)'''
 
-	help_rate = '''\
+	help_feedback_name = '-feedback <message> [image]'
+	help_feedback_value = 'Envoyez un feedback avec les problèmes ou les idées pour le bot. Il peut être envoyé jusqu\'à une image à la fois.'
+
+	help_rate_name = '-rate_fr <image/url>  [lvl=<niveau>][<stat>=<valeur par défaut> ...]'
+	help_rate_value = '''\
 Évaluez votre artefact grâce à un artefact optimal de 5 étoiles. Entrez la commande avec l’image dans le même message.
-
 Si vous utilisez Windows 10 vous pouvez utiliser utiliser shift + Windows +S et vous pouvez passer votre curseur par-dessus l'artefact, puis allez sur discord et le coller avec Ctrl+V.
-
-Si vous voulez vous joindre à notre serveur privé, utilisez ce lien :
-https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot
-Vous pouvez aussi utiliser le bot en envoyant un MP à Artifact Rater#6924.
-
--rate_fr <image/url>  [lvl=<niveau>][<stat>=<valeur par défaut> ...]
-
-Si vous rencontrez un problème, merci de contacter shrubin#1866 sur discord ou d’utiliser la commande –feedback
-Code source disponible sur https://github.com/shrubin/Genshin-Artifact-Rater
 
 Valeur par défaut :
 ATQ%, DMG%, Crit - 1
 ATK, EM, Recharge - 0.5
 Les autres stats – 0
-
 Options :
 lvl: Compare à un niveau d’artefact spécifique(Défaut: < artifact_level >)
 -rate_fr lvl=20
-
 <stat> : Personnalise la valeur par défaut (valeur entre 0 et 1)
 -rate_fr def%=1 hp%=1 atk=0
-
 <stat> peut être utilisé sur toutes les statistiques : PV, PV%, ATQ, ATQ%, RE (Recharge d’énergie), ME (Maîtrise élémentaire), %CRT (Taux Critique), CRTDMG (DGT Critique),  PHYS (DGT Physique), ELEM (DGT élémentaire%), Soins, DEF, DEF%
-
 Translated by Miloki#3998 | Traduit par Miloki#3998
 '''
 
@@ -451,42 +407,30 @@ class pt(translation):
 	err_unknown_ocr = 'Erro: OCR falhou com um erro desconhecido'
 	err_unknown = 'Erro desconhecido, tente usar uma imagem da página de artefatos'
 
-	help_feedback = '''\
-Mande um feedback com problemas ou ideias para o bot. Apenas uma imagem pode ser enviada
--feedback <mensagem> [imagem]
-'''
+	help_description = '''Se quiser adicionar ao seu servidor privado use o [link](https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=3072&scope=bot)
+	Você também pode usar o bot mandando uma mensagem privada para Artifact Rater#6924.'''
 
-	help_rate = '''\
+	help_source = '''Se tiver problemas, entre em contato com shrubin#1866 no discord ou use o comando -feedback.
+	Código-fonte disponível em [GitHub](https://github.com/shrubin/Genshin-Artifact-Rater)'''
+
+	help_feedback_name = '-feedback <mensagem> [imagem]'
+	help_feedback_value = 'Mande um feedback com problemas ou ideias para o bot. Apenas uma imagem pode ser enviada'
+
+	help_rate_name = '-rate_pt <imagem/url> [lvl=<nível>] [<status>=<peso> ...]'
+	help_rate_value = '''\
 Avalia um artefato em comparação com um artefato perfeito 5*. Coloque o comando e a imagem na mesma mensagem.
-
 Se estiver usando Windows 10, você pode usar Shift + Windows + S e arrastar o cursor sobre o artefato, depois vá para o discord e cole com Ctrl+V.
 
-Se quiser adicionar ao seu servidor privado use o link:
-https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=3072&scope=bot
-
-Você também pode usar o bot mandando uma mensagem privada para Artifact Rater#6924.
-
--rate_pt <imagem/url> [lvl=<nível>] [<status>=<peso> ...]
-
-Se tiver problemas, entre em contato com shrubin#1866 no discord ou use o comando -feedback.
-Código-fonte disponível em: https://github.com/shrubin/Genshin-Artifact-Rater
-
 Pesos padrão
-
 ATQ%, Bônus de Dano%, Crit - 1
 ATQ, Prof.Elemental, Recarga - 0.5
 Todo o resto - 0
-
 Opções
-
 lvl: Compara com o nível de artefato específicado (default: <artifact_level>)
 -rate_pt lvl=20
-
 <status>: Define pesos padrão (valor entre 0 e 1)
 -rate_pt atk=1 er=0 atk%=0.5
-
 <status> é qualquer um dos atributos: HP, HP%, ATQ, ATQ%, ER (Recarga de Energia), EM(Maestria Elemental),PHYS(Bônus de Dano Físico%), CR (Taxa Crítica), CD (Dano Crítico), ELEM (Bônus de Dano Elemental%), Cura, DEF, DEF%
-
 Translated by Dale#4801
 '''
 
@@ -545,41 +489,30 @@ class ja(translation):
 	err_unknown_ocr = 'エラー：OCRが不明なエラーで失敗しました。'
 	err_unknown = '不明なエラーが発生しました。インベントリの聖遺物ページのイメージを使用してみてください。'
 
-	help_feedback = '''\
-BOTの問題やアイデアについてフィードバックを送信します。 最大1つの画像を送信できます。
+	help_description = '''自分のプライベートサーバーに追加する場合は、次の[リンク](https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=3072&scope=bot)を使用して下さい
+	さらに、次のコマンドをArtifact Rater#6924にダイレクトメッセージ（D M）を送ると、BOT も使えます。'''
 
--feedback <メッセージ> [イメージ]
-'''
+	help_source = '''問題がある場合は、ディスコードでshrubin#1866に連絡するか、英語の -feedbackコマンドを使って下さい。
+	ソースコードをご覧になりたい場合は、こちらへ [GitHub](https://github.com/shrubin/Genshin-Artifact-Rater)'''
 
-	help_rate = '''\
+	help_feedback_name = '-feedback <メッセージ> [イメージ]'
+	help_feedback_value = 'BOTの問題やアイデアについてフィードバックを送信します。 最大1つの画像を送信できます。'
+
+	help_rate_name = '-rate_ja <image/url> [lvl=<レベル>] [<stat>=<デフォルトの重み付け> ...]'
+	help_rate_value = '''\
 自分の聖遺物を最適な５＊聖遺物と比べます。同じメッセージにコマンドとイメージ両方を入れて下さい。
-
 Windows 10を使っている場合は、Shift + Windows + Sを押すながら聖遺物の上にカーソルをドラッグし、ディスコードを開くと、Ctrl + Vで貼り付けることができます。
 
-自分のプライベートサーバーに追加する場合は、次のリンクを使用して下さい：https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=3072&scope=bot
-
-さらに、次のコマンドをArtifact Rater#6924にダイレクトメッセージ（D M）を送ると、BOT も使えます。
-
--rate_jp <image/url> [lvl=<レベル>] [<stat>=<デフォルトの重み付け> ...]
-
-問題がある場合は、ディスコードでshrubin#1866に連絡するか、英語の -feedbackコマンドを使って下さい。ソースコードをご覧になりたい場合は、こちらへ：https://github.com/shrubin/Genshin-Artifact-Rater
-
 デフォルトの重み付け
-
 攻撃力％、各種ダメージバフ％、会心 – 1
 攻撃力、元素熟知、元素チャージ効率 – 0.5
 他 – 0
-
 選択肢
-
 lvl: 特定の聖遺物レベルと比較する (デフォルト: <聖遺物_レベル>)
--rate_jp lvl=20
-
+-rate_ja lvl=20
 <stat>: カスタムの重み付けを設定します（値は0から1の間）
--rate_jp 攻撃力=1 元素チャージ効率=0 攻撃力％=0.5
-
+-rate_ja 攻撃力=1 元素チャージ効率=0 攻撃力％=0.5
 <stat> においてHP、HP%、攻撃力、攻撃力％、元素チャージ効率 、元素熟知、物理ダメージ、会心率、会心ダメージ、元素ダメージ、治癒効果、防御力を使えることができます。
-
 Translated by plastiquedoll#1393 | plastiquedoll#1393によって翻訳されました。
 '''
 
@@ -604,41 +537,30 @@ class pl(translation):
 	err_unknown_ocr = 'Błąd: OCR zawiódł z nieznanym błędem.'
 	err_unknown = 'Nieznany błąd, spróbuj użyć zrzutu ekranu zawierającego zakładkę z artefaktami w ekwipunku'
 
-	help_feedback = '''\
-Prześlij feedback z problemami albo pomysłami dotyczącymi bota. Możesz dołączyć jeden obrazek.
--feedback <wiadomość> [obrazek]
-'''
+	help_description = '''Jeżeli chcesz go dodać do swojego serwera, użyj tego [linku](https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot)
+	Możesz również użyć tego bota poprzez wysłanie komendy w prywatnej wiadomości do Artifact Rater#6924.'''
 
-	help_rate = '''\
+	help_source = '''Jeżeli uświadczyłeś problemów, skontaktuj się z shrubin#1866 na discordzie albo użyj komendy -feedback.
+	Kod źródłowy dostępny na [GitHub](https://github.com/shrubin/Genshin-Artifact-Rater)'''
+
+	help_feedback_name = '-feedback <wiadomość> [obrazek]'
+	help_feedback_value = 'Prześlij feedback z problemami albo pomysłami dotyczącymi bota. Możesz dołączyć jeden obrazek.'
+
+	help_rate_name = '-rate_pl <obrazek/url> [lvl=<level>] [<stat>=<wartość> ...]'
+	help_rate_value = '''
 Porównaj swój artefakt do optymalnego 5* artefaktu. Wpisz komendę i wrzuć zrzut ekranu w tej samej wiadomości.
-
 Jeżeli używasz Windows 10, możesz użyć skrótu Shift + Windows + S i zaznaczyć swój artefakt, a następnie przejść na Discord i wkleić go za pomocą Ctrl+V.
 
-Jeżeli chcesz go dodać do swojego serwera, użyj tego linku:
-https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot
-
-Możesz również użyć tego bota poprzez wysłanie komendy w prywatnej wiadomości do Artifact Rater#6924.
--rate <obrazek/url> [lvl=<level>] [<stat>=<wartość> ...]
-
-Jeżeli uświadczyłeś problemów, skontaktuj się z shrubin#1866 na discordzie albo użyj komendy -feedback.
-Kod źródłowy dostępny na https://github.com/shrubin/Genshin-Artifact-Rater
-
 Wartości domyślne
-
 ATK%, DMG%, Crit - 1
 ATK, EM, Recharge - 0.5
 Wszystko inne - 0
-
 Opcje
-
 lvl: Porównaj do artefaktu o określonym poziomie (domyślnie: <artifact_level>)
 -rate_pl lvl=20
-
 <stat>: Ustaw własne wartości (wartości między 0 i 1)
 -rate_pl atk=1 er=0 atk%=0.5
-
 <stat> jest którymś z: HP, HP%, ATK, ATK%, ER (Recharge), EM, PHYS, CR (Crit Rate), CD (Crit Damage), ELEM (Elemental DMG%), Heal, DEF, DEF
-
 Translated by qtFox#9773 | Przetłumaczone przez qtFox#9773
 '''
 
@@ -695,42 +617,30 @@ class ru(translation):
 	err_unknown_ocr = 'Ошибка: неизвестная ошибка распознавания текста.'
 	err_unknown = 'Неизвестная ошибка, попробуйте использовать изображение из инвентаря/со страницы артефакта.'
 
-	help_feedback = '''\
-Отправьте отзыв с проблемами или идеями для бота. Можно добавить одно изображение.
--feedback <сообщение> [изображение]
-'''
+	help_description = '''Если вы хотите добавить его на свой сервер, используйте [ссылку](https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot)
+	Так же вы можете спользовать бота, отправив личное сообщение Artifact Rater#6924.'''
 
-	help_rate = '''\
-Оцените свой артефакт относительно идеального 5* артефакта. Отправьте изображение в одном сообщении с командой. 
+	help_source = '''Если у вас какие-то проблемы, свяжитесь с shrubin#1866 в Дискорде или используйте команду -feedback.
+	Исходный код доступен по адресу [GitHub](https://github.com/shrubin/Genshin-Artifact-Rater)'''
 
+	help_feedback_name = '-feedback <сообщение> [изображение]'
+	help_feedback_value = 'Отправьте отзыв с проблемами или идеями для бота. Можно добавить одно изображение.'
+
+	help_rate_name = '-rate_ru <image/url> [lvl=<Уровень>] [<stat>=<По умолчанию> ...]'
+	help_rate_value = '''\
+Оцените свой артефакт относительно идеального 5* артефакта. Отправьте изображение в одном сообщении с командой.
 Если вы используете Windows 10, вы можете зажать Shift + Windows + S и выделить для скриншота артефакт, а затем вставить его в Дискорд с помощью Ctrl+V.
 
-Если вы хотите добавить его на свой сервер, используйте ссылку:
-https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot
-
-Так же вы можете спользовать бота, отправив личное сообщение Artifact Rater#6924.
-
--rate <image/url> [lvl=<Уровень>] [<stat>=<По умолчанию> ...]
-
-Если у вас какие-то проблемы, свяжитесь с shrubin#1866 в Дискорде или используйте команду -feedback.
-Исходный код доступен по адресу: https://github.com/shrubin/Genshin-Artifact-Rater
-
 Оценка по умолчанию:
-
 Сила атаки %, шанс и урон крита - 1
 Сила атки, мастерство элементов, восстановление энергии - 0.5
 Всё остальное - 0
-
 Опции:
-
 lvl:  Сравнить с указанным уровнем артефакта (по умолчанию: <artifact_level>)
 -rate_ru lvl=20
-
 <stat>: Настроить значения по умолчанию (от 0 до 1)
 -rate_ru Сила атаки=1 Восст.энергии=0 Сила атаки%=0.5
-
 <stat> может использоваться для любого показателя: HP, HP%, Атака, Атака %, Восст (Восстановление энергии), Мастерство (стихий), Физ (Физический урон), ШансКРТ, УронКРТ, Элем (Элементальный урон), Лечение (бонус), Защита, Защита %
-
 Translated by wellywob#8772 | Переведено by wellywob#8772
 '''
 
@@ -787,40 +697,29 @@ class tw(translation):
 	err_unknown_ocr = '錯誤:OCR失敗,出現未知錯誤'
 	err_unknown = '未知錯誤,嘗試使用測試頁面中的圖片\'s測試頁面'
 
-	help_feedback = '''\
-發送有關機器人的問題或意見.最多可以發送一張圖像.
--feedback <message> [image]
-'''
+	help_description = '''如果要將其添加到您的伺服器,請使用以下[鏈接](https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot)
+	您可以通過將命令發送來使用該機器人 Artifact Rater#6924.'''
 
-	help_rate = '''\
+	help_source = '''如果有什麼問題,請在discord聯繫 shrubin#1866 或使用-feedback命令.
+	源代碼位於[GitHub](https://github.com/shrubin/Genshin-Artifact-Rater)'''
+
+	help_feedback_name = '-feedback <message> [image]'
+	help_feedback_value = '發送有關機器人的問題或意見.最多可以發送一張圖像.'
+
+	help_rate_name = '-rate_tw <image/url> [lvl=<level>] [<stat>=<weight> ...]'
+	help_rate_value = '''\
 針對5星聖遺物進行等級評分.請將命令和圖像放在同一條消息中.
-
 如果您使用的是Windows 10,您可以使用 Shift + Windows + S 並將鼠標拖到畫面上,然後去discord使用 Ctrl+V 貼上.
 
-如果要將其添加到您的伺服器,請使用以下鏈接:
-https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot
-
-您可以通過將命令發送來使用該機器人 Rater#6924.
-
--rate <image/url> [lvl=<level>] [<stat>=<weight> ...]
-
-如果有什麼問題,請在discord聯繫 shrubin#1866 或使用-feedback命令.
-源代碼位於:https://github.com/shrubin/Genshin-Artifact-Rater
-
 預設權重
-
 攻擊%, 各種傷害%, 爆擊 - 1
 攻擊, 元素精通, 元素充能 - 0.5
 其他 - 0
-
 選項
-
 lvl: 指定聖遺物的等級進行比較 (預設: <聖遺物_等級>)
--rate lvl=20
-
+-rate_tw lvl=20
 <stat>: 設置自定義權重 (值介於0至1)
--rate atk=1 er=0 atk%=0.5
-
+-rate_tw atk=1 er=0 atk%=0.5
 <stat> 值可以是以下任何 生命(HP), 生命%(HP%), 攻擊(ATK), 攻擊%(ATK%), 元素充能(ER), 元素精通(EM), 物理傷害(PHYS), 爆率(CR), 爆傷CD, 元素傷害(ELEM), 治療(Heal), 防禦(DEF), 防禦%(DEF%)
 '''
 
@@ -877,40 +776,29 @@ class cn(translation):
 	err_unknown_ocr = '错误:OCR失败,出现未知错误'
 	err_unknown = '未知错误,尝试使用测试页面中的图片\'s测试页面'
 
-	help_feedback = '''\
-发送有关机器人的问题或意见.最多可以发送一张图像.
--feedback <message> [image]
-'''
+	help_description = '''如果要将其添加到您的伺服器,请使用以下[链接](https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot)
+	您可以通过将命令发送来使用该机器人 Artifact Rater#6924.'''
 
-	help_rate = '''\
+	help_source = '''如果有什么问题,请在discord联系 shrubin#1866 或使用-feedback命令.
+	源代码位于[GitHub](https://github.com/shrubin/Genshin-Artifact-Rater)'''
+
+	help_feedback_name = '-feedback <message> [image]'
+	help_feedback_value = '发送有关机器人的问题或意见.最多可以发送一张图像.'
+
+	help_rate_name = '-rate_cn <image/url> [lvl=<level>] [<stat>=<weight> ...]'
+	help_rate_value = '''\
 针对5星圣遗物进行等级评分.请将命令和图像放在同一条消息中.
-
 如果您使用的是Windows 10,您可以使用 Shift + Windows + S 并将鼠标拖到画面上,然后去discord使用 Ctrl+V 贴上.
 
-如果要将其添加到您的伺服器,请使用以下链接:
-https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot
-
-您可以通过将命令发送来使用该机器人 Rater#6924.
-
--rate <image/url> [lvl=<level>] [<stat>=<weight> ...]
-
-如果有什么问题,请在discord联系 shrubin#1866 或使用-feedback命令.
-源代码位于:https://github.com/shrubin/Genshin-Artifact-Rater
-
 预设权重
-
 攻击%, 各种伤害%, 爆击 - 1
 攻击, 元素精通, 元素充能 - 0.5
 其他 - 0
-
 选项
-
 lvl: 指定圣遗物的等级进行比较 (预设: <圣遗物_等级>)
--rate lvl=20
-
+-rate_cn lvl=20
 <stat>: 设置自定义权重 (值介于0至1)
--rate atk=1 er=0 atk%=0.5
-
+-rate_cn atk=1 er=0 atk%=0.5
 <stat> 值可以是以下任何生命(HP), 生命%(HP%), 攻击(ATK), 攻击%(ATK%), 元素充能(ER), 元素精通(EM), 物理伤害(PHYS), 爆率(CR), 爆伤CD, 元素伤害(ELEM), 治疗(Heal), 防御(DEF), 防御%(DEF%)
 '''
 
