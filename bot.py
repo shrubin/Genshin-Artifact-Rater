@@ -110,7 +110,7 @@ async def rate(ctx, lang):
 		return
 
 	calls += 1
-	print(url)
+	print(f'rating for: {url}')
 	for i in range(RETRIES + 1):
 		try:
 			suc, text = await ra.ocr(url, i+1, lang)
@@ -140,7 +140,7 @@ async def rate(ctx, lang):
 				level = int(options[lang.lvl])
 			elif level == None:
 				level = 20
-			score, main_score, main_weight, sub_score, sub_weight = ra.rate(level, results, options, lang)
+			sub_score, sub_score_weighted, sub_grades, sub_grades_weighted = ra.rate(level, results, options, lang)
 			crashes = 0
 			break
 
@@ -159,20 +159,22 @@ async def rate(ctx, lang):
 				app.restart()
 			return
 
-	if score <= 50:
+	if sub_score_weighted <= 50:
 		color = discord.Color.blue()
-	elif score > 50 and score <= 75:
+	elif sub_score_weighted > 50 and sub_score <= 75:
 		color = discord.Color.purple()
 	else:
 		color = discord.Color.orange()
 
 	msg = f'\n\n**{results[0][0]}: {results[0][1]}**'
 	for result in results[1:]:
-		msg += f'\n{result[0]}: {result[1]}'
-	msg += f'\n\n**{lang.score}: {int(score * (main_weight + sub_weight))} ({score:.2f}%)**'
-	msg += f'\n{lang.main_score}: {int(main_score * main_weight)} ({main_score:.2f}%)'
-	msg += f'\n{lang.sub_score}: {int(sub_score * sub_weight)} ({sub_score:.2f}%)'
-	msg += f'\n\n{lang.join % "(https://discord.gg/SyGmBxds3M)"}'
+		stat_name = result[0]
+		msg += f'\n{stat_name}: {result[1]}'
+	msg += f'\n\n**Sub Stat Max Roll Equivalent**'
+	for result in results[1:]:
+		stat_name = result[0]
+		msg += f'\n{stat_name}: {sub_grades[stat_name]:.2f} (weighted {sub_grades_weighted[stat_name]:.2f})'
+	msg += f'\n\n**{lang.sub_score}**: {"{:.2%}".format(sub_score)} (weighted {"{:.2%}".format(sub_score_weighted)})'
 
 	embed = discord.Embed(color=color)
 	embed.set_author(name=ctx.message.author.display_name, icon_url=ctx.message.author.avatar_url)
@@ -216,6 +218,7 @@ for lang in tr.languages.values():
 	_feedback.brief = lang.help_feedback.split('\n')[0]
 
 if __name__ == '__main__':
+	print("starting up")
 	if not TOKEN:
 		print('Error: DISCORD_TOKEN not found')
 		sys.exit(1)

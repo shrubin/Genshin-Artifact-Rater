@@ -161,71 +161,50 @@ def validate(value, max_stat, percent):
 	return value
 
 def rate(level, results, options={}, lang=tr.en):
-	main = True
-	main_score = 0.0
-	sub_score = 0.0
-	sub_weight = 0
-	main_weight = 3 + level / 4
-
-	elements = [lang.anemo, lang.elec, lang.pyro, lang.hydro, lang.cryo, lang.geo, lang.dend]
-
-	min_mains = {lang.hp: 717.0, lang.atk: 47.0, f'{lang.atk}%': 7.0, f'{lang.er}%': 7.8, lang.em: 28.0,
-				 f'{lang.phys}%': 8.7, f'{lang.cr}%': 4.7, f'{lang.cd}%': 9.3, f'{lang.elem}%': 7.0,
-				 f'{lang.hp}%': 7.0, f'{lang.df}%': 8.7, f'{lang.heal}%': 5.4}
-	max_mains = {lang.hp: 4780, lang.atk: 311.0, f'{lang.atk}%': 46.6, f'{lang.er}%': 51.8, lang.em: 187.0,
-				 f'{lang.phys}%': 58.3, f'{lang.cr}%': 31.1, f'{lang.cd}%': 62.2, f'{lang.elem}%': 46.6,
-				 f'{lang.hp}%': 46.6, f'{lang.df}%': 58.3, f'{lang.heal}%': 35.9}
+	print('rating..')
 	max_subs = {lang.atk: 19.0, lang.em: 23.0, f'{lang.er}%': 6.5, f'{lang.atk}%': 5.8,
 				f'{lang.cr}%': 3.9, f'{lang.cd}%': 7.8, lang.df: 23.0, lang.hp: 299.0, f'{lang.df}%': 7.3, f'{lang.hp}%': 5.8}
-	weights = {lang.hp: 0, lang.atk: 0.5, f'{lang.atk}%': 1, f'{lang.er}%': 0.5, lang.em: 0.5,
+	weights = {lang.hp: 0, lang.atk: 0.4, f'{lang.atk}%': 1, f'{lang.er}%': 1, lang.em: 1,
 			   f'{lang.phys}%': 1, f'{lang.cr}%': 1, f'{lang.cd}%': 1, f'{lang.elem}%': 1,
 			   f'{lang.hp}%': 0, f'{lang.df}%': 0, lang.df: 0, f'{lang.heal}%': 0}
 
 	# Replaces weights with options
 	weights = {**weights, **options}
 
-	for result in results:
+	# stat -> # of max roll equivalent
+	sub_grades = {}
+	sub_grades_weighted = {}
+	max_roll_sum = 0
+	weighted_max_roll_sum = 0
+	for result in results[1:]:
 		stat, value = result
-		key = stat if stat[:-1] not in elements else f'{lang.elem}%'
-		if main:
-			main = False
-			max_main = max_mains[key] - (max_mains[key] - min_mains[key]) * (1 - level / 20.0)
-			value = validate(value, max_main, '%' in key)
-			main_score = value / max_main * weights[key] * main_weight
-			if key in [lang.atk, lang.hp]:
-				main_weight *= weights[key]
-			count = 0
-			for k,v in sorted(weights.items(), reverse=True, key=lambda item: item[1]):
-				if k == key or k not in max_subs:
-					continue
-				if count == 0:
-					sub_weight += v * (1 + level / 4)
-				else:
-					sub_weight += v
-				count += 1
-				if count == 4:
-					break
-		else:
-			value = validate(value, max_subs[key] * 6, '%' in key)
-			sub_score += value / max_subs[key] * weights[key]
-		result[1] = value
+		equiv_max_rolls = value / max_subs[stat]
+		weighted_max_rolls = equiv_max_rolls * weights[stat]
+		max_roll_sum += equiv_max_rolls
+		weighted_max_roll_sum += weighted_max_rolls
+		sub_grades[stat] = equiv_max_rolls
+		sub_grades_weighted[stat] = weighted_max_rolls
+		print(f'stat: {stat}, equivalentMaxRolls: {equiv_max_rolls}')
 
-	score = (main_score + sub_score) / (main_weight + sub_weight) * 100 if main_weight + sub_weight > 0 else 100
-	main_score = main_score / main_weight * 100 if main_weight > 0 else 100
-	main_score = 100 if main_score > 99 else main_score
-	sub_score = sub_score / sub_weight * 100 if sub_weight > 0 else 100
-	print(f'Gear Score: {score:.2f}% (main {main_score:.2f}% {main_weight}, sub {sub_score:.2f}% {sub_weight})')
-	return score, main_score, main_weight, sub_score, sub_weight
+	sub_score = max_roll_sum / 9
+	sub_score_weighted = weighted_max_roll_sum / 9
+	print(f'useful max rolls out of 9: {weighted_max_roll_sum}')
+	print(f'score: {"{:.2%}".format(sub_score)}')
+	print(f'weighted score: {"{:.2%}".format(sub_score_weighted)}')
+	return sub_score, sub_score_weighted, sub_grades, sub_grades_weighted
 
 if __name__ == '__main__':
 	if sys.version_info[0] == 3 and sys.version_info[1] >= 8 and sys.platform.startswith('win'):
 		asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-	url = 'https://cdn.discordapp.com/attachments/788086842406731836/789252629800812544/20201217221123.jpg'
-	lang = tr.ja
+	url = 'https://cdn.discordapp.com/attachments/789322210317041694/789341827353673758/20201218_041138.jpg'
+	lang = tr.en
 	suc, text = asyncio.run(ocr(url, 1, lang))
-	print(text)
+
+	print('fetch complete')
 	if suc:
 		level, results = parse(text, lang)
 		if level == None:
 			level = 20
+		print("results\n")
+		print(results)
 		rate(level, results, {}, lang)
