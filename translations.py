@@ -186,7 +186,7 @@ Translated by NeRooN#1104 | Traducción hecha por NeRooN#1104
 
 class de(translation):
 	uid = 'de'
-	code = 'deu'
+	code = 'ger'
 	supported = True
 
 	hp = 'LP'
@@ -285,7 +285,7 @@ Translated by NekoNeko#0440 | Übersetzung von NekoNeko#0440
 
 class fr(translation):
 	uid = 'fr'
-	code = 'fra'
+	code = 'fre'
 	supported = True
 
 	hp = 'PV'
@@ -734,4 +734,184 @@ lvl:  Сравнить с указанным уровнем артефакта (
 Translated by wellywob#8772 | Переведено by wellywob#8772
 '''
 
-languages = {lang.uid: lang for lang in [en, es, de, fr, vi, pt, ja, pl, ru]}
+class tw(translation):
+	uid = 'tw'
+	code = 'cht'
+	supported = False
+
+	hp = '生命值'
+	heal = '治療加成'
+	df = '防禦力'
+	er = '元素充能效率'
+	em = '元素精通'
+	atk = '攻擊力'
+	cd = '暴擊傷害'
+	cr = '暴擊率'
+	phys = '物理傷害加成'
+	elem = '元素傷害加成'
+	anemo = '風元素傷害加成'
+	elec = '雷元素傷害加成'
+	pyro = '火元素傷害加成'
+	hydro = '水元素傷害加成'
+	cryo = '冰元素傷害加成'
+	geo = '岩元素傷害加成'
+	dend = '草元素傷害加成'
+
+	hp_opt = '生命'
+	heal_opt = '治療'
+	df_opt = '防禦'
+	er_opt = '元素充能'
+	em_opt = '元素精通'
+	atk_opt = '攻擊'
+	cr_opt = '暴傷'
+	cd_opt = '暴率'
+	phys_opt = '物理'
+	elem_opt = '元素'
+	lvl_opt = '等級'
+
+	piece_set = '套裝'
+
+	lvl = '等級'
+	score = '聖遺物評分'
+	main_score = '主屬性評分'
+	sub_score = '副屬性評分'
+	art_level = '聖遺物等級'
+	requested = '%s要求'
+	join = '有任何問題,請加入 [Artifact Rater Server]%s'
+	feedback = '已經收到你的意見,如果您想獲得更多詳細信息 請加入https://discord.gg/SyGmBxds3M'
+
+	err = '錯誤'
+	err_not_found = '錯誤:找不到圖片或網址,請確保他們在同一條訊息中發送'
+	err_parse = '錯誤:無法解析命令,請仔細檢查格式和拼寫'
+	err_try_again = '錯誤:請在幾分鐘後再試一次'
+	err_unknown_ocr = '錯誤:OCR失敗,出現未知錯誤'
+	err_unknown = '未知錯誤,嘗試使用測試頁面中的圖片\'s測試頁面'
+
+	help_feedback = '''\
+發送有關機器人的問題或意見.最多可以發送一張圖像.
+-feedback <message> [image]
+'''
+
+	help_rate = '''\
+針對5星聖遺物進行等級評分.請將命令和圖像放在同一條消息中.
+
+如果您使用的是Windows 10,您可以使用 Shift + Windows + S 並將鼠標拖到畫面上,然後去discord使用 Ctrl+V 貼上.
+
+如果要將其添加到您的伺服器,請使用以下鏈接:
+https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot
+
+您可以通過將命令發送來使用該機器人 Rater#6924.
+
+-rate <image/url> [lvl=<level>] [<stat>=<weight> ...]
+
+如果有什麼問題,請在discord聯繫 shrubin#1866 或使用-feedback命令.
+源代碼位於:https://github.com/shrubin/Genshin-Artifact-Rater
+
+預設權重
+
+攻擊%, 各種傷害%, 爆擊 - 1
+攻擊, 元素精通, 元素充能 - 0.5
+其他 - 0
+
+選項
+
+lvl: 指定聖遺物的等級進行比較 (預設: <聖遺物_等級>)
+-rate lvl=20
+
+<stat>: 設置自定義權重 (值介於0至1)
+-rate atk=1 er=0 atk%=0.5
+
+<stat> 值可以是以下任何 生命(HP), 生命%(HP%), 攻擊(ATK), 攻擊%(ATK%), 元素充能(ER), 元素精通(EM), 物理傷害(PHYS), 爆率(CR), 爆傷CD, 元素傷害(ELEM), 治療(Heal), 防禦(DEF), 防禦%(DEF%)
+'''
+
+class cn(translation):
+	uid = 'cn'
+	code = 'chs'
+	supported = False
+
+	hp = '生命值'
+	heal = '治疗加成'
+	df = '防御力'
+	er = '元素充能效率'
+	em = '元素精通'
+	atk = '攻击力'
+	cd = '暴击伤害'
+	cr = '暴击率'
+	phys = '物理伤害加成'
+	elem = '元素伤害加成'
+	anemo = '风元素伤害加成'
+	elec = '雷元素伤害加成'
+	pyro = '火元素伤害加成'
+	hydro = '水元素伤害加成'
+	cryo = '冰元素伤害加成'
+	geo = '岩元素伤害加成'
+	dend = '草元素伤害加成'
+
+	hp_opt = '生命'
+	heal_opt = '治疗'
+	df_opt = '防御'
+	er_opt = '元素充能'
+	em_opt = '元素精通'
+	atk_opt = '攻击'
+	cr_opt = '暴伤'
+	cd_opt = '暴率'
+	phys_opt = '物理'
+	elem_opt = '元素'
+	lvl_opt = '等级'
+
+	piece_set = '套装'
+
+	lvl = '等级'
+	score = '圣遗物评分'
+	main_score = '主属性评分'
+	sub_score = '副属性评分'
+	art_level = '圣遗物等级'
+	requested = '%s要求'
+	join = '有任何问题,请加入 [Artifact Rater Server]%s'
+	feedback = '已经收到你的意见,如果您想获得更多详细信息 请加入https://discord.gg/SyGmBxds3M'
+
+	err = '错误'
+	err_not_found = '错误:找不到图片或网址,请确保他们在同一条讯息中发送'
+	err_parse = '错误:无法解析命令,请仔细检查格式和拼写'
+	err_try_again = '错误:请在几分钟后再试一次'
+	err_unknown_ocr = '错误:OCR失败,出现未知错误'
+	err_unknown = '未知错误,尝试使用测试页面中的图片\'s测试页面'
+
+	help_feedback = '''\
+发送有关机器人的问题或意见.最多可以发送一张图像.
+-feedback <message> [image]
+'''
+
+	help_rate = '''\
+针对5星圣遗物进行等级评分.请将命令和图像放在同一条消息中.
+
+如果您使用的是Windows 10,您可以使用 Shift + Windows + S 并将鼠标拖到画面上,然后去discord使用 Ctrl+V 贴上.
+
+如果要将其添加到您的伺服器,请使用以下链接:
+https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot
+
+您可以通过将命令发送来使用该机器人 Rater#6924.
+
+-rate <image/url> [lvl=<level>] [<stat>=<weight> ...]
+
+如果有什么问题,请在discord联系 shrubin#1866 或使用-feedback命令.
+源代码位于:https://github.com/shrubin/Genshin-Artifact-Rater
+
+预设权重
+
+攻击%, 各种伤害%, 爆击 - 1
+攻击, 元素精通, 元素充能 - 0.5
+其他 - 0
+
+选项
+
+lvl: 指定圣遗物的等级进行比较 (预设: <圣遗物_等级>)
+-rate lvl=20
+
+<stat>: 设置自定义权重 (值介于0至1)
+-rate atk=1 er=0 atk%=0.5
+
+<stat> 值可以是以下任何生命(HP), 生命%(HP%), 攻击(ATK), 攻击%(ATK%), 元素充能(ER), 元素精通(EM), 物理伤害(PHYS), 爆率(CR), 爆伤CD, 元素伤害(ELEM), 治疗(Heal), 防御(DEF), 防御%(DEF%)
+'''
+
+languages = {lang.uid: lang for lang in [en, es, de, fr, vi, pt, ja, pl, ru, tw, cn]}
