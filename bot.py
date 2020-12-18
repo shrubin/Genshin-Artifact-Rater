@@ -203,7 +203,7 @@ async def help(ctx):
         try:
             reaction, user = await bot.wait_for('reaction_add', check=check, timeout=120)
         except asyncio.TimeoutError:
-            msg.delete()
+            await msg.delete()
             break
 
         embed.clear_fields()
