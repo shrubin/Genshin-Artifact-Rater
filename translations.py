@@ -398,6 +398,59 @@ class vi(translation):
 
 	piece_set = 'Bộ 2 món'
 
+	lvl = 'Cấp Độ'
+	score = 'Điểm Trang Bị'
+	main_score = 'Điểm Dòng Chính'
+	sub_score = 'Điểm Dòng Phụ'
+	art_level = 'Cấp Độ Thánh Di Vật'
+	requested = 'Người đặt lệnh: %s'
+	join = 'Để báo cáo vấn đề gặp phải, hãy tham gia [Artifact Rater Server]%s'
+	feedback = 'Góp ý đã được tiếp nhận, hãy tham gia https://discord.gg/SyGmBxds3M nếu bạn muốn cung cấp thêm chi tiết'
+
+	err = 'Lỗi'
+	err_not_found = 'Lỗi: Không tìm thấy ảnh hoặc link, 1 trong 2 phải được gửi chung trong cùng 1 tin nhắn'
+	err_parse = 'Lỗi: Không thể xử lý lệnh, vui lòng kiểm tra lại định dạng và chính tả'
+	err_try_again = 'hãy thử lại trong vài phút nữa'
+	err_unknown_ocr = 'Lỗi: OCR đọc ảnh thất bại lỗi không xác định'
+	err_unknown = 'Lỗi không xác định, hãy sử dụng ảnh chụp trong Túi > Thánh Di Vật'
+
+	help_feedback = '''\
+Gửi góp ý về các vấn đề hoặc đóng góp ý tưởng cho bot. Có thể gửi tối đa 1 tấm ảnh.
+-feedback <nội dung> [ảnh]
+'''
+
+	help_rate = '''\
+Đánh giá thánh di vật dựa trên một thánh di vật 5* tối ưu. Đặt dòng lệnh và ảnh chụp trong cùng 1 tin nhắn.
+
+Nếu sử dụng Windows 10, nhấn phím Shift + Windows + S và vẽ hình chữ nhật bao quanh vùng thông tin, sau đó qua discord và dán bằng phím Ctrl+V.
+
+Nếu muốn thêm vào máy chủ riêng hãy vào link sau:
+https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot
+
+Bạn cũng có thể sử dụng bot bằng cách gửi lệnh qua tin nhắn riêng đến Artifact Rater#6924.
+
+-rate <ảnh/link> [lvl=<cấp độ>] [<chỉ số>=<hệ số> ...]
+
+Nếu bạn có vấn đè gì, hãy liên lạc với shrubin#1866 trên discord hoặc dùng lệnh -feedback.
+Mã nguồn mở có sẵn tại https://github.com/shrubin/Genshin-Artifact-Rater
+
+Hệ số mặc định
+
+ATK%, DMG%, Crit - 1
+ATK, EM, Recharge - 0.5
+Còn lại - 0
+
+Tùy chọn
+
+lvl: So sánh với cấp độ thánh di vật được cung cấp (mặc định: <artifact_level>)
+-rate lvl=20
+
+<stat>: Nhập hệ số tùy chọn (giá trị từ 0 tới 1)
+-rate atk=1 er=0 atk%=0.5
+
+<stat> là 1 trong những giá trị sau: HP, HP%, ATK, ATK%, ER (hồi năng lượng), EM (tinh thông nguyên tố), PHYS (ST vật lý), CR (tỉ lệ bạo kích), CD (ST bạo kích), ELEM (ST nguyên tố%), Heal (trị thương), DEF, DEF% (phòng thủ)
+'''
+
 class pt(translation):
 	uid = 'pt'
 	code = 'por'
@@ -514,15 +567,15 @@ class ja(translation):
 	dend = '草元素ダメージ'
 
 	hp_opt = 'hp'
-	heal_opt = '治癒'
-	df_opt = '防御'
-	er_opt = '元素チャージ'
+	heal_opt = '治癒効果'
+	df_opt = '防御力'
+	er_opt = '元素チャージ効率'
 	em_opt = '元素熟知'
-	atk_opt = '攻撃'
-	cr_opt = '会心'
+	atk_opt = '攻撃力'
+	cr_opt = '会心率'
 	cd_opt = '会心ダメージ'
-	phys_opt = '物理'
-	elem_opt = '元素'
+	phys_opt = '物理ダメージ'
+	elem_opt = '元素ダメージ'
 	lvl_opt = 'レベル'
 
 	piece_set = '2セット'
@@ -530,7 +583,7 @@ class ja(translation):
 	replace = {'カ': '力'}
 
 	lvl = 'レベル'
-	score = 'ギアスコア'
+	score = '装備スコア'
 	main_score = 'メインステータス評価'
 	sub_score = 'サブステータス評価'
 	art_level = '聖遺物レベル'
@@ -566,7 +619,7 @@ Windows 10を使っている場合は、Shift + Windows + Sを押すながら聖
 
 デフォルトの重み付け
 
-攻撃力％、各種ダメージバフ％、会心 – 1
+攻撃力％、各種ダメージバフ％、会心ダメージと会心率 – 1
 攻撃力、元素熟知、元素チャージ効率 – 0.5
 他 – 0
 
@@ -583,6 +636,7 @@ lvl: 特定の聖遺物レベルと比較する (デフォルト: <聖遺物_レ
 Translated by plastiquedoll#1393 | plastiquedoll#1393によって翻訳されました。
 '''
 
+# Text only, no game translation
 class pl(translation):
 	uid = 'pl'
 	code = 'pol'
@@ -671,8 +725,8 @@ class ru(translation):
 	er_opt = 'Восст'
 	em_opt = 'Мастерство'
 	atk_opt = 'Атака'
-	cr_opt = 'ШансКРТ'
-	cd_opt = 'УронКРТ'
+	cr_opt = 'Крит.Шанс'
+	cd_opt = 'Крит.Урон'
 	phys_opt = 'Физ'
 	elem_opt = 'Элем'
 	lvl_opt = 'лвл'
@@ -682,7 +736,7 @@ class ru(translation):
 	lvl = 'Уровень'
 	score = 'Общая оценка'
 	main_score = 'Оценка главного стата'
-	sub_score = 'Оценка побочных статов'
+	sub_score = 'Оценка вторичных статов'
 	art_level = 'Уровень артефакта'
 	requested = 'Запрос в %'
 	join = 'Если у вас возникли проблемы, присоединяйтесь к [Artifact Rater Server]%s'
@@ -708,7 +762,7 @@ class ru(translation):
 Если вы хотите добавить его на свой сервер, используйте ссылку:
 https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot
 
-Так же вы можете спользовать бота, отправив личное сообщение Artifact Rater#6924.
+Так же вы можете использовать бота, отправив личное сообщение Artifact Rater#6924.
 
 -rate <image/url> [lvl=<Уровень>] [<stat>=<По умолчанию> ...]
 
@@ -718,7 +772,7 @@ https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permission
 Оценка по умолчанию:
 
 Сила атаки %, шанс и урон крита - 1
-Сила атки, мастерство элементов, восстановление энергии - 0.5
+Сила атаки, мастерство стихий, восстановление энергии - 0.5
 Всё остальное - 0
 
 Опции:
@@ -729,7 +783,7 @@ lvl:  Сравнить с указанным уровнем артефакта (
 <stat>: Настроить значения по умолчанию (от 0 до 1)
 -rate_ru Сила атаки=1 Восст.энергии=0 Сила атаки%=0.5
 
-<stat> может использоваться для любого показателя: HP, HP%, Атака, Атака %, Восст (Восстановление энергии), Мастерство (стихий), Физ (Физический урон), ШансКРТ, УронКРТ, Элем (Элементальный урон), Лечение (бонус), Защита, Защита %
+<stat> может использоваться для любого показателя: HP, HP%, Атака, Атака %, Восст (Восстановление энергии), Мастерство (стихий), Физ (Физический урон), Крит.Шанс, Крит.Урон, Элем (Элементальный урон), Лечение (бонус), Защита, Защита %
 
 Translated by wellywob#8772 | Переведено by wellywob#8772
 '''
@@ -914,4 +968,63 @@ lvl: 指定圣遗物的等级进行比较 (预设: <圣遗物_等级>)
 <stat> 值可以是以下任何生命(HP), 生命%(HP%), 攻击(ATK), 攻击%(ATK%), 元素充能(ER), 元素精通(EM), 物理伤害(PHYS), 爆率(CR), 爆伤CD, 元素伤害(ELEM), 治疗(Heal), 防御(DEF), 防御%(DEF%)
 '''
 
-languages = {lang.uid: lang for lang in [en, es, de, fr, vi, pt, ja, pl, ru, tw, cn]}
+# Text only, no game translation
+class it(translation):
+	uid = 'it'
+	code = 'ita'
+	supported = True
+
+	lvl = 'Livello'
+	score = 'Punteggio dell\'Artefatto'
+	main_score = 'Valutazione della Statistica Principale'
+	sub_score = 'Valutazione delle Statistiche Secondarie'
+	art_level = 'Livello dell\'Atefatto'
+	requested = 'Richiesto da %s'
+	join = 'In caso di probelmi, unisciti al [Artifact Rater Server]%s'
+	feedback = 'Feedback ricevuto, unisciti al server discord per aggiunere ulteriori dettagli: https://discord.gg/SyGmBxds3M'
+
+	err = 'Errore'
+	err_not_found = 'Errore: Nessun URL o immagine sono stati trovati, assicurarsi che siano stati spediti nello stesso messaggio'
+	err_parse = 'Errore: Il comando non può essere analizzato, ricontrollare il formato e la compitazione'
+	err_try_again = 'Riprova tra un qualche minuto'
+	err_unknown_ocr = 'Errore: OCR ha fallito per un errore sconosciuto'
+	err_unknown = 'Errore sconosciuto, prova utilizzando un\'immagine proveniente dalla pagina di artefatti'
+
+	help_feedback = '''\
+Manda il tuo feedback di problemi o idee al bot. Solo un immagine alla volta sarà accettata.
+-feedback <messaggio> [immagine]
+'''
+
+	help_rate = '''\
+Confronta un artefatto con un'ottimale artefatto 5*. Metti il comando e l'immagine nello stesso messaggio.
+
+Se stai utilizzando Windows 10, puoi usare Shift + Windows + S e trascinare il cursore sull'artefatto per copiare l'immagine, poi usa Ctrl+V in discord per incollare.
+
+Nel qual caso tu voglia aggiungerlo ad un server privato usa il link seguente:
+https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot
+
+Puoi anche servirti del bot mandando un messaggio privato contenente il comando a Artifact Rater#6924.
+
+-rate_it <immagine/url> [lvl=<livello>] [<stato>=<peso> ...]
+
+Per qualunque problema, contatta shrubin#1866 su discord oppure utilizza il comando -feedback.
+Il codice sorgente è disponibile all'indirizzo https://github.com/shrubin/Genshin-Artifact-Rater
+
+Pesi predefiniti
+
+ATK%, DMG%, Crit - 1
+ATK, EM, Recharge - 0.5
+Tutto il resto - 0
+
+Opzioni
+
+lvl: Compara con un artefatto di livello specifico (default: <artifact_level>)
+-rate lvl=20
+
+<stato>: imposta pesi predefiniti (valori compresi tra 0 e 1)
+-rate atk=1 er=0 atk%=0.5
+
+<stato> è qualunque tra: HP, HP%, ATK, ATK%, ER (Recharge), EM, PHYS, CR (Crit Rate), CD (Crit Damage), ELEM (Elemental DMG%), Heal, DEF, DEF
+'''
+
+languages = {lang.uid: lang for lang in [en, es, de, fr, vi, pt, ja, pl, ru, tw, cn, it]}
