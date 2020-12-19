@@ -184,61 +184,43 @@ async def rate(ctx, lang):
 		channel = bot.get_channel(ERR_CHANNEL_ID)
 		await channel.send(embed=embed)
 
-languages = ['🇪🇸', '🇩🇪', '🇫🇷', '🇵🇹', '🇯🇵', '🇵🇱', '🇷🇺', '🇹🇼', '🇨🇳']
-
 @bot.command(name='help')
 @commands.cooldown(RATE_LIMIT_N, RATE_LIMIT_TIME, commands.BucketType.user)
 async def help(ctx):
+	embed = create_embed()
+	embed.set_footer(text='To change languages click on the corresponding flag below')
+	msg = await ctx.send(embed=embed)
 
-    embed = create_embed()
-    embed.set_footer(text='To change languages click on the corresponding flag below')
-    msg = await ctx.send(embed=embed)
+	flags = {lang.flag: lang for lang in tr.languages.values()}
 
-    def check(reaction, user):
-        return user == ctx.message.author and str(reaction.emoji) in languages
+	def check(reaction, user):
+		return user == ctx.message.author and str(reaction.emoji) in flags
 
-    while True:
-        for language in languages:
-            await msg.add_reaction(language)
-        try:
-            reaction, user = await bot.wait_for('reaction_add', check=check, timeout=120)
-        except asyncio.TimeoutError:
-            await msg.delete()
-#             break
+	for flag in flags:
+		await msg.add_reaction(flag)
 
-        embed.clear_fields()
-        embed=create_embed(language=str(reaction.emoji))
-        msg.id = reaction.message.id
-        # await msg.remove_reaction(reaction.emoji, user) #Requires Permission
-        await msg.edit(embed=embed)
+	while True:
+		try:
+			reaction, user = await bot.wait_for('reaction_add', check=check, timeout=120)
+		except asyncio.TimeoutError:
+			break
 
-def create_embed(language = '🇺🇸'):
+		lang = flags[str(reaction.emoji)]
+		embed.clear_fields()
+		embed=create_embed(lang=lang)
+		msg.id = reaction.message.id
+		# await msg.remove_reaction(reaction.emoji, user) #Requires Permission
+		await msg.edit(embed=embed)
 
-    lang_dict = {
-        '🇺🇸':tr.en,
-        '🇪🇸':tr.es,
-        '🇩🇪':tr.de,
-        '🇫🇷':tr.fr,
-        # '🇻🇳':tr.vi,
-        '🇵🇹':tr.pt,
-        '🇯🇵':tr.ja,
-        '🇵🇱':tr.pl,
-        '🇷🇺':tr.ru,
-        '🇹🇼':tr.tw,
-        '🇨🇳':tr.cn
-    }
-
-    lang = lang_dict[language]
-
-    embed = discord.Embed(
-        title='Artifact Rater Bot Help', #lang.title
-        description=lang.help_description,
-        colour=discord.Colour.red(),
-    )
-    embed.add_field(name=f'```{lang.help_rate_name}```', value=lang.help_rate_value, inline=False)
-    embed.add_field(name=f'```{lang.help_feedback_name}```', value=f'{lang.help_feedback_value}\n{lang.help_source}', inline=False)
-
-    return embed
+def create_embed(lang=tr.en):
+	embed = discord.Embed(
+		title=lang.title,
+		description=lang.help_description,
+		colour=discord.Colour.red(),
+	)
+	embed.add_field(name=f'```{lang.help_rate_name}```', value=lang.help_rate_value, inline=False)
+	embed.add_field(name=f'```{lang.help_feedback_name}```', value=f'{lang.help_feedback_value}\n{lang.help_source}', inline=False)
+	return embed
 
 async def feedback(ctx, lang):
 	if not DEVELOPMENT:

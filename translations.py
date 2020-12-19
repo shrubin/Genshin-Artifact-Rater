@@ -3,6 +3,8 @@ class translation:
 	uid = 'en'
 	# 3-digit language code
 	code = 'eng'
+	# Unicode flag
+	flag = '🇺🇸'
 	# Supported by OCR Engine 2
 	supported = True
 
@@ -54,6 +56,7 @@ class translation:
 	requested = 'Requested by %s'
 	join = 'For issues, join the [Artifact Rater Server]%s'
 	feedback = 'Feedback received, please join https://discord.gg/SyGmBxds3M if you\'d like to add more details'
+	title = 'Artifact Rater Bot Help'
 
 	# text for bot errors
 	err = 'Error'
@@ -97,6 +100,7 @@ class en(translation):
 class es(translation):
 	uid = 'es'
 	code = 'spa'
+	flag = '🇪🇸'
 	supported = True
 
 	hp = 'Vida'
@@ -167,6 +171,7 @@ class es(translation):
 class de(translation):
 	uid = 'de'
 	code = 'ger'
+	flag = '🇩🇪'
 	supported = True
 
 	hp = 'LP'
@@ -252,6 +257,7 @@ class de(translation):
 class fr(translation):
 	uid = 'fr'
 	code = 'fre'
+	flag = '🇫🇷'
 	supported = True
 
 	hp = 'PV'
@@ -332,6 +338,7 @@ class fr(translation):
 class vi(translation):
 	uid = 'vi'
 	code = 'vie'
+	flag = '🇻🇳'
 	supported = True
 
 	hp = 'HP'
@@ -379,7 +386,7 @@ class vi(translation):
 	help_feedback_name = '-feedback <nội dung> [ảnh]'
 	help_feedback_value = 'Gửi góp ý về các vấn đề hoặc đóng góp ý tưởng cho bot. Có thể gửi tối đa 1 tấm ảnh.'
 
-	help_rate_name = '-rate <ảnh/link> [lvl=<cấp độ>] [<chỉ số>=<hệ số> ...]'
+	help_rate_name = '-rate_vi <ảnh/link> [lvl=<cấp độ>] [<chỉ số>=<hệ số> ...]'
 	help_rate_value = '''\
 	Đánh giá thánh di vật dựa trên một thánh di vật 5* tối ưu. Đặt dòng lệnh và ảnh chụp trong cùng 1 tin nhắn.
 
@@ -392,15 +399,16 @@ class vi(translation):
 
 	Tùy chọn
 	lvl: So sánh với cấp độ thánh di vật được cung cấp (mặc định: <artifact_level>)
-	-rate lvl=20
+	-rate_vi lvl=20
 	<stat>: Nhập hệ số tùy chọn (giá trị từ 0 tới 1)
-	-rate atk=1 er=0 atk%=0.5
+	-rate_vi atk=1 er=0 atk%=0.5
 	<stat> là 1 trong những giá trị sau: HP, HP%, ATK, ATK%, ER (hồi năng lượng), EM (tinh thông nguyên tố), PHYS (ST vật lý), CR (tỉ lệ bạo kích), CD (ST bạo kích), ELEM (ST nguyên tố%), Heal (trị thương), DEF, DEF% (phòng thủ)
 	'''
 
 class pt(translation):
 	uid = 'pt'
 	code = 'por'
+	flag = '🇵🇹'
 	supported = True
 
 	hp = 'Vida'
@@ -481,6 +489,7 @@ class pt(translation):
 class ja(translation):
 	uid = 'ja'
 	code = 'jpn'
+	flag = '🇯🇵'
 	supported = False
 
 	hp = 'HP'
@@ -564,6 +573,7 @@ class ja(translation):
 class pl(translation):
 	uid = 'pl'
 	code = 'pol'
+	flag = '🇵🇱'
 	supported = True
 
 	lvl = 'Level'
@@ -612,6 +622,7 @@ class pl(translation):
 class ru(translation):
 	uid = 'ru'
 	code = 'rus'
+	flag = '🇷🇺'
 	supported = False
 
 	hp = 'НР'
@@ -692,6 +703,7 @@ class ru(translation):
 class tw(translation):
 	uid = 'tw'
 	code = 'cht'
+	flag = '🇹🇼'
 	supported = False
 
 	hp = '生命值'
@@ -771,6 +783,7 @@ class tw(translation):
 class cn(translation):
 	uid = 'cn'
 	code = 'chs'
+	flag = '🇨🇳'
 	supported = False
 
 	hp = '生命值'
@@ -851,6 +864,7 @@ class cn(translation):
 class it(translation):
 	uid = 'it'
 	code = 'ita'
+	flag = '🇮🇹'
 	supported = True
 
 	lvl = 'Livello'
@@ -891,9 +905,9 @@ class it(translation):
 
 	Opzioni
 	lvl: Compara con un artefatto di livello specifico (default: <artifact_level>)
-	-rate lvl=20
+	-rate_it lvl=20
 	<stato>: imposta pesi predefiniti (valori compresi tra 0 e 1)
-	-rate atk=1 er=0 atk%=0.5
+	-rate_it atk=1 er=0 atk%=0.5
 	<stato> è qualunque tra: HP, HP%, ATK, ATK%, ER (Recharge), EM, PHYS, CR (Crit Rate), CD (Crit Damage), ELEM (Elemental DMG%), Heal, DEF, DEF
 	'''
 
