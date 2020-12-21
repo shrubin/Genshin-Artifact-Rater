@@ -37,6 +37,10 @@ RATE_LIMIT_N = 5
 RATE_LIMIT_TIME = 10
 SHARDS = 10
 
+INVITE_URL = 'https://discord.gg/SyGmBxds3M'
+BOT_URL = 'https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot'
+GITHUB_URL = 'https://github.com/shrubin/Genshin-Artifact-Rater'
+
 calls = 0
 crashes = 0
 
@@ -111,19 +115,19 @@ async def send(ctx, msg=None, embed=None):
 		channel = bot.get_channel(DEV_CHANNEL_ID)
 		return await channel.send(msg, embed=embed)
 
-# TODO: translate
 @bot.command(name='user', aliases=['server'])
 @commands.cooldown(RATE_LIMIT_N, RATE_LIMIT_TIME, commands.BucketType.user)
 async def config(ctx):
+	if DEVELOPMENT and not (ctx.channel and ctx.channel.id == DEV_CHANNEL_ID):
+		return
 	if not DATABASE_URL:
-		print('no db')
 		return
 
 	lang = get_lang(ctx)
 
 	msg = ctx.message.content.split()
 	if len(msg) < 3 or (msg[1] == 'preset' and len(msg) < 4):
-		await send(ctx, msg='too short')
+		await send(ctx, msg=lang.err_parse)
 		return
 
 	is_server = 'server' in msg[0]
@@ -132,29 +136,30 @@ async def config(ctx):
 	id = ctx.guild.id if is_server else ctx.message.author.id
 
 	if is_server and not ctx.message.author.guild_permissions.administrator:
-		await send(ctx, msg='admin only')
+		await send(ctx, msg=lang.err_admin_only)
 		return
 
 	if attr == 'lang':
 		if val not in tr.languages:
-			await send(ctx, msg='not a language')
+			await send(ctx, msg=lang.err_parse)
 			return
 		db.set_lang(id, val)
-		await send(ctx, msg=f'lang set to {val}')
+		lang = tr.languages[val]
+		await send(ctx, msg=lang.set_lang)
 
 	elif attr == 'prefix':
 		if not is_server:
-			await send(ctx, msg='server only')
+			await send(ctx, msg=lang.err_server_only)
 			return
 		db.set_prefix(id, val)
-		await send(ctx, msg=f'prefix set to {val}')
+		await send(ctx, msg=lang.set_prefix % val)
 
 	elif attr == 'preset':
 		val = val.split()
 		if val[0] == 'delete':
 			for name in val[1:]:
 				db.del_preset(id, name)
-			await send(ctx, msg=f'preset {", ".join(val[1:])} deleted')
+			await send(ctx, msg=lang.del_preset % ", ".join(val[1:]))
 		else:
 			name = val[0]
 			command = ' '.join(val[1:])
@@ -163,18 +168,18 @@ async def config(ctx):
 					await send(ctx, msg=lang.err_parse)
 					return
 			db.set_preset(id, name, command)
-			await send(ctx, msg=f'preset {name} set to {command}')
+			await send(ctx, msg=lang.set_preset % (name, command))
 
-# TODO: translate
 @bot.command()
 @commands.cooldown(RATE_LIMIT_N, RATE_LIMIT_TIME, commands.BucketType.user)
 async def presets(ctx):
+	if DEVELOPMENT and not (ctx.channel and ctx.channel.id == DEV_CHANNEL_ID):
+		return
 	if not DATABASE_URL:
-		print('no db')
 		return
 	presets = get_presets(ctx)
 	if not presets:
-		await send(ctx, msg='no presets found')
+		await send(ctx, msg=lang.no_presets)
 		return
 
 	embed = discord.Embed(title='Presets', colour=discord.Colour.blue())
@@ -185,16 +190,19 @@ async def presets(ctx):
 def create_embed(lang):
 	embed = discord.Embed(
 		title=lang.title,
-		description=lang.help_description,
+		description=lang.help_description % BOT_URL,
 		colour=discord.Colour.red(),
 	)
 	embed.add_field(name=f'```{lang.help_rate_name}```', value=lang.help_rate_value, inline=False)
-	embed.add_field(name=f'```{lang.help_feedback_name}```', value=f'{lang.help_feedback_value}\n{lang.help_source}', inline=False)
+	embed.add_field(name=f'```{lang.help_feedback_name}```', value=f'{lang.help_feedback_value}\n{lang.help_source % GITHUB_URL}', inline=False)
 	return embed
 
 @bot.command()
 @commands.cooldown(RATE_LIMIT_N, RATE_LIMIT_TIME, commands.BucketType.user)
 async def help(ctx):
+	if DEVELOPMENT and not (ctx.channel and ctx.channel.id == DEV_CHANNEL_ID):
+		return
+
 	lang = get_lang(ctx)
 
 	embed = create_embed(lang)
@@ -276,9 +284,9 @@ async def rate(ctx):
 		return
 
 	print(url)
-	calls += 1
 	for i in range(RETRIES + 1):
 		try:
+			calls += 1
 			suc, text = await ra.ocr(url, i+1, lang)
 
 			if not suc:
@@ -330,7 +338,7 @@ async def rate(ctx):
 	msg += f'\n\n**{lang.score}: {int(score * (main_weight + sub_weight))} ({score:.2f}%)**'
 	msg += f'\n{lang.main_score}: {int(main_score * main_weight)} ({main_score:.2f}%)'
 	msg += f'\n{lang.sub_score}: {int(sub_score * sub_weight)} ({sub_score:.2f}%)'
-	msg += f'\n\n{lang.join % "(https://discord.gg/SyGmBxds3M)"}'
+	msg += f'\n\n{lang.join % f"({INVITE_URL})"}'
 
 	embed = discord.Embed(color=color)
 	embed.set_author(name=ctx.message.author.display_name, icon_url=ctx.message.author.avatar_url)
@@ -344,9 +352,12 @@ async def rate(ctx):
 @bot.command()
 @commands.cooldown(RATE_LIMIT_N, RATE_LIMIT_TIME, commands.BucketType.user)
 async def feedback(ctx):
+	if DEVELOPMENT and not (ctx.channel and ctx.channel.id == DEV_CHANNEL_ID):
+		return
+
 	lang = get_lang(ctx)
 
-	await send(ctx, msg=lang.feedback)
+	await send(ctx, msg=lang.feedback % INVITE_URL)
 	if CHANNEL_ID:
 		channel = bot.get_channel(CHANNEL_ID)
 		embed = discord.Embed()

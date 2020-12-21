@@ -55,10 +55,15 @@ class translation:
 	art_level = 'Artifact Level'
 	requested = 'Requested by %s'
 	join = 'For issues, join the [Artifact Rater Server]%s'
-	feedback = 'Feedback received, please join https://discord.gg/SyGmBxds3M if you\'d like to add more details'
+	feedback = 'Feedback received, please join %s if you\'d like to add more details'
 	title = 'Artifact Rater Bot Help'
 	change = 'To change languages click on the corresponding flag below'
-	deprecated = 'Deprecated, please use the -language command to set your language'
+	deprecated = 'Deprecated, please use the `-user lang <lang>` command to set your language'
+	set_lang = 'Language set to English'
+	set_prefix = 'Prefix set to %s'
+	del_preset = 'Preset %s deleted'
+	set_preset = 'Preset %s set to %s'
+	no_presets = 'No presets found'
 
 	# text for bot errors
 	err = 'Error'
@@ -67,12 +72,14 @@ class translation:
 	err_try_again = 'please try again in a few minutes'
 	err_unknown_ocr = 'Error: OCR failed with unknown error'
 	err_unknown = 'Unknown error, try using an image from the inventory\'s artifact page'
+	err_admin_only = 'Error: Only server admins can perform this action'
+	err_server_only = 'Error: This action can only be performed on servers'
 
-	help_description = '''If you would like to add it to your private server use the [link](https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot)
+	help_description = '''If you would like to add it to your private server use the [link](%s)
 	You can also use the bot by sending the command in a DM to Artifact Rater#6924.'''
 
 	help_source = '''If you have any issues, please contact shrubin#1866 on discord or use the -feedback command.
-	Source code available at [GitHub](https://github.com/shrubin/Genshin-Artifact-Rater)'''
+	Source code available at [GitHub](%s)'''
 
 	help_feedback_name = '-feedback <message> [image]'
 	help_feedback_value = 'Send feedback with issues or ideas for the bot. Up to one image can be sent.'
@@ -132,7 +139,7 @@ class es(translation):
 	art_level = 'Nivel de artefacto'
 	requested = 'Pedido por %s'
 	join = 'Si tienes algún problema, [únete al servidor]%s oficial'
-	feedback = 'Feedback recibido, por favor, únete al servidor si deseas añadir más detalles: https://discord.gg/SyGmBxds3M'
+	feedback = 'Feedback recibido, por favor, únete al servidor si deseas añadir más detalles: %s'
 
 	err = 'Error'
 	err_not_found = 'Error: No se encuentra la imagen o la url no funciona, asegurate de mandarla en el mismo mensaje'
@@ -141,11 +148,11 @@ class es(translation):
 	err_unknown_ocr = 'Error: el OCR ha fallado con un error desconocido'
 	err_unknown = 'Error desconocido, intenta subir una imagen con la página de artefactos completa'
 
-	help_description = '''Si quieres, puedes invitar al bot a tu propio servidor de discord con este [link](https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot)
+	help_description = '''Si quieres, puedes invitar al bot a tu propio servidor de discord con este [link](%s)
 	También puedes hablarle al bot por privado y enviarle el artefacto por ahí Artifact Rater#6924.'''
 
 	help_source = '''Si tienes algún problema, por favor, contacta con shrubin#1866 (inglés) en discord o usa el comando -feedback
-	El código del bot lo puedes encontrar aquí [GitHub](https://github.com/shrubin/Genshin-Artifact-Rater)'''
+	El código del bot lo puedes encontrar aquí [GitHub](%s)'''
 
 	help_feedback_name = '-feedback <mensaje> [imagen]'
 	help_feedback_value = 'Envía feedback con los problemas o sugerencias para el bot. Puedes adjuntar solo una imagen.'
@@ -215,7 +222,7 @@ class de(translation):
 	art_level = 'Artifakt Level'
 	requested = 'Angefragt von %s'
 	join = 'Bei Problemen join dem Discord [Artifact Rater Server]%s'
-	feedback = 'Feedback erhalten, bitte joine https://discord.gg/SyGmBxds3M wenn du weitere Details hinzufügen möchtest'
+	feedback = 'Feedback erhalten, bitte joine %s wenn du weitere Details hinzufügen möchtest'
 
 	err = 'Fehler'
 	err_not_found = 'Fehler: Kein Bild oder URL gefunden, bitte stelle sicher das sich das Bild in der selben Nachicht befindet'
@@ -224,11 +231,11 @@ class de(translation):
 	err_unknown_ocr = 'Fehler: OCR fehlgeschlagen mit unbekanntem Fehler'
 	err_unknown = 'Unbekannter Fehler, verwende ein Bild von der Inventar Artefakt Seite'
 
-	help_description = '''Wenn sie den Bot auf ihrem privaten Discord Server nutzen wollen verwenden sie diesen [Link](https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot)
+	help_description = '''Wenn sie den Bot auf ihrem privaten Discord Server nutzen wollen verwenden sie diesen [Link](%s)
 	Sie können den Bot auch direkt eine private Nachicht schicken mit dem Befehl an Artifact Rater#6924'''
 
 	help_source = '''Wenn sie irgendwelche Probleme haben wenden sie sich bitte an shrubin#1866 oder benutzen sie den Befehl: -feedback ( in englisch bitte )
-	Quellcode ist vorhanden auf [Github](https://github.com/shrubin/Genshin-Artifact-Rater) unter'''
+	Quellcode ist vorhanden auf [Github](%s) unter'''
 
 	help_feedback_name = '-feedback <Nachicht> [Bild]'
 	help_feedback_value = 'Senden Sie Feedback mit Problemen oder Ideen für den Bot. Du kannst ein Bild anhängen.'
@@ -301,7 +308,7 @@ class fr(translation):
 	art_level = 'Niveau d\'Artefact'
 	requested = 'Demandé par %s'
 	join = 'Si vous rencontrez d\'autres problemes, [rejoignez le serveur]%s Artifact Rater'
-	feedback = 'Si vous avez un retour d\'informations, s\'il vous plait rejoignez https://discord.gg/SyGmBxds3M si vous voulez rajouter plus de détails'
+	feedback = 'Si vous avez un retour d\'informations, s\'il vous plait rejoignez %s si vous voulez rajouter plus de détails'
 
 	err = 'Erreur'
 	err_not_found = 'Erreur: Aucune image ou url n\'a été trouvée, s\'il vous plait assurez vous qu\'elle a était envoyée avec le message'
@@ -310,11 +317,11 @@ class fr(translation):
 	err_unknown_ocr = 'Erreur: OCR a échoué a cause d\'une erreur inconnue'
 	err_unknown = 'Erreur inconnue, essayer d\'utiliser une image d\'artefact venant de la page d\'inventaire'
 
-	help_description = '''Si vous voulez vous joindre à notre serveur privé, utilisez ce [lien](https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot)
+	help_description = '''Si vous voulez vous joindre à notre serveur privé, utilisez ce [lien](%s)
 	Vous pouvez aussi utiliser le bot en envoyant un MP à Artifact Rater#6924.'''
 
 	help_source = '''Si vous rencontrez un problème, merci de contacter shrubin#1866 sur discord ou d’utiliser la commande –feedback
-	Code source disponible sur [GitHub](https://github.com/shrubin/Genshin-Artifact-Rater)'''
+	Code source disponible sur [GitHub](%s)'''
 
 	help_feedback_name = '-feedback <message> [image]'
 	help_feedback_value = 'Envoyez un feedback avec les problèmes ou les idées pour le bot. Il peut être envoyé jusqu\'à une image à la fois.'
@@ -370,7 +377,7 @@ class vi(translation):
 	art_level = 'Cấp Độ Thánh Di Vật'
 	requested = 'Người đặt lệnh: %s'
 	join = 'Để báo cáo vấn đề gặp phải, hãy tham gia [Artifact Rater Server]%s'
-	feedback = 'Góp ý đã được tiếp nhận, hãy tham gia https://discord.gg/SyGmBxds3M nếu bạn muốn cung cấp thêm chi tiết'
+	feedback = 'Góp ý đã được tiếp nhận, hãy tham gia %s nếu bạn muốn cung cấp thêm chi tiết'
 
 	err = 'Lỗi'
 	err_not_found = 'Lỗi: Không tìm thấy ảnh hoặc link, 1 trong 2 phải được gửi chung trong cùng 1 tin nhắn'
@@ -379,11 +386,11 @@ class vi(translation):
 	err_unknown_ocr = 'Lỗi: OCR đọc ảnh thất bại lỗi không xác định'
 	err_unknown = 'Lỗi không xác định, hãy sử dụng ảnh chụp trong Túi > Thánh Di Vật'
 
-	help_description = '''Nếu muốn thêm vào máy chủ riêng hãy vào [link](https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot)
+	help_description = '''Nếu muốn thêm vào máy chủ riêng hãy vào [link](%s)
 	Bạn cũng có thể sử dụng bot bằng cách gửi lệnh qua tin nhắn riêng đến Artifact Rater#6924.'''
 
 	help_source = '''Nếu bạn có vấn đè gì, hãy liên lạc với shrubin#1866 trên discord hoặc dùng lệnh -feedback.
-	Mã nguồn mở có sẵn tại [GitHub](https://github.com/shrubin/Genshin-Artifact-Rater)'''
+	Mã nguồn mở có sẵn tại [GitHub](%s)'''
 
 	help_feedback_name = '-feedback <nội dung> [ảnh]'
 	help_feedback_value = 'Gửi góp ý về các vấn đề hoặc đóng góp ý tưởng cho bot. Có thể gửi tối đa 1 tấm ảnh.'
@@ -452,7 +459,7 @@ class pt(translation):
 	art_level = 'Nível do Artefato'
 	requested = 'Solicitado por %s'
 	join = 'Se encontrar problemas, junte-se ao [Artifact Rater Server]%s'
-	feedback = 'Feedback recebido, por favor junte-se ao servidor se quiser adicionar mais detalhes: https://discord.gg/SyGmBxds3M'
+	feedback = 'Feedback recebido, por favor junte-se ao servidor se quiser adicionar mais detalhes: %s'
 
 	err = 'Erro'
 	err_not_found = 'Erro: Nenhuma imagem ou url encontrada, certifique-se de que foram enviadas na mesma mensagem'
@@ -461,11 +468,11 @@ class pt(translation):
 	err_unknown_ocr = 'Erro: OCR falhou com um erro desconhecido'
 	err_unknown = 'Erro desconhecido, tente usar uma imagem da página de artefatos'
 
-	help_description = '''Se quiser adicionar ao seu servidor privado use o [link](https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=3072&scope=bot)
+	help_description = '''Se quiser adicionar ao seu servidor privado use o [link](%s)
 	Você também pode usar o bot mandando uma mensagem privada para Artifact Rater#6924.'''
 
 	help_source = '''Se tiver problemas, entre em contato com shrubin#1866 no discord ou use o comando -feedback.
-	Código-fonte disponível em [GitHub](https://github.com/shrubin/Genshin-Artifact-Rater)'''
+	Código-fonte disponível em [GitHub](%s)'''
 
 	help_feedback_name = '-feedback <mensagem> [imagem]'
 	help_feedback_value = 'Mande um feedback com problemas ou ideias para o bot. Apenas uma imagem pode ser enviada'
@@ -535,7 +542,7 @@ class ja(translation):
 	art_level = '聖遺物レベル'
 	requested = '％sからのリクエスト'
 	join = '[公式サーバー]%sに参加する'
-	feedback = 'フィードバックを受け取りました。詳細を追加したい場合は、 https://discord.gg/SyGmBxds3Mに参加して下さい。'
+	feedback = 'フィードバックを受け取りました。詳細を追加したい場合は、 %sに参加して下さい。'
 
 	err = 'エラー'
 	err_not_found = 'エラー：画像またはURLが見つかりませんでした。同じメッセージで送信されたことを確認してください。'
@@ -544,11 +551,11 @@ class ja(translation):
 	err_unknown_ocr = 'エラー：OCRが不明なエラーで失敗しました。'
 	err_unknown = '不明なエラーが発生しました。インベントリの聖遺物ページのイメージを使用してみてください。'
 
-	help_description = '''自分のプライベートサーバーに追加する場合は、次の[リンク](https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=3072&scope=bot)を使用して下さい
+	help_description = '''自分のプライベートサーバーに追加する場合は、次の[リンク](%s)を使用して下さい
 	さらに、次のコマンドをArtifact Rater#6924にダイレクトメッセージ（D M）を送ると、BOT も使えます。'''
 
 	help_source = '''問題がある場合は、ディスコードでshrubin#1866に連絡するか、英語の -feedbackコマンドを使って下さい。
-	ソースコードをご覧になりたい場合は、こちらへ [GitHub](https://github.com/shrubin/Genshin-Artifact-Rater)'''
+	ソースコードをご覧になりたい場合は、こちらへ [GitHub](%s)'''
 
 	help_feedback_name = '-feedback <メッセージ> [イメージ]'
 	help_feedback_value = 'BOTの問題やアイデアについてフィードバックを送信します。 最大1つの画像を送信できます。'
@@ -585,7 +592,7 @@ class pl(translation):
 	art_level = 'Poziom artefaktów'
 	requested = 'Wywołano przez %s'
 	join = 'W przypadku problemów, dołącz na [Artifact Rater Server]%s'
-	feedback = 'Otrzymaliśmy feedback, dołącz na serwer https://discord.gg/SyGmBxds3M jeżeli chciałbyś dodać więcej szczegółów.'
+	feedback = 'Otrzymaliśmy feedback, dołącz na serwer %s jeżeli chciałbyś dodać więcej szczegółów.'
 
 	err = 'Błąd'
 	err_not_found = 'Błąd: Nie znaleziono URL ani obrazu, upewnij się czy zostały wysłane w tej samej wiadomości.'
@@ -594,11 +601,11 @@ class pl(translation):
 	err_unknown_ocr = 'Błąd: OCR zawiódł z nieznanym błędem.'
 	err_unknown = 'Nieznany błąd, spróbuj użyć zrzutu ekranu zawierającego zakładkę z artefaktami w ekwipunku'
 
-	help_description = '''Jeżeli chcesz go dodać do swojego serwera, użyj tego [linku](https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot)
+	help_description = '''Jeżeli chcesz go dodać do swojego serwera, użyj tego [linku](%s)
 	Możesz również użyć tego bota poprzez wysłanie komendy w prywatnej wiadomości do Artifact Rater#6924.'''
 
 	help_source = '''Jeżeli uświadczyłeś problemów, skontaktuj się z shrubin#1866 na discordzie albo użyj komendy -feedback.
-	Kod źródłowy dostępny na [GitHub](https://github.com/shrubin/Genshin-Artifact-Rater)'''
+	Kod źródłowy dostępny na [GitHub](%s)'''
 
 	help_feedback_name = '-feedback <wiadomość> [obrazek]'
 	help_feedback_value = 'Prześlij feedback z problemami albo pomysłami dotyczącymi bota. Możesz dołączyć jeden obrazek.'
@@ -666,7 +673,7 @@ class ru(translation):
 	art_level = 'Уровень артефакта'
 	requested = 'Запрос в %'
 	join = 'Если у вас возникли проблемы, присоединяйтесь к [Artifact Rater Server]%s'
-	feedback = 'Отзыв получен, присоединяйтесь к https://discord.gg/SyGmBxds3M для большей информации.'
+	feedback = 'Отзыв получен, присоединяйтесь к %s для большей информации.'
 
 	err = 'Ошибка'
 	err_not_found = 'Ошибка: изображение или url не найдены, убедитесь, что отправляете в одном сообщении с командой.'
@@ -675,11 +682,11 @@ class ru(translation):
 	err_unknown_ocr = 'Ошибка: неизвестная ошибка распознавания текста.'
 	err_unknown = 'Неизвестная ошибка, попробуйте использовать изображение из инвентаря/со страницы артефакта.'
 
-	help_description = '''Если вы хотите добавить его на свой сервер, используйте [ссылку](https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot)
+	help_description = '''Если вы хотите добавить его на свой сервер, используйте [ссылку](%s)
 	Так же вы можете использовать бота, отправив личное сообщение Artifact Rater#6924.'''
 
 	help_source = '''Если у вас какие-то проблемы, свяжитесь с shrubin#1866 в Дискорде или используйте команду -feedback.
-	Исходный код доступен по адресу [GitHub](https://github.com/shrubin/Genshin-Artifact-Rater)'''
+	Исходный код доступен по адресу [GitHub](%s)'''
 
 	help_feedback_name = '-feedback <сообщение> [изображение]'
 	help_feedback_value = 'Отправьте отзыв с проблемами или идеями для бота. Можно добавить одно изображение.'
@@ -747,7 +754,7 @@ class tw(translation):
 	art_level = '聖遺物等級'
 	requested = '%s要求'
 	join = '有任何問題,請加入 [Artifact Rater Server]%s'
-	feedback = '已經收到你的意見,如果您想獲得更多詳細信息 請加入https://discord.gg/SyGmBxds3M'
+	feedback = '已經收到你的意見,如果您想獲得更多詳細信息 請加入%s'
 
 	err = '錯誤'
 	err_not_found = '錯誤:找不到圖片或網址,請確保他們在同一條訊息中發送'
@@ -756,11 +763,11 @@ class tw(translation):
 	err_unknown_ocr = '錯誤:OCR失敗,出現未知錯誤'
 	err_unknown = '未知錯誤,嘗試使用測試頁面中的圖片\'s測試頁面'
 
-	help_description = '''如果要將其添加到您的伺服器,請使用以下[鏈接](https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot)
+	help_description = '''如果要將其添加到您的伺服器,請使用以下[鏈接](%s)
 	您可以通過將命令發送來使用該機器人 Artifact Rater#6924.'''
 
 	help_source = '''如果有什麼問題,請在discord聯繫 shrubin#1866 或使用-feedback命令.
-	源代碼位於[GitHub](https://github.com/shrubin/Genshin-Artifact-Rater)'''
+	源代碼位於[GitHub](%s)'''
 
 	help_feedback_name = '-feedback <message> [image]'
 	help_feedback_value = '發送有關機器人的問題或意見.最多可以發送一張圖像.'
@@ -827,7 +834,7 @@ class cn(translation):
 	art_level = '圣遗物等级'
 	requested = '%s要求'
 	join = '有任何问题,请加入 [Artifact Rater Server]%s'
-	feedback = '已经收到你的意见,如果您想获得更多详细信息 请加入https://discord.gg/SyGmBxds3M'
+	feedback = '已经收到你的意见,如果您想获得更多详细信息 请加入%s'
 
 	err = '错误'
 	err_not_found = '错误:找不到图片或网址,请确保他们在同一条讯息中发送'
@@ -836,11 +843,11 @@ class cn(translation):
 	err_unknown_ocr = '错误:OCR失败,出现未知错误'
 	err_unknown = '未知错误,尝试使用测试页面中的图片\'s测试页面'
 
-	help_description = '''如果要将其添加到您的伺服器,请使用以下[链接](https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot)
+	help_description = '''如果要将其添加到您的伺服器,请使用以下[链接](%s)
 	您可以通过将命令发送来使用该机器人 Artifact Rater#6924.'''
 
 	help_source = '''如果有什么问题,请在discord联系 shrubin#1866 或使用-feedback命令.
-	源代码位于[GitHub](https://github.com/shrubin/Genshin-Artifact-Rater)'''
+	源代码位于[GitHub](%s)'''
 
 	help_feedback_name = '-feedback <message> [image]'
 	help_feedback_value = '发送有关机器人的问题或意见.最多可以发送一张图像.'
@@ -876,7 +883,7 @@ class it(translation):
 	art_level = 'Livello dell\'Atefatto'
 	requested = 'Richiesto da %s'
 	join = 'In caso di probelmi, unisciti al [Artifact Rater Server]%s'
-	feedback = 'Feedback ricevuto, unisciti al server discord per aggiunere ulteriori dettagli: https://discord.gg/SyGmBxds3M'
+	feedback = 'Feedback ricevuto, unisciti al server discord per aggiunere ulteriori dettagli: %s'
 
 	err = 'Errore'
 	err_not_found = 'Errore: Nessun URL o immagine sono stati trovati, assicurarsi che siano stati spediti nello stesso messaggio'
@@ -885,11 +892,11 @@ class it(translation):
 	err_unknown_ocr = 'Errore: OCR ha fallito per un errore sconosciuto'
 	err_unknown = 'Errore sconosciuto, prova utilizzando un\'immagine proveniente dalla pagina di artefatti'
 
-	help_description = '''Nel qual caso tu voglia aggiungerlo ad un server privato usa il [link](https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot)
+	help_description = '''Nel qual caso tu voglia aggiungerlo ad un server privato usa il [link](%s)
 	Puoi anche servirti del bot mandando un messaggio privato contenente il comando a Artifact Rater#6924.'''
 
 	help_source = '''Per qualunque problema, contatta shrubin#1866 su discord oppure utilizza il comando -feedback.
-	Il codice sorgente è disponibile all'indirizzo [GitHub](https://github.com/shrubin/Genshin-Artifact-Rater)'''
+	Il codice sorgente è disponibile all'indirizzo [GitHub](%s)'''
 
 	help_feedback_name = '-feedback <messaggio> [immagine]'
 	help_feedback_value = 'Manda il tuo feedback di problemi o idee al bot. Solo un immagine alla volta sarà accettata.'
@@ -913,4 +920,54 @@ class it(translation):
 	<stato> è qualunque tra: HP, HP%, ATK, ATK%, ER (Recharge), EM, PHYS, CR (Crit Rate), CD (Crit Damage), ELEM (Elemental DMG%), Heal, DEF, DEF
 	'''
 
-languages = {lang.uid: lang for lang in [en, es, de, fr, vi, pt, ja, pl, ru, tw, cn, it]}
+class idn(translation):
+	uid = 'id'
+	code = 'idn'
+	flag = '🇮🇩'
+	supported = True
+
+	lvl = 'Level'
+	score = 'Skor Gear'
+	main_score = 'Nilai Main Stat'
+	sub_score = 'Nilai Substat'
+	art_level = 'Level Artefak'
+	requested = 'Diminta oleh %s'
+	join = 'Untuk masalah, silahkan bergabung [Artifact Rater Server]%s'
+	feedback = 'Tanggapan diterima, silahkan bergabung %s jika kamu ingin menambahkan detail'
+	title = 'Bantuan Bot Artifact Rater'
+
+	err = 'Error'
+	err_not_found = 'Error: Gambar atau url tidak ditemukan, pastikan keduanya dikirim dalam satu pesan'
+	err_parse = 'Error: Command tidak bisa di proses, tolong periksa ulang format dan penulisan'
+	err_try_again = 'Coba lagi dalam beberapa menit'
+	err_unknown_ocr = 'Error: OCR gagal dengan error yang tidak diketahui'
+	err_unknown = 'Error tidak diketahui, coba gunakan gambar dari inventori artefak'
+
+	help_description = '''Jika ingin menggunakan bot di server privat, gunakan [link](%s)
+	Kamu juga bisa menggunakan bot dengan mengririm command dalam DM ke Artifact Rater#6924.'''
+
+	help_source = '''Jika kamu mempunyai masalah, tolong hubungi shrubin#1866 dalam discord atau gunakan -feedback command.
+	Source code tersedia pada [GitHub](%s)'''
+
+	help_feedback_name = '-feedback <pesan> [gambar]'
+	help_feedback_value = 'Kirim masukan terkait masalah atau ide ke bot. Hingga satu gambar dapat dikirim.'
+
+	help_rate_name = '-rate <gambar/url> [lvl=<level>] [<stat>=<nilai> ...]'
+	help_rate_value = '''\
+	Nilai sebuah artefak dengan sebuah *5 artefak yang optimal. Kirim command dan gambar dalam satu pesan.
+	Jika kamu menggunakan Windows 10, Kamu bisa melakukan Shift + Windows + S dan kemudian drag cursor ke gambar artefak, lalu ke discord and paste gambar dengan Ctrl+V.
+
+	Nilai standar
+	ATK%, DMG%, Crit - 1
+	ATK, EM, Recharge - 0.5
+	Yang lainnya - 0
+
+	Opsi
+	lvl: Bandingkan dengan artefak spesifik (default: <artifact_level>)
+	-rate lvl=20
+	<stat>: Taruh nilai khusus (antara 0 dan 1)
+	-rate atk=1 er=0 atk%=0.5
+	<stat> adalah apapun dari HP, HP%, ATK, ATK%, ER (Recharge), EM, PHYS, CR (Crit Rate), CD (Crit Damage), ELEM (Elemental DMG%), Heal, DEF, DEF
+	'''
+
+languages = {lang.uid: lang for lang in [en, es, de, fr, vi, pt, ja, pl, ru, tw, cn, it, idn]}
