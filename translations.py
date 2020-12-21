@@ -140,6 +140,14 @@ class es(translation):
 	requested = 'Pedido por %s'
 	join = 'Si tienes algún problema, [únete al servidor]%s oficial'
 	feedback = 'Feedback recibido, por favor, únete al servidor si deseas añadir más detalles: %s'
+	title = 'Artifact Rater Bot Help'
+	change = 'Para cambiar el idioma, pulsa sobre la bandera correspondiente'
+	deprecated = 'Comando obsoleto, por favor, usa el comando -user lang <idioma> para seleccionar tu idioma'
+	set_lang = 'Idioma cambiado al español'
+	set_prefix = 'Prefijo seleccionado %s'
+	del_preset = 'Preset %s elminado'
+	set_preset = 'Preset %s configurado con %s'
+	no_presets = 'No se encuentran presets'
 
 	err = 'Error'
 	err_not_found = 'Error: No se encuentra la imagen o la url no funciona, asegurate de mandarla en el mismo mensaje'
@@ -147,6 +155,8 @@ class es(translation):
 	err_try_again = 'por favor, prueba de nuevo en un rato'
 	err_unknown_ocr = 'Error: el OCR ha fallado con un error desconocido'
 	err_unknown = 'Error desconocido, intenta subir una imagen con la página de artefactos completa'
+	err_admin_only = 'Error: Solo los admins del server pueden realizar esta acción'
+	err_server_only = 'Error: Esta acción solo puede utilizarse en servidores'
 
 	help_description = '''Si quieres, puedes invitar al bot a tu propio servidor de discord con este [link](%s)
 	También puedes hablarle al bot por privado y enviarle el artefacto por ahí Artifact Rater#6924.'''
@@ -223,6 +233,14 @@ class de(translation):
 	requested = 'Angefragt von %s'
 	join = 'Bei Problemen join dem Discord [Artifact Rater Server]%s'
 	feedback = 'Feedback erhalten, bitte joine %s wenn du weitere Details hinzufügen möchtest'
+	title = 'Artifact Rater Bot Hilfe'
+	change = 'Um die Sprache zu ändern klick auf die dazugehörige Flagge unten.'
+	deprecated = 'Veraltet, verwenden Sie bitte den Befehl -user lang <lang>, um Ihre Sprache festzulegen'
+	set_lang = 'Sprache geändert auf Deutsch'
+	set_prefix = 'Voreinstellung geändert zu %s'
+	del_preset = 'Voreinstellung %s gelöscht'
+	set_preset = 'Voreinstellung %s geändert zu %s'
+	no_presets = 'Keine Voreinstellung gefunden'
 
 	err = 'Fehler'
 	err_not_found = 'Fehler: Kein Bild oder URL gefunden, bitte stelle sicher das sich das Bild in der selben Nachicht befindet'
@@ -230,6 +248,8 @@ class de(translation):
 	err_try_again = 'bitte versuche es in ein paar Minuten nochmal'
 	err_unknown_ocr = 'Fehler: OCR fehlgeschlagen mit unbekanntem Fehler'
 	err_unknown = 'Unbekannter Fehler, verwende ein Bild von der Inventar Artefakt Seite'
+	err_admin_only = 'Fehler: Nur Serveradministratoren können diese Aktion ausführen'
+	err_server_only = 'Fehler: Diese Aktion kann nur auf Servern ausgeführt werden'
 
 	help_description = '''Wenn sie den Bot auf ihrem privaten Discord Server nutzen wollen verwenden sie diesen [Link](%s)
 	Sie können den Bot auch direkt eine private Nachicht schicken mit dem Befehl an Artifact Rater#6924'''
@@ -309,6 +329,14 @@ class fr(translation):
 	requested = 'Demandé par %s'
 	join = 'Si vous rencontrez d\'autres problemes, [rejoignez le serveur]%s Artifact Rater'
 	feedback = 'Si vous avez un retour d\'informations, s\'il vous plait rejoignez %s si vous voulez rajouter plus de détails'
+	title = 'Aide Artifact Rater Bot'
+	change = 'Pour changer la langue du bot, cliquez sur le drapeau correspondant'
+	deprecated = 'Si ça ne fonctionne pas, s\'il vous plaît utilisez la commande -user lang <lang> pour la définir à votre langue'
+	set_lang = 'Langue définie en Français'
+	set_prefix = 'Préfix définis en %s'
+	del_preset = 'Preset %s supprimer'
+	set_preset = 'Preset %s remplacer par %s'
+	no_presets = 'Pas de presets trouvés'
 
 	err = 'Erreur'
 	err_not_found = 'Erreur: Aucune image ou url n\'a été trouvée, s\'il vous plait assurez vous qu\'elle a était envoyée avec le message'
@@ -316,6 +344,8 @@ class fr(translation):
 	err_try_again = 'Merci de réessayer dans quelques minutes'
 	err_unknown_ocr = 'Erreur: OCR a échoué a cause d\'une erreur inconnue'
 	err_unknown = 'Erreur inconnue, essayer d\'utiliser une image d\'artefact venant de la page d\'inventaire'
+	err_admin_only = 'Erreur: Seuls les admins peuvent effectuer cette action'
+	err_server_only = 'Erreur: Cette action ne peut être effectué que sur le serveur'
 
 	help_description = '''Si vous voulez vous joindre à notre serveur privé, utilisez ce [lien](%s)
 	Vous pouvez aussi utiliser le bot en envoyant un MP à Artifact Rater#6924.'''
@@ -378,6 +408,14 @@ class vi(translation):
 	requested = 'Người đặt lệnh: %s'
 	join = 'Để báo cáo vấn đề gặp phải, hãy tham gia [Artifact Rater Server]%s'
 	feedback = 'Góp ý đã được tiếp nhận, hãy tham gia %s nếu bạn muốn cung cấp thêm chi tiết'
+	title = 'Trợ giúp: Bot Đánh Giá Thánh Di Vật'
+	change = 'Để thay đổi ngôn ngữ hãy bấm vào lá cờ bên dưới'
+	deprecated = 'Lệnh này không còn khả dụng, hãy dùng lệnh -user lang <ngôn ngữ> để đặt ngôn ngữ'
+	set_lang = 'Đã chuyển ngôn ngữ sang tiếng Việt'
+	set_prefix = 'Đã đặt tiền tố %s'
+	del_preset = 'Đã xóa preset %s'
+	set_preset = 'Đã đặt preset %s với giá trị %s'
+	no_presets = 'Không tìm thấy preset nào'
 
 	err = 'Lỗi'
 	err_not_found = 'Lỗi: Không tìm thấy ảnh hoặc link, 1 trong 2 phải được gửi chung trong cùng 1 tin nhắn'
@@ -385,6 +423,8 @@ class vi(translation):
 	err_try_again = 'hãy thử lại trong vài phút nữa'
 	err_unknown_ocr = 'Lỗi: OCR đọc ảnh thất bại lỗi không xác định'
 	err_unknown = 'Lỗi không xác định, hãy sử dụng ảnh chụp trong Túi > Thánh Di Vật'
+	err_admin_only = 'Lỗi: Chỉ có admin máy chủ mới có thể thực hiện hành động này'
+	err_server_only = 'Lỗi: Chỉ có thể thực hiện hành động này trên máy chủ'
 
 	help_description = '''Nếu muốn thêm vào máy chủ riêng hãy vào [link](%s)
 	Bạn cũng có thể sử dụng bot bằng cách gửi lệnh qua tin nhắn riêng đến Artifact Rater#6924.'''
@@ -460,6 +500,14 @@ class pt(translation):
 	requested = 'Solicitado por %s'
 	join = 'Se encontrar problemas, junte-se ao [Artifact Rater Server]%s'
 	feedback = 'Feedback recebido, por favor junte-se ao servidor se quiser adicionar mais detalhes: %s'
+	title = 'Artifact Rater Bot Help'
+	change = 'Para mudar de idioma clique na bandeira correspondente abaixo'
+	deprecated = 'Descontinuado, por favor user o  comando -user lang<idioma> para definir seu idioma'
+	set_lang = 'Idioma definido para português'
+	set_prefix = 'Prefixo definido para %s'
+	del_preset = 'Predefinição %s deletada'
+	set_preset = 'Predefinição %s definida para %s'
+	no_presets = 'Nenhuma predefinição encontrada'
 
 	err = 'Erro'
 	err_not_found = 'Erro: Nenhuma imagem ou url encontrada, certifique-se de que foram enviadas na mesma mensagem'
@@ -467,6 +515,8 @@ class pt(translation):
 	err_try_again = 'por favor tente novamente em alguns minutos'
 	err_unknown_ocr = 'Erro: OCR falhou com um erro desconhecido'
 	err_unknown = 'Erro desconhecido, tente usar uma imagem da página de artefatos'
+	err_admin_only = 'Erro: Apenas administradores do servidor podem realizar essa ação'
+	err_server_only = 'Erro: Essa ação só pode ser executada em servidores'
 
 	help_description = '''Se quiser adicionar ao seu servidor privado use o [link](%s)
 	Você também pode usar o bot mandando uma mensagem privada para Artifact Rater#6924.'''
@@ -596,7 +646,7 @@ class pl(translation):
 	title = 'Artifact Rater Bot Help'
 	change = 'Aby zmienić język kliknij na odpowiednią poniższą flagę'
 	deprecated = 'Przestarzałe, użyj komendy -user lang <język> aby ustawić używany język'
-	set_lang = 'Ustawiono język na Angielski'
+	set_lang = 'Ustawiono język na polski'
 	set_prefix = 'Ustawiono prefix na %s'
 	del_preset = 'Ustawienia %s zostały usunięte'
 	set_preset = 'Ustawienia %s zmienione na %s'
@@ -684,6 +734,14 @@ class ru(translation):
 	requested = 'Запрос в %'
 	join = 'Если у вас возникли проблемы, присоединяйтесь к [Artifact Rater Server]%s'
 	feedback = 'Отзыв получен, присоединяйтесь к %s для большей информации.'
+	title = 'Помощь по Artifact Rater боту'
+	change = 'Чтобы изменить язык, нажмите на соответствующий флаг ниже'
+	deprecated = 'Устарело, пожалуйста испольщуйте команду -user lang <lang>, чтобы выбрать ваш язык'
+	set_lang = 'Выбран язык: Русский'
+	set_prefix = 'Префикс %s выбран'
+	del_preset = 'Шаблон %s удален'
+	set_preset = 'Шаблон %s изменен на %s'
+	no_presets = 'Шаблон не найден'
 
 	err = 'Ошибка'
 	err_not_found = 'Ошибка: изображение или url не найдены, убедитесь, что отправляете в одном сообщении с командой.'
@@ -691,6 +749,8 @@ class ru(translation):
 	err_try_again = 'Пожалуйста, попробуйте чуть позже.'
 	err_unknown_ocr = 'Ошибка: неизвестная ошибка распознавания текста.'
 	err_unknown = 'Неизвестная ошибка, попробуйте использовать изображение из инвентаря/со страницы артефакта.'
+	err_admin_only = 'Ошибка: Только админы сервера могут выполнить эту команду.'
+	err_server_only = 'Ошибка: Это действие может быть выполнено только на серверах.'
 
 	help_description = '''Если вы хотите добавить его на свой сервер, используйте [ссылку](%s)
 	Так же вы можете использовать бота, отправив личное сообщение Artifact Rater#6924.'''
@@ -914,6 +974,14 @@ class it(translation):
 	requested = 'Richiesto da %s'
 	join = 'In caso di probelmi, unisciti al [Artifact Rater Server]%s'
 	feedback = 'Feedback ricevuto, unisciti al server discord per aggiunere ulteriori dettagli: %s'
+	title = 'Aiuto per Artifact Rater Bot'
+	change = 'Per cambiare lingua del bot, selezionare la bandiera corrispondente'
+	deprecated = 'Comando disapprovato, usare il comando -user lang <lang> per impostare la lingua'
+	set_lang = 'Lingua impostata ad Italiano'
+	set_prefix = 'Prefisso impostato a %s'
+	del_preset = 'Preset %s cancellato'
+	set_preset = 'Preset %s impostato a %s'
+	no_presets = 'Nessun preset è stato trovato'
 
 	err = 'Errore'
 	err_not_found = 'Errore: Nessun URL o immagine sono stati trovati, assicurarsi che siano stati spediti nello stesso messaggio'
@@ -921,6 +989,8 @@ class it(translation):
 	err_try_again = 'Riprova tra un qualche minuto'
 	err_unknown_ocr = 'Errore: OCR ha fallito per un errore sconosciuto'
 	err_unknown = 'Errore sconosciuto, prova utilizzando un\'immagine proveniente dalla pagina di artefatti'
+	err_admin_only = 'Errore: Solamente l\'amministratore del server può effettuare questa azione'
+	err_server_only = 'Errore: Questa azione può esere effettuata unicamente sui server'
 
 	help_description = '''Nel qual caso tu voglia aggiungerlo ad un server privato usa il [link](%s)
 	Puoi anche servirti del bot mandando un messaggio privato contenente il comando a Artifact Rater#6924.'''
