@@ -55,7 +55,16 @@ def get_lang(ctx):
 def get_presets(ctx):
 	if DATABASE_URL:
 		guild_id = ctx.guild.id if ctx.guild else None
-		return db.get_presets(ctx.message.author.id, guild_id)
+		presets = []
+		for preset in db.get_presets(ctx.message.author.id, guild_id):
+			if presets and preset.name == presets[-1].name:
+				if preset.entry_id == ctx.message.author.id:
+					presets[-1] = preset
+				elif presets[-1].entry_id != ctx.message.author.id and preset.entry_id == guild_id:
+					presets[-1] = preset
+			else:
+				presets.append(preset)
+		return presets
 
 def prefix(bot, message):
 	if DATABASE_URL and message.guild and any(name in message.content for name in command_names):
@@ -184,7 +193,13 @@ async def presets(ctx):
 
 	embed = discord.Embed(title='Presets', colour=discord.Colour.blue())
 	for preset in presets:
-		embed.add_field(name=preset.name, value=preset.command)
+		if preset.entry_id == ctx.message.author.id:
+			source = ctx.message.author.display_name
+		elif ctx.guild and preset.entry_id == ctx.guild.id:
+			source = ctx.guild.name
+		else:
+			source = 'Artifact Rater'
+		embed.add_field(name=f'{preset.name} - {source}', value=preset.command, inline=False)
 	await send(ctx, embed=embed)
 
 def create_embed(lang):
@@ -193,8 +208,8 @@ def create_embed(lang):
 		description=lang.help_description % BOT_URL,
 		colour=discord.Colour.red(),
 	)
-	embed.add_field(name=f'```{lang.help_rate_name}```', value=lang.help_rate_value, inline=False)
-	embed.add_field(name=f'```{lang.help_feedback_name}```', value=f'{lang.help_feedback_value}\n{lang.help_source % GITHUB_URL}', inline=False)
+	embed.add_field(name=f'`{lang.help_rate_name}`', value=lang.help_rate_value, inline=False)
+	embed.add_field(name=f'`{lang.help_feedback_name}`', value=f'{lang.help_feedback_value}\n{lang.help_source % GITHUB_URL}', inline=False)
 	return embed
 
 @bot.command()
@@ -230,11 +245,9 @@ async def help(ctx):
 		await msg.edit(embed=embed)
 
 def create_opt_to_key(lang):
-	return {lang.hp_opt: lang.hp, lang.atk_opt: lang.atk, f'{lang.atk_opt}%': f'{lang.atk}%',
-			lang.er_opt: f'{lang.er}%', lang.em_opt: lang.em, lang.phys_opt: f'{lang.phys}%',
-			lang.cr_opt: f'{lang.cr}%', lang.cd_opt: f'{lang.cd}%', lang.elem_opt: f'{lang.elem}%',
-			f'{lang.hp_opt}%': f'{lang.hp}%', f'{lang.df_opt}%': f'{lang.df}%',
-			lang.heal_opt: f'{lang.heal}%', lang.df_opt: lang.df, lang.lvl_opt: lang.lvl}
+	return {'hp': lang.hp, 'atk': lang.atk, 'atk%': f'{lang.atk}%', 'er': f'{lang.er}%', 'em': lang.em,
+			'phys': f'{lang.phys}%', 'cr': f'{lang.cr}%', 'cd': f'{lang.cd}%', 'elem': f'{lang.elem}%',
+			'hp%': f'{lang.hp}%', 'def%': f'{lang.df}%', 'heal': f'{lang.heal}%', 'def': lang.df, 'lvl': lang.lvl}
 
 @bot.command()
 @commands.cooldown(RATE_LIMIT_N, RATE_LIMIT_TIME, commands.BucketType.user)

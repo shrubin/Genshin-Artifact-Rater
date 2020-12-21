@@ -7,7 +7,7 @@ from sqlalchemy.orm import sessionmaker, relationship
 
 load_dotenv()
 DATABASE_URL = os.getenv('DATABASE_URL')
-SERVER_ID = os.getenv('SERVER_ID')
+SERVER_ID = int(os.getenv('SERVER_ID', 0))
 
 engine = create_engine(DATABASE_URL)
 

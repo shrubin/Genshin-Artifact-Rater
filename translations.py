@@ -27,19 +27,6 @@ class translation:
 	geo = 'Geo DMG'
 	dend = 'Dendro DMG'
 
-	# shortnames for setting stat weights / level
-	hp_opt = 'hp'
-	heal_opt = 'heal'
-	df_opt = 'def'
-	er_opt = 'er'
-	em_opt = 'em'
-	atk_opt = 'atk'
-	cr_opt = 'cr'
-	cd_opt = 'cd'
-	phys_opt = 'phys'
-	elem_opt = 'elem'
-	lvl_opt = 'lvl'
-
 	# text that appears below artifact stats (2-piece set)
 	piece_set = 'Piece Set'
 
@@ -211,18 +198,6 @@ class de(translation):
 	geo = 'Geo SCH-Bonus'
 	dend = 'Dendro SCH-Bonus'
 
-	hp_opt = 'lp'
-	heal_opt = 'healingbonus'
-	df_opt = 'vtd'
-	er_opt = 'aufladerate'
-	em_opt = 'elementarkunde'
-	atk_opt = 'ang'
-	cr_opt = 'kt'
-	cd_opt = 'ksch'
-	phys_opt = 'physischbonus'
-	elem_opt = 'elementarbonus'
-	lvl_opt = 'lvl'
-
 	piece_set = 'Set mit 2 Teilen'
 
 	lvl = 'Level'
@@ -306,18 +281,6 @@ class fr(translation):
 	cryo = 'Bonus de DGT Cryo'
 	geo = 'Bonus de DGT Géo'
 	dend = 'Bonus de DGT Dendro'
-
-	hp_opt = 'pv'
-	heal_opt = 'soins'
-	df_opt = 'def'
-	er_opt = 're'
-	em_opt = 'me'
-	atk_opt = 'atq'
-	cr_opt = '%crt'
-	cd_opt = 'crtdmg'
-	phys_opt = 'phys'
-	elem_opt = 'elem'
-	lvl_opt = 'niv'
 
 	piece_set = 'Set de pièces'
 
@@ -478,18 +441,6 @@ class pt(translation):
 	geo = 'Bônus de Dano Geo'
 	dend = 'Bônus de Dano Dendro'
 
-	hp_opt = 'vida'
-	heal_opt = 'cura'
-	df_opt = 'def'
-	er_opt = 're'
-	em_opt = 'pe'
-	atk_opt = 'atq'
-	cr_opt = 'txcrit'
-	cd_opt = 'danocrit'
-	phys_opt = 'fis'
-	elem_opt = 'elem'
-	lvl_opt = 'lvl'
-
 	piece_set = 'Conjunto'
 
 	lvl = 'Nível'
@@ -568,18 +519,6 @@ class ja(translation):
 	cryo = '氷元素ダメージ'
 	geo = '岩元素ダメージ'
 	dend = '草元素ダメージ'
-
-	hp_opt = 'hp'
-	heal_opt = '治癒効果'
-	df_opt = '防御力'
-	er_opt = '元素チャージ効率'
-	em_opt = '元素熟知'
-	atk_opt = '攻撃力'
-	cr_opt = '会心率'
-	cd_opt = '会心ダメージ'
-	phys_opt = '物理ダメージ'
-	elem_opt = '元素ダメージ'
-	lvl_opt = 'レベル'
 
 	piece_set = '2セット'
 
@@ -712,18 +651,6 @@ class ru(translation):
 	geo = 'Бонус Гео урона'
 	dend = 'Бонус Дендро урона'
 
-	hp_opt = 'НР'
-	heal_opt = 'Лечение'
-	df_opt = 'Защита'
-	er_opt = 'Восст'
-	em_opt = 'Мастерство'
-	atk_opt = 'Атака'
-	cr_opt = 'Крит.Шанс'
-	cd_opt = 'Крит.Урон'
-	phys_opt = 'Физ'
-	elem_opt = 'Элем'
-	lvl_opt = 'лвл'
-
 	piece_set = '2 предмета'
 
 	lvl = 'Уровень'
@@ -803,18 +730,6 @@ class tw(translation):
 	geo = '岩元素傷害加成'
 	dend = '草元素傷害加成'
 
-	hp_opt = '生命'
-	heal_opt = '治療'
-	df_opt = '防禦'
-	er_opt = '元素充能'
-	em_opt = '元素精通'
-	atk_opt = '攻擊'
-	cr_opt = '暴傷'
-	cd_opt = '暴率'
-	phys_opt = '物理'
-	elem_opt = '元素'
-	lvl_opt = '等級'
-
 	piece_set = '套裝'
 
 	lvl = '等級'
@@ -892,18 +807,6 @@ class cn(translation):
 	cryo = '冰元素伤害加成'
 	geo = '岩元素伤害加成'
 	dend = '草元素伤害加成'
-
-	hp_opt = '生命'
-	heal_opt = '治疗'
-	df_opt = '防御'
-	er_opt = '元素充能'
-	em_opt = '元素精通'
-	atk_opt = '攻击'
-	cr_opt = '暴伤'
-	cd_opt = '暴率'
-	phys_opt = '物理'
-	elem_opt = '元素'
-	lvl_opt = '等级'
 
 	piece_set = '套装'
 
