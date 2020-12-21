@@ -593,6 +593,14 @@ class pl(translation):
 	requested = 'Wywołano przez %s'
 	join = 'W przypadku problemów, dołącz na [Artifact Rater Server]%s'
 	feedback = 'Otrzymaliśmy feedback, dołącz na serwer %s jeżeli chciałbyś dodać więcej szczegółów.'
+	title = 'Artifact Rater Bot Help'
+	change = 'Aby zmienić język kliknij na odpowiednią poniższą flagę'
+	deprecated = 'Przestarzałe, użyj komendy -user lang <język> aby ustawić używany język'
+	set_lang = 'Ustawiono język na Angielski'
+	set_prefix = 'Ustawiono prefix na %s'
+	del_preset = 'Ustawienia %s zostały usunięte'
+	set_preset = 'Ustawienia %s zmienione na %s'
+	no_presets = 'Nie znaleziono ustawień'
 
 	err = 'Błąd'
 	err_not_found = 'Błąd: Nie znaleziono URL ani obrazu, upewnij się czy zostały wysłane w tej samej wiadomości.'
@@ -600,6 +608,8 @@ class pl(translation):
 	err_try_again = 'spróbuj ponownie za kilka minut'
 	err_unknown_ocr = 'Błąd: OCR zawiódł z nieznanym błędem.'
 	err_unknown = 'Nieznany błąd, spróbuj użyć zrzutu ekranu zawierającego zakładkę z artefaktami w ekwipunku'
+	err_admin_only = 'Błąd: Ta akcja może zostać wykonana wyłącznie przez admina.'
+	err_server_only = 'Błąd: Ta akcja może zostać wykonana wyłącznie na serwerach.'
 
 	help_description = '''Jeżeli chcesz go dodać do swojego serwera, użyj tego [linku](%s)
 	Możesz również użyć tego bota poprzez wysłanie komendy w prywatnej wiadomości do Artifact Rater#6924.'''
@@ -755,6 +765,14 @@ class tw(translation):
 	requested = '%s要求'
 	join = '有任何問題,請加入 [Artifact Rater Server]%s'
 	feedback = '已經收到你的意見,如果您想獲得更多詳細信息 請加入%s'
+	title = '聖遺物評分小工具幫助'
+	change = '如果要更改語言,請點擊下面的相應國旗圖標'
+	deprecated = '不推薦使用,請使用-user lang <語言>命令設置您的語言'
+	set_lang = '語言設置已更改'
+	set_prefix = '前綴設置為 %s'
+	del_preset = '已刪除預設前綴 %s'
+	set_preset = '預設前綴 %s 已更改為 %s'
+	no_presets = '未找到預設前綴'
 
 	err = '錯誤'
 	err_not_found = '錯誤:找不到圖片或網址,請確保他們在同一條訊息中發送'
@@ -762,6 +780,8 @@ class tw(translation):
 	err_try_again = '錯誤:請在幾分鐘後再試一次'
 	err_unknown_ocr = '錯誤:OCR失敗,出現未知錯誤'
 	err_unknown = '未知錯誤,嘗試使用測試頁面中的圖片\'s測試頁面'
+	err_admin_only = '錯誤:只有伺服器管理員才能使用這個命令'
+	err_server_only = '錯誤:這個命令只能在伺服器上使用'
 
 	help_description = '''如果要將其添加到您的伺服器,請使用以下[鏈接](%s)
 	您可以通過將命令發送來使用該機器人 Artifact Rater#6924.'''
@@ -835,6 +855,14 @@ class cn(translation):
 	requested = '%s要求'
 	join = '有任何问题,请加入 [Artifact Rater Server]%s'
 	feedback = '已经收到你的意见,如果您想获得更多详细信息 请加入%s'
+	title = '圣遗物评分小工具帮助'
+	change = '如果要更改语言,请点击下面的相应国旗图标'
+	deprecated = '不推荐使用,请使用-user lang <语言>命令设置您的语言'
+	set_lang = '语言设置已更改'
+	set_prefix = '前缀设置为 %s'
+	del_preset = '已删除预设前缀 %s'
+	set_preset = '预设前缀 %s 已更改为 %s'
+	no_presets = '未找到预设前缀'
 
 	err = '错误'
 	err_not_found = '错误:找不到图片或网址,请确保他们在同一条讯息中发送'
@@ -842,6 +870,8 @@ class cn(translation):
 	err_try_again = '错误:请在几分钟后再试一次'
 	err_unknown_ocr = '错误:OCR失败,出现未知错误'
 	err_unknown = '未知错误,尝试使用测试页面中的图片\'s测试页面'
+	err_admin_only = '错误:只有伺服器管理员才能使用这个命令'
+	err_server_only = '错误:这个命令只能在伺服器上使用'
 
 	help_description = '''如果要将其添加到您的伺服器,请使用以下[链接](%s)
 	您可以通过将命令发送来使用该机器人 Artifact Rater#6924.'''
@@ -920,6 +950,7 @@ class it(translation):
 	<stato> è qualunque tra: HP, HP%, ATK, ATK%, ER (Recharge), EM, PHYS, CR (Crit Rate), CD (Crit Damage), ELEM (Elemental DMG%), Heal, DEF, DEF
 	'''
 
+# Text only, no game translation
 class idn(translation):
 	uid = 'id'
 	code = 'idn'
