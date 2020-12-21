@@ -57,6 +57,8 @@ class translation:
 	join = 'For issues, join the [Artifact Rater Server]%s'
 	feedback = 'Feedback received, please join https://discord.gg/SyGmBxds3M if you\'d like to add more details'
 	title = 'Artifact Rater Bot Help'
+	change = 'To change languages click on the corresponding flag below'
+	deprecated = 'Deprecated, please use the -language command to set your language'
 
 	# text for bot errors
 	err = 'Error'
