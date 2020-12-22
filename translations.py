@@ -151,9 +151,6 @@ class translation:
 	help_title = 'Artifact Rater Help'
 
 	help_description = f'''
-	If you would like to add it to your private server use the [link]({BOT_URL}). You can also use the bot by sending the command in a DM to Artifact Rater#6924.
-	If you have any issues, please use the -feedback command or join the [Support Server]({SERVER_URL}). Source code available at [GitHub]({GITHUB_URL}).
-
 	**Commands**
 
 	`{help_commands['rate'][0]}`
@@ -173,11 +170,11 @@ class translation:
 	`-user` changes your personal config. Overrides server default settings.
 	`-server` admin-only, changes the server default.
 
-	`{help_commands['lang'][0]}`
-	Set your language for all commands to the 2 letter language code `lang`. You can also use the flag reactions to change languages.
-
 	`{help_commands['prefix'][0]}`
 	{help_commands['prefix'][1]}
+
+	`{help_commands['lang'][0]}`
+	Set your language for all commands to the 2 letter language code `lang`. You can also use the flag reactions to change languages.
 
 	`{help_commands['preset'][0]}`
 	Create a preset to be used when rating artifacts. `weights` will be used in the `-rate` command when the preset is used.
@@ -185,6 +182,13 @@ class translation:
 	`-[user/server] preset delete <names>`
 	Delete presets.
 	'''
+
+	source = 'Source Code'
+	invite = 'Bot Invite'
+	support = 'Support'
+	github = f'[GitHub]({GITHUB_URL})'
+	discord = f'[Link]({BOT_URL})'
+	server = f'[Discord]({SERVER_URL})'
 
 	help_footer = 'To change languages click on the corresponding flag below'
 

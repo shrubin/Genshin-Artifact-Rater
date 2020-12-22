@@ -205,8 +205,9 @@ async def sets(ctx):
 
 def create_embed(lang):
 	embed = discord.Embed(title=lang.help_title, description=lang.help_description, colour=discord.Colour.red())
-	# embed.add_field(name=f'`{lang.help_rate_name}`', value=lang.help_rate_value, inline=False)
-	# embed.add_field(name=f'`{lang.help_feedback_name}`', value=f'{lang.help_feedback_value}\n{lang.help_source}', inline=False)
+	embed.add_field(name=lang.source, value=lang.github)
+	embed.add_field(name=lang.invite, value=lang.discord)
+	embed.add_field(name=lang.support, value=lang.server)
 	embed.set_footer(text=lang.help_footer)
 	return embed
 
