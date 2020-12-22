@@ -1,195 +1,196 @@
 class translation:
-	# 2-digit language code
-	id = 'en'
-	# 3-digit language code
-	code = 'eng'
-	# Unicode flag
-	flag = '🇺🇸'
-	# Supported by OCR Engine 2
-	supported = True
+	def __init__(self):
+		# 2-digit language code
+		self.id = 'en'
+		# 3-digit language code
+		self.code = 'eng'
+		# Unicode flag
+		self.flag = '🇺🇸'
+		# Supported by OCR Engine 2
+		self.supported = True
 
-	SERVER_URL = 'https://discord.gg/SyGmBxds3M'
-	BOT_URL = 'https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot'
-	GITHUB_URL = 'https://github.com/shrubin/Genshin-Artifact-Rater'
-	SAMPLE_URL = 'https://cdn.discordapp.com/attachments/787533173004173343/790751503475802122/unknown.png'
+		self.SERVER_URL = 'https://discord.gg/SyGmBxds3M'
+		self.BOT_URL = 'https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot'
+		self.GITHUB_URL = 'https://github.com/shrubin/Genshin-Artifact-Rater'
+		self.SAMPLE_URL = 'https://cdn.discordapp.com/attachments/787533173004173343/790751503475802122/unknown.png'
 
-	# stats as they appear in-game
-	hp = 'HP'
-	heal = 'Healing'
-	df = 'DEF'
-	er = 'Energy Recharge'
-	em = 'Elemental Mastery'
-	atk = 'ATK'
-	cd = 'CRIT DMG'
-	cr = 'CRIT Rate'
-	phys = 'Physical DMG'
-	elem = 'Elemental DMG'
-	anemo = 'Anemo DMG'
-	elec = 'Electro DMG'
-	pyro = 'Pyro DMG'
-	hydro = 'Hydro DMG'
-	cryo = 'Cryo DMG'
-	geo = 'Geo DMG'
-	dend = 'Dendro DMG'
+		# stats as they appear in-game
+		self.hp = 'HP'
+		self.heal = 'Healing'
+		self.df = 'DEF'
+		self.er = 'Energy Recharge'
+		self.em = 'Elemental Mastery'
+		self.atk = 'ATK'
+		self.cd = 'CRIT DMG'
+		self.cr = 'CRIT Rate'
+		self.phys = 'Physical DMG'
+		self.elem = 'Elemental DMG'
+		self.anemo = 'Anemo DMG'
+		self.elec = 'Electro DMG'
+		self.pyro = 'Pyro DMG'
+		self.hydro = 'Hydro DMG'
+		self.cryo = 'Cryo DMG'
+		self.geo = 'Geo DMG'
+		self.dend = 'Dendro DMG'
 
-	# text that appears below artifact stats (2-piece set)
-	piece_set = 'Piece Set'
+		# text that appears below artifact stats (2-piece set)
+		self.piece_set = 'Piece Set'
 
-	# lines will be ignored if they're an exact match
-	ignore = ['in']
-	replace = {}
+		# lines will be ignored if they're an exact match
+		self.ignore = ['in']
+		self.replace = {}
 
-	# text for bot messages
-	lvl = 'Level'
-	score = 'Gear Score'
-	main_score = 'Main Stat Rating'
-	sub_score = 'Substat Rating'
-	art_level = 'Artifact Level'
-	join = f'For issues, join the [Artifact Rater Server]({SERVER_URL})'
-	feedback = f'Feedback received, please join {SERVER_URL} if you\'d like to add more details'
-	deprecated = 'Deprecated, please use the `-user lang <lang>` command to set your language'
-	set_lang = 'Language set to English'
-	set_prefix = 'Prefix set to %s'
-	del_preset = 'Preset %s deleted'
-	set_preset = 'Preset %s set to %s'
-	no_presets = 'No presets found'
+		# text for bot messages
+		self.lvl = 'Level'
+		self.score = 'Gear Score'
+		self.main_score = 'Main Stat Rating'
+		self.sub_score = 'Substat Rating'
+		self.art_level = 'Artifact Level'
+		self.join = f'For issues, join the [Artifact Rater Server]({self.SERVER_URL})'
+		self.feedback = f'Feedback received, please join {self.SERVER_URL} if you\'d like to add more details'
+		self.deprecated = 'Deprecated, please use the `-user lang <lang>` command to set your language'
+		self.set_lang = 'Language set to English'
+		self.set_prefix = 'Prefix set to %s'
+		self.del_preset = 'Preset %s deleted'
+		self.set_preset = 'Preset %s set to %s'
+		self.no_presets = 'No presets found'
 
-	# text for bot errors
-	err = 'Error'
-	err_not_found = 'Error: No image or url found, please make sure they were sent in the same message'
-	err_parse = 'Error: Command cannot be parsed, please double check the format and spelling'
-	err_try_again = 'please try again in a few minutes'
-	err_unknown_ocr = 'Error: OCR failed with unknown error'
-	err_unknown = 'Unknown error, try using an image from the inventory\'s artifact page'
-	err_admin_only = 'Error: Only server admins can perform this action'
-	err_server_only = 'Error: This action can only be performed on servers'
+		# text for bot errors
+		self.err = 'Error'
+		self.err_not_found = 'Error: No image or url found, please make sure they were sent in the same message'
+		self.err_parse = 'Error: Command cannot be parsed, please double check the format and spelling'
+		self.err_try_again = 'please try again in a few minutes'
+		self.err_unknown_ocr = 'Error: OCR failed with unknown error'
+		self.err_unknown = 'Unknown error, try using an image from the inventory\'s artifact page'
+		self.err_admin_only = 'Error: Only server admins can perform this action'
+		self.err_server_only = 'Error: This action can only be performed on servers'
 
-	# help text
-	help_stats = '`stat` can be one of `hp`, `hp%`, `def`, `def%`, `atk`, `atk%`, `er` (Energy Recharge), `em` (Elemental Mastery), `phys` (Physical DMG), `elem` (Elemental DMG), `cr` (Crit Rate), `cd` (Crit Damage), `heal` (Healing Bonus).'
+		# help text
+		self.help_stats = '`stat` can be one of `hp`, `hp%`, `def`, `def%`, `atk`, `atk%`, `er` (Energy Recharge), `em` (Elemental Mastery), `phys` (Physical DMG), `elem` (Elemental DMG), `cr` (Crit Rate), `cd` (Crit Damage), `heal` (Healing Bonus).'
 
-	help_commands = {
-		'rate': [
-			'-rate <image/url> [preset] [lvl=<level>] [weights]',
-			f'''
-			Rate an artifact against an optimal 5* artifact. Put the command and image in the same message. Try to use a clear screenshot for the best results.
-			If you are on Windows 10, you can use Shift + Windows + S, drag your cursor over the artifact stats and then paste it on discord with Ctrl + V.
-			This bot will use default weights (see below) unless you specify your own or select a preset. You can also specify the level you want to compare your artifact to.
+		self.help_commands = {
+			'rate': [
+				'-rate <image/url> [preset] [lvl=<level>] [weights]',
+				f'''
+				Rate an artifact against an optimal 5* artifact. Put the command and image in the same message. Try to use a clear screenshot for the best results.
+				If you are on Windows 10, you can use Shift + Windows + S, drag your cursor over the artifact stats and then paste it on discord with Ctrl + V.
+				This bot will use default weights (see below) unless you specify your own or select a preset. You can also specify the level you want to compare your artifact to.
 
-			**Default weights**
-			ATK%, DMG%, Crit - 1
-			ATK, EM, Recharge – 0.5
-			Everything else - 0
+				**Default weights**
+				ATK%, DMG%, Crit - 1
+				ATK, EM, Recharge – 0.5
+				Everything else - 0
 
-			**Parameters**
-			`image/url`
-			The image to be rated, either attached as a file or by putting the url in the message. [Sample]({SAMPLE_URL})
+				**Parameters**
+				`image/url`
+				The image to be rated, either attached as a file or by putting the url in the message. [Sample]({self.SAMPLE_URL})
 
-			`preset`
-			The preset selection of weights to use. See `-presets` for which presets are available, or `-help` for how to set your own.
+				`preset`
+				The preset selection of weights to use. See `-presets` for which presets are available, or `-help` for how to set your own.
 
-			`lvl`
-			The level of the artifact to compare against, from 0 to 20. Sometimes the auto-detection for level is wrong, use this to correct it.
+				`lvl`
+				The level of the artifact to compare against, from 0 to 20. Sometimes the auto-detection for level is wrong, use this to correct it.
 
-			`weights`
-			The weights to use for rating this artifact. Each weight is of the format `<stat>=<value>`, where `value` is a number between 0 and 1.
-			{help_stats}
+				`weights`
+				The weights to use for rating this artifact. Each weight is of the format `<stat>=<value>`, where `value` is a number between 0 and 1.
+				{self.help_stats}
 
-			**Examples**
-			`-rate <image> atk%=0 hp=1 er=0.5`
-			`-rate <url> support lvl=4`
-			'''
-		],
+				**Examples**
+				`-rate <image> atk%=0 hp=1 er=0.5`
+				`-rate <url> support lvl=4`
+				'''
+			],
 
-		'feedback': [
-			'-feedback <message> [image]',
-			'Send direct feedback with up to one image. Use this to send ideas or report errors to help us improve the bot.'
-		],
+			'feedback': [
+				'-feedback <message> [image]',
+				'Send direct feedback with up to one image. Use this to send ideas or report errors to help us improve the bot.'
+			],
 
-		'sets': [
-			'-sets',
-			'''
-			View all available presets. Includes personal, server, and default presets.
-			This command will display a list containing the name of the preset, where it's from, and the weights it has set.
-			'''
-		],
+			'sets': [
+				'-sets',
+				'''
+				View all available presets. Includes personal, server, and default presets.
+				This command will display a list containing the name of the preset, where it's from, and the weights it has set.
+				'''
+			],
 
-		'lang': [
-			'-[user/server] lang <lang>',
-			'''
-			Set your language for all commands to the 2 letter language code `lang`.
-			Artifact Rater will use this language for the images you send in the `-rate` command.
+			'lang': [
+				'-[user/server] lang <lang>',
+				'''
+				Set your language for all commands to the 2 letter language code `lang`.
+				Artifact Rater will use this language for the images you send in the `-rate` command.
 
-			Languages: English (en), Spanish (es), German (de), French (fr), Portuguese (pt), Polish (pl), Italian (it), Russian (ru), Indonesian (id), Vietnamese (vi), Japanese (ja), Traditional Chinese (tw), Simplified Chinese (cn)
-			'''
-		],
+				Languages: English (en), Spanish (es), German (de), French (fr), Portuguese (pt), Polish (pl), Italian (it), Russian (ru), Indonesian (id), Vietnamese (vi), Japanese (ja), Traditional Chinese (tw), Simplified Chinese (cn)
+				'''
+			],
 
-		'prefix': [
-			'-server prefix <prefix>',
-			'Change the bot\'s prefix for this server.'
-		],
+			'prefix': [
+				'-server prefix <prefix>',
+				'Change the bot\'s prefix for this server.'
+			],
 
-		'preset': [
-			'-[user/server] preset <name> <weights>',
-			f'''
-			Create a preset called `name` to use when rating artifacts.
-			If you want to check multiple artifacts with the same set of weights, you can use this command to create a preset with the desired weights.
-			`weights` will be used in the `-rate` command when the preset is used. `weights` should be in the format `<stat>=<value>`, where `value` is a number between 0 and 1.
-			{help_stats}
+			'preset': [
+				'-[user/server] preset <name> <weights>',
+				f'''
+				Create a preset called `name` to use when rating artifacts.
+				If you want to check multiple artifacts with the same set of weights, you can use this command to create a preset with the desired weights.
+				`weights` will be used in the `-rate` command when the preset is used. `weights` should be in the format `<stat>=<value>`, where `value` is a number between 0 and 1.
+				{self.help_stats}
 
-			**Example**
-			`-user preset healer hp=0.5 hp%=1 atk%=0`
-			`-rate <image> healer`
+				**Example**
+				`-user preset healer hp=0.5 hp%=1 atk%=0`
+				`-rate <image> healer`
 
-			`-[user/server] preset delete <name>`
+				`-[user/server] preset delete <name>`
 
-			Delete the presets in `names` (separated by spaces).
-			'''
-		]
-	}
+				Delete the presets in `names` (separated by spaces).
+				'''
+			]
+		}
 
-	help_title = 'Artifact Rater Help'
+		self.help_title = 'Artifact Rater Help'
 
-	help_description = f'''
-	**Commands**
+		self.help_description = f'''
+		**Commands**
 
-	`{help_commands['rate'][0]}`
-	Rate your artifact by sending an image of it. See `-help rate` for more details.
+		`{self.help_commands['rate'][0]}`
+		Rate your artifact by sending an image of it. See `-help rate` for more details.
 
-	`{help_commands['feedback'][0]}`
-	{help_commands['feedback'][1]}
+		`{self.help_commands['feedback'][0]}`
+		{self.help_commands['feedback'][1]}
 
-	`{help_commands['sets'][0]}`
-	View all available presets.
+		`{self.help_commands['sets'][0]}`
+		View all available presets.
 
-	`-help <command>`
-	Show the help message for that command. Commands: {', '.join([f'`{command}`' for command in help_commands])}.
+		`-help <command>`
+		Show the help message for that command. Commands: {', '.join([f'`{command}`' for command in self.help_commands])}.
 
-	**Config**
+		**Config**
 
-	`-user` changes your personal config. Overrides server default settings.
-	`-server` admin-only, changes the server default.
+		`-user` changes your personal config. Overrides server default settings.
+		`-server` admin-only, changes the server default.
 
-	`{help_commands['prefix'][0]}`
-	{help_commands['prefix'][1]}
+		`{self.help_commands['prefix'][0]}`
+		{self.help_commands['prefix'][1]}
 
-	`{help_commands['lang'][0]}`
-	Set your language for all commands to the 2 letter language code `lang`. You can also use the flag reactions to change languages.
+		`{self.help_commands['lang'][0]}`
+		Set your language for all commands to the 2 letter language code `lang`. You can also use the flag reactions to change languages.
 
-	`{help_commands['preset'][0]}`
-	Create a preset to be used when rating artifacts. `weights` will be used in the `-rate` command when the preset is used.
+		`{self.help_commands['preset'][0]}`
+		Create a preset to be used when rating artifacts. `weights` will be used in the `-rate` command when the preset is used.
 
-	`-[user/server] preset delete <names>`
-	Delete presets.
-	'''
+		`-[user/server] preset delete <names>`
+		Delete presets.
+		'''
 
-	source = 'Source Code'
-	invite = 'Bot Invite'
-	support = 'Support'
-	github = f'[GitHub]({GITHUB_URL})'
-	discord = f'[Link]({BOT_URL})'
-	server = f'[Discord]({SERVER_URL})'
+		self.source = 'Source Code'
+		self.invite = 'Bot Invite'
+		self.support = 'Support'
+		self.github = f'[GitHub]({self.GITHUB_URL})'
+		self.discord = f'[Link]({self.BOT_URL})'
+		self.server = f'[Discord]({self.SERVER_URL})'
 
-	help_footer = 'To change languages click on the corresponding flag below'
+		self.help_footer = 'To change languages click on the corresponding flag below'
 
 class en(translation):
 	pass
@@ -798,319 +799,326 @@ class ru(translation):
 	<stat> может использоваться для любого показателя: HP, HP%, Атака, Атака %, Восст (Восстановление энергии), Мастерство (стихий), Физ (Физический урон), Крит.Шанс, Крит.Урон, Элем (Элементальный урон), Лечение (бонус), Защита, Защита %
 	Translated by wellywob#8772 | Переведено by wellywob#8772
 	'''
+
 class tw(translation):
-	id = 'tw'
-	code = 'cht'
-	flag = '🇹🇼'
-	supported = False
+	def __init__(self):
+		super().__init__()
 
-	hp = '生命值'
-	heal = '治療加成'
-	df = '防禦力'
-	er = '元素充能效率'
-	em = '元素精通'
-	atk = '攻擊力'
-	cd = '暴擊傷害'
-	cr = '暴擊率'
-	phys = '物理傷害加成'
-	elem = '元素傷害加成'
-	anemo = '風元素傷害加成'
-	elec = '雷元素傷害加成'
-	pyro = '火元素傷害加成'
-	hydro = '水元素傷害加成'
-	cryo = '冰元素傷害加成'
-	geo = '岩元素傷害加成'
-	dend = '草元素傷害加成'
+		self.id = 'tw'
+		self.code = 'cht'
+		self.flag = '🇹🇼'
+		self.supported = False
 
-	piece_set = '套裝'
+		self.hp = '生命值'
+		self.heal = '治療加成'
+		self.df = '防禦力'
+		self.er = '元素充能效率'
+		self.em = '元素精通'
+		self.atk = '攻擊力'
+		self.cd = '暴擊傷害'
+		self.cr = '暴擊率'
+		self.phys = '物理傷害加成'
+		self.elem = '元素傷害加成'
+		self.anemo = '風元素傷害加成'
+		self.elec = '雷元素傷害加成'
+		self.pyro = '火元素傷害加成'
+		self.hydro = '水元素傷害加成'
+		self.cryo = '冰元素傷害加成'
+		self.geo = '岩元素傷害加成'
+		self.dend = '草元素傷害加成'
 
-	replace = {'·': '.'}
+		self.piece_set = '套裝'
 
-	lvl = '等級'
-	score = '聖遺物評分'
-	main_score = '主屬性評分'
-	sub_score = '副屬性評分'
-	art_level = '聖遺物等級'
-	join = '有任何問題,請加入[Artifact Rater Server]({SERVER_URL})'
-	feedback = '已經收到你的意見,如果您想獲得更多詳細資訊 請加入{SERVER_URL}'
-	deprecated = '請使用-user lang <語言>命令設置您的語言'
-	set_lang = '語言設置已更改為繁體中文'
-	set_prefix = '前綴設置為 %s'
-	del_preset = '已刪除預設前綴 %s'
-	set_preset = '預設首碼 %s 已更改為 %s'
-	no_presets = '未找到預設前綴'
+		self.replace = {'·': '.'}
 
-	err = '錯誤'
-	err_not_found = '錯誤:找不到圖片或網址,請確定他們在同一條訊息中發送'
-	err_parse = '錯誤:無法解析命令,請仔細檢查格式和拼寫'
-	err_try_again = '錯誤:請在幾分鐘後再試一次'
-	err_unknown_ocr = '錯誤:圖片識別失敗,出現未知錯誤'
-	err_unknown = '未知錯誤,請嘗試使用測試頁面中的圖片'
-	err_admin_only = '錯誤:只有伺服器管理員才能使用這個命令'
-	err_server_only = '錯誤:這個命令只能在伺服器上使用'
+		self.lvl = '等級'
+		self.score = '聖遺物評分'
+		self.main_score = '主屬性評分'
+		self.sub_score = '副屬性評分'
+		self.art_level = '聖遺物等級'
+		self.join = f'有任何問題,請加入[Artifact Rater Server]({self.SERVER_URL})'
+		self.feedback = f'已經收到你的意見,如果您想獲得更多詳細資訊 請加入{self.SERVER_URL}'
+		self.deprecated = '請使用-user lang <語言>命令設置您的語言'
+		self.set_lang = '語言設置已更改為繁體中文'
+		self.set_prefix = '前綴設置為 %s'
+		self.del_preset = '已刪除預設前綴 %s'
+		self.set_preset = '預設首碼 %s 已更改為 %s'
+		self.no_presets = '未找到預設前綴'
 
-	help_stats = '`stat`值可以是以下任何一種:生命`hp`,生命%`hp%`,防禦`def`,防禦%`def%`,攻擊`atk`,攻擊%`atk%`,元素充能`er`,元素精通`em`,物理傷害`phys`,元素傷害`elem`,爆擊率`cr`,爆擊傷害`cd`,治療加成`heal`.'
+		self.err = '錯誤'
+		self.err_not_found = '錯誤:找不到圖片或網址,請確定他們在同一條訊息中發送'
+		self.err_parse = '錯誤:無法解析命令,請仔細檢查格式和拼寫'
+		self.err_try_again = '錯誤:請在幾分鐘後再試一次'
+		self.err_unknown_ocr = '錯誤:圖片識別失敗,出現未知錯誤'
+		self.err_unknown = '未知錯誤,請嘗試使用測試頁面中的圖片'
+		self.err_admin_only = '錯誤:只有伺服器管理員才能使用這個命令'
+		self.err_server_only = '錯誤:這個命令只能在伺服器上使用'
 
-	help_commands = {
-		'rate': [
-			'-rate <圖片/圖片網址> [預設權重preset] [lvl=<等級>] [權重weights]',
-			f'''
-			針對5星聖遺物進行等級評分.請將命令和圖像放在同一條消息中.請使用清晰的螢幕截圖以獲得最佳效果.
-			如果您使用的是Windows 10,您可以使用 Shift + Windows + S 並將滑鼠拖到畫面上,然後去discord使用 Ctrl+V 貼上.
-			這個機器人將使用預設權重(詳見下文),除非你更改預設權重.你還可以與想要的等級進行評分.
-			**預設權重**
-			攻擊%,各種傷害%,爆擊 - 1
-			攻擊,元素精通,元素充能 – 0.5
-			其他 - 0
-			**參數**
-			`image/url`
-			要評分的圖片,可以作為文件附加,也可以在訊息中添加網址. [Sample]({SAMPLE_URL})
-			`preset`
-			預設使用的權重.使用`-presets`查看哪些可用,或`-help`查看如何自己設置.
-			`lvl`
-			要評分的聖遺物等級,值介於0~20.有時自動檢測等級是錯誤的,可以用來修正.
-			`weights`
-			用於評分此聖遺物的權重.權重的格式`<stat>=<value>`,`value`值介於0~1.
-			{help_stats}
-			**例子**
-			`-rate <圖片> atk%=0 hp=1 er=0.5`
-			`-rate <圖片網址> 支援 lvl=4`
-			'''
-		],
+		self.help_stats = '`stat`值可以是以下任何一種:生命`hp`,生命%`hp%`,防禦`def`,防禦%`def%`,攻擊`atk`,攻擊%`atk%`,元素充能`er`,元素精通`em`,物理傷害`phys`,元素傷害`elem`,爆擊率`cr`,爆擊傷害`cd`,治療加成`heal`.'
 
-		'feedback': [
-			'-feedback <訊息> [圖片]',
-			'發送有關機器人的問題或意見.請使用它發送想法或錯誤報告,來協助我們改進機器人.'
-		],
+		self.help_commands = {
+			'rate': [
+				'-rate <圖片/圖片網址> [預設權重preset] [lvl=<等級>] [權重weights]',
+				f'''
+				針對5星聖遺物進行等級評分.請將命令和圖像放在同一條消息中.請使用清晰的螢幕截圖以獲得最佳效果.
+				如果您使用的是Windows 10,您可以使用 Shift + Windows + S 並將滑鼠拖到畫面上,然後去discord使用 Ctrl+V 貼上.
+				這個機器人將使用預設權重(詳見下文),除非你更改預設權重.你還可以與想要的等級進行評分.
+				**預設權重**
+				攻擊%,各種傷害%,爆擊 - 1
+				攻擊,元素精通,元素充能 – 0.5
+				其他 - 0
+				**參數**
+				`image/url`
+				要評分的圖片,可以作為文件附加,也可以在訊息中添加網址. [Sample]({self.SAMPLE_URL})
+				`preset`
+				預設使用的權重.使用`-presets`查看哪些可用,或`-help`查看如何自己設置.
+				`lvl`
+				要評分的聖遺物等級,值介於0~20.有時自動檢測等級是錯誤的,可以用來修正.
+				`weights`
+				用於評分此聖遺物的權重.權重的格式`<stat>=<value>`,`value`值介於0~1.
+				{self.help_stats}
+				**例子**
+				`-rate <圖片> atk%=0 hp=1 er=0.5`
+				`-rate <圖片網址> 支援 lvl=4`
+				'''
+			],
 
-		'sets': [
-			'-sets',
-			'''
-			查看所有可用的預設.包括個人,伺服器的預設值.
-			該命令將顯示一個清單,項目以及設定值.
-			'''
-		],
+			'feedback': [
+				'-feedback <訊息> [圖片]',
+				'發送有關機器人的問題或意見.請使用它發送想法或錯誤報告,來協助我們改進機器人.'
+			],
 
-		'lang': [
-			'-[user/server] lang <語言代碼>',
-			'''
-			將更改機器人的語言設置為語言代碼`lang`.
-			Artifact Rater將使用此語言處理您在`-rate`的指令.
-			語言清單: English (en), Spanish (es), German (de), French (fr), Portuguese (pt), Polish (pl), Italian (it), Russian (ru), Indonesian (id), Vietnamese (vi), Japanese (ja), 繁體中文 (tw), 簡體中文 (cn)
-			'''
-		],
+			'sets': [
+				'-sets',
+				'''
+				查看所有可用的預設.包括個人,伺服器的預設值.
+				該命令將顯示一個清單,項目以及設定值.
+				'''
+			],
 
-		'prefix': [
-			'-server prefix <前綴>',
-			'更改此機器人的指令前綴.'
-		],
+			'lang': [
+				'-[user/server] lang <語言代碼>',
+				'''
+				將更改機器人的語言設置為語言代碼`lang`.
+				Artifact Rater將使用此語言處理您在`-rate`的指令.
+				語言清單: English (en), Spanish (es), German (de), French (fr), Portuguese (pt), Polish (pl), Italian (it), Russian (ru), Indonesian (id), Vietnamese (vi), Japanese (ja), 繁體中文 (tw), 簡體中文 (cn)
+				'''
+			],
 
-		'preset': [
-			'-[user/server] preset <名稱> <權重>',
-			f'''
-			創建一個名為`name`的權重設定在對文物進行評級時使用.
-			如果要檢查具有相同權重的多個聖遺物,您可以使用此命令創建具有所需權重的預設.
-			`weights`將用於`-rate`使用預設時的命令.`weights`應採用以下格式`<stat>=<value>`,`value`值介於0~1.
-			{help_stats}
-			**例子**
-			`-user preset healer hp=0.5 hp%=1 atk%=0`
-			`-rate <圖片> healer`
-			`-[user/server] preset delete <名稱>`
-			刪除預設中的值`names` (用空格隔開).
-			'''
-		]
-	}
+			'prefix': [
+				'-server prefix <前綴>',
+				'更改此機器人的指令前綴.'
+			],
 
-	help_title = '聖遺物評分小工具幫助'
+			'preset': [
+				'-[user/server] preset <名稱> <權重>',
+				f'''
+				創建一個名為`name`的權重設定在對文物進行評級時使用.
+				如果要檢查具有相同權重的多個聖遺物,您可以使用此命令創建具有所需權重的預設.
+				`weights`將用於`-rate`使用預設時的命令.`weights`應採用以下格式`<stat>=<value>`,`value`值介於0~1.
+				{self.help_stats}
+				**例子**
+				`-user preset healer hp=0.5 hp%=1 atk%=0`
+				`-rate <圖片> healer`
+				`-[user/server] preset delete <名稱>`
+				刪除預設中的值`names` (用空格隔開).
+				'''
+			]
+		}
 
-	help_description = f'''
-	**指令**
-	`{help_commands['rate'][0]}`
-	通過發送圖片來評分你的聖遺物.使用`-help rate`查看更多細節.
-	`{help_commands['feedback'][0]}`
-	{help_commands['feedback'][1]}
-	`{help_commands['sets'][0]}`
-	查看所有可用的預設值.
-	`-help <command>`
-	顯示命令的説明消息.指令: {', '.join([f'`{command}`' for command in help_commands])}.
-	**設定檔**
-	`-user` 更改您的個人設置,覆蓋伺服器預設設置.
-	`-server` 僅限管理員,更改伺服器預設設置.
-	`{help_commands['prefix'][0]}`
-	{help_commands['prefix'][1]}
-	`{help_commands['lang'][0]}`
-	將更改機器人的語言設置為語言代碼`lang`.您也可以使用國旗圖示反應來更改語言.
-	`{help_commands['preset'][0]}`
-	創建在對聖遺物進行評分時要使用的預設權重.`weights`將用於`-rate`指令時使用的預設.
-	`-[user/server] preset delete <名稱>`
-	刪除預設值.
-	'''
+		self.help_title = '聖遺物評分小工具幫助'
 
-	source = '源代碼'
-	invite = '邀請Bot'
-	support = '幫助'
-	github = f'[GitHub]({GITHUB_URL})'
-	discord = f'[Link]({BOT_URL})'
-	server = f'[Discord]({SERVER_URL})'
+		self.help_description = f'''
+		**指令**
+		`{self.help_commands['rate'][0]}`
+		通過發送圖片來評分你的聖遺物.使用`-help rate`查看更多細節.
+		`{self.help_commands['feedback'][0]}`
+		{self.help_commands['feedback'][1]}
+		`{self.help_commands['sets'][0]}`
+		查看所有可用的預設值.
+		`-help <command>`
+		顯示命令的説明消息.指令: {', '.join([f'`{command}`' for command in self.help_commands])}.
+		**設定檔**
+		`-user` 更改您的個人設置,覆蓋伺服器預設設置.
+		`-server` 僅限管理員,更改伺服器預設設置.
+		`{self.help_commands['prefix'][0]}`
+		{self.help_commands['prefix'][1]}
+		`{self.help_commands['lang'][0]}`
+		將更改機器人的語言設置為語言代碼`lang`.您也可以使用國旗圖示反應來更改語言.
+		`{self.help_commands['preset'][0]}`
+		創建在對聖遺物進行評分時要使用的預設權重.`weights`將用於`-rate`指令時使用的預設.
+		`-[user/server] preset delete <名稱>`
+		刪除預設值.
+		'''
 
-	help_footer = '如果要更改語言,請點擊下面的相應國旗圖示'
+		self.source = '源代碼'
+		self.invite = '邀請Bot'
+		self.support = '幫助'
+		self.github = f'[GitHub]({self.GITHUB_URL})'
+		self.discord = f'[Link]({self.BOT_URL})'
+		self.server = f'[Discord]({self.SERVER_URL})'
+
+		self.help_footer = '如果要更改語言,請點擊下面的相應國旗圖示'
 
 class cn(translation):
-	id = 'cn'
-	code = 'chs'
-	flag = '🇨🇳'
-	supported = False
+	def __init__(self):
+		super().__init__()
 
-	hp = '生命值'
-	heal = '治疗加成'
-	df = '防御力'
-	er = '元素充能效率'
-	em = '元素精通'
-	atk = '攻击力'
-	cd = '暴击伤害'
-	cr = '暴击率'
-	phys = '物理伤害加成'
-	elem = '元素伤害加成'
-	anemo = '风元素伤害加成'
-	elec = '雷元素伤害加成'
-	pyro = '火元素伤害加成'
-	hydro = '水元素伤害加成'
-	cryo = '冰元素伤害加成'
-	geo = '岩元素伤害加成'
-	dend = '草元素伤害加成'
+		self.id = 'cn'
+		self.code = 'chs'
+		self.flag = '🇨🇳'
+		self.supported = False
 
-	piece_set = '套装'
+		self.hp = '生命值'
+		self.heal = '治疗加成'
+		self.df = '防御力'
+		self.er = '元素充能效率'
+		self.em = '元素精通'
+		self.atk = '攻击力'
+		self.cd = '暴击伤害'
+		self.cr = '暴击率'
+		self.phys = '物理伤害加成'
+		self.elem = '元素伤害加成'
+		self.anemo = '风元素伤害加成'
+		self.elec = '雷元素伤害加成'
+		self.pyro = '火元素伤害加成'
+		self.hydro = '水元素伤害加成'
+		self.cryo = '冰元素伤害加成'
+		self.geo = '岩元素伤害加成'
+		self.dend = '草元素伤害加成'
 
-	replace = {'·': '.'}
+		self.piece_set = '套装'
 
-	lvl = '等级'
-	score = '圣遗物评分'
-	main_score = '主属性评分'
-	sub_score = '副属性评分'
-	art_level = '圣遗物等级'
-	join = '有任何问题,请加入[Artifact Rater Server]({SERVER_URL})'
-	feedback = '已经收到你的意见,如果您想获得更多详细信息 请加入{SERVER_URL}'
-	deprecated = '请使用-user lang <语言>命令设置您的语言'
-	set_lang = '语言设置已更改简体中文'
-	set_prefix = '前缀设置为 %s'
-	del_preset = '已删除预设前缀 %s'
-	set_preset = '预设前缀 %s 已更改为 %s'
-	no_presets = '未找到预设前缀'
+		self.replace = {'·': '.'}
 
-	err = '错误'
-	err_not_found = '错误:找不到图片或网址,请确定他们在同一条讯息中发送'
-	err_parse = '错误:无法解析命令,请仔细检查格式和拼写'
-	err_try_again = '错误:请在几分钟后再试一次'
-	err_unknown_ocr = '错误:图片识别失败,出现未知错误'
-	err_unknown = '未知错误,请尝试使用测试页面中的图片'
-	err_admin_only = '错误:只有伺服器管理员才能使用这个命令'
-	err_server_only = '错误:这个命令只能在伺服器上使用'
+		self.lvl = '等级'
+		self.score = '圣遗物评分'
+		self.main_score = '主属性评分'
+		self.sub_score = '副属性评分'
+		self.art_level = '圣遗物等级'
+		self.join = f'有任何问题,请加入[Artifact Rater Server]({self.SERVER_URL})'
+		self.feedback = f'已经收到你的意见,如果您想获得更多详细信息 请加入{self.SERVER_URL}'
+		self.deprecated = '请使用-user lang <语言>命令设置您的语言'
+		self.set_lang = '语言设置已更改简体中文'
+		self.set_prefix = '前缀设置为 %s'
+		self.del_preset = '已删除预设前缀 %s'
+		self.set_preset = '预设前缀 %s 已更改为 %s'
+		self.no_presets = '未找到预设前缀'
 
-	help_stats = '`stat`值可以是以下任何一种:生命`hp`,生命%`hp%`,防御`def`,防御%`def%`,攻击`atk`,攻击%`atk%`,元素充能`er`,元素精通`em`,物理伤害`phys`,元素伤害`elem`,爆击率`cr`,爆击伤害`cd`,治疗加成`heal`.'
+		self.err = '错误'
+		self.err_not_found = '错误:找不到图片或网址,请确定他们在同一条讯息中发送'
+		self.err_parse = '错误:无法解析命令,请仔细检查格式和拼写'
+		self.err_try_again = '错误:请在几分钟后再试一次'
+		self.err_unknown_ocr = '错误:图片识别失败,出现未知错误'
+		self.err_unknown = '未知错误,请尝试使用测试页面中的图片'
+		self.err_admin_only = '错误:只有伺服器管理员才能使用这个命令'
+		self.err_server_only = '错误:这个命令只能在伺服器上使用'
 
-	help_commands = {
-		'rate': [
-			'-rate <图片/图片网址> [预设权重preset] [lvl=<等级>] [权重weights]',
-			f'''
-			针对5星圣遗物进行等级评分.请将命令和图像放在同一条消息中.请使用清晰的屏幕截图来获得最佳效果.
-			如果您使用的是Windows 10,您可以使用 Shift + Windows + S 并将鼠标拖到画面上,然后去discord使用 Ctrl+V 贴上.
-			这个机器人将使用预设权重(详见下文),除非你更改预设权重.你还可以与想要的等级进行评分.
-			**预设权重**
-			攻击%,各种伤害%,爆击 - 1
-			攻击,元素精通,元素充能 – 0.5
-			其他 - 0
-			**参数**
-			`image/url`
-			要评分的图片,可以作为文件附加,也可以在讯息中添加网址. [Sample]({SAMPLE_URL})
-			`preset`
-			预设使用的权重.使用`-presets`查看哪些可用,或`-help`查看如何自己设置.
-			`lvl`
-			要评分的圣遗物等级,值介于0~20.有时自动检测等级是错误的,可以用来修正.
-			`weights`
-			用于评分此圣遗物的权重.权重的格式`<stat>=<value>`,`value`值介于0~1.
-			{help_stats}
-			**例子**
-			`-rate <图片> atk%=0 hp=1 er=0.5`
-			`-rate <图片网址> 支持 lvl=4`
-			'''
-		],
+		self.help_stats = '`stat`值可以是以下任何一种:生命`hp`,生命%`hp%`,防御`def`,防御%`def%`,攻击`atk`,攻击%`atk%`,元素充能`er`,元素精通`em`,物理伤害`phys`,元素伤害`elem`,爆击率`cr`,爆击伤害`cd`,治疗加成`heal`.'
 
-		'feedback': [
-			'-feedback <讯息> [图片]',
-			'发送有关机器人的问题或意见.请使用它发送想法或错误报告,来协助我们改进机器人.'
-		],
+		self.help_commands = {
+			'rate': [
+				'-rate <图片/图片网址> [预设权重preset] [lvl=<等级>] [权重weights]',
+				f'''
+				针对5星圣遗物进行等级评分.请将命令和图像放在同一条消息中.请使用清晰的屏幕截图来获得最佳效果.
+				如果您使用的是Windows 10,您可以使用 Shift + Windows + S 并将鼠标拖到画面上,然后去discord使用 Ctrl+V 贴上.
+				这个机器人将使用预设权重(详见下文),除非你更改预设权重.你还可以与想要的等级进行评分.
+				**预设权重**
+				攻击%,各种伤害%,爆击 - 1
+				攻击,元素精通,元素充能 – 0.5
+				其他 - 0
+				**参数**
+				`image/url`
+				要评分的图片,可以作为文件附加,也可以在讯息中添加网址. [Sample]({self.SAMPLE_URL})
+				`preset`
+				预设使用的权重.使用`-presets`查看哪些可用,或`-help`查看如何自己设置.
+				`lvl`
+				要评分的圣遗物等级,值介于0~20.有时自动检测等级是错误的,可以用来修正.
+				`weights`
+				用于评分此圣遗物的权重.权重的格式`<stat>=<value>`,`value`值介于0~1.
+				{self.help_stats}
+				**例子**
+				`-rate <图片> atk%=0 hp=1 er=0.5`
+				`-rate <图片网址> 支持 lvl=4`
+				'''
+			],
 
-		'sets': [
-			'-sets',
-			'''
-			查看所有可用的预设.包括个人,服务器的预设值.
-			该命令将显示一个清单,项目以及设定值.
-			'''
-		],
+			'feedback': [
+				'-feedback <讯息> [图片]',
+				'发送有关机器人的问题或意见.请使用它发送想法或错误报告,来协助我们改进机器人.'
+			],
 
-		'lang': [
-			'-[user/server] lang <语言代码>',
-			'''
-			将更改机器人的语言设置为语言代码`lang`.
-			Artifact Rater将使用此语言处理您在`-rate`的指令.
-			语言列表: English (en), Spanish (es), German (de), French (fr), Portuguese (pt), Polish (pl), Italian (it), Russian (ru), Indonesian (id), Vietnamese (vi), Japanese (ja), 繁体中文 (tw), 简体中文 (cn)
-			'''
-		],
+			'sets': [
+				'-sets',
+				'''
+				查看所有可用的预设.包括个人,服务器的预设值.
+				该命令将显示一个清单,项目以及设定值.
+				'''
+			],
 
-		'prefix': [
-			'-server prefix <前缀>',
-			'更改此机器人的指令前缀.'
-		],
+			'lang': [
+				'-[user/server] lang <语言代码>',
+				'''
+				将更改机器人的语言设置为语言代码`lang`.
+				Artifact Rater将使用此语言处理您在`-rate`的指令.
+				语言列表: English (en), Spanish (es), German (de), French (fr), Portuguese (pt), Polish (pl), Italian (it), Russian (ru), Indonesian (id), Vietnamese (vi), Japanese (ja), 繁体中文 (tw), 简体中文 (cn)
+				'''
+			],
 
-		'preset': [
-			'-[user/server] preset <名称> <权重>',
-			f'''
-			创建一个名为`name`的权重设定在对文物进行评级时使用.
-			如果要检查具有相同权重的多个圣遗物,您可以使用此命令创建具有所需权重的预设.
-			`weights`将用于`-rate`使用预设时的命令.`weights`应采用以下格式`<stat>=<value>`,`value`值介于0~1.
-			{help_stats}
-			**例子**
-			`-user preset healer hp=0.5 hp%=1 atk%=0`
-			`-rate <图片> healer`
-			`-[user/server] preset delete <名称>`
-			删除预设中的值`names` (用空格隔开).
-			'''
-		]
-	}
+			'prefix': [
+				'-server prefix <前缀>',
+				'更改此机器人的指令前缀.'
+			],
 
-	help_title = '圣遗物评分小工具帮助'
+			'preset': [
+				'-[user/server] preset <名称> <权重>',
+				f'''
+				创建一个名为`name`的权重设定在对文物进行评级时使用.
+				如果要检查具有相同权重的多个圣遗物,您可以使用此命令创建具有所需权重的预设.
+				`weights`将用于`-rate`使用预设时的命令.`weights`应采用以下格式`<stat>=<value>`,`value`值介于0~1.
+				{self.help_stats}
+				**例子**
+				`-user preset healer hp=0.5 hp%=1 atk%=0`
+				`-rate <图片> healer`
+				`-[user/server] preset delete <名称>`
+				删除预设中的值`names` (用空格隔开).
+				'''
+			]
+		}
 
-	help_description = f'''
-	**指令**
-	`{help_commands['rate'][0]}`
-	通过发送图片来评分你的圣遗物.使用`-help rate`查看更多细节.
-	`{help_commands['feedback'][0]}`
-	{help_commands['feedback'][1]}
-	`{help_commands['sets'][0]}`
-	查看所有可用的预设值.
-	`-help <command>`
-	显示命令的说明消息.指令: {', '.join([f'`{command}`' for command in help_commands])}.
-	**配置文件**
-	`-user` 更改您的个人设置,覆盖伺服器预设设置.
-	`-server` 仅限管理员,更改伺服器预设设置.
-	`{help_commands['prefix'][0]}`
-	{help_commands['prefix'][1]}
-	`{help_commands['lang'][0]}`
-	将更改机器人的语言设置为语言代码`lang`.您也可以使用国旗图示反应来更改语言.
-	`{help_commands['preset'][0]}`
-	创建在对圣遗物进行评分时要使用的预设权重.`weights`将用于`-rate`指令时使用的预设.
-	`-[user/server] preset delete <名称>`
-	删除默认值.
-	'''
+		self.help_title = '圣遗物评分小工具帮助'
 
-	source = '源代码'
-	invite = '邀请Bot'
-	support = '帮助'
-	github = f'[GitHub]({GITHUB_URL})'
-	discord = f'[Link]({BOT_URL})'
-	server = f'[Discord]({SERVER_URL})'
+		self.help_description = f'''
+		**指令**
+		`{self.help_commands['rate'][0]}`
+		通过发送图片来评分你的圣遗物.使用`-help rate`查看更多细节.
+		`{self.help_commands['feedback'][0]}`
+		{self.help_commands['feedback'][1]}
+		`{self.help_commands['sets'][0]}`
+		查看所有可用的预设值.
+		`-help <command>`
+		显示命令的说明消息.指令: {', '.join([f'`{command}`' for command in self.help_commands])}.
+		**配置文件**
+		`-user` 更改您的个人设置,覆盖伺服器预设设置.
+		`-server` 仅限管理员,更改伺服器预设设置.
+		`{self.help_commands['prefix'][0]}`
+		{self.help_commands['prefix'][1]}
+		`{self.help_commands['lang'][0]}`
+		将更改机器人的语言设置为语言代码`lang`.您也可以使用国旗图示反应来更改语言.
+		`{self.help_commands['preset'][0]}`
+		创建在对圣遗物进行评分时要使用的预设权重.`weights`将用于`-rate`指令时使用的预设.
+		`-[user/server] preset delete <名称>`
+		删除默认值.
+		'''
 
-	help_footer = '如果要更改语言,请点击下面的相应国旗图示'
+		self.source = '源代码'
+		self.invite = '邀请Bot'
+		self.support = '帮助'
+		self.github = f'[GitHub]({self.GITHUB_URL})'
+		self.discord = f'[Link]({self.BOT_URL})'
+		self.server = f'[Discord]({self.SERVER_URL})'
+
+		self.help_footer = '如果要更改语言,请点击下面的相应国旗图示'
 
 # Text only, no game translation
 class it(translation):
@@ -1222,4 +1230,4 @@ class idn(translation):
 	<stat> adalah apapun dari HP, HP%, ATK, ATK%, ER (Recharge), EM, PHYS, CR (Crit Rate), CD (Crit Damage), ELEM (Elemental DMG%), Heal, DEF, DEF
 	'''
 
-languages = {lang.id: lang for lang in [en, es, de, fr, vi, pt, ja, pl, ru, tw, cn, it, idn]}
+languages = {lang.id: lang for lang in [en(), es(), de(), fr(), vi(), pt(), ja(), pl(), ru(), tw(), cn(), it(), idn()]}

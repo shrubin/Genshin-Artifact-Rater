@@ -21,7 +21,7 @@ lvl_reg = re.compile(r'^\+\d\d?$')
 bad_lvl_reg_1 = re.compile(r'^\+?\d\d?$')
 bad_lvl_reg_2 = re.compile(r'^\d{4}\d*$')
 
-async def ocr(url, num, lang=tr.en):
+async def ocr(url, num, lang=tr.en()):
 	if not OCR_API_KEY:
 		print('Error: OCR_SPACE_API_KEY not found')
 		return False, 'Error: OCR_SPACE_API_KEY not found'
@@ -60,7 +60,7 @@ async def ocr(url, num, lang=tr.en):
 				return False, lang.err_unknown_ocr
 			return True, json['ParsedResults'][0]['ParsedText']
 
-def parse(text, lang=tr.en):
+def parse(text, lang=tr.en()):
 	stat = None
 	results = []
 	level = None
@@ -160,7 +160,7 @@ def validate(value, max_stat, percent):
 		value += 10
 	return value
 
-def rate(level, results, options={}, lang=tr.en):
+def rate(level, results, options={}, lang=tr.en()):
 	main = True
 	main_score = 0.0
 	sub_score = 0.0
@@ -221,7 +221,7 @@ if __name__ == '__main__':
 	if sys.version_info[0] == 3 and sys.version_info[1] >= 8 and sys.platform.startswith('win'):
 		asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 	url = 'https://cdn.discordapp.com/attachments/774366322788007996/790771087293546526/unknown.png'
-	lang = tr.ja
+	lang = tr.ja()
 	suc, text = asyncio.run(ocr(url, 2, lang))
 	print(text)
 	if suc:
