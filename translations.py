@@ -196,84 +196,181 @@ class en(translation):
 	pass
 
 class es(translation):
-	id = 'es'
-	code = 'spa'
-	flag = '🇪🇸'
-	supported = True
+	def __init__(self):
+		super().__init__()
 
-	hp = 'Vida'
-	heal = 'Curación'
-	df = 'DEF'
-	er = 'Recarga de Energía'
-	em = 'Maestría Elemental'
-	atk = 'ATQ'
-	cd = 'Daño CRIT'
-	cr = 'Prob. CRIT'
-	phys = 'Físico'
-	elem = 'Elemental'
-	anemo = 'Anemo'
-	elec = 'Electro'
-	pyro = 'Pyro'
-	hydro = 'Hydro'
-	cryo = 'Cryo'
-	geo = 'Geo'
-	dend = 'Dendro'
+		self.id = 'es'
+		self.code = 'spa'
+		self.flag = '🇪🇸'
+		self.supported = True
 
-	piece_set = 'Conjunto'
+		self.hp = 'Vida'
+		self.heal = 'Curación'
+		self.df = 'DEF'
+		self.er = 'Recarga de Energía'
+		self.em = 'Maestría Elemental'
+		self.atk = 'ATQ'
+		self.cd = 'Daño CRIT'
+		self.cr = 'Prob. CRIT'
+		self.phys = 'Físico'
+		self.elem = 'Elemental'
+		self.anemo = 'Anemo'
+		self.elec = 'Electro'
+		self.pyro = 'Pyro'
+		self.hydro = 'Hydro'
+		self.cryo = 'Cryo'
+		self.geo = 'Geo'
+		self.dend = 'Dendro'
 
-	lvl = 'lvl'
-	score = 'Gear Score'
-	main_score = '% Stat Principal'
-	sub_score = '% Substat'
-	art_level = 'Nivel de artefacto'
-	join = 'Si tienes algún problema, [únete al servidor]%s oficial'
-	feedback = 'Feedback recibido, por favor, únete al servidor si deseas añadir más detalles: %s'
-	title = 'Artifact Rater Bot Help'
-	change = 'Para cambiar el idioma, pulsa sobre la bandera correspondiente'
-	deprecated = 'Comando obsoleto, por favor, usa el comando -user lang <idioma> para seleccionar tu idioma'
-	set_lang = 'Idioma cambiado al español'
-	set_prefix = 'Prefijo seleccionado %s'
-	del_preset = 'Preset %s elminado'
-	set_preset = 'Preset %s configurado con %s'
-	no_presets = 'No se encuentran presets'
+		self.piece_set = 'Conjunto'
 
-	err = 'Error'
-	err_not_found = 'Error: No se encuentra la imagen o la url no funciona, asegurate de mandarla en el mismo mensaje'
-	err_parse = 'Error: el comando no ha podido ejecutarse, asegurate de que esté bien escrito y el formato sea correcto'
-	err_try_again = 'por favor, prueba de nuevo en un rato'
-	err_unknown_ocr = 'Error: el OCR ha fallado con un error desconocido'
-	err_unknown = 'Error desconocido, intenta subir una imagen con la página de artefactos completa'
-	err_admin_only = 'Error: Solo los admins del server pueden realizar esta acción'
-	err_server_only = 'Error: Esta acción solo puede utilizarse en servidores'
+		self.lvl = 'Nivel'
+		self.score = 'Gear Score'
+		self.main_score = 'Stat Principal'
+		self.sub_score = 'Substat'
+		self.art_level = 'Nivel de artefacto'
+		self.requested = 'Pedido por %s'
+		self.join = f'Si tienes algún problema, [únete al servidor]({self.SERVER_URL})'
+		self.feedback = f'Feedback recibido, por favor, únete {self.SERVER_URL} si deseas añadir más detalles'
+		self.deprecated = 'Comando obsoleto, usa el comando `-user lang <idioma>` para establecer tu idioma'
+		self.set_lang = 'Idioma establecido en Español'
+		self.set_prefix = 'Prefijo cambiado a %s'
+		self.del_preset = 'Preset %s eliminado'
+		self.set_preset = 'Preset %s establecido con %s'
+		self.no_presets = 'No se encuentran presets'
 
-	help_description = '''Si quieres, puedes invitar al bot a tu propio servidor de discord con este [link](%s)
-	También puedes hablarle al bot por privado y enviarle el artefacto por ahí Artifact Rater#6924.'''
+		self.err = 'Error'
+		self.err_not_found = 'Error: No se ha encontrado ningún link o imagen, asegúrate de adjuntarla en el mismo mensaje.'
+		self.err_parse = 'Error: No se reconoce el comando, asegúrate de escribirlo bien'
+		self.err_try_again = 'intenta de nuevo más tarde'
+		self.err_unknown_ocr = 'Error: El OCR ha fallado con un error desconocido'
+		self.err_unknown = 'Error desconocido, prueba a enviar una imagen del inventario de artefactos completo.'
+		self.err_admin_only = 'Error: Solo los admins del servidor pueden usar este comando'
+		self.err_server_only = 'Error: Este comando solo se puede usar en servers.'
 
-	help_source = '''Si tienes algún problema, por favor, contacta con shrubin#1866 (inglés) en discord o usa el comando -feedback
-	El código del bot lo puedes encontrar aquí [GitHub](%s)'''
+		self.help_stats = '`stat` puede ser cualquier entre: `hp`, `hp%`, `def`, `def%`, `atk`, `atk%`, `er` (Recarga de Energía), `em` (Maestría Elemental), `phys` (Daño Físico), `elem` (Daño Elemental), `cr` (Prob. Crit), `cd` (Daño Crit), `heal` (Bono de Curación).'
 
-	help_feedback_name = '-feedback <mensaje> [imagen]'
-	help_feedback_value = 'Envía feedback con los problemas o sugerencias para el bot. Puedes adjuntar solo una imagen.'
+		self.help_commands = {
+			'rate': [
+				'-rate <imagen/url> [preset] [lvl=<level>] [valores]',
+				f'''
+				Valora un artefacto comparándolo con los posibles stats de un 5*. Pon el comando y adjunta la imagen en el mismo mensaje. Usa una imagen con la mejor calidad posible.
+				Si estás usando windows 10, puedes usar Shift + Windows + S y seleccionar el artefacto, después ir a discord y pegarlo con Ctrl + V.
+				El bot usará unos valores por defecto (ver abajo) excepto si le especificas tus propios valores o utilizas un preset. También puedes especificar el nivel para compararlo con uno de ese nivel.
 
-	help_rate_name = '-rate_es <imagen/url> [lvl=<level>] [<stat>=<valoración> ...]'
-	help_rate_value = '''\
-	Valora un artefacto comparándolo con los posibles stats de un 5*. Simplemente pon el comando y adjunta la imagen en el mismo mensaje.
+				**Valores por defecto**
+				ATK%, DMG%, Crit - 1
+				ATK, EM, Recharge – 0.5
+				Everything else - 0
 
-	Si estás usando windows 10, puedes usar Shift + Windows + S y seleccionar el artefacto, después ir a discord y pegarlo con Ctrl + V.
+				**Parámetros**
+				`imagen/url`
+				La imagen a valorar, puede ser una imagen adjunta o un link en el mismo mensaje. [Ejemplo] ({self.SAMPLE_URL})
 
-	Valores por defecto
-	ATQ%, DMG%, Crit -1
-	ATK, EM, Recharge - 0.5
-	Lo demás - 0
+				`preset`
+				La seleccion de valores para el preset a utilizar. Utiliza `-presets` para saber cuales hay disponibles o `-help` para saber como crear tu propio preset.
 
-	Opciones
-	lvl: lo compara con el nivel especificado (por defecto: <nivel_artefacto>)
-	-rate_es lvl=20
-	<stat>: Te permite introducir el valor deseado (entre 0 y 1)
-	-rate_es def%=1 hp%=1 atk=0
-	<stat> puedes introducir: HP, HP%, ATK, ATK%, ER (recarga de energía), EM (maestría elemental), CR (prob. crit), CD (daño crit),  PHYS (daño físico), ELEM (daño elemental %), Heal, DEF, DEF%
-	Translated by NeRooN#1104 | Traducción hecha por NeRooN#1104
-	'''
+				`lvl`
+				El nivel del artefacto con el que quieres compararlo, de 0 a 20. A veces la detección automática para el nivel falla, usa este comando para corregirlo.
+
+				`weights`
+				Los valores que quieres usar para valorar tu artefacto. Cada valor tiene que llevar el formato `<stat>=<value>`, donde `value` es un número entre 0 y 1.
+				{self.help_stats}
+
+				**Ejemplos**
+				`-rate <imagen> atk%=0 hp=1 er=0.5`
+				`-rate <url> support lvl=4`
+				'''
+			],
+
+			'feedback': [
+				'-feedback <mensage> [imagen]',
+				'Envía feedback directo con hasta una imagen. Usa este comando para enviar ideas o reportes que nos ayuden a mejorar el bot.'
+			],
+
+			'sets': [
+				'-sets',
+				'''
+				Te muestra una lista de todos los presets disponibles. Incluye los personales, los del servidor y los default.
+				Este comando mostrará una lista con el nombre del preset, su procedencia y los valores establecidos.
+				'''
+			],
+
+			'lang': [
+				'-[user/server] lang <idioma>',
+				'''
+				Establece tu idioma para todos los comandos utilizando su código de dos letras `idioma`.
+				El bot utilizará este idioma para analizar las imágenes que le envíes con el comando `-rate`.
+
+				Idiomas: Inglés (en), Español (es), Alemán (de), Francés (fr), Portugués (pt), Polaco (pl), Italiano (it), Ruso (ru), Indonesio (id), Vietnamita (vi), Japanés (ja), Chino Tradicional (tw), Chino Simplificado(cn)
+				'''
+			],
+
+			'prefix': [
+				'-server prefix <prefijo>',
+				'Cambia el prefijo del bot para este servidor.'
+			],
+
+			'preset': [
+				'-[user/server] preset <nombre> <valores>',
+				f'''
+				Crea un preset `nombre` para usarlo cuando valores tus artefactos.
+				Si quieres comprobar varios artefactos con los mismos valores, puedes usar este comando para crear un preset con los valores deseados.
+				Se usarán `valores` en el comando `-rate` cuando se use el preset. Los `valores` deben estar en el formato `<stat>=<valor>`, donde `valor` es un número entre 0 y 1.
+				{self.help_stats}
+
+				**Ejemplo**
+				`-user preset healer hp=0.5 hp%=1 atk%=0`
+				`-rate <image> healer`
+
+				`-[user/server] preset delete <nombre>`
+
+				Elimina los presets `nombres` (separado por espacios).
+				'''
+			]
+		}
+
+		self.help_description = f'''
+		**Comandos**
+
+		`{self.help_commands['rate'][0]}`
+		Valora tu artefacto al envíar una imagen del artefacto. Utiliza `-help rate` para más detalles.
+
+		`{self.help_commands['feedback'][0]}`
+		{self.help_commands['feedback'][1]}
+
+		`{self.help_commands['sets'][0]}`
+		Te muestra una lista de todos los presets disponibles.
+
+		`-help <comando>`
+		Muestra la ayuda para el comando especificado. Comandos: {', '.join([f'`{command}`' for command in self.help_commands])}.
+
+		**Config**
+
+		`-user` cambia la configuración personal. Sobreescribe la configuración del servidor.
+		`-server` solo para admins, cambia la configuración por defecto del servidor.
+
+		`{self.help_commands['prefix'][0]}`
+		{self.help_commands['prefix'][1]}
+
+		`{self.help_commands['lang'][0]}`
+		Establece tu idioma para todos los comandos con el código de `idioma`. También puedes usar las banderas para cambiar el idioma.
+
+		`{self.help_commands['preset'][0]}`
+		Crea un preset que se utilizará para valorar artefactos. Los `valores` se usarán en el comando `-rate` cuando se use el preset.
+
+		`-[user/server] preset delete <names>`
+		Eliminar presets.
+		'''
+
+		self.source = 'Código fuente'
+		self.invite = 'Invitar al bot'
+		self.support = 'Support'
+		self.github = f'[GitHub]({self.GITHUB_URL})'
+		self.discord = f'[Link]({self.BOT_URL})'
+		self.server = f'[Discord]({self.SERVER_URL})'
+
+		self.help_footer = 'Pulsa sobre la bandera correspondiente para cambiar el idioma'
 
 class de(translation):
 	id = 'de'
@@ -1039,7 +1136,7 @@ class cn(translation):
 				{self.help_stats}
 				**例子**
 				`-rate <图片> atk%=0 hp=1 er=0.5`
-				`-rate <图片网址> 支持 lvl=4`
+				`-rate <图片网址> 辅助 lvl=4`
 				'''
 			],
 
