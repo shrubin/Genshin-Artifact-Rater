@@ -37,10 +37,6 @@ RATE_LIMIT_N = 5
 RATE_LIMIT_TIME = 10
 SHARDS = 10
 
-INVITE_URL = 'https://discord.gg/SyGmBxds3M'
-BOT_URL = 'https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot'
-GITHUB_URL = 'https://github.com/shrubin/Genshin-Artifact-Rater'
-
 calls = 0
 crashes = 0
 
@@ -166,9 +162,14 @@ async def config(ctx):
 	elif attr == 'preset':
 		val = val.split()
 		if val[0] == 'delete':
+			deleted = []
 			for name in val[1:]:
-				db.del_preset(id, name)
-			await send(ctx, msg=lang.del_preset % ", ".join(val[1:]))
+				if db.del_preset(id, name):
+					deleted.append(name)
+			if not deleted:
+				await send(ctx, msg=lang.no_presets)
+				return
+			await send(ctx, msg=lang.del_preset % ", ".join(deleted))
 		else:
 			name = val[0]
 			command = ' '.join(val[1:])
@@ -181,7 +182,7 @@ async def config(ctx):
 
 @bot.command()
 @commands.cooldown(RATE_LIMIT_N, RATE_LIMIT_TIME, commands.BucketType.user)
-async def presets(ctx):
+async def sets(ctx):
 	if DEVELOPMENT and not (ctx.channel and ctx.channel.id == DEV_CHANNEL_ID):
 		return
 	if not DATABASE_URL:
@@ -203,13 +204,10 @@ async def presets(ctx):
 	await send(ctx, embed=embed)
 
 def create_embed(lang):
-	embed = discord.Embed(
-		title=lang.title,
-		description=lang.help_description % BOT_URL,
-		colour=discord.Colour.red(),
-	)
-	embed.add_field(name=f'`{lang.help_rate_name}`', value=lang.help_rate_value, inline=False)
-	embed.add_field(name=f'`{lang.help_feedback_name}`', value=f'{lang.help_feedback_value}\n{lang.help_source % GITHUB_URL}', inline=False)
+	embed = discord.Embed(title=lang.help_title, description=lang.help_description, colour=discord.Colour.red())
+	# embed.add_field(name=f'`{lang.help_rate_name}`', value=lang.help_rate_value, inline=False)
+	# embed.add_field(name=f'`{lang.help_feedback_name}`', value=f'{lang.help_feedback_value}\n{lang.help_source}', inline=False)
+	embed.set_footer(text=lang.help_footer)
 	return embed
 
 @bot.command()
@@ -220,29 +218,39 @@ async def help(ctx):
 
 	lang = get_lang(ctx)
 
-	embed = create_embed(lang)
-	embed.set_footer(text=lang.change)
-	msg = await send(ctx, embed=embed)
+	command = ctx.message.content.split()
+	if len(command) > 2 or len(command) == 2 and command[1] not in lang.help_commands:
+		await send(ctx, msg=lang.err_parse)
+		return
 
-	flags = {lang.flag: lang for lang in tr.languages.values()}
+	if len(command) == 1:
+		embed = create_embed(lang)
+		msg = await send(ctx, embed=embed)
 
-	def check(reaction, user):
-		return user == ctx.message.author and str(reaction.emoji) in flags
+		flags = {lang.flag: lang for lang in tr.languages.values()}
 
-	for flag in flags:
-		await msg.add_reaction(flag)
+		def check(reaction, user):
+			return user == ctx.message.author and str(reaction.emoji) in flags
 
-	while True:
-		try:
-			reaction, user = await bot.wait_for('reaction_add', check=check, timeout=120)
-		except asyncio.TimeoutError:
-			break
+		for flag in flags:
+			await msg.add_reaction(flag)
 
-		lang = flags[str(reaction.emoji)]
-		embed.clear_fields()
-		embed=create_embed(lang)
-		msg.id = reaction.message.id
-		await msg.edit(embed=embed)
+		while True:
+			try:
+				reaction, user = await bot.wait_for('reaction_add', check=check, timeout=120)
+			except asyncio.TimeoutError:
+				break
+
+			lang = flags[str(reaction.emoji)]
+			db.set_lang(ctx.message.author.id, lang.id)
+			embed = create_embed(lang)
+			msg.id = reaction.message.id
+			await msg.edit(embed=embed)
+
+	elif len(command) == 2:
+		help_command = lang.help_commands[command[1]]
+		embed = discord.Embed(title=f'`{help_command[0]}`', description=help_command[1], colour=discord.Colour.red())
+		await send(ctx, embed=embed)
 
 def create_opt_to_key(lang):
 	return {'hp': lang.hp, 'atk': lang.atk, 'atk%': f'{lang.atk}%', 'er': f'{lang.er}%', 'em': lang.em,
@@ -351,7 +359,7 @@ async def rate(ctx):
 	msg += f'\n\n**{lang.score}: {int(score * (main_weight + sub_weight))} ({score:.2f}%)**'
 	msg += f'\n{lang.main_score}: {int(main_score * main_weight)} ({main_score:.2f}%)'
 	msg += f'\n{lang.sub_score}: {int(sub_score * sub_weight)} ({sub_score:.2f}%)'
-	msg += f'\n\n{lang.join % f"({INVITE_URL})"}'
+	msg += f'\n\n{lang.join}'
 
 	embed = discord.Embed(color=color)
 	embed.set_author(name=ctx.message.author.display_name, icon_url=ctx.message.author.avatar_url)
@@ -370,7 +378,7 @@ async def feedback(ctx):
 
 	lang = get_lang(ctx)
 
-	await send(ctx, msg=lang.feedback % INVITE_URL)
+	await send(ctx, msg=lang.feedback)
 	if CHANNEL_ID:
 		channel = bot.get_channel(CHANNEL_ID)
 		embed = discord.Embed()
@@ -383,7 +391,7 @@ async def feedback(ctx):
 		await channel.send(f'{ctx.message.author}: {ctx.message.content}', embed=embed)
 
 def make_f(name, lang):
-	suffix = f'_{lang.uid}'
+	suffix = f'_{lang.id}'
 	@bot.command(name=f'{name}{suffix}')
 	@commands.cooldown(RATE_LIMIT_N, RATE_LIMIT_TIME, commands.BucketType.user)
 	async def _f(ctx):

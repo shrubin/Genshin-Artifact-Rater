@@ -1,12 +1,17 @@
 class translation:
 	# 2-digit language code
-	uid = 'en'
+	id = 'en'
 	# 3-digit language code
 	code = 'eng'
 	# Unicode flag
 	flag = '🇺🇸'
 	# Supported by OCR Engine 2
 	supported = True
+
+	SERVER_URL = 'https://discord.gg/SyGmBxds3M'
+	BOT_URL = 'https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permissions=19456&scope=bot'
+	GITHUB_URL = 'https://github.com/shrubin/Genshin-Artifact-Rater'
+	SAMPLE_URL = 'https://cdn.discordapp.com/attachments/787533173004173343/790751503475802122/unknown.png'
 
 	# stats as they appear in-game
 	hp = 'HP'
@@ -41,10 +46,8 @@ class translation:
 	sub_score = 'Substat Rating'
 	art_level = 'Artifact Level'
 	requested = 'Requested by %s'
-	join = 'For issues, join the [Artifact Rater Server]%s'
-	feedback = 'Feedback received, please join %s if you\'d like to add more details'
-	title = 'Artifact Rater Bot Help'
-	change = 'To change languages click on the corresponding flag below'
+	join = f'For issues, join the [Artifact Rater Server]({SERVER_URL})'
+	feedback = f'Feedback received, please join {SERVER_URL} if you\'d like to add more details'
 	deprecated = 'Deprecated, please use the `-user lang <lang>` command to set your language'
 	set_lang = 'Language set to English'
 	set_prefix = 'Prefix set to %s'
@@ -62,39 +65,134 @@ class translation:
 	err_admin_only = 'Error: Only server admins can perform this action'
 	err_server_only = 'Error: This action can only be performed on servers'
 
-	help_description = '''If you would like to add it to your private server use the [link](%s)
-	You can also use the bot by sending the command in a DM to Artifact Rater#6924.'''
+	# help text
+	help_stats = '`stat` can be one of `hp`, `hp%`, `def`, `def%`, `atk`, `atk%`, `er` (Energy Recharge), `em` (Elemental Mastery), `phys` (Physical DMG), `elem` (Elemental DMG), `cr` (Crit Rate), `cd` (Crit Damage), `heal` (Healing Bonus).'
 
-	help_source = '''If you have any issues, please contact shrubin#1866 on discord or use the -feedback command.
-	Source code available at [GitHub](%s)'''
+	help_commands = {
+		'rate': [
+			'-rate <image/url> [preset] [lvl=<level>] [weights]',
+			f'''
+			Rate an artifact against an optimal 5* artifact. Put the command and image in the same message. Try to use a clear screenshot for the best results.
+			If you are on Windows 10, you can use Shift + Windows + S, drag your cursor over the artifact stats and then paste it on discord with Ctrl + V.
+			This bot will use default weights (see below) unless you specify your own or select a preset. You can also specify the level you want to compare your artifact to.
 
-	help_feedback_name = '-feedback <message> [image]'
-	help_feedback_value = 'Send feedback with issues or ideas for the bot. Up to one image can be sent.'
+			**Default weights**
+			ATK%, DMG%, Crit - 1
+			ATK, EM, Recharge – 0.5
+			Everything else - 0
 
-	help_rate_name = '-rate <image/url> [lvl=<level>] [<stat>=<weight> ...]'
-	help_rate_value = '''\
-	Rate an artifact against an optimal 5* artifact. Put the command and image in the same message.
+			**Parameters**
+			`image/url`
+			The image to be rated, either attached as a file or by putting the url in the message. [Sample]({SAMPLE_URL})
 
-	If you are using Windows 10, you can use Shift + Windows + S and drag your cursor over the artifact, then go to discord and paste it with Ctrl+V.
+			`preset`
+			The preset selection of weights to use. See `-presets` for which presets are available, or `-help` for how to set your own.
 
-	Default weights
-	ATK%, DMG%, Crit - 1
-	ATK, EM, Recharge - 0.5
-	Everything else - 0
+			`lvl`
+			The level of the artifact to compare against, from 0 to 20. Sometimes the auto-detection for level is wrong, use this to correct it.
 
-	Options
-	lvl: Compare to specified artifact level (default: <artifact_level>)
-	-rate lvl=20
-	<stat>: Set custom weights (valued between 0 and 1)
-	-rate atk=1 er=0 atk%=0.5
-	<stat> is any of HP, HP%, ATK, ATK%, ER (Recharge), EM, PHYS, CR (Crit Rate), CD (Crit Damage), ELEM (Elemental DMG%), Heal, DEF, DEF
+			`weights`
+			The weights to use for rating this artifact. Each weight is of the format `<stat>=<value>`, where `value` is a number between 0 and 1.
+			{help_stats}
+
+			**Examples**
+			`-rate <image> atk%=0 hp=1 er=0.5`
+			`-rate <url> support lvl=4`
+			'''
+		],
+
+		'feedback': [
+			'-feedback <message> [image]',
+			'Send direct feedback with up to one image. Use this to send ideas or report errors to help us improve the bot.'
+		],
+
+		'sets': [
+			'-sets',
+			'''
+			View all available presets. Includes personal, server, and default presets.
+			This command will display a list containing the name of the preset, where it's from, and the weights it has set.
+			'''
+		],
+
+		'lang': [
+			'-[user/server] lang <lang>',
+			'''
+			Set your language for all commands to the 2 letter language code `lang`.
+			Artifact Rater will use this language for the images you send in the `-rate` command.
+
+			Languages: English (en), Spanish (es), German (de), French (fr), Portuguese (pt), Polish (pl), Italian (it), Russian (ru), Indonesian (id), Vietnamese (vi), Japanese (ja), Traditional Chinese (tw), Simplified Chinese (cn)
+			'''
+		],
+
+		'prefix': [
+			'-server prefix <prefix>',
+			'Change the bot\'s prefix for this server.'
+		],
+
+		'preset': [
+			'-[user/server] preset <name> <weights>',
+			f'''
+			Create a preset called `name` to use when rating artifacts.
+			If you want to check multiple artifacts with the same set of weights, you can use this command to create a preset with the desired weights.
+			`weights` will be used in the `-rate` command when the preset is used. `weights` should be in the format `<stat>=<value>`, where `value` is a number between 0 and 1.
+			{help_stats}
+
+			**Example**
+			`-user preset healer hp=0.5 hp%=1 atk%=0`
+			`-rate <image> healer`
+
+			`-[user/server] preset delete <name>`
+
+			Delete the presets in `names` (separated by spaces).
+			'''
+		]
+	}
+
+	help_title = 'Artifact Rater Help'
+
+	help_description = f'''
+	If you would like to add it to your private server use the [link]({BOT_URL}). You can also use the bot by sending the command in a DM to Artifact Rater#6924.
+	If you have any issues, please use the -feedback command or join the [Support Server]({SERVER_URL}). Source code available at [GitHub]({GITHUB_URL}).
+
+	**Commands**
+
+	`{help_commands['rate'][0]}`
+	Rate your artifact by sending an image of it. See `-help rate` for more details.
+
+	`{help_commands['feedback'][0]}`
+	{help_commands['feedback'][1]}
+
+	`{help_commands['sets'][0]}`
+	View all available presets.
+
+	`-help <command>`
+	Show the help message for that command. Commands: {', '.join([f'`{command}`' for command in help_commands])}.
+
+	**Config**
+
+	`-user` changes your personal config. Overrides server default settings.
+	`-server` admin-only, changes the server default.
+
+	`{help_commands['lang'][0]}`
+	Set your language for all commands to the 2 letter language code `lang`. You can also use the flag reactions to change languages.
+
+	`{help_commands['prefix'][0]}`
+	{help_commands['prefix'][1]}
+
+	`{help_commands['preset'][0]}`
+	Create a preset to be used when rating artifacts. `weights` will be used in the `-rate` command when the preset is used.
+
+	`-[user/server] preset delete <names>`
+	Delete presets.
 	'''
+
+	help_footer = 'To change languages click on the corresponding flag below'
 
 class en(translation):
 	ignore = ['in']
 
 class es(translation):
-	uid = 'es'
+	id = 'es'
 	code = 'spa'
 	flag = '🇪🇸'
 	supported = True
@@ -175,7 +273,7 @@ class es(translation):
 	'''
 
 class de(translation):
-	uid = 'de'
+	id = 'de'
 	code = 'ger'
 	flag = '🇩🇪'
 	supported = True
@@ -259,7 +357,7 @@ class de(translation):
 	'''
 
 class fr(translation):
-	uid = 'fr'
+	id = 'fr'
 	code = 'fre'
 	flag = '🇫🇷'
 	supported = True
@@ -338,7 +436,7 @@ class fr(translation):
 	'''
 
 class vi(translation):
-	uid = 'vi'
+	id = 'vi'
 	code = 'vie'
 	flag = '🇻🇳'
 	supported = True
@@ -418,7 +516,7 @@ class vi(translation):
 	'''
 
 class pt(translation):
-	uid = 'pt'
+	id = 'pt'
 	code = 'por'
 	flag = '🇵🇹'
 	supported = True
@@ -497,7 +595,7 @@ class pt(translation):
 	'''
 
 class ja(translation):
-	uid = 'ja'
+	id = 'ja'
 	code = 'jpn'
 	flag = '🇯🇵'
 	supported = False
@@ -569,7 +667,7 @@ class ja(translation):
 
 # Text only, no game translation
 class pl(translation):
-	uid = 'pl'
+	id = 'pl'
 	code = 'pol'
 	flag = '🇵🇱'
 	supported = True
@@ -628,7 +726,7 @@ class pl(translation):
 	'''
 
 class ru(translation):
-	uid = 'ru'
+	id = 'ru'
 	code = 'rus'
 	flag = '🇷🇺'
 	supported = False
@@ -707,7 +805,7 @@ class ru(translation):
 	'''
 
 class tw(translation):
-	uid = 'tw'
+	id = 'tw'
 	code = 'cht'
 	flag = '🇹🇼'
 	supported = False
@@ -731,6 +829,8 @@ class tw(translation):
 	dend = '草元素傷害加成'
 
 	piece_set = '套裝'
+
+	replace = {'·': '.'}
 
 	lvl = '等級'
 	score = '聖遺物評分'
@@ -785,7 +885,7 @@ class tw(translation):
 	'''
 
 class cn(translation):
-	uid = 'cn'
+	id = 'cn'
 	code = 'chs'
 	flag = '🇨🇳'
 	supported = False
@@ -809,6 +909,8 @@ class cn(translation):
 	dend = '草元素伤害加成'
 
 	piece_set = '套装'
+
+	replace = {'·': '.'}
 
 	lvl = '等级'
 	score = '圣遗物评分'
@@ -864,7 +966,7 @@ class cn(translation):
 
 # Text only, no game translation
 class it(translation):
-	uid = 'it'
+	id = 'it'
 	code = 'ita'
 	flag = '🇮🇹'
 	supported = True
@@ -925,7 +1027,7 @@ class it(translation):
 
 # Text only, no game translation
 class idn(translation):
-	uid = 'id'
+	id = 'id'
 	code = 'idn'
 	flag = '🇮🇩'
 	supported = True
@@ -974,4 +1076,4 @@ class idn(translation):
 	<stat> adalah apapun dari HP, HP%, ATK, ATK%, ER (Recharge), EM, PHYS, CR (Crit Rate), CD (Crit Damage), ELEM (Elemental DMG%), Heal, DEF, DEF
 	'''
 
-languages = {lang.uid: lang for lang in [en, es, de, fr, vi, pt, ja, pl, ru, tw, cn, it, idn]}
+languages = {lang.id: lang for lang in [en, es, de, fr, vi, pt, ja, pl, ru, tw, cn, it, idn]}

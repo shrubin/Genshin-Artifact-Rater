@@ -103,9 +103,12 @@ def set_preset(id, name, command):
 def del_preset(id, name):
 	if not id or not name:
 		return
+	result = False
 	session = Session()
 	preset = get_preset(session, id, name)
 	if preset:
 		session.delete(preset)
 		session.commit()
+		result = True
 	session.close()
+	return result
