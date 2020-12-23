@@ -131,7 +131,7 @@ async def config(ctx):
 	lang = get_lang(ctx)
 
 	msg = ctx.message.content.split()
-	if len(msg) < 3 or (msg[1] == 'preset' and len(msg) < 4):
+	if len(msg) < 3 or (msg[1] == 'preset' and len(msg) < 4) or (msg[1] == 'prefix' and len(msg) > 3):
 		await send(ctx, msg=lang.err_parse)
 		return
 
@@ -228,7 +228,10 @@ async def help(ctx):
 		embed = create_embed(lang)
 		msg = await send(ctx, embed=embed)
 
-		flags = {lang.flag: lang for lang in tr.languages.values()}
+		flags = {}
+		for lang in tr.languages.values():
+			for flag in lang.flags:
+				flags[flag] = lang
 
 		def check(reaction, user):
 			return user == ctx.message.author and str(reaction.emoji) in flags

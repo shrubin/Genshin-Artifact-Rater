@@ -5,7 +5,7 @@ class translation:
 		# 3-digit language code
 		self.code = 'eng'
 		# Unicode flag
-		self.flag = '🇺🇸'
+		self.flags = ['🇺🇸']
 		# Supported by OCR Engine 2
 		self.supported = True
 
@@ -141,7 +141,7 @@ class translation:
 				`-user preset healer hp=0.5 hp%=1 atk%=0`
 				`-rate <image> healer`
 
-				`-[user/server] preset delete <name>`
+				`-[user/server] preset delete <names>`
 
 				Delete the presets in `names` (separated by spaces).
 				'''
@@ -201,7 +201,7 @@ class es(translation):
 
 		self.id = 'es'
 		self.code = 'spa'
-		self.flag = '🇪🇸'
+		self.flags = ['🇪🇸']
 		self.supported = True
 
 		self.hp = 'Vida'
@@ -229,7 +229,6 @@ class es(translation):
 		self.main_score = 'Stat Principal'
 		self.sub_score = 'Substat'
 		self.art_level = 'Nivel de artefacto'
-		self.requested = 'Pedido por %s'
 		self.join = f'Si tienes algún problema, [únete al servidor]({self.SERVER_URL})'
 		self.feedback = f'Feedback recibido, por favor, únete {self.SERVER_URL} si deseas añadir más detalles'
 		self.deprecated = 'Comando obsoleto, usa el comando `-user lang <idioma>` para establecer tu idioma'
@@ -265,7 +264,7 @@ class es(translation):
 
 				**Parámetros**
 				`imagen/url`
-				La imagen a valorar, puede ser una imagen adjunta o un link en el mismo mensaje. [Ejemplo] ({self.SAMPLE_URL})
+				La imagen a valorar, puede ser una imagen adjunta o un link en el mismo mensaje. [Ejemplo]({self.SAMPLE_URL})
 
 				`preset`
 				La seleccion de valores para el preset a utilizar. Utiliza `-presets` para saber cuales hay disponibles o `-help` para saber como crear tu propio preset.
@@ -273,8 +272,8 @@ class es(translation):
 				`lvl`
 				El nivel del artefacto con el que quieres compararlo, de 0 a 20. A veces la detección automática para el nivel falla, usa este comando para corregirlo.
 
-				`weights`
-				Los valores que quieres usar para valorar tu artefacto. Cada valor tiene que llevar el formato `<stat>=<value>`, donde `value` es un número entre 0 y 1.
+				`valores`
+				Los valores que quieres usar para valorar tu artefacto. Cada valor tiene que llevar el formato `<stat>=<valor>`, donde `value` es un número entre 0 y 1.
 				{self.help_stats}
 
 				**Ejemplos**
@@ -284,7 +283,7 @@ class es(translation):
 			],
 
 			'feedback': [
-				'-feedback <mensage> [imagen]',
+				'-feedback <mensaje> [imagen]',
 				'Envía feedback directo con hasta una imagen. Usa este comando para enviar ideas o reportes que nos ayuden a mejorar el bot.'
 			],
 
@@ -316,14 +315,14 @@ class es(translation):
 				f'''
 				Crea un preset `nombre` para usarlo cuando valores tus artefactos.
 				Si quieres comprobar varios artefactos con los mismos valores, puedes usar este comando para crear un preset con los valores deseados.
-				Se usarán `valores` en el comando `-rate` cuando se use el preset. Los `valores` deben estar en el formato `<stat>=<valor>`, donde `valor` es un número entre 0 y 1.
+				Se usarán los `valores` en el comando `-rate` cuando se use el preset. Los `valores` deben estar en el formato `<stat>=<valor>`, donde `valor` es un número entre 0 y 1.
 				{self.help_stats}
 
 				**Ejemplo**
 				`-user preset healer hp=0.5 hp%=1 atk%=0`
-				`-rate <image> healer`
+				`-rate <imagen> healer`
 
-				`-[user/server] preset delete <nombre>`
+				`-[user/server] preset delete <nombres>`
 
 				Elimina los presets `nombres` (separado por espacios).
 				'''
@@ -359,7 +358,7 @@ class es(translation):
 		`{self.help_commands['preset'][0]}`
 		Crea un preset que se utilizará para valorar artefactos. Los `valores` se usarán en el comando `-rate` cuando se use el preset.
 
-		`-[user/server] preset delete <names>`
+		`-[user/server] preset delete <nombres>`
 		Eliminar presets.
 		'''
 
@@ -375,7 +374,7 @@ class es(translation):
 class de(translation):
 	id = 'de'
 	code = 'ger'
-	flag = '🇩🇪'
+	flags = ['🇩🇪']
 	supported = True
 
 	hp = 'LP'
@@ -458,7 +457,7 @@ class de(translation):
 class fr(translation):
 	id = 'fr'
 	code = 'fre'
-	flag = '🇫🇷'
+	flags = ['🇫🇷']
 	supported = True
 
 	hp = 'PV'
@@ -536,7 +535,7 @@ class fr(translation):
 class vi(translation):
 	id = 'vi'
 	code = 'vie'
-	flag = '🇻🇳'
+	flags = ['🇻🇳']
 	supported = True
 
 	hp = 'HP'
@@ -613,87 +612,169 @@ class vi(translation):
 	'''
 
 class pt(translation):
-	id = 'pt'
-	code = 'por'
-	flag = '🇵🇹'
-	supported = True
+	def __init__(self):
+		super().__init__()
 
-	hp = 'Vida'
-	heal = 'Bônus de Cura'
-	df = 'DEF'
-	er = 'Recarga de Energia'
-	em = 'Proficiência Elemental'
-	atk = 'ATQ'
-	cd = 'Dano Crítico'
-	cr = 'Taxa Crítica'
-	phys = 'Bônus de Dano Físico'
-	elem = 'Bônus de Dano Elemental'
-	anemo = 'Bônus de Dano Anemo'
-	elec = 'Bônus de Dano Electro'
-	pyro = 'Bônus de Dano Pyro'
-	hydro = 'Bônus de Dano Hydro'
-	cryo = 'Bônus de Dano Cryo'
-	geo = 'Bônus de Dano Geo'
-	dend = 'Bônus de Dano Dendro'
+		self.id = 'pt'
+		self.code = 'por'
+		self.flags = ['🇵🇹', '🇧🇷']
+		self.supported = True
 
-	piece_set = 'Conjunto'
+		self.hp = 'Vida'
+		self.heal = 'Bônus de Cura'
+		self.df = 'DEF'
+		self.er = 'Recarga de Energia'
+		self.em = 'Proficiência Elemental'
+		self.atk = 'ATQ'
+		self.cd = 'Dano Crítico'
+		self.cr = 'Taxa Crítica'
+		self.phys = 'Bônus de Dano Físico'
+		self.elem = 'Bônus de Dano Elemental'
+		self.anemo = 'Bônus de Dano Anemo'
+		self.elec = 'Bônus de Dano Electro'
+		self.pyro = 'Bônus de Dano Pyro'
+		self.hydro = 'Bônus de Dano Hydro'
+		self.cryo = 'Bônus de Dano Cryo'
+		self.geo = 'Bônus de Dano Geo'
+		self.dend = 'Bônus de Dano Dendro'
 
-	lvl = 'Nível'
-	score = 'Qualidade do Artefato'
-	main_score = 'Nota Status Principal'
-	sub_score = 'Nota Substats'
-	art_level = 'Nível do Artefato'
-	join = 'Se encontrar problemas, junte-se ao [Artifact Rater Server]%s'
-	feedback = 'Feedback recebido, por favor junte-se ao servidor se quiser adicionar mais detalhes: %s'
-	title = 'Artifact Rater Bot Help'
-	change = 'Para mudar de idioma clique na bandeira correspondente abaixo'
-	deprecated = 'Descontinuado, por favor user o  comando -user lang<idioma> para definir seu idioma'
-	set_lang = 'Idioma definido para português'
-	set_prefix = 'Prefixo definido para %s'
-	del_preset = 'Predefinição %s deletada'
-	set_preset = 'Predefinição %s definida para %s'
-	no_presets = 'Nenhuma predefinição encontrada'
+		self.piece_set = 'Conjunto'
 
-	err = 'Erro'
-	err_not_found = 'Erro: Nenhuma imagem ou url encontrada, certifique-se de que foram enviadas na mesma mensagem'
-	err_parse = 'Erro: Comando não pôde ser executado, por favor cheque a formatação e a ortografia'
-	err_try_again = 'por favor tente novamente em alguns minutos'
-	err_unknown_ocr = 'Erro: OCR falhou com um erro desconhecido'
-	err_unknown = 'Erro desconhecido, tente usar uma imagem da página de artefatos'
-	err_admin_only = 'Erro: Apenas administradores do servidor podem realizar essa ação'
-	err_server_only = 'Erro: Essa ação só pode ser executada em servidores'
+		self.lvl = 'Nível'
+		self.score = 'Qualidade do Artefato'
+		self.main_score = 'Nota Status Principal'
+		self.sub_score = 'Nota Substats'
+		self.art_level = 'Nível do Artefato'
+		self.join = f'Se encontrar problemas, junte-se ao [Artifact Rater Server]({self.SERVER_URL})'
+		self.feedback = f'Feedback recebido, por favor junte-se ao servidor se quiser adicionar mais detalhes: {self.SERVER_URL}'
+		self.deprecated = 'Descontinuado, por favor user o comando `-user lang <idioma>` para definir seu idioma'
+		self.set_lang = 'Idioma definido para português'
+		self.set_prefix = 'Prefixo definido para %s'
+		self.del_preset = 'Predefinição %s deletada'
+		self.set_preset = 'Predefinição %s definida para %s'
+		self.no_presets = 'Nenhuma predefinição encontrada'
 
-	help_description = '''Se quiser adicionar ao seu servidor privado use o [link](%s)
-	Você também pode usar o bot mandando uma mensagem privada para Artifact Rater#6924.'''
+		self.err = 'Erro'
+		self.err_not_found = 'Erro: Nenhuma imagem ou url encontrada, certifique-se de que foram enviadas na mesma mensagem'
+		self.err_parse = 'Erro: Comando não pôde ser executado, por favor cheque a formatação e a ortografia'
+		self.err_try_again = 'por favor tente novamente em alguns minutos'
+		self.err_unknown_ocr = 'Erro: OCR falhou com um erro desconhecido'
+		self.err_unknown = 'Erro desconhecido, tente usar uma imagem da página de artefatos'
+		self.err_admin_only = 'Erro: Apenas administradores do servidor podem realizar essa ação'
+		self.err_server_only = 'Erro: Essa ação só pode ser executada em servidores'
 
-	help_source = '''Se tiver problemas, entre em contato com shrubin#1866 no discord ou use o comando -feedback.
-	Código-fonte disponível em [GitHub](%s)'''
+		self.help_stats = '`status`é qualquer um dos atributos: `hp`, `hp%`, `atk`, `atk%`, `er` (Recarga de Energia), `em`(Maestria Elemental),`phys`(Bônus de Dano Físico%), `cr` (Taxa Crítica), `cd` (Dano Crítico), `elem` (Bônus de Dano Elemental%), `heal`, `def`, `def%`'
 
-	help_feedback_name = '-feedback <mensagem> [imagem]'
-	help_feedback_value = 'Mande um feedback com problemas ou ideias para o bot. Apenas uma imagem pode ser enviada'
+		self.help_commands = {
+			'rate': [
+				'-rate <imagem/url> [predefinição] [lvl=<nível>] [peso]',
+				f'''
+				Avalia um artefato em comparação com um artefato perfeito 5*. Coloque o comando e a imagem na mesma mensagem.
+				Tente utilizar uma captura de tela bem clara para melhores resultados.
+				Se estiver usando Windows 10, você pode usar Shift + Windows + S e arrastar o cursor sobre o artefato, depois vá para o discord e cole com Ctrl+V.
+				Esse bot vai utilizar os pesos padrão(veja abaixo) a menos que você defina os seus próprios ou seleciona um predefinido.  Você também pode especificar o nível do artefator com o qual você quer comparar o seu.
+				**Pesos Padrão**
+				ATQ%, DMG%, Crit - 1
+				ATQ, ME, Recarga – 0.5
+				Todo o resto - 0
+				**Parâmetros**
+				`imagem/url`
+				A imagem a ser avaliada, ou anexada como arquivo ou colocando a url na mensagem. [Exemplo]({self.SAMPLE_URL})
+				`predefinição`
+				A predefinição de pesos selecionada para uso. Veja `-predefinições` para saber quais estão disponíveis, ou ´help´ para saber como criar suas próprias.
+				`nível`
+				O nível do artefato para comparar com o seu, de 0 a 20. Ás vezes a detecção automática de nível está errada, use esse parâmetro para corrigir.
+				`pesos`
+				Os pesos que serão usados para avaliar esse artefato. Cada peso é no formato de `<status>=<valor>`, onde ´valor´ é um número entre 0 e 1.
+				{self.help_stats}
+				**Exemplos**
+				`-rate <imagem> atk%=0 hp=1 er=0.5`
+				`-rate <url> support lvl=4`
+				'''
+			],
 
-	help_rate_name = '-rate_pt <imagem/url> [lvl=<nível>] [<status>=<peso> ...]'
-	help_rate_value = '''\
-	Avalia um artefato em comparação com um artefato perfeito 5*. Coloque o comando e a imagem na mesma mensagem.
-	Se estiver usando Windows 10, você pode usar Shift + Windows + S e arrastar o cursor sobre o artefato, depois vá para o discord e cole com Ctrl+V.
+			'feedback': [
+				'-feedback <mensagem> [imagem]',
+				'Use para mandar um feedback direto de até uma imagem. Use para mandar ideias ou reportar erros para nos ajudar a melhorar o bot.'
+			],
 
-	Pesos padrão
-	ATQ%, Bônus de Dano%, Crit - 1
-	ATQ, Prof.Elemental, Recarga - 0.5
-	Todo o resto - 0
-	Opções
-	lvl: Compara com o nível de artefato específicado (default: <artifact_level>)
-	-rate_pt lvl=20
-	<status>: Define pesos padrão (valor entre 0 e 1)
-	-rate_pt atk=1 er=0 atk%=0.5
-	<status> é qualquer um dos atributos: HP, HP%, ATQ, ATQ%, ER (Recarga de Energia), EM(Maestria Elemental),PHYS(Bônus de Dano Físico%), CR (Taxa Crítica), CD (Dano Crítico), ELEM (Bônus de Dano Elemental%), Cura, DEF, DEF%
-	Translated by Dale#4801
-	'''
+			'sets': [
+				'-sets',
+				'''
+				Mostra todas predefinições disponíveis. Inclui pessoais, do servidor e padrão.
+				Esse comando vai mostrar uma lista contendo o nome da predefinição, de onde ela veio, e os pesos que estão definidos.
+				'''
+			],
+
+			'lang': [
+				'-[user/server] lang <idioma>',
+				'''
+				Define seu idioma para todos os comandos para o código de 2 letras de linguagem `idioma`.
+				Artifact Rater irá usar esse idioma para as imagens que você enviar para o comando `-rate`.
+				Idiomas: English (en), Spanish (es), German (de), French (fr), Portuguese (pt), Polish (pl), Italian (it), Russian (ru), Indonesian (id), Vietnamese (vi), Japanese (ja), Traditional Chinese (tw), Simplified Chinese (cn)
+				'''
+			],
+
+			'prefix': [
+				'-server prefix <prefixo>',
+				'Muda o prefixo do bot para esse servidor.'
+			],
+
+			'preset': [
+				'-[user/server] preset <nome> <pesos>',
+				f'''
+				Cria uma predefinição chamada `nome` para usar ao avaliar artefatos.
+				Se você quiser checar múltiplos artefatos como o mesmo conjunto de pesos, você pode usar esse comando para criar uma predefinição com os pesos desejados.
+				`pesos` vai ser usado no comando `-rate` quando a predefinição for utilizada. `pesos` deve estar no formarto `<status>=<valor>`, onde `valor` é um número entre 0 e 1.
+				{self.help_stats}
+				**Exemplo**
+				`-user preset healer hp=0.5 hp%=1 atk%=0`
+				`-rate <imagem> healer`
+				`-[user/server] preset delete <nomes>`
+				Exclui a definição em `nomes` (separado por espaço.).
+				'''
+			]
+		}
+
+		self.help_title = 'Ajuda do Artifact Rater'
+
+		self.help_description = f'''
+		**Comandos**
+		`{self.help_commands['rate'][0]}`
+		Avalia o arterfato mandando uma imagem do mesmo. Veja `-help rate` para mais detalhes.
+		`{self.help_commands['feedback'][0]}`
+		{self.help_commands['feedback'][1]}
+		`{self.help_commands['sets'][0]}`
+		Mostra todas predefinições disponíveis.
+		`-help <command>`
+		Mostra a ajuda para esse comando. Commandos: {', '.join([f'`{command}`' for command in self.help_commands])}.
+		**Configurações**
+		`-user` Muda suas configurações pessoais. Substitui os padrões do servidor.
+		`-server` Apenas para administradores, muda os padrões do servidor.
+		`{self.help_commands['prefix'][0]}`
+		{self.help_commands['prefix'][1]}
+		`{self.help_commands['lang'][0]}`
+		Define seu idioma para todos os comandos para o código de 2 letras de linguagem `idioma`. Você também pode usar as bandeiras de reações para mudar o idioma.
+		`{self.help_commands['preset'][0]}`
+		Cria predefinições para utilizar quando avaliar artefatos.
+		`pesos` serão usados no comando `-rate` quando a predefinição for utilizada.
+		`-[user/server] preset delete <nomes>`
+		Exclui predefinições.
+		'''
+
+		self.source = 'Código-fonte'
+		self.invite = 'Convite do bot'
+		self.support = 'Suporte'
+		self.github = f'[GitHub]({self.GITHUB_URL})'
+		self.discord = f'[Link]({self.BOT_URL})'
+		self.server = f'[Discord]({self.SERVER_URL})'
+
+		self.help_footer = 'Para mudar o idioma selecione a bandeira abaixo.'
 
 class ja(translation):
 	id = 'ja'
 	code = 'jpn'
-	flag = '🇯🇵'
+	flags = ['🇯🇵']
 	supported = False
 
 	hp = 'HP'
@@ -764,7 +845,7 @@ class ja(translation):
 class pl(translation):
 	id = 'pl'
 	code = 'pol'
-	flag = '🇵🇱'
+	flags = ['🇵🇱']
 	supported = True
 
 	lvl = 'Level'
@@ -822,7 +903,7 @@ class pl(translation):
 class ru(translation):
 	id = 'ru'
 	code = 'rus'
-	flag = '🇷🇺'
+	flags = ['🇷🇺']
 	supported = False
 
 	hp = 'НР'
@@ -903,7 +984,7 @@ class tw(translation):
 
 		self.id = 'tw'
 		self.code = 'cht'
-		self.flag = '🇹🇼'
+		self.flags = ['🇹🇼']
 		self.supported = False
 
 		self.hp = '生命值'
@@ -1063,7 +1144,7 @@ class cn(translation):
 
 		self.id = 'cn'
 		self.code = 'chs'
-		self.flag = '🇨🇳'
+		self.flags = ['🇨🇳']
 		self.supported = False
 
 		self.hp = '生命值'
@@ -1221,7 +1302,7 @@ class cn(translation):
 class it(translation):
 	id = 'it'
 	code = 'ita'
-	flag = '🇮🇹'
+	flags = ['🇮🇹']
 	supported = True
 
 	lvl = 'Livello'
@@ -1281,7 +1362,7 @@ class it(translation):
 class idn(translation):
 	id = 'id'
 	code = 'idn'
-	flag = '🇮🇩'
+	flags = ['🇮🇩']
 	supported = True
 
 	lvl = 'Level'
