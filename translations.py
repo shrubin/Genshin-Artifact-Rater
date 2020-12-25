@@ -372,87 +372,164 @@ class es(translation):
 		self.help_footer = 'Pulsa sobre la bandera correspondiente para cambiar el idioma'
 
 class de(translation):
-	id = 'de'
-	code = 'ger'
-	flags = ['🇩🇪']
-	supported = True
+	def __init__(self):
+		super().__init__()
 
-	hp = 'LP'
-	heal = 'Heilungsbonus'
-	df = 'VTD'
-	er = 'Aufladerate'
-	em = 'Elementarkunde'
-	atk = 'ANG'
-	cd = 'KSCH'
-	cr = 'KT'
-	phys = 'Physischer SCH-Bonus'
-	elem = 'Elementarer Schaden'
-	anemo = 'Anemo SCH-Bonus'
-	elec = 'Elek SCH-Bonus'
-	pyro = 'Pyro SCH-Bonus'
-	hydro = 'Hydro SCH-Bonus'
-	cryo = 'Cryo SCH-Bonus'
-	geo = 'Geo SCH-Bonus'
-	dend = 'Dendro SCH-Bonus'
+		self.id = 'de'
+		self.code = 'ger'
+		self.flags = ['🇩🇪']
+		self.supported = True
 
-	piece_set = 'Set mit 2 Teilen'
+		self.hp = 'LP'
+		self.heal = 'Heilungsbonus'
+		self.df = 'VTD'
+		self.er = 'Aufladerate'
+		self.em = 'Elementarkunde'
+		self.atk = 'ANG'
+		self.cd = 'KSCH'
+		self.cr = 'KT'
+		self.phys = 'Physischer SCH-Bonus'
+		self.elem = 'Elementarer Schaden'
+		self.anemo = 'Anemo SCH-Bonus'
+		self.elec = 'Elek SCH-Bonus'
+		self.pyro = 'Pyro SCH-Bonus'
+		self.hydro = 'Hydro SCH-Bonus'
+		self.cryo = 'Cryo SCH-Bonus'
+		self.geo = 'Geo SCH-Bonus'
+		self.dend = 'Dendro SCH-Bonus'
 
-	lvl = 'Level'
-	score = 'Gear Bewertung'
-	main_score = 'Haupt-Stat'
-	sub_score = 'Unter-Stat'
-	art_level = 'Artifakt Level'
-	join = 'Bei Problemen join dem Discord [Artifact Rater Server]%s'
-	feedback = 'Feedback erhalten, bitte joine %s wenn du weitere Details hinzufügen möchtest'
-	title = 'Artifact Rater Bot Hilfe'
-	change = 'Um die Sprache zu ändern klick auf die dazugehörige Flagge unten.'
-	deprecated = 'Veraltet, verwenden Sie bitte den Befehl -user lang <lang>, um Ihre Sprache festzulegen'
-	set_lang = 'Sprache geändert auf Deutsch'
-	set_prefix = 'Voreinstellung geändert zu %s'
-	del_preset = 'Voreinstellung %s gelöscht'
-	set_preset = 'Voreinstellung %s geändert zu %s'
-	no_presets = 'Keine Voreinstellung gefunden'
+		self.piece_set = 'Set mit 2 Teilen'
 
-	err = 'Fehler'
-	err_not_found = 'Fehler: Kein Bild oder URL gefunden, bitte stelle sicher das sich das Bild in der selben Nachicht befindet'
-	err_parse = 'Fehler: Kein Befehl gefunden, bitte schau das du ihn richtig und im korrekten Format geschrieben hast'
-	err_try_again = 'bitte versuche es in ein paar Minuten nochmal'
-	err_unknown_ocr = 'Fehler: OCR fehlgeschlagen mit unbekanntem Fehler'
-	err_unknown = 'Unbekannter Fehler, verwende ein Bild von der Inventar Artefakt Seite'
-	err_admin_only = 'Fehler: Nur Serveradministratoren können diese Aktion ausführen'
-	err_server_only = 'Fehler: Diese Aktion kann nur auf Servern ausgeführt werden'
+		self.lvl = 'Level'
+		self.score = 'Gear Bewertung'
+		self.main_score = 'Haupt-Stat'
+		self.sub_score = 'Unter-Stat'
+		self.art_level = 'Artifakt Level'
+		self.join = f'Bei Problemen join dem Discord [Artifact Rater Server]({self.SERVER_URL})'
+		self.feedback = f'Feedback erhalten, bitte joine {self.SERVER_URL} wenn du weitere Details hinzufügen möchtest'
+		self.title = 'Artifact Rater Bot Hilfe'
+		self.change = 'Um die Sprache zu ändern klick auf die dazugehörige Flagge unten.'
+		self.deprecated = 'Veraltet, verwenden Sie bitte den Befehl `-user lang <lang>`, um Ihre Sprache festzulegen'
+		self.set_lang = 'Sprache geändert auf Deutsch'
+		self.set_prefix = 'Voreinstellung geändert zu %s'
+		self.del_preset = 'Voreinstellung %s gelöscht'
+		self.set_preset = 'Voreinstellung %s geändert zu %s'
+		self.no_presets = 'Keine Voreinstellung gefunden'
 
-	help_description = '''Wenn sie den Bot auf ihrem privaten Discord Server nutzen wollen verwenden sie diesen [Link](%s)
-	Sie können den Bot auch direkt eine private Nachicht schicken mit dem Befehl an Artifact Rater#6924'''
+		self.err = 'Fehler'
+		self.err_not_found = 'Fehler: Kein Bild oder URL gefunden, bitte stelle sicher das sich das Bild in der selben Nachicht befindet'
+		self.err_parse = 'Fehler: Kein Befehl gefunden, bitte schau das du ihn richtig und im korrekten Format geschrieben hast'
+		self.err_try_again = 'bitte versuche es in ein paar Minuten nochmal'
+		self.err_unknown_ocr = 'Fehler: OCR fehlgeschlagen mit unbekanntem Fehler'
+		self.err_unknown = 'Unbekannter Fehler, verwende ein Bild von der Inventar Artefakt Seite'
+		self.err_admin_only = 'Fehler: Nur Serveradministratoren können diese Aktion ausführen'
+		self.err_server_only = 'Fehler: Diese Aktion kann nur auf Servern ausgeführt werden'
 
-	help_source = '''Wenn sie irgendwelche Probleme haben wenden sie sich bitte an shrubin#1866 oder benutzen sie den Befehl: -feedback ( in englisch bitte )
-	Quellcode ist vorhanden auf [Github](%s) unter'''
+		self.help_stats = '`stat` kann einer von den folgenden sein `hp`, `hp%`, `def`, `def%`, `atk`, `atk%`, `er` (Aufladerate), `em` (Elementarkunde), `phys` (Physischer Schaden), `elem` (Elementarer Schaden), `cr` (Krit Rate), `cd` (Krit Schaden), `heal` (Heilungsbonus).'
 
-	help_feedback_name = '-feedback <Nachicht> [Bild]'
-	help_feedback_value = 'Senden Sie Feedback mit Problemen oder Ideen für den Bot. Du kannst ein Bild anhängen.'
+		self.help_commands = {
+			'rate': [
+				'-rate <Bild/Link> [preset] [lvl=<Level>] [Stat]',
+				f'''
+				Bewerten sie ein Artefakt anhand eines 5* Artefakt mit optimalen Stats. Fügen sie den Befehl und das Bild in die selbe Nachicht ein.
+				Wenn Sie Windows 10 verwenden, können Sie Umschalt + Windows + S(Shift+Windows+S) verwenden und den Cursor über das Artefakt ziehen. Gehen Sie dann zu Discord und fügen Sie es mit Strg + V ein.
+				ieser Bot verwendet Standardgewichte (siehe unten), es sei denn, Sie geben Ihre eigenen an oder wählen eine Voreinstellung aus. Sie können auch das Level angeben, mit der Sie Ihr Artefakt vergleichen möchten.
+				**Standardstats:**
+				ANG%, DMG%, Crit -1,
+				ANG, Aufladerate, Elementarkunde 0,5
+				Alles andere -0
+				**Optionen**
+				`Bild/Link`
+				Das zu bewertende Bild wird entweder als Datei oder durch Einfügen der URL in die Nachricht angehängt. [Sample]({self.SAMPLE_URL})
+				`preset`
+				Die voreingestellte Auswahl der zu verwendenden Stats. Siehe `-presets`, für aktuell verfügbare Presets, oder` -help`, wie zu sehen wie sie Ihre eigenen Presets festlegen können.
+				`lvl`
+				Das Level des Artefakts, mit der verglichen werden soll, liegt zwischen 0 und 20. Manchmal ist die automatische Erkennung des Levels falsch. Verwenden Sie diese Option, um es zu korrigieren.
+				`weights`
+				Die Stats, die zur Bewertung dieses Artefakts verwendet werden sollen. Jeder Stat hat das Format "<stat> = <wert>", wobei "wert" eine Zahl zwischen 0 und 1 ist
+				{self.help_stats}
+				**Beispiele**
+				`-rate <bild> atk%=0 hp=1 er=0.5`
+				`-rate <Link> support lvl=4`
+				'''
+			],
 
-	help_rate_name = 'rate_de <Bild / Url> [lvl=<level>][stat=stat...]'
-	help_rate_value = '''\
-	Bewerten sie ein Artefakt anhand eines 5* Artefakt mit optimalen Stats. Fügen sie den Befehl und das Bild in die selbe Nachicht ein.
+			'feedback': [
+				'-feedback <Nachicht> [Bild]',
+				'Senden Sie Feedback mit Problemen oder Ideen für den Bot. Du kannst ein Bild anhängen.'
+			],
 
-	Wenn Sie Windows 10 verwenden, können Sie Umschalt + Windows + S(Shift+Windows+S) verwenden und den Cursor über das Artefakt ziehen.
-	Gehen Sie dann zu Discord und fügen Sie es mit Strg + V ein.
+			'sets': [
+				'-sets',
+				'''
+				Alle verfügbaren Voreinstellungen anzeigen. Enthält Personal-, Server- und Standardvoreinstellungen.
+				Dieser Befehl zeigt eine Liste mit dem Namen der Voreinstellungen, woher sie stammen, und den eingestellten Stats an.
+				'''
+			],
 
-	Standardstats:
-	ANG%, DMG%, Crit -1,
-	ANG, Aufladerate, Elementarkunde 0,5
-	Alles andere -0
+			'lang': [
+				'-[user/server] lang <Sprache>',
+				'''
+				Stellen Sie Ihre Sprache für alle Befehle auf den 2-Buchstaben-Sprachcode `lang` ein
+				Artifact Rater verwendet diese Sprache für die Bilder, die Sie mit dem Befehl `-rate` senden.
+				Verfügbare Sprachen: Englisch (en), Spanisch (es), Deutsch (de), Französisch (fr), Portugiesisch (pt), Polnisch (pl), Italian (it), Russisch (ru), Indonesisch (id), Vietnamesisch (vi), Japanisch (ja), Traditionelles Chinesisch  (tw), Vereinfachtes Chinesisch (cn)
+				'''
+			],
 
-	Optionen:
-	lvl: Vergleiche mit dem angegebenen Artefaktlevel (Standard: <actifact_level>) -rate_de lvl=20
-	<stat>: Legen sie benutzerdefinierte Stats fest (Wert zwischen 0 und 1)
-	-rate_de ang=1 aufladerate=0 ang%=0,5
-	<stat> ist LP, LP%, ANG, ANG%, Aufladerate, Elementarkunde, Physischbonus, KT, KSCH, Elementarbonus,
-	Heilungsbonus, VTD, VTD%
-	Beispiel:
-	-rate_de <bild/url> lvl=20
-	Translated by NekoNeko#0440 | Übersetzung von NekoNeko#0440
-	'''
+			'prefix': [
+				'-server prefix <prefix>',
+				'Ändern Sie das Bot-Präfix für diesen Server.'
+			],
+
+			'preset': [
+				'-[user/server] preset <name> <stat>',
+				f'''
+				Erstellen Sie eine Voreinstellung mit dem Namen `name`, die beim Bewerten von Artefakten verwendet werden soll.
+				Wenn Sie mehrere Artefakte mit denselben Voreinstellungen von Stats überprüfen möchten, können Sie mit diesem Befehl eine Voreinstellung mit den gewünschten Stats erstellen
+				"Stats" werden im Befehl "-rate" verwendet, wenn die Voreinstellung verwendet wird. `Stats` sollte das Format` <stat> = <wert> `haben, wobei` wert` eine Zahl zwischen 0 und 1 ist.
+				{self.help_stats}
+				**Beispiele**
+				`-user preset healer hp=0.5 hp%=1 atk%=0`
+				`-rate <bild> healer`
+				`-[user/server] preset delete <name>`
+				Lösche Voreinstellungen mit den Namen `names` (durch Leerzeichen trennen).
+				'''
+			]
+		}
+
+		self.help_title = 'Artifact Rater Hilfe'
+
+		self.help_description = f'''
+		**Commands**
+		`{self.help_commands['rate'][0]}`
+		Bewerten Sie Ihr Artefakt, indem Sie ein Bild davon senden. Weitere Informationen finden Sie unter `-help rate`.
+		`{self.help_commands['feedback'][0]}`
+		{self.help_commands['feedback'][1]}
+		`{self.help_commands['sets'][0]}`
+		Zeige alle verfügbaren Voreinstellungen
+		`-help <command>`
+		Zeigen Sie die Hilfe für diesen Befehl an. Befehle: {', '.join([f'`{command}`' for command in self.help_commands])}.
+		**Config**
+		`-user` ändert Ihre persönliche Konfiguration. Überschreibt die Standardeinstellungen des Servers.
+		`-server` Nur für Administratoren, ändert die Server-Standardeinstellung.
+		`{self.help_commands['prefix'][0]}`
+		{self.help_commands['prefix'][1]}
+		`{self.help_commands['lang'][0]}`
+		Stellen Sie Ihre Sprache für alle Befehle auf den 2-Buchstaben-Sprachcode `lang` ein. Sie können auch die Flag-Reaktionen verwenden, um die Sprache zu ändern.
+		`{self.help_commands['preset'][0]}`
+		Erstellen Sie eine Voreinstellung, die beim Bewerten von Artefakten verwendet werden soll. "Stats" werden im Befehl `-rate` verwendet, wenn die Voreinstellung verwendet wird.
+		`-[user/server] preset delete <names>`
+		Löscht Voreinstellungen.
+		'''
+
+		self.source = 'Source Code'
+		self.invite = 'Bot Invite'
+		self.support = 'Support'
+		self.github = f'[GitHub]({self.GITHUB_URL})'
+		self.discord = f'[Link]({self.BOT_URL})'
+		self.server = f'[Discord]({self.SERVER_URL})'
+
+		self.help_footer = 'Um die Sprache zu ändern, klicken Sie auf die entsprechende Flagge unten'
 
 class fr(translation):
 	id = 'fr'
@@ -1015,13 +1092,13 @@ class tw(translation):
 		self.sub_score = '副屬性評分'
 		self.art_level = '聖遺物等級'
 		self.join = f'有任何問題,請加入[Artifact Rater Server]({self.SERVER_URL})'
-		self.feedback = f'已經收到你的意見,如果您想獲得更多詳細資訊 請加入{self.SERVER_URL}'
-		self.deprecated = '請使用-user lang <語言>命令設置您的語言'
-		self.set_lang = '語言設置已更改為繁體中文'
-		self.set_prefix = '前綴設置為 %s'
-		self.del_preset = '已刪除預設前綴 %s'
-		self.set_preset = '預設首碼 %s 已更改為 %s'
-		self.no_presets = '未找到預設前綴'
+		self.feedback = f'已經收到你的意見,如果你想獲得更多詳細資訊 請加入{self.SERVER_URL}'
+		self.deprecated = '請使用`-user lang <語言>`命令設定你的語言'
+		self.set_lang = '語言設定已更改為繁體中文'
+		self.set_prefix = '前綴設定為 %s'
+		self.del_preset = '已刪除設定值 %s'
+		self.set_preset = '設定值 %s 已更改為 %s'
+		self.no_presets = '未找到設定值'
 
 		self.err = '錯誤'
 		self.err_not_found = '錯誤:找不到圖片或網址,請確定他們在同一條訊息中發送'
@@ -1039,7 +1116,7 @@ class tw(translation):
 				'-rate <圖片/圖片網址> [預設權重preset] [lvl=<等級>] [權重weights]',
 				f'''
 				針對5星聖遺物進行等級評分.請將命令和圖像放在同一條消息中.請使用清晰的螢幕截圖以獲得最佳效果.
-				如果您使用的是Windows 10,您可以使用 Shift + Windows + S 並將滑鼠拖到畫面上,然後去discord使用 Ctrl+V 貼上.
+				如果你使用的是Windows 10,你可以使用 Shift + Windows + S 並將滑鼠拖到畫面上,然後去discord使用 Ctrl+V 貼上.
 				這個機器人將使用預設權重(詳見下文),除非你更改預設權重.你還可以與想要的等級進行評分.
 				**預設權重**
 				攻擊%,各種傷害%,爆擊 - 1
@@ -1049,7 +1126,7 @@ class tw(translation):
 				`image/url`
 				要評分的圖片,可以作為文件附加,也可以在訊息中添加網址. [Sample]({self.SAMPLE_URL})
 				`preset`
-				預設使用的權重.使用`-presets`查看哪些可用,或`-help`查看如何自己設置.
+				設定使用的權重.使用`-presets`查看哪些可用,或`-help`查看如何自己設定.
 				`lvl`
 				要評分的聖遺物等級,值介於0~20.有時自動檢測等級是錯誤的,可以用來修正.
 				`weights`
@@ -1057,7 +1134,7 @@ class tw(translation):
 				{self.help_stats}
 				**例子**
 				`-rate <圖片> atk%=0 hp=1 er=0.5`
-				`-rate <圖片網址> 支援 lvl=4`
+				`-rate <圖片網址> 輔助 lvl=4`
 				'''
 			],
 
@@ -1069,16 +1146,16 @@ class tw(translation):
 			'sets': [
 				'-sets',
 				'''
-				查看所有可用的預設.包括個人,伺服器的預設值.
-				該命令將顯示一個清單,項目以及設定值.
+				查看所有可用的設定值.包括個人,伺服器的設定值.
+				該命令將顯示一個清單,項目以及其設定值.
 				'''
 			],
 
 			'lang': [
 				'-[user/server] lang <語言代碼>',
 				'''
-				將更改機器人的語言設置為語言代碼`lang`.
-				Artifact Rater將使用此語言處理您在`-rate`的指令.
+				將更改機器人的語言設定為語言代碼`lang`.
+				Artifact Rater將使用此語言處理你在`-rate`的指令.
 				語言清單: English (en), Spanish (es), German (de), French (fr), Portuguese (pt), Polish (pl), Italian (it), Russian (ru), Indonesian (id), Vietnamese (vi), Japanese (ja), 繁體中文 (tw), 簡體中文 (cn)
 				'''
 			],
@@ -1091,15 +1168,15 @@ class tw(translation):
 			'preset': [
 				'-[user/server] preset <名稱> <權重>',
 				f'''
-				創建一個名為`name`的權重設定在對文物進行評級時使用.
-				如果要檢查具有相同權重的多個聖遺物,您可以使用此命令創建具有所需權重的預設.
+				創建一個名為`名稱`的權重設定在對文物進行評級時使用.
+				如果要檢查具有相同權重的多個聖遺物,你可以使用此命令創建具有所需權重的預設.
 				`weights`將用於`-rate`使用預設時的命令.`weights`應採用以下格式`<stat>=<value>`,`value`值介於0~1.
 				{self.help_stats}
 				**例子**
 				`-user preset healer hp=0.5 hp%=1 atk%=0`
 				`-rate <圖片> healer`
 				`-[user/server] preset delete <名稱>`
-				刪除預設中的值`names` (用空格隔開).
+				刪除預設中的值`名稱` (用空格隔開).
 				'''
 			]
 		}
@@ -1113,20 +1190,20 @@ class tw(translation):
 		`{self.help_commands['feedback'][0]}`
 		{self.help_commands['feedback'][1]}
 		`{self.help_commands['sets'][0]}`
-		查看所有可用的預設值.
+		查看所有可用的設定值.
 		`-help <command>`
 		顯示命令的説明消息.指令: {', '.join([f'`{command}`' for command in self.help_commands])}.
 		**設定檔**
-		`-user` 更改您的個人設置,覆蓋伺服器預設設置.
-		`-server` 僅限管理員,更改伺服器預設設置.
+		`-user` 更改你的個人設定,覆蓋伺服器預設設定.
+		`-server` 僅限管理員,更改伺服器預設設定.
 		`{self.help_commands['prefix'][0]}`
 		{self.help_commands['prefix'][1]}
 		`{self.help_commands['lang'][0]}`
-		將更改機器人的語言設置為語言代碼`lang`.您也可以使用國旗圖示反應來更改語言.
+		將更改機器人的語言設定為語言代碼`lang`.你也可以使用國旗圖示反應來更改語言.
 		`{self.help_commands['preset'][0]}`
 		創建在對聖遺物進行評分時要使用的預設權重.`weights`將用於`-rate`指令時使用的預設.
 		`-[user/server] preset delete <名稱>`
-		刪除預設值.
+		刪除設定值.
 		'''
 
 		self.source = '源代碼'
@@ -1175,13 +1252,13 @@ class cn(translation):
 		self.sub_score = '副属性评分'
 		self.art_level = '圣遗物等级'
 		self.join = f'有任何问题,请加入[Artifact Rater Server]({self.SERVER_URL})'
-		self.feedback = f'已经收到你的意见,如果您想获得更多详细信息 请加入{self.SERVER_URL}'
-		self.deprecated = '请使用-user lang <语言>命令设置您的语言'
-		self.set_lang = '语言设置已更改简体中文'
-		self.set_prefix = '前缀设置为 %s'
-		self.del_preset = '已删除预设前缀 %s'
-		self.set_preset = '预设前缀 %s 已更改为 %s'
-		self.no_presets = '未找到预设前缀'
+		self.feedback = f'已经收到你的意见,如果你想获得更多详细信息 请加入{self.SERVER_URL}'
+		self.deprecated = '请使用`-user lang <语言>`命令设定你的语言'
+		self.set_lang = '语言设定已更改简体中文'
+		self.set_prefix = '前缀设定为 %s'
+		self.del_preset = '已删除设定值 %s'
+		self.set_preset = '设定值 %s 已更改为 %s'
+		self.no_presets = '未找到设定值'
 
 		self.err = '错误'
 		self.err_not_found = '错误:找不到图片或网址,请确定他们在同一条讯息中发送'
@@ -1199,7 +1276,7 @@ class cn(translation):
 				'-rate <图片/图片网址> [预设权重preset] [lvl=<等级>] [权重weights]',
 				f'''
 				针对5星圣遗物进行等级评分.请将命令和图像放在同一条消息中.请使用清晰的屏幕截图来获得最佳效果.
-				如果您使用的是Windows 10,您可以使用 Shift + Windows + S 并将鼠标拖到画面上,然后去discord使用 Ctrl+V 贴上.
+				如果你使用的是Windows 10,你可以使用 Shift + Windows + S 并将鼠标拖到画面上,然后去discord使用 Ctrl+V 贴上.
 				这个机器人将使用预设权重(详见下文),除非你更改预设权重.你还可以与想要的等级进行评分.
 				**预设权重**
 				攻击%,各种伤害%,爆击 - 1
@@ -1209,7 +1286,7 @@ class cn(translation):
 				`image/url`
 				要评分的图片,可以作为文件附加,也可以在讯息中添加网址. [Sample]({self.SAMPLE_URL})
 				`preset`
-				预设使用的权重.使用`-presets`查看哪些可用,或`-help`查看如何自己设置.
+				设定使用的权重.使用`-presets`查看哪些可用,或`-help`查看如何自己设定.
 				`lvl`
 				要评分的圣遗物等级,值介于0~20.有时自动检测等级是错误的,可以用来修正.
 				`weights`
@@ -1229,16 +1306,16 @@ class cn(translation):
 			'sets': [
 				'-sets',
 				'''
-				查看所有可用的预设.包括个人,服务器的预设值.
-				该命令将显示一个清单,项目以及设定值.
+				查看所有可用的设定值.包括个人,服务器的设定值.
+				该命令将显示一个清单,项目以及其设定值.
 				'''
 			],
 
 			'lang': [
 				'-[user/server] lang <语言代码>',
 				'''
-				将更改机器人的语言设置为语言代码`lang`.
-				Artifact Rater将使用此语言处理您在`-rate`的指令.
+				将更改机器人的语言设定为语言代码`lang`.
+				Artifact Rater将使用此语言处理你在`-rate`的指令.
 				语言列表: English (en), Spanish (es), German (de), French (fr), Portuguese (pt), Polish (pl), Italian (it), Russian (ru), Indonesian (id), Vietnamese (vi), Japanese (ja), 繁体中文 (tw), 简体中文 (cn)
 				'''
 			],
@@ -1251,15 +1328,15 @@ class cn(translation):
 			'preset': [
 				'-[user/server] preset <名称> <权重>',
 				f'''
-				创建一个名为`name`的权重设定在对文物进行评级时使用.
-				如果要检查具有相同权重的多个圣遗物,您可以使用此命令创建具有所需权重的预设.
+				创建一个名为`名称`的权重设定在对文物进行评级时使用.
+				如果要检查具有相同权重的多个圣遗物,你可以使用此命令创建具有所需权重的预设.
 				`weights`将用于`-rate`使用预设时的命令.`weights`应采用以下格式`<stat>=<value>`,`value`值介于0~1.
 				{self.help_stats}
 				**例子**
 				`-user preset healer hp=0.5 hp%=1 atk%=0`
 				`-rate <图片> healer`
 				`-[user/server] preset delete <名称>`
-				删除预设中的值`names` (用空格隔开).
+				删除设定值`名称` (用空格隔开).
 				'''
 			]
 		}
@@ -1273,20 +1350,20 @@ class cn(translation):
 		`{self.help_commands['feedback'][0]}`
 		{self.help_commands['feedback'][1]}
 		`{self.help_commands['sets'][0]}`
-		查看所有可用的预设值.
+		查看所有可用的设定值.
 		`-help <command>`
 		显示命令的说明消息.指令: {', '.join([f'`{command}`' for command in self.help_commands])}.
 		**配置文件**
-		`-user` 更改您的个人设置,覆盖伺服器预设设置.
-		`-server` 仅限管理员,更改伺服器预设设置.
+		`-user` 更改你的个人设定,覆盖伺服器预设设定.
+		`-server` 仅限管理员,更改伺服器预设设定.
 		`{self.help_commands['prefix'][0]}`
 		{self.help_commands['prefix'][1]}
 		`{self.help_commands['lang'][0]}`
-		将更改机器人的语言设置为语言代码`lang`.您也可以使用国旗图示反应来更改语言.
+		将更改机器人的语言设定为语言代码`lang`.你也可以使用国旗图示反应来更改语言.
 		`{self.help_commands['preset'][0]}`
-		创建在对圣遗物进行评分时要使用的预设权重.`weights`将用于`-rate`指令时使用的预设.
+		创建在对圣遗物进行评分时要使用的预设权重.`weights`将用于`-rate`指令时使用的设定.
 		`-[user/server] preset delete <名称>`
-		删除默认值.
+		删除设定值.
 		'''
 
 		self.source = '源代码'
@@ -1300,63 +1377,156 @@ class cn(translation):
 
 # Text only, no game translation
 class it(translation):
-	id = 'it'
-	code = 'ita'
-	flags = ['🇮🇹']
-	supported = True
+	def __init__(self):
+		super().__init__()
 
-	lvl = 'Livello'
-	score = 'Punteggio dell\'Artefatto'
-	main_score = 'Valutazione della Statistica Principale'
-	sub_score = 'Valutazione delle Statistiche Secondarie'
-	art_level = 'Livello dell\'Atefatto'
-	join = 'In caso di probelmi, unisciti al [Artifact Rater Server]%s'
-	feedback = 'Feedback ricevuto, unisciti al server discord per aggiunere ulteriori dettagli: %s'
-	title = 'Aiuto per Artifact Rater Bot'
-	change = 'Per cambiare lingua del bot, selezionare la bandiera corrispondente'
-	deprecated = 'Comando disapprovato, usare il comando -user lang <lang> per impostare la lingua'
-	set_lang = 'Lingua impostata ad Italiano'
-	set_prefix = 'Prefisso impostato a %s'
-	del_preset = 'Preset %s cancellato'
-	set_preset = 'Preset %s impostato a %s'
-	no_presets = 'Nessun preset è stato trovato'
+		self.id = 'it'
+		self.code = 'ita'
+		self.flags = ['🇮🇹']
+		self.supported = True
 
-	err = 'Errore'
-	err_not_found = 'Errore: Nessun URL o immagine sono stati trovati, assicurarsi che siano stati spediti nello stesso messaggio'
-	err_parse = 'Errore: Il comando non può essere analizzato, ricontrollare il formato e la compitazione'
-	err_try_again = 'Riprova tra un qualche minuto'
-	err_unknown_ocr = 'Errore: OCR ha fallito per un errore sconosciuto'
-	err_unknown = 'Errore sconosciuto, prova utilizzando un\'immagine proveniente dalla pagina di artefatti'
-	err_admin_only = 'Errore: Solamente l\'amministratore del server può effettuare questa azione'
-	err_server_only = 'Errore: Questa azione può esere effettuata unicamente sui server'
+		self.lvl = 'Livello'
+		self.score = 'Punteggio dell\'Artefatto'
+		self.main_score = 'Valutazione della Statistica Principale'
+		self.sub_score = 'Valutazione delle Statistiche Secondarie'
+		self.art_level = 'Livello dell\'Atefatto'
+		self.join = f'In caso di probelmi, unisciti al [Artifact Rater Server]({self.SERVER_URL})'
+		self.feedback = f'Feedback ricevuto, unisciti al server discord per aggiunere ulteriori dettagli: {self.SERVER_URL}'
+		self.title = 'Aiuto per Artifact Rater Bot'
+		self.change = 'Per cambiare lingua del bot, selezionare la bandiera corrispondente'
+		self.deprecated = 'Comando disapprovato, usare il comando `-user lang <lang>` per impostare la lingua'
+		self.set_lang = 'Lingua impostata ad Italiano'
+		self.set_prefix = 'Prefisso impostato a %s'
+		self.del_preset = 'Preset %s cancellato'
+		self.set_preset = 'Preset %s impostato a %s'
+		self.no_presets = 'Nessun preset è stato trovato'
 
-	help_description = '''Nel qual caso tu voglia aggiungerlo ad un server privato usa il [link](%s)
-	Puoi anche servirti del bot mandando un messaggio privato contenente il comando a Artifact Rater#6924.'''
+		self.err = 'Errore'
+		self.err_not_found = 'Errore: Nessun URL o immagine sono stati trovati, assicurarsi che siano stati spediti nello stesso messaggio'
+		self.err_parse = 'Errore: Il comando non può essere analizzato, ricontrollare il formato e la compitazione'
+		self.err_try_again = 'Riprova tra un qualche minuto'
+		self.err_unknown_ocr = 'Errore: OCR ha fallito per un errore sconosciuto'
+		self.err_unknown = 'Errore sconosciuto, prova utilizzando un\'immagine proveniente dalla pagina di artefatti'
+		self.err_admin_only = 'Errore: Solamente l\'amministratore del server può effettuare questa azione'
+		self.err_server_only = 'Errore: Questa azione può esere effettuata unicamente sui server'
 
-	help_source = '''Per qualunque problema, contatta shrubin#1866 su discord oppure utilizza il comando -feedback.
-	Il codice sorgente è disponibile all'indirizzo [GitHub](%s)'''
+		self.help_stats = '`stat` può essere uno tra le seguenti: `hp`, `hp%`, `def`, `def%`, `atk`, `atk%`, `er` (Energy Recharge), `em` (Elemental Mastery), `phys` (Physical DMG), `elem` (Elemental DMG), `cr` (Crit Rate), `cd` (Crit Damage), `heal` (Healing Bonus).'
 
-	help_feedback_name = '-feedback <messaggio> [immagine]'
-	help_feedback_value = 'Manda il tuo feedback di problemi o idee al bot. Solo un immagine alla volta sarà accettata.'
+		self.help_commands = {
+			'rate': [
+				'-rate <immagine/url> [preset] [lvl=<livello>] [pesi]',
+				f'''
+				Per valutare un artefatto comparlandolo ad uno ottimale 5*, inserisci il comando e l'immagine nello stesso messaggio (Più l'immagine è chiara, migliori saranno i risultati).
+				Se si sta utilizzando Windows 10, è possibile usare la scorciatoia Shift + Windows + S e trascinare il cursore sull'artefatto per copiare l'immagine, poi usare Ctrl+V in discord per incollare.
+				Questo bot userà dei pesi predefiniti per giudicare gli artefatti (vedi sotto), a meno che non si voglia specificarli or un preset sia stato scelto.
+				**Pesi Predefiniti**
+				ATK%, DMG%, Crit - 1
+				ATK, EM, Recharge – 0.5
+				Everything else - 0
+				**Parametri**
+				`immagine/url`
+				L'immagine che si vuole valutare deve essere allegata al messaggio oppure inserita tramite un url. [Esempio]({self.SAMPLE_URL})
+				`preset`
+				I 'preset' sono insiemi di valori predefiniti allocati alle diverse statistiche dell'artefatto (p.e. attacco, difesa, etc..). Vedi '-presets' per mostrare i preset disponibili, o '-help' per come creare il proprio.
+				`lvl`
+				Il livello dell'artefatto con con il quale si vuole comparare, da 0 a 20. A volte il rilevamento automatico per il livello si può sbagliare, usa questo per correggerlo.
+				`pesi`
+				Queste sono le valute usate per la valutazione di questo artefatto. Ogni 'peso' è nel formato '<stat>=<valore>', dove 'valore' è un numero tra 0 e 1.
 
-	help_rate_name = '-rate_it <immagine/url> [lvl=<livello>] [<stato>=<peso> ...]'
-	help_rate_value = '''\
-	Confronta un artefatto con un'ottimale artefatto 5*. Metti il comando e l'immagine nello stesso messaggio.
 
-	Se stai utilizzando Windows 10, puoi usare Shift + Windows + S e trascinare il cursore sull'artefatto per copiare l'immagine, poi usa Ctrl+V in discord per incollare.
+				{self.help_stats}
+				**Esempi**
+				`-rate <immagine> atk%=0 hp=1 er=0.5`
+				`-rate <url> support lvl=4`
+				'''
+			],
 
-	Pesi predefiniti
-	ATK%, DMG%, Crit - 1
-	ATK, EM, Recharge - 0.5
-	Tutto il resto - 0
+			'feedback': [
+				'-feedback <messaggio> [immagine]',
+				'Mandaci un feedback con allegato fino ad un\'immagine. Usa questa funzione per mandarci idee o per segnalarci possibili errori in modo tale da poterli correggiere e migliorare il bot.'
+			],
 
-	Opzioni
-	lvl: Compara con un artefatto di livello specifico (default: <artifact_level>)
-	-rate_it lvl=20
-	<stato>: imposta pesi predefiniti (valori compresi tra 0 e 1)
-	-rate_it atk=1 er=0 atk%=0.5
-	<stato> è qualunque tra: HP, HP%, ATK, ATK%, ER (Recharge), EM, PHYS, CR (Crit Rate), CD (Crit Damage), ELEM (Elemental DMG%), Heal, DEF, DEF
-	'''
+			'sets': [
+				'-sets',
+				'''
+				Visualizza tutti i preset disponibili. Include i presets personali, quelli dati dal server e quelli predefiniti.
+
+				Questo comando mostrerà una lista contenente il nome del preset, l'appartenenza e i pesi assiciati ad esso.
+				'''
+			],
+
+			'lang': [
+				'-[utente/server] lang <lingua>',
+				'''
+				Imposta la lingua per i comandi usando una sigla di 2 lettere al posto di 'lingua'.
+				Il bot userà questa lingua per le immagini che saranno mandate con il comando '-rate'.
+				Lingue: Inglese (en), Spagnolo (es), Tedesco (de), Francese (fr), Portoghese (pt), Polacco (pl), Italiano (it), Russo (ru), Indonesiano (id), Vietnamita (vi), Giapponese (ja), Cinese Tradizionale (tw), Cinese semplificato (cn)
+				'''
+			],
+
+			'prefix': [
+				'-server prefix <prefisso>',
+				'Cambia il prefisso del bot per questo server.'
+			],
+
+			'preset': [
+				'-[utente/server] preset <nome> <pesi>',
+				f'''
+				Crea un preset chiamato 'nome' da usare per la valutazione degli artefatti.
+				Se si vuole valutare molteplici artefatti utilizzando la medesima serie di pesi, è possibile utilizzare questo comando per creare un preset con i pesi desiderati.
+				'pesi' sarà utilizzato nel comando '-rate' quando il preset verrà utilizzato. 'pesi' deve essere nel formato '<stat>=<valore>', dove 'valore' è un numero tra 0 a 1.
+				{self.help_stats}
+				**Esempio**
+				`-user preset healer hp=0.5 hp%=1 atk%=0`
+				`-rate <immagine> healer`
+				`-[utente/server] preset delete <nome>`
+				cancella i preset in `nomi` (separato da spazzi).
+				'''
+			]
+		}
+
+		self.help_title = 'Artifact Rater Help'
+
+		self.help_description = f'''
+		**Comandi**
+		`{self.help_commands['rate'][0]}`
+		Valuta il tuo artefatto mandando un'immagine. Vedi '-help rate' per più dettagli.
+
+		`{self.help_commands['feedback'][0]}`
+		{self.help_commands['feedback'][1]}
+
+		`{self.help_commands['sets'][0]}`
+		Visualizza tutti i preset disponibili.
+
+		`-help <command>`
+		Mostra il messaggio d'aiuto per quel comando. Comando: {', '.join([f'`{command}`' for command in self.help_commands])}.
+
+		**Configurazione**
+
+		`-user` cambia la tua configurazione personale. Sovrascrive le impostazioni di default del server.
+		`-server` solo per amministratori, cambia i predefiniti del server.
+
+		`{self.help_commands['prefix'][0]}`
+		{self.help_commands['prefix'][1]}
+
+		`{self.help_commands['lang'][0]}`
+		Imposta la lingua per tutti i comandi attraverso il codice a 2 lettere 'lingua'. È inoltre possibile utilizzare la bandiera come reazione per cambiare lingua.
+
+		`{self.help_commands['preset'][0]}`
+		Crea un preset da utulizzare nell valutazione degli artefatti. 'pesi' sarà usato nel comando '-rate' quando il preset verrà utilizzato.
+
+		`-[user/server] preset delete <nomi>`
+		Cancell ai presets.
+		'''
+
+		self.source = 'Codice sorgente'
+		self.invite = 'Invito per il Bot'
+		self.support = 'Supporto'
+		self.github = f'[GitHub]({self.GITHUB_URL})'
+		self.discord = f'[Link]({self.BOT_URL})'
+		self.server = f'[Discord]({self.SERVER_URL})'
+
+		self.help_footer = 'Per cambiare lingua selezionare la bandiera corrispondente qui sotto'
 
 # Text only, no game translation
 class idn(translation):
