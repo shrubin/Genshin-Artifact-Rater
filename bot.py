@@ -46,7 +46,7 @@ def get_lang(ctx):
 		lang = db.get_lang(ctx.message.author.id, guild_id)
 		if lang:
 			return tr.languages[lang]
-	return tr.en
+	return tr.en()
 
 def get_presets(ctx):
 	if DATABASE_URL:

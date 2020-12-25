@@ -51,7 +51,7 @@ def get_attr(user_id, server_id, attr):
 		if not id:
 			continue
 		entry = get_entry(session, id)
-		if hasattr(entry, attr):
+		if hasattr(entry, attr) and getattr(entry, attr) != None:
 			return getattr(entry, attr)
 	session.close()
 
