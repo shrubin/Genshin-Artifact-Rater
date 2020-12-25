@@ -94,6 +94,10 @@ def set_preset(id, name, command):
 	session = Session()
 	preset = get_preset(session, id, name)
 	if not preset:
+		entry = get_entry(session, id)
+		if not entry:
+			entry = Entry(id)
+			session.add(entry)
 		preset = Preset(id, name)
 	preset.command = command
 	session.add(preset)

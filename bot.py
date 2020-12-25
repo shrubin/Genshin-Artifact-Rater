@@ -116,7 +116,7 @@ async def send(ctx, msg=None, embed=None):
 	dev_only = ctx.channel and ctx.channel.id == DEV_CHANNEL_ID
 	if not DEVELOPMENT and not dev_only:
 		return await ctx.send(msg, embed=embed)
-	elif dev_only:
+	elif DEVELOPMENT and dev_only:
 		channel = bot.get_channel(DEV_CHANNEL_ID)
 		return await channel.send(msg, embed=embed)
 
