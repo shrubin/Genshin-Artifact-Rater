@@ -61,7 +61,7 @@ class translation:
 		self.err_parse = 'Error: Command cannot be parsed, please double check the format and spelling'
 		self.err_try_again = 'please try again in a few minutes'
 		self.err_unknown_ocr = 'Error: OCR failed with unknown error'
-		self.err_unknown = 'Unknown error, try using an image from the inventory\'s artifact page'
+		self.err_unknown = 'Unknown error, make sure your language is set (see `-help`) and try using an image from the inventory\'s artifact page'
 		self.err_admin_only = 'Error: Only server admins can perform this action'
 		self.err_server_only = 'Error: This action can only be performed on servers'
 

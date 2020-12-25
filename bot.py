@@ -353,6 +353,10 @@ async def rate(ctx):
 				app.restart()
 			return
 
+	if not results:
+		await send(ctx, msg=lang.err_unknown)
+		return
+
 	if score <= 50:
 		color = discord.Color.blue()
 	elif score > 50 and score <= 75:
