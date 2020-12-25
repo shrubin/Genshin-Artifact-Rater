@@ -407,8 +407,6 @@ class de(translation):
 		self.art_level = 'Artifakt Level'
 		self.join = f'Bei Problemen join dem Discord [Artifact Rater Server]({self.SERVER_URL})'
 		self.feedback = f'Feedback erhalten, bitte joine {self.SERVER_URL} wenn du weitere Details hinzufügen möchtest'
-		self.title = 'Artifact Rater Bot Hilfe'
-		self.change = 'Um die Sprache zu ändern klick auf die dazugehörige Flagge unten.'
 		self.deprecated = 'Veraltet, verwenden Sie bitte den Befehl `-user lang <lang>`, um Ihre Sprache festzulegen'
 		self.set_lang = 'Sprache geändert auf Deutsch'
 		self.set_prefix = 'Voreinstellung geändert zu %s'
@@ -588,7 +586,7 @@ class fr(translation):
 		self.help_title = 'Aide Artifact Rater Bot'
 
 		self.help_description = f'''
-		Si vous voulez vous joindre à notre serveur privé, utilisez ce [lien](%s)
+		Si vous voulez vous joindre à notre serveur privé, utilisez ce [lien]({self.BOT_URL})
 		Vous pouvez aussi utiliser le bot en envoyant un MP à Artifact Rater#6924.
 
 		`-rate <image/url>  [lvl=<niveau>][<stat>=<valeur par défaut> ...]`
@@ -613,83 +611,86 @@ class fr(translation):
 		self.help_footer = 'Pour changer la langue du bot, cliquez sur le drapeau correspondant'
 
 class vi(translation):
-	id = 'vi'
-	code = 'vie'
-	flags = ['🇻🇳']
-	supported = True
+	def __init__(self):
+		super().__init__()
 
-	hp = 'HP'
-	heal = 'Tăng Trị Liệu'
-	df = 'Phòng Ngự'
-	er = 'Hiệu Quả Nạp Nguyên Tố'
-	em = 'Tinh Thông Nguyên Tố'
-	atk = 'Tấn Công'
-	cd = 'ST Bạo Kích'
-	cr = 'Tỷ Lệ Bạo Kích'
-	phys = 'Tăng Sát Thương Vật Lý'
-	elem = 'Tăng ST Nguyên Tố'
-	anemo = 'Tăng ST Nguyên Tố Phong'
-	elec = 'Tăng ST Nguyên Tố Lôi'
-	pyro = 'Tăng ST Nguyên Tố Hỏa'
-	hydro = 'Tăng ST Nguyên Tố Thủy'
-	cryo = 'Tăng ST Nguyên Tố Băng'
-	geo = 'Tăng ST Nguyên Tố Nham'
-	dend = 'Tăng ST Nguyên Tố Thảo'
+		self.id = 'vi'
+		self.code = 'vie'
+		self.flags = ['🇻🇳']
+		self.supported = True
 
-	piece_set = 'Bộ 2 món'
+		self.hp = 'HP'
+		self.heal = 'Tăng Trị Liệu'
+		self.df = 'Phòng Ngự'
+		self.er = 'Hiệu Quả Nạp Nguyên Tố'
+		self.em = 'Tinh Thông Nguyên Tố'
+		self.atk = 'Tấn Công'
+		self.cd = 'ST Bạo Kích'
+		self.cr = 'Tỷ Lệ Bạo Kích'
+		self.phys = 'Tăng Sát Thương Vật Lý'
+		self.elem = 'Tăng ST Nguyên Tố'
+		self.anemo = 'Tăng ST Nguyên Tố Phong'
+		self.elec = 'Tăng ST Nguyên Tố Lôi'
+		self.pyro = 'Tăng ST Nguyên Tố Hỏa'
+		self.hydro = 'Tăng ST Nguyên Tố Thủy'
+		self.cryo = 'Tăng ST Nguyên Tố Băng'
+		self.geo = 'Tăng ST Nguyên Tố Nham'
+		self.dend = 'Tăng ST Nguyên Tố Thảo'
 
-	lvl = 'Cấp Độ'
-	score = 'Điểm Trang Bị'
-	main_score = 'Điểm Dòng Chính'
-	sub_score = 'Điểm Dòng Phụ'
-	art_level = 'Cấp Độ Thánh Di Vật'
-	join = 'Để báo cáo vấn đề gặp phải, hãy tham gia [Artifact Rater Server]%s'
-	feedback = 'Góp ý đã được tiếp nhận, hãy tham gia %s nếu bạn muốn cung cấp thêm chi tiết'
-	title = 'Trợ giúp: Bot Đánh Giá Thánh Di Vật'
-	change = 'Để thay đổi ngôn ngữ hãy bấm vào lá cờ bên dưới'
-	deprecated = 'Lệnh này không còn khả dụng, hãy dùng lệnh -user lang <ngôn ngữ> để đặt ngôn ngữ'
-	set_lang = 'Đã chuyển ngôn ngữ sang tiếng Việt'
-	set_prefix = 'Đã đặt tiền tố %s'
-	del_preset = 'Đã xóa preset %s'
-	set_preset = 'Đã đặt preset %s với giá trị %s'
-	no_presets = 'Không tìm thấy preset nào'
+		self.piece_set = 'Bộ 2 món'
 
-	err = 'Lỗi'
-	err_not_found = 'Lỗi: Không tìm thấy ảnh hoặc link, 1 trong 2 phải được gửi chung trong cùng 1 tin nhắn'
-	err_parse = 'Lỗi: Không thể xử lý lệnh, vui lòng kiểm tra lại định dạng và chính tả'
-	err_try_again = 'hãy thử lại trong vài phút nữa'
-	err_unknown_ocr = 'Lỗi: OCR đọc ảnh thất bại lỗi không xác định'
-	err_unknown = 'Lỗi không xác định, hãy sử dụng ảnh chụp trong Túi > Thánh Di Vật'
-	err_admin_only = 'Lỗi: Chỉ có admin máy chủ mới có thể thực hiện hành động này'
-	err_server_only = 'Lỗi: Chỉ có thể thực hiện hành động này trên máy chủ'
+		self.lvl = 'Cấp Độ'
+		self.score = 'Điểm Trang Bị'
+		self.main_score = 'Điểm Dòng Chính'
+		self.sub_score = 'Điểm Dòng Phụ'
+		self.art_level = 'Cấp Độ Thánh Di Vật'
+		self.join = f'Để báo cáo vấn đề gặp phải, hãy tham gia [Artifact Rater Server]({self.SERVER_URL})'
+		self.feedback = f'Góp ý đã được tiếp nhận, hãy tham gia {self.SERVER_URL} nếu bạn muốn cung cấp thêm chi tiết'
+		self.deprecated = 'Lệnh này không còn khả dụng, hãy dùng lệnh -user lang <ngôn ngữ> để đặt ngôn ngữ'
+		self.set_lang = 'Đã chuyển ngôn ngữ sang tiếng Việt'
+		self.set_prefix = 'Đã đặt tiền tố %s'
+		self.del_preset = 'Đã xóa preset %s'
+		self.set_preset = 'Đã đặt preset %s với giá trị %s'
+		self.no_presets = 'Không tìm thấy preset nào'
 
-	help_description = '''Nếu muốn thêm vào máy chủ riêng hãy vào [link](%s)
-	Bạn cũng có thể sử dụng bot bằng cách gửi lệnh qua tin nhắn riêng đến Artifact Rater#6924.'''
+		self.err = 'Lỗi'
+		self.err_not_found = 'Lỗi: Không tìm thấy ảnh hoặc link, 1 trong 2 phải được gửi chung trong cùng 1 tin nhắn'
+		self.err_parse = 'Lỗi: Không thể xử lý lệnh, vui lòng kiểm tra lại định dạng và chính tả'
+		self.err_try_again = 'hãy thử lại trong vài phút nữa'
+		self.err_unknown_ocr = 'Lỗi: OCR đọc ảnh thất bại lỗi không xác định'
+		self.err_unknown = 'Lỗi không xác định, hãy sử dụng ảnh chụp trong Túi > Thánh Di Vật'
+		self.err_admin_only = 'Lỗi: Chỉ có admin máy chủ mới có thể thực hiện hành động này'
+		self.err_server_only = 'Lỗi: Chỉ có thể thực hiện hành động này trên máy chủ'
 
-	help_source = '''Nếu bạn có vấn đè gì, hãy liên lạc với shrubin#1866 trên discord hoặc dùng lệnh -feedback.
-	Mã nguồn mở có sẵn tại [GitHub](%s)'''
+		self.help_stats = '`stat` là 1 trong những giá trị sau: `hp`, `hp%`, `def`, `def%` (phòng thủ), `atk`, `atk%`, `er` (hồi năng lượng), `em` (tinh thông nguyên tố), `phys` (ST vật lý), `elem` (ST nguyên tố%), `cr` (tỉ lệ bạo kích), `cd` (ST bạo kích), `heal` (trị thương).'
 
-	help_feedback_name = '-feedback <nội dung> [ảnh]'
-	help_feedback_value = 'Gửi góp ý về các vấn đề hoặc đóng góp ý tưởng cho bot. Có thể gửi tối đa 1 tấm ảnh.'
+		self.help_title = 'Trợ giúp: Bot Đánh Giá Thánh Di Vật'
 
-	help_rate_name = '-rate_vi <ảnh/link> [lvl=<cấp độ>] [<chỉ số>=<hệ số> ...]'
-	help_rate_value = '''\
-	Đánh giá thánh di vật dựa trên một thánh di vật 5* tối ưu. Đặt dòng lệnh và ảnh chụp trong cùng 1 tin nhắn.
+		self.help_description = f'''
+		Nếu muốn thêm vào máy chủ riêng hãy vào [link]({self.BOT_URL})
+		Bạn cũng có thể sử dụng bot bằng cách gửi lệnh qua tin nhắn riêng đến Artifact Rater#6924.
 
-	Nếu sử dụng Windows 10, nhấn phím Shift + Windows + S và vẽ hình chữ nhật bao quanh vùng thông tin, sau đó qua discord và dán bằng phím Ctrl+V.
+		`-rate <ảnh/link> [lvl=<cấp độ>] [<chỉ số>=<hệ số> ...]`
+		Đánh giá thánh di vật dựa trên một thánh di vật 5* tối ưu. Đặt dòng lệnh và ảnh chụp trong cùng 1 tin nhắn.
+		Nếu sử dụng Windows 10, nhấn phím Shift + Windows + S và vẽ hình chữ nhật bao quanh vùng thông tin, sau đó qua discord và dán bằng phím Ctrl+V.
 
-	Hệ số mặc định
-	ATK%, DMG%, Crit - 1
-	ATK, EM, Recharge - 0.5
-	Còn lại - 0
+		Hệ số mặc định
+		ATK%, DMG%, Crit - 1
+		ATK, EM, Recharge - 0.5
+		Còn lại - 0
 
-	Tùy chọn
-	lvl: So sánh với cấp độ thánh di vật được cung cấp (mặc định: <artifact_level>)
-	-rate_vi lvl=20
-	<stat>: Nhập hệ số tùy chọn (giá trị từ 0 tới 1)
-	-rate_vi atk=1 er=0 atk%=0.5
-	<stat> là 1 trong những giá trị sau: HP, HP%, ATK, ATK%, ER (hồi năng lượng), EM (tinh thông nguyên tố), PHYS (ST vật lý), CR (tỉ lệ bạo kích), CD (ST bạo kích), ELEM (ST nguyên tố%), Heal (trị thương), DEF, DEF% (phòng thủ)
-	'''
+		Tùy chọn
+		lvl: So sánh với cấp độ thánh di vật được cung cấp (mặc định: <artifact_level>)
+		-rate lvl=20
+		<stat>: Nhập hệ số tùy chọn (giá trị từ 0 tới 1)
+		-rate atk=1 er=0 atk%=0.5
+		{self.help_stats}
+
+		`-feedback <nội dung> [ảnh]`
+		Gửi góp ý về các vấn đề hoặc đóng góp ý tưởng cho bot. Có thể gửi tối đa 1 tấm ảnh.
+		'''
+
+		self.help_footer = 'Để thay đổi ngôn ngữ hãy bấm vào lá cờ bên dưới'
 
 class pt(translation):
 	def __init__(self):
@@ -852,211 +853,217 @@ class pt(translation):
 		self.help_footer = 'Para mudar o idioma selecione a bandeira abaixo.'
 
 class ja(translation):
-	id = 'ja'
-	code = 'jpn'
-	flags = ['🇯🇵']
-	supported = False
+	def __init__(self):
+		super().__init__()
 
-	hp = 'HP'
-	heal = '治癒効果'
-	df = '防御力'
-	er = '元素チャージ効率'
-	em = '元素熟知'
-	atk = '攻撃力'
-	cd = '会心ダメージ'
-	cr = '会心率'
-	phys = '物理ダメージ'
-	elem = '元素ダメージ'
-	anemo = '風元素ダメージ'
-	elec = '雷元素ダメージ'
-	pyro = '炎元素ダメージ'
-	hydro = '水元素ダメージ'
-	cryo = '氷元素ダメージ'
-	geo = '岩元素ダメージ'
-	dend = '草元素ダメージ'
+		self.id = 'ja'
+		self.code = 'jpn'
+		self.flags = ['🇯🇵']
+		self.supported = False
 
-	piece_set = '2セット'
+		self.hp = 'HP'
+		self.heal = '治癒効果'
+		self.df = '防御力'
+		self.er = '元素チャージ効率'
+		self.em = '元素熟知'
+		self.atk = '攻撃力'
+		self.cd = '会心ダメージ'
+		self.cr = '会心率'
+		self.phys = '物理ダメージ'
+		self.elem = '元素ダメージ'
+		self.anemo = '風元素ダメージ'
+		self.elec = '雷元素ダメージ'
+		self.pyro = '炎元素ダメージ'
+		self.hydro = '水元素ダメージ'
+		self.cryo = '氷元素ダメージ'
+		self.geo = '岩元素ダメージ'
+		self.dend = '草元素ダメージ'
 
-	replace = {'カ': '力'}
+		self.piece_set = '2セット'
 
-	lvl = 'レベル'
-	score = '装備スコア'
-	main_score = 'メインステータス評価'
-	sub_score = 'サブステータス評価'
-	art_level = '聖遺物レベル'
-	join = '[公式サーバー]%sに参加する'
-	feedback = 'フィードバックを受け取りました。詳細を追加したい場合は、 %sに参加して下さい。'
+		self.replace = {'カ': '力'}
 
-	err = 'エラー'
-	err_not_found = 'エラー：画像またはURLが見つかりませんでした。同じメッセージで送信されたことを確認してください。'
-	err_parse = 'エラー：コマンドを解析できません。形式とスペルを再確認してください。'
-	err_try_again = 'エラー：数分後にもう一度お試しください。'
-	err_unknown_ocr = 'エラー：OCRが不明なエラーで失敗しました。'
-	err_unknown = '不明なエラーが発生しました。インベントリの聖遺物ページのイメージを使用してみてください。'
+		self.lvl = 'レベル'
+		self.score = '装備スコア'
+		self.main_score = 'メインステータス評価'
+		self.sub_score = 'サブステータス評価'
+		self.art_level = '聖遺物レベル'
+		self.join = f'[公式サーバー]({self.SERVER_URL})に参加する'
+		self.feedback = f'フィードバックを受け取りました。詳細を追加したい場合は、 ({self.SERVER_URL})に参加して下さい。'
+		self.set_lang = 'Language set to Japanese'
 
-	help_description = '''自分のプライベートサーバーに追加する場合は、次の[リンク](%s)を使用して下さい
-	さらに、次のコマンドをArtifact Rater#6924にダイレクトメッセージ（D M）を送ると、BOT も使えます。'''
+		self.err = 'エラー'
+		self.err_not_found = 'エラー：画像またはURLが見つかりませんでした。同じメッセージで送信されたことを確認してください。'
+		self.err_parse = 'エラー：コマンドを解析できません。形式とスペルを再確認してください。'
+		self.err_try_again = 'エラー：数分後にもう一度お試しください。'
+		self.err_unknown_ocr = 'エラー：OCRが不明なエラーで失敗しました。'
+		self.err_unknown = '不明なエラーが発生しました。インベントリの聖遺物ページのイメージを使用してみてください。'
 
-	help_source = '''問題がある場合は、ディスコードでshrubin#1866に連絡するか、英語の -feedbackコマンドを使って下さい。
-	ソースコードをご覧になりたい場合は、こちらへ [GitHub](%s)'''
+		self.help_stats = '`stat`において`hp`、`hp%`、`def`、`def%`(防御力)、`atk`、`atk%`(攻撃力)、`er`(元素チャージ効率)、`em`(元素熟知)、`phys`(物理ダメージ)、`elem`(元素ダメージ)、`cr`(会心率)、`cd`(会心ダメージ)、`heal`(治癒効果)を使えることができます。'
 
-	help_feedback_name = '-feedback <メッセージ> [イメージ]'
-	help_feedback_value = 'BOTの問題やアイデアについてフィードバックを送信します。 最大1つの画像を送信できます。'
+		self.help_description = f'''
+		自分のプライベートサーバーに追加する場合は、次の[リンク](%s)を使用して下さい
+		さらに、次のコマンドをArtifact Rater#6924にダイレクトメッセージ（D M）を送ると、BOT も使えます。
 
-	help_rate_name = '-rate_ja <image/url> [lvl=<レベル>] [<stat>=<デフォルトの重み付け> ...]'
-	help_rate_value = '''\
-	自分の聖遺物を最適な５＊聖遺物と比べます。同じメッセージにコマンドとイメージ両方を入れて下さい。
-	Windows 10を使っている場合は、Shift + Windows + Sを押すながら聖遺物の上にカーソルをドラッグし、ディスコードを開くと、Ctrl + Vで貼り付けることができます。
+		`-rate <image/url> [lvl=<レベル>] [<stat>=<デフォルトの重み付け> ...]`
+		自分の聖遺物を最適な５＊聖遺物と比べます。同じメッセージにコマンドとイメージ両方を入れて下さい。
+		Windows 10を使っている場合は、Shift + Windows + Sを押すながら聖遺物の上にカーソルをドラッグし、ディスコードを開くと、Ctrl + Vで貼り付けることができます。
 
-	デフォルトの重み付け
-	攻撃力％、各種ダメージバフ％、会心ダメージと会心率 – 1
-	攻撃力、元素熟知、元素チャージ効率 – 0.5
-	他 – 0
-	選択肢
-	lvl: 特定の聖遺物レベルと比較する (デフォルト: <聖遺物_レベル>)
-	-rate_ja lvl=20
-	<stat>: カスタムの重み付けを設定します（値は0から1の間）
-	-rate_ja 攻撃力=1 元素チャージ効率=0 攻撃力％=0.5
-	<stat> においてHP、HP%、攻撃力、攻撃力％、元素チャージ効率 、元素熟知、物理ダメージ、会心率、会心ダメージ、元素ダメージ、治癒効果、防御力を使えることができます。
-	Translated by plastiquedoll#1393 | plastiquedoll#1393によって翻訳されました。
-	'''
+		デフォルトの重み付け
+		攻撃力％、各種ダメージバフ％、会心ダメージと会心率 – 1
+		攻撃力、元素熟知、元素チャージ効率 – 0.5
+		他 – 0
+		選択肢
+		lvl: 特定の聖遺物レベルと比較する (デフォルト: <聖遺物_レベル>)
+		-rate lvl=20
+		<stat>: カスタムの重み付けを設定します（値は0から1の間）
+		-rate 攻撃力=1 元素チャージ効率=0 攻撃力％=0.5
+		{self.help_stats}
+
+		`-feedback <メッセージ> [イメージ]`
+		BOTの問題やアイデアについてフィードバックを送信します。 最大1つの画像を送信できます。
+		'''
 
 # Text only, no game translation
 class pl(translation):
-	id = 'pl'
-	code = 'pol'
-	flags = ['🇵🇱']
-	supported = True
+	def __init__(self):
+		super().__init__()
 
-	lvl = 'Level'
-	score = 'Wynik ogólny'
-	main_score = 'Ocena głównej statystyki'
-	sub_score = 'Ocena podstatystyk'
-	art_level = 'Poziom artefaktów'
-	join = 'W przypadku problemów, dołącz na [Artifact Rater Server]%s'
-	feedback = 'Otrzymaliśmy feedback, dołącz na serwer %s jeżeli chciałbyś dodać więcej szczegółów.'
-	title = 'Artifact Rater Bot Help'
-	change = 'Aby zmienić język kliknij na odpowiednią poniższą flagę'
-	deprecated = 'Przestarzałe, użyj komendy -user lang <język> aby ustawić używany język'
-	set_lang = 'Ustawiono język na polski'
-	set_prefix = 'Ustawiono prefix na %s'
-	del_preset = 'Ustawienia %s zostały usunięte'
-	set_preset = 'Ustawienia %s zmienione na %s'
-	no_presets = 'Nie znaleziono ustawień'
+		self.id = 'pl'
+		self.code = 'pol'
+		self.flags = ['🇵🇱']
+		self.supported = True
 
-	err = 'Błąd'
-	err_not_found = 'Błąd: Nie znaleziono URL ani obrazu, upewnij się czy zostały wysłane w tej samej wiadomości.'
-	err_parse = 'Błąd: Komenda nie może zostać sparsowana, sprawdź jeszcze raz jej format i pisownię.'
-	err_try_again = 'spróbuj ponownie za kilka minut'
-	err_unknown_ocr = 'Błąd: OCR zawiódł z nieznanym błędem.'
-	err_unknown = 'Nieznany błąd, spróbuj użyć zrzutu ekranu zawierającego zakładkę z artefaktami w ekwipunku'
-	err_admin_only = 'Błąd: Ta akcja może zostać wykonana wyłącznie przez admina.'
-	err_server_only = 'Błąd: Ta akcja może zostać wykonana wyłącznie na serwerach.'
+		self.lvl = 'Level'
+		self.score = 'Wynik ogólny'
+		self.main_score = 'Ocena głównej statystyki'
+		self.sub_score = 'Ocena podstatystyk'
+		self.art_level = 'Poziom artefaktów'
+		self.join = f'W przypadku problemów, dołącz na [Artifact Rater Server]({self.SERVER_URL})'
+		self.feedback = f'Otrzymaliśmy feedback, dołącz na serwer {self.SERVER_URL} jeżeli chciałbyś dodać więcej szczegółów.'
+		self.deprecated = 'Przestarzałe, użyj komendy -user lang <język> aby ustawić używany język'
+		self.set_lang = 'Ustawiono język na polski'
+		self.set_prefix = 'Ustawiono prefix na %s'
+		self.del_preset = 'Ustawienia %s zostały usunięte'
+		self.set_preset = 'Ustawienia %s zmienione na %s'
+		self.no_presets = 'Nie znaleziono ustawień'
 
-	help_description = '''Jeżeli chcesz go dodać do swojego serwera, użyj tego [linku](%s)
-	Możesz również użyć tego bota poprzez wysłanie komendy w prywatnej wiadomości do Artifact Rater#6924.'''
+		self.err = 'Błąd'
+		self.err_not_found = 'Błąd: Nie znaleziono URL ani obrazu, upewnij się czy zostały wysłane w tej samej wiadomości.'
+		self.err_parse = 'Błąd: Komenda nie może zostać sparsowana, sprawdź jeszcze raz jej format i pisownię.'
+		self.err_try_again = 'spróbuj ponownie za kilka minut'
+		self.err_unknown_ocr = 'Błąd: OCR zawiódł z nieznanym błędem.'
+		self.err_unknown = 'Nieznany błąd, spróbuj użyć zrzutu ekranu zawierającego zakładkę z artefaktami w ekwipunku'
+		self.err_admin_only = 'Błąd: Ta akcja może zostać wykonana wyłącznie przez admina.'
+		self.err_server_only = 'Błąd: Ta akcja może zostać wykonana wyłącznie na serwerach.'
 
-	help_source = '''Jeżeli uświadczyłeś problemów, skontaktuj się z shrubin#1866 na discordzie albo użyj komendy -feedback.
-	Kod źródłowy dostępny na [GitHub](%s)'''
+		self.help_title = 'Artifact Rater Bot Help'
 
-	help_feedback_name = '-feedback <wiadomość> [obrazek]'
-	help_feedback_value = 'Prześlij feedback z problemami albo pomysłami dotyczącymi bota. Możesz dołączyć jeden obrazek.'
+		self.help_description = f'''
+		Jeżeli chcesz go dodać do swojego serwera, użyj tego [linku]({self.BOT_URL})
+		Możesz również użyć tego bota poprzez wysłanie komendy w prywatnej wiadomości do Artifact Rater#6924.
 
-	help_rate_name = '-rate_pl <obrazek/url> [lvl=<level>] [<stat>=<wartość> ...]'
-	help_rate_value = '''
-	Porównaj swój artefakt do optymalnego 5* artefaktu. Wpisz komendę i wrzuć zrzut ekranu w tej samej wiadomości.
-	Jeżeli używasz Windows 10, możesz użyć skrótu Shift + Windows + S i zaznaczyć swój artefakt, a następnie przejść na Discord i wkleić go za pomocą Ctrl+V.
+		`-rate <obrazek/url> [lvl=<level>] [<stat>=<wartość> ...]`
+		Porównaj swój artefakt do optymalnego 5* artefaktu. Wpisz komendę i wrzuć zrzut ekranu w tej samej wiadomości.
+		Jeżeli używasz Windows 10, możesz użyć skrótu Shift + Windows + S i zaznaczyć swój artefakt, a następnie przejść na Discord i wkleić go za pomocą Ctrl+V.
 
-	Wartości domyślne
-	ATK%, DMG%, Crit - 1
-	ATK, EM, Recharge - 0.5
-	Wszystko inne - 0
-	Opcje
-	lvl: Porównaj do artefaktu o określonym poziomie (domyślnie: <artifact_level>)
-	-rate_pl lvl=20
-	<stat>: Ustaw własne wartości (wartości między 0 i 1)
-	-rate_pl atk=1 er=0 atk%=0.5
-	<stat> jest którymś z: HP, HP%, ATK, ATK%, ER (Recharge), EM, PHYS, CR (Crit Rate), CD (Crit Damage), ELEM (Elemental DMG%), Heal, DEF, DEF
-	Translated by qtFox#9773 | Przetłumaczone przez qtFox#9773
-	'''
+		Wartości domyślne
+		ATK%, DMG%, Crit - 1
+		ATK, EM, Recharge - 0.5
+		Wszystko inne - 0
+		Opcje
+		lvl: Porównaj do artefaktu o określonym poziomie (domyślnie: <artifact_level>)
+		-rate lvl=20
+		<stat>: Ustaw własne wartości (wartości między 0 i 1)
+		-rate atk=1 er=0 atk%=0.5
+		{self.help_stats}
+
+		`-feedback <wiadomość> [obrazek]`
+		Prześlij feedback z problemami albo pomysłami dotyczącymi bota. Możesz dołączyć jeden obrazek.
+		'''
+
+		self.help_footer = 'Aby zmienić język kliknij na odpowiednią poniższą flagę'
 
 class ru(translation):
-	id = 'ru'
-	code = 'rus'
-	flags = ['🇷🇺']
-	supported = False
+	def __init__(self):
+		super().__init__()
 
-	hp = 'НР'
-	heal = 'Бонус лечения'
-	df = 'Защита'
-	er = 'Восст. энергии'
-	em = 'Мастерство стихий'
-	atk = 'Сила атаки'
-	cd = 'Крит. урон'
-	cr = 'Шанс крит. попадания'
-	phys = 'Бонус Физ. урона'
-	elem = 'Бонус Элем. урона'
-	anemo = 'Бонус Анемо урона'
-	elec = 'Бонус Электро урона'
-	pyro = 'Бонус Пиро урона'
-	hydro = 'Бонус Гидро урона'
-	cryo = 'Бонус Крио урона'
-	geo = 'Бонус Гео урона'
-	dend = 'Бонус Дендро урона'
+		self.id = 'ru'
+		self.code = 'rus'
+		self.flags = ['🇷🇺']
+		self.supported = False
 
-	piece_set = '2 предмета'
+		self.hp = 'НР'
+		self.heal = 'Бонус лечения'
+		self.df = 'Защита'
+		self.er = 'Восст. энергии'
+		self.em = 'Мастерство стихий'
+		self.atk = 'Сила атаки'
+		self.cd = 'Крит. урон'
+		self.cr = 'Шанс крит. попадания'
+		self.phys = 'Бонус Физ. урона'
+		self.elem = 'Бонус Элем. урона'
+		self.anemo = 'Бонус Анемо урона'
+		self.elec = 'Бонус Электро урона'
+		self.pyro = 'Бонус Пиро урона'
+		self.hydro = 'Бонус Гидро урона'
+		self.cryo = 'Бонус Крио урона'
+		self.geo = 'Бонус Гео урона'
+		self.dend = 'Бонус Дендро урона'
 
-	lvl = 'Уровень'
-	score = 'Общая оценка'
-	main_score = 'Оценка главного стата'
-	sub_score = 'Оценка вторичных статов'
-	art_level = 'Уровень артефакта'
-	join = 'Если у вас возникли проблемы, присоединяйтесь к [Artifact Rater Server]%s'
-	feedback = 'Отзыв получен, присоединяйтесь к %s для большей информации.'
-	title = 'Помощь по Artifact Rater боту'
-	change = 'Чтобы изменить язык, нажмите на соответствующий флаг ниже'
-	deprecated = 'Устарело, пожалуйста испольщуйте команду -user lang <lang>, чтобы выбрать ваш язык'
-	set_lang = 'Выбран язык: Русский'
-	set_prefix = 'Префикс %s выбран'
-	del_preset = 'Шаблон %s удален'
-	set_preset = 'Шаблон %s изменен на %s'
-	no_presets = 'Шаблон не найден'
+		self.piece_set = '2 предмета'
 
-	err = 'Ошибка'
-	err_not_found = 'Ошибка: изображение или url не найдены, убедитесь, что отправляете в одном сообщении с командой.'
-	err_parse = 'Ошибка: команда не распознана. Пожалуйста, проверьте правильность ввода.'
-	err_try_again = 'Пожалуйста, попробуйте чуть позже.'
-	err_unknown_ocr = 'Ошибка: неизвестная ошибка распознавания текста.'
-	err_unknown = 'Неизвестная ошибка, попробуйте использовать изображение из инвентаря/со страницы артефакта.'
-	err_admin_only = 'Ошибка: Только админы сервера могут выполнить эту команду.'
-	err_server_only = 'Ошибка: Это действие может быть выполнено только на серверах.'
+		self.lvl = 'Уровень'
+		self.score = 'Общая оценка'
+		self.main_score = 'Оценка главного стата'
+		self.sub_score = 'Оценка вторичных статов'
+		self.art_level = 'Уровень артефакта'
+		self.join = f'Если у вас возникли проблемы, присоединяйтесь к [Artifact Rater Server]({self.SERVER_URL})'
+		self.feedback = f'Отзыв получен, присоединяйтесь к {self.SERVER_URL} для большей информации.'
+		self.deprecated = 'Устарело, пожалуйста испольщуйте команду -user lang <lang>, чтобы выбрать ваш язык'
+		self.set_lang = 'Выбран язык: Русский'
+		self.set_prefix = 'Префикс %s выбран'
+		self.del_preset = 'Шаблон %s удален'
+		self.set_preset = 'Шаблон %s изменен на %s'
+		self.no_presets = 'Шаблон не найден'
 
-	help_description = '''Если вы хотите добавить его на свой сервер, используйте [ссылку](%s)
-	Так же вы можете использовать бота, отправив личное сообщение Artifact Rater#6924.'''
+		self.err = 'Ошибка'
+		self.err_not_found = 'Ошибка: изображение или url не найдены, убедитесь, что отправляете в одном сообщении с командой.'
+		self.err_parse = 'Ошибка: команда не распознана. Пожалуйста, проверьте правильность ввода.'
+		self.err_try_again = 'Пожалуйста, попробуйте чуть позже.'
+		self.err_unknown_ocr = 'Ошибка: неизвестная ошибка распознавания текста.'
+		self.err_unknown = 'Неизвестная ошибка, попробуйте использовать изображение из инвентаря/со страницы артефакта.'
+		self.err_admin_only = 'Ошибка: Только админы сервера могут выполнить эту команду.'
+		self.err_server_only = 'Ошибка: Это действие может быть выполнено только на серверах.'
 
-	help_source = '''Если у вас какие-то проблемы, свяжитесь с shrubin#1866 в Дискорде или используйте команду -feedback.
-	Исходный код доступен по адресу [GitHub](%s)'''
+		self.help_stats = '`stat` может использоваться для любого показателя: `hp`, `hp%`, `def`, `def%` (Защита), `atk`, `atk%` (Атака), `er` (Восстановление энергии), `em` (Мастерство стихий), `phys` (Физический урон), `elem` (Элементальный урон), `cr` (Крит.Шанс), `cd` (Крит.Урон), `heal` (Лечение бонус).'
 
-	help_feedback_name = '-feedback <сообщение> [изображение]'
-	help_feedback_value = 'Отправьте отзыв с проблемами или идеями для бота. Можно добавить одно изображение.'
+		self.help_title = 'Помощь по Artifact Rater боту'
 
-	help_rate_name = '-rate_ru <image/url> [lvl=<Уровень>] [<stat>=<По умолчанию> ...]'
-	help_rate_value = '''\
-	Оцените свой артефакт относительно идеального 5* артефакта. Отправьте изображение в одном сообщении с командой.
-	Если вы используете Windows 10, вы можете зажать Shift + Windows + S и выделить для скриншота артефакт, а затем вставить его в Дискорд с помощью Ctrl+V.
+		self.help_description = f'''
+		Если вы хотите добавить его на свой сервер, используйте [ссылку]({self.BOT_URL})
+		Так же вы можете использовать бота, отправив личное сообщение Artifact Rater#6924.
 
-	Оценка по умолчанию:
-	Сила атаки %, шанс и урон крита - 1
-	Сила атаки, мастерство стихий, восстановление энергии - 0.5
-	Всё остальное - 0
-	Опции:
-	lvl:  Сравнить с указанным уровнем артефакта (по умолчанию: <artifact_level>)
-	-rate_ru lvl=20
-	<stat>: Настроить значения по умолчанию (от 0 до 1)
-	-rate_ru Сила атаки=1 Восст.энергии=0 Сила атаки%=0.5
-	<stat> может использоваться для любого показателя: HP, HP%, Атака, Атака %, Восст (Восстановление энергии), Мастерство (стихий), Физ (Физический урон), Крит.Шанс, Крит.Урон, Элем (Элементальный урон), Лечение (бонус), Защита, Защита %
-	Translated by wellywob#8772 | Переведено by wellywob#8772
-	'''
+		`-rate <image/url> [lvl=<Уровень>] [<stat>=<По умолчанию> ...]`
+		Оцените свой артефакт относительно идеального 5* артефакта. Отправьте изображение в одном сообщении с командой.
+		Если вы используете Windows 10, вы можете зажать Shift + Windows + S и выделить для скриншота артефакт, а затем вставить его в Дискорд с помощью Ctrl+V.
+
+		Оценка по умолчанию:
+		Сила атаки %, шанс и урон крита - 1
+		Сила атаки, мастерство стихий, восстановление энергии - 0.5
+		Всё остальное - 0
+		Опции:
+		lvl:  Сравнить с указанным уровнем артефакта (по умолчанию: <artifact_level>)
+		-rate lvl=20
+		<stat>: Настроить значения по умолчанию (от 0 до 1)
+		-rate Сила атаки=1 Восст.энергии=0 Сила атаки%=0.5
+		{self.help_stats}
+
+		`-feedback <сообщение> [изображение]`
+		Отправьте отзыв с проблемами или идеями для бота. Можно добавить одно изображение.
+		'''
+
+		self.help_footer = 'Чтобы изменить язык, нажмите на соответствующий флаг ниже'
 
 class tw(translation):
 	def __init__(self):
@@ -1395,8 +1402,6 @@ class it(translation):
 		self.art_level = 'Livello dell\'Atefatto'
 		self.join = f'In caso di probelmi, unisciti al [Artifact Rater Server]({self.SERVER_URL})'
 		self.feedback = f'Feedback ricevuto, unisciti al server discord per aggiunere ulteriori dettagli: {self.SERVER_URL}'
-		self.title = 'Aiuto per Artifact Rater Bot'
-		self.change = 'Per cambiare lingua del bot, selezionare la bandiera corrispondente'
 		self.deprecated = 'Comando disapprovato, usare il comando `-user lang <lang>` per impostare la lingua'
 		self.set_lang = 'Lingua impostata ad Italiano'
 		self.set_prefix = 'Prefisso impostato a %s'
@@ -1488,7 +1493,7 @@ class it(translation):
 			]
 		}
 
-		self.help_title = 'Artifact Rater Help'
+		self.help_title = 'Aiuto per Artifact Rater Bot'
 
 		self.help_description = f'''
 		**Comandi**
@@ -1533,52 +1538,55 @@ class it(translation):
 
 # Text only, no game translation
 class idn(translation):
-	id = 'id'
-	code = 'idn'
-	flags = ['🇮🇩']
-	supported = True
+	def __init__(self):
+		super().__init__()
 
-	lvl = 'Level'
-	score = 'Skor Gear'
-	main_score = 'Nilai Main Stat'
-	sub_score = 'Nilai Substat'
-	art_level = 'Level Artefak'
-	join = 'Untuk masalah, silahkan bergabung [Artifact Rater Server]%s'
-	feedback = 'Tanggapan diterima, silahkan bergabung %s jika kamu ingin menambahkan detail'
-	title = 'Bantuan Bot Artifact Rater'
+		self.id = 'id'
+		self.code = 'idn'
+		self.flags = ['🇮🇩']
+		self.supported = True
 
-	err = 'Error'
-	err_not_found = 'Error: Gambar atau url tidak ditemukan, pastikan keduanya dikirim dalam satu pesan'
-	err_parse = 'Error: Command tidak bisa di proses, tolong periksa ulang format dan penulisan'
-	err_try_again = 'Coba lagi dalam beberapa menit'
-	err_unknown_ocr = 'Error: OCR gagal dengan error yang tidak diketahui'
-	err_unknown = 'Error tidak diketahui, coba gunakan gambar dari inventori artefak'
+		self.lvl = 'Level'
+		self.score = 'Skor Gear'
+		self.main_score = 'Nilai Main Stat'
+		self.sub_score = 'Nilai Substat'
+		self.art_level = 'Level Artefak'
+		self.join = f'Untuk masalah, silahkan bergabung [Artifact Rater Server]({self.SERVER_URL})'
+		self.feedback = f'Tanggapan diterima, silahkan bergabung {self.SERVER_URL} jika kamu ingin menambahkan detail'
 
-	help_description = '''Jika ingin menggunakan bot di server privat, gunakan [link](%s)
-	Kamu juga bisa menggunakan bot dengan mengririm command dalam DM ke Artifact Rater#6924.'''
+		self.err = 'Error'
+		self.err_not_found = 'Error: Gambar atau url tidak ditemukan, pastikan keduanya dikirim dalam satu pesan'
+		self.err_parse = 'Error: Command tidak bisa di proses, tolong periksa ulang format dan penulisan'
+		self.err_try_again = 'Coba lagi dalam beberapa menit'
+		self.err_unknown_ocr = 'Error: OCR gagal dengan error yang tidak diketahui'
+		self.err_unknown = 'Error tidak diketahui, coba gunakan gambar dari inventori artefak'
 
-	help_source = '''Jika kamu mempunyai masalah, tolong hubungi shrubin#1866 dalam discord atau gunakan -feedback command.
-	Source code tersedia pada [GitHub](%s)'''
+		self.help_stats = '`stat` adalah apapun dari `hp`, `hp%`, `def`, `def%`, `atk`, `atk%`, `er` (Energy Recharge), `em` (Elemental Mastery), `phys` (Physical DMG), `elem` (Elemental DMG), `cr` (Crit Rate), `cd` (Crit Damage), `heal` (Healing Bonus).'
 
-	help_feedback_name = '-feedback <pesan> [gambar]'
-	help_feedback_value = 'Kirim masukan terkait masalah atau ide ke bot. Hingga satu gambar dapat dikirim.'
+		self.help_title = 'Bantuan Bot Artifact Rater'
 
-	help_rate_name = '-rate <gambar/url> [lvl=<level>] [<stat>=<nilai> ...]'
-	help_rate_value = '''\
-	Nilai sebuah artefak dengan sebuah *5 artefak yang optimal. Kirim command dan gambar dalam satu pesan.
-	Jika kamu menggunakan Windows 10, Kamu bisa melakukan Shift + Windows + S dan kemudian drag cursor ke gambar artefak, lalu ke discord and paste gambar dengan Ctrl+V.
+		self.help_description = f'''
+		Jika ingin menggunakan bot di server privat, gunakan [link]({self.BOT_URL})
+		Kamu juga bisa menggunakan bot dengan mengririm command dalam DM ke Artifact Rater#6924.
 
-	Nilai standar
-	ATK%, DMG%, Crit - 1
-	ATK, EM, Recharge - 0.5
-	Yang lainnya - 0
+		`-rate <gambar/url> [lvl=<level>] [<stat>=<nilai> ...]`
+		Nilai sebuah artefak dengan sebuah *5 artefak yang optimal. Kirim command dan gambar dalam satu pesan.
+		Jika kamu menggunakan Windows 10, Kamu bisa melakukan Shift + Windows + S dan kemudian drag cursor ke gambar artefak, lalu ke discord and paste gambar dengan Ctrl+V.
 
-	Opsi
-	lvl: Bandingkan dengan artefak spesifik (default: <artifact_level>)
-	-rate lvl=20
-	<stat>: Taruh nilai khusus (antara 0 dan 1)
-	-rate atk=1 er=0 atk%=0.5
-	<stat> adalah apapun dari HP, HP%, ATK, ATK%, ER (Recharge), EM, PHYS, CR (Crit Rate), CD (Crit Damage), ELEM (Elemental DMG%), Heal, DEF, DEF
-	'''
+		Nilai standar
+		ATK%, DMG%, Crit - 1
+		ATK, EM, Recharge - 0.5
+		Yang lainnya - 0
+
+		Opsi
+		lvl: Bandingkan dengan artefak spesifik (default: <artifact_level>)
+		-rate lvl=20
+		<stat>: Taruh nilai khusus (antara 0 dan 1)
+		-rate atk=1 er=0 atk%=0.5
+		{self.help_stats}
+
+		`-feedback <pesan> [gambar]`
+		Kirim masukan terkait masalah atau ide ke bot. Hingga satu gambar dapat dikirim.
+		'''
 
 languages = {lang.id: lang for lang in [en(), es(), de(), fr(), vi(), pt(), ja(), pl(), ru(), tw(), cn(), it(), idn()]}
