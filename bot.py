@@ -370,9 +370,6 @@ async def rate(ctx):
 	embed.add_field(name=f'{lang.art_level}: {level}', value=msg)
 
 	await send(ctx, embed=embed)
-	if not DEVELOPMENT and ERR_CHANNEL_ID:
-		channel = bot.get_channel(ERR_CHANNEL_ID)
-		await channel.send(embed=embed)
 
 @bot.command()
 @commands.cooldown(RATE_LIMIT_N, RATE_LIMIT_TIME, commands.BucketType.user)
