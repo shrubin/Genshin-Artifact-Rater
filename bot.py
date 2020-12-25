@@ -180,14 +180,17 @@ async def config(ctx):
 			db.set_preset(id, name, command)
 			await send(ctx, msg=lang.set_preset % (name, command))
 
-@bot.command()
+@bot.command(aliases=['presets'])
 @commands.cooldown(RATE_LIMIT_N, RATE_LIMIT_TIME, commands.BucketType.user)
 async def sets(ctx):
 	if DEVELOPMENT and not (ctx.channel and ctx.channel.id == DEV_CHANNEL_ID):
 		return
 	if not DATABASE_URL:
 		return
+
+	lang = get_lang(ctx)
 	presets = get_presets(ctx)
+
 	if not presets:
 		await send(ctx, msg=lang.no_presets)
 		return

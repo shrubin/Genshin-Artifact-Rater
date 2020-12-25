@@ -664,33 +664,110 @@ class vi(translation):
 
 		self.help_stats = '`stat` là 1 trong những giá trị sau: `hp`, `hp%`, `def`, `def%` (phòng thủ), `atk`, `atk%`, `er` (hồi năng lượng), `em` (tinh thông nguyên tố), `phys` (ST vật lý), `elem` (ST nguyên tố%), `cr` (tỉ lệ bạo kích), `cd` (ST bạo kích), `heal` (trị thương).'
 
+		self.help_commands = {
+			'rate': [
+				'-rate <ảnh/link> [preset] [lvl=<cấp độ>] [hệ số]',
+				f'''
+				Đánh giá thánh di vật dựa trên một thánh di vật 5* tối ưu. Đặt dòng lệnh và ảnh chụp trong cùng 1 tin nhắn.
+				Nếu sử dụng Windows 10, nhấn phím Shift + Windows + S và vẽ hình chữ nhật bao quanh vùng thông tin, sau đó qua discord và dán bằng phím Ctrl+V.
+				Bot sẽ sử dụng hệ số mặc định dưới đây trừ khi bạn cung cấp giá trị khác hoặc chọn preset. Bạn cũng có thể chỉ định cấp độ tdv bạn muốn so sánh với là bao nhiêu.
+				**Hệ số mặc định**
+				ATK%, DMG%, Crit - 1
+				ATK, EM, Recharge – 0.5
+				Còn lại - 0
+				**Thông số**
+				`ảnh/link`
+				Ảnh đem đi đánh giá, đính kèm file hoặc nhập link trực tiếp vào tin nhắn. [Mẫu]({self.SAMPLE_URL})
+				`preset`
+				Chọn preset hệ số sử dụng. Gõ `-presets` để xem các preset hiện có, hoặc `-help` để biết cách tự tạo preset.
+				`lvl`
+				Cấp độ của thánh di vật bạn với so sánh với, từ 0 tới 20. Trong trường hợp máy quét bị sai, hãy sử dụng lệnh này để sửa lại cho đúng.
+				`hệ số`
+				Hệ số dùng để đánh giá thánh di vật này. Mỗi hệ số đặt theo mẫu sau `<hệ số>=<giá trị>`, với `giá trị` là 1 con số từ 0 đến 1.
+				{self.help_stats}
+				**Ví dụ**
+				`-rate <ảnh> atk%=0 hp=1 er=0.5`
+				`-rate <link> support lvl=4`
+				'''
+			],
+
+			'feedback': [
+				'-feedback <tin nhắn> [ảnh]',
+				'Gửi tin nhắn trực tiếp với tối đa 1 ảnh đính kèm để đóng góp ý tưởng hoặc báo cáo lỗi giúp bot hoàn thiện hơn.'
+			],
+
+			'sets': [
+				'-sets',
+				'''
+				Xem tất cả những preset hiện có. Bao gồm những preset cá nhân, trên máy chủ và mặc định.
+				Lệnh này sẽ hiển thị 1 danh sách tên preset, nguồn gốc, và hệ số của mỗi cái.
+				'''
+			],
+
+			'lang': [
+				'-[người dùng/máy chủ] lang <ngôn ngữ>',
+				'''
+				Đặt ngôn ngữ cho tất cả các lệnh với mã ngôn ngữ gồm 2 chữ cái `lang`.
+				Bot Đánh Giá Thánh Di Vật sẽ dùng ngôn ngữ này cho tất cả ảnh bạn gửi với lệnh -rate.
+				Danh sách ngôn ngữ: Tiếng Anh (en), Tiếng Tây Ban Nha (es), Tiếng Đức (de), Tiếng Pháp (fr), Tiếng Bồ Đào Nha (pt), Tiếng Ba lan (pl), Tiếng Ý (it), Tiếng Nga (ru), Tiếng Indo (id), Tiếng Việt (vi), Tiếng Nhật (ja), Tiếng Trung Phồn Thể (tw), Tiếng Trung Giản Thể (cn)
+				'''
+			],
+
+			'prefix': [
+				'-server prefix <tiền tố>',
+				'Đổi prefix của bot cho máy chủ này.'
+			],
+
+			'preset': [
+				'-[người dùng/máy chủ] preset <tên đặt> <hệ số>',
+				f'''
+				Tạo ra 1 preset tên là `tên đặt` để dùng khi đánh giá thánh di vật.
+				Nếu bạn muốn kiểm tra nhiều thánh di vật với cùng hệ số, hãy dùng lệnh này để tạo ra preset với hệ số mong muốn.
+				`hệ số` nhập vào sẽ được dùng trong lệnh `-rate` khi dùng preset này. Nhập hệ số bằng mẫu sau: `<hệ số>=<giá trị>`, với `giá trị` là 1 con số từ 0 đến 1. 
+				{self.help_stats}
+				**Ví dụ**
+				`-user preset healer hp=0.5 hp%=1 atk%=0`
+				`-rate <image> healer`
+				`-[user/server] preset delete <names>`
+				Xóa những presets có tên trong danh sách `names` (phân biệt bởi dấu cách).
+				'''
+			]
+		}
+
 		self.help_title = 'Trợ giúp: Bot Đánh Giá Thánh Di Vật'
 
 		self.help_description = f'''
-		Nếu muốn thêm vào máy chủ riêng hãy vào [link]({self.BOT_URL})
-		Bạn cũng có thể sử dụng bot bằng cách gửi lệnh qua tin nhắn riêng đến Artifact Rater#6924.
-
-		`-rate <ảnh/link> [lvl=<cấp độ>] [<chỉ số>=<hệ số> ...]`
-		Đánh giá thánh di vật dựa trên một thánh di vật 5* tối ưu. Đặt dòng lệnh và ảnh chụp trong cùng 1 tin nhắn.
-		Nếu sử dụng Windows 10, nhấn phím Shift + Windows + S và vẽ hình chữ nhật bao quanh vùng thông tin, sau đó qua discord và dán bằng phím Ctrl+V.
-
-		Hệ số mặc định
-		ATK%, DMG%, Crit - 1
-		ATK, EM, Recharge - 0.5
-		Còn lại - 0
-
-		Tùy chọn
-		lvl: So sánh với cấp độ thánh di vật được cung cấp (mặc định: <artifact_level>)
-		-rate lvl=20
-		<stat>: Nhập hệ số tùy chọn (giá trị từ 0 tới 1)
-		-rate atk=1 er=0 atk%=0.5
-		{self.help_stats}
-
-		`-feedback <nội dung> [ảnh]`
-		Gửi góp ý về các vấn đề hoặc đóng góp ý tưởng cho bot. Có thể gửi tối đa 1 tấm ảnh.
+		**Danh Sách Lệnh**
+		`{self.help_commands['rate'][0]}`
+		Đánh giá thánh di vật bằng cách up hình chụp thánh di vật đó. Gõ `-help rate` để biết thêm chi tiết.
+		`{self.help_commands['feedback'][0]}`
+		{self.help_commands['feedback'][1]}
+		`{self.help_commands['sets'][0]}`
+		Xem tất cả các preset hiện có.
+		`-help <command>`
+		Hiện trợ giúp cho 1 lệnh. Danh sách lệnh: {', '.join([f'`{command}`' for command in self.help_commands])}.
+		**Tùy chỉnh**
+		`-user` đổi tùy chỉnh cá nhân của bạn. Đè lên tùy chỉnh mặc định của máy chủ.
+		`-server` chỉ dành cho admin, đổi giá trị mặc định của máy chủ.
+		`{self.help_commands['prefix'][0]}`
+		{self.help_commands['prefix'][1]}
+		`{self.help_commands['lang'][0]}`
+		Đặt ngôn ngữ cho tất cả các lệnh với mã ngôn ngữ gồm 2 chữ cái `lang`. Ngoài ra có thể dùng phản ứng hình lá cờ để đổi ngôn ngữ.
+		`{self.help_commands['preset'][0]}`
+		Tạo ra 1 preset tên là `tên đặt` để dùng khi đánh giá thánh di vật.
+		Create a preset to be used when rating artifacts. `hệ số` nhập vào sẽ được dùng trong lệnh `-rate` khi dùng preset này.
+		`-[user/server] preset delete <names>`
+		Xóa preset.
 		'''
 
-		self.help_footer = 'Để thay đổi ngôn ngữ hãy bấm vào lá cờ bên dưới'
+		self.source = 'Mã Nguồn'
+		self.invite = 'Gửi Lời Mời'
+		self.support = 'Hỗ Trợ'
+		self.github = f'[GitHub]({self.GITHUB_URL})'
+		self.discord = f'[Link]({self.BOT_URL})'
+		self.server = f'[Discord]({self.SERVER_URL})'
+
+		self.help_footer = 'Để thay đổi ngôn ngữ hãy click vào lá cờ bên dưới'
 
 class pt(translation):
 	def __init__(self):
