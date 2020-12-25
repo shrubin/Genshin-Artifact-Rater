@@ -532,82 +532,85 @@ class de(translation):
 		self.help_footer = 'Um die Sprache zu ändern, klicken Sie auf die entsprechende Flagge unten'
 
 class fr(translation):
-	id = 'fr'
-	code = 'fre'
-	flags = ['🇫🇷']
-	supported = True
+	def __init__(self):
+		super().__init__()
 
-	hp = 'PV'
-	heal = 'Bonus de soins'
-	df = 'DÉF'
-	er = 'Recharge d\'énergie'
-	em = 'Maîtrise élémentaire'
-	atk = 'ATQ'
-	cd = 'DGT CRIT'
-	cr = 'Taux CRIT'
-	phys = 'Bonus de DGT physiques'
-	elem = 'Bonus de DGT élémentaire'
-	anemo = 'Bonus de DGT Anémo'
-	elec = 'Bonus de DGT Électro'
-	pyro = 'Bonus de DGT Pyro'
-	hydro = 'Bonus de DGT Hydro'
-	cryo = 'Bonus de DGT Cryo'
-	geo = 'Bonus de DGT Géo'
-	dend = 'Bonus de DGT Dendro'
+		self.id = 'fr'
+		self.code = 'fre'
+		self.flags = ['🇫🇷']
+		self.supported = True
 
-	piece_set = 'Set de pièces'
+		self.hp = 'PV'
+		self.heal = 'Bonus de soins'
+		self.df = 'DÉF'
+		self.er = 'Recharge d\'énergie'
+		self.em = 'Maîtrise élémentaire'
+		self.atk = 'ATQ'
+		self.cd = 'DGT CRIT'
+		self.cr = 'Taux CRIT'
+		self.phys = 'Bonus de DGT physiques'
+		self.elem = 'Bonus de DGT élémentaire'
+		self.anemo = 'Bonus de DGT Anémo'
+		self.elec = 'Bonus de DGT Électro'
+		self.pyro = 'Bonus de DGT Pyro'
+		self.hydro = 'Bonus de DGT Hydro'
+		self.cryo = 'Bonus de DGT Cryo'
+		self.geo = 'Bonus de DGT Géo'
+		self.dend = 'Bonus de DGT Dendro'
 
-	lvl = 'Niveau'
-	score = 'Puissance de l\'artefact'
-	main_score = '% Stat principale'
-	sub_score = '% Stats secondaires'
-	art_level = 'Niveau d\'Artefact'
-	join = 'Si vous rencontrez d\'autres problemes, [rejoignez le serveur]%s Artifact Rater'
-	feedback = 'Si vous avez un retour d\'informations, s\'il vous plait rejoignez %s si vous voulez rajouter plus de détails'
-	title = 'Aide Artifact Rater Bot'
-	change = 'Pour changer la langue du bot, cliquez sur le drapeau correspondant'
-	deprecated = 'Si ça ne fonctionne pas, s\'il vous plaît utilisez la commande -user lang <lang> pour la définir à votre langue'
-	set_lang = 'Langue définie en Français'
-	set_prefix = 'Préfix définis en %s'
-	del_preset = 'Preset %s supprimer'
-	set_preset = 'Preset %s remplacer par %s'
-	no_presets = 'Pas de presets trouvés'
+		self.piece_set = 'Set de pièces'
 
-	err = 'Erreur'
-	err_not_found = 'Erreur: Aucune image ou url n\'a été trouvée, s\'il vous plait assurez vous qu\'elle a était envoyée avec le message'
-	err_parse = 'Erreur: La commande ne peut pas être analyser, vérifier le format et l\'orthographe'
-	err_try_again = 'Merci de réessayer dans quelques minutes'
-	err_unknown_ocr = 'Erreur: OCR a échoué a cause d\'une erreur inconnue'
-	err_unknown = 'Erreur inconnue, essayer d\'utiliser une image d\'artefact venant de la page d\'inventaire'
-	err_admin_only = 'Erreur: Seuls les admins peuvent effectuer cette action'
-	err_server_only = 'Erreur: Cette action ne peut être effectué que sur le serveur'
+		self.lvl = 'Niveau'
+		self.score = 'Puissance de l\'artefact'
+		self.main_score = '% Stat principale'
+		self.sub_score = '% Stats secondaires'
+		self.art_level = 'Niveau d\'Artefact'
+		self.join = f'Si vous rencontrez d\'autres problemes, [rejoignez le serveur]({self.SERVER_URL}) Artifact Rater'
+		self.feedback = f'Si vous avez un retour d\'informations, s\'il vous plait rejoignez {self.SERVER_URL} si vous voulez rajouter plus de détails'
+		self.deprecated = 'Si ça ne fonctionne pas, s\'il vous plaît utilisez la commande -user lang <lang> pour la définir à votre langue'
+		self.set_lang = 'Langue définie en Français'
+		self.set_prefix = 'Préfix définis en %s'
+		self.del_preset = 'Preset %s supprimer'
+		self.set_preset = 'Preset %s remplacer par %s'
+		self.no_presets = 'Pas de presets trouvés'
 
-	help_description = '''Si vous voulez vous joindre à notre serveur privé, utilisez ce [lien](%s)
-	Vous pouvez aussi utiliser le bot en envoyant un MP à Artifact Rater#6924.'''
+		self.err = 'Erreur'
+		self.err_not_found = 'Erreur: Aucune image ou url n\'a été trouvée, s\'il vous plait assurez vous qu\'elle a était envoyée avec le message'
+		self.err_parse = 'Erreur: La commande ne peut pas être analyser, vérifier le format et l\'orthographe'
+		self.err_try_again = 'Merci de réessayer dans quelques minutes'
+		self.err_unknown_ocr = 'Erreur: OCR a échoué a cause d\'une erreur inconnue'
+		self.err_unknown = 'Erreur inconnue, essayer d\'utiliser une image d\'artefact venant de la page d\'inventaire'
+		self.err_admin_only = 'Erreur: Seuls les admins peuvent effectuer cette action'
+		self.err_server_only = 'Erreur: Cette action ne peut être effectué que sur le serveur'
 
-	help_source = '''Si vous rencontrez un problème, merci de contacter shrubin#1866 sur discord ou d’utiliser la commande –feedback
-	Code source disponible sur [GitHub](%s)'''
+		self.help_stats = '`stat` peut être utilisé sur toutes les statistiques : `hp`, `hp%`, `def`, `def%`, `atk`, `atk%`, `er` (Recharge d’énergie), `em` (Maîtrise élémentaire), `phys` (DGT Physique), `elem` (DGT élémentaire%), `cr` (Taux Critique), `cd` (DGT Critique), `heal`.'
 
-	help_feedback_name = '-feedback <message> [image]'
-	help_feedback_value = 'Envoyez un feedback avec les problèmes ou les idées pour le bot. Il peut être envoyé jusqu\'à une image à la fois.'
+		self.help_title = 'Aide Artifact Rater Bot'
 
-	help_rate_name = '-rate_fr <image/url>  [lvl=<niveau>][<stat>=<valeur par défaut> ...]'
-	help_rate_value = '''\
-	Évaluez votre artefact grâce à un artefact optimal de 5 étoiles. Entrez la commande avec l’image dans le même message.
-	Si vous utilisez Windows 10 vous pouvez utiliser utiliser shift + Windows +S et vous pouvez passer votre curseur par-dessus l'artefact, puis allez sur discord et le coller avec Ctrl+V.
+		self.help_description = f'''
+		Si vous voulez vous joindre à notre serveur privé, utilisez ce [lien](%s)
+		Vous pouvez aussi utiliser le bot en envoyant un MP à Artifact Rater#6924.
 
-	Valeur par défaut :
-	ATQ%, DMG%, Crit - 1
-	ATK, EM, Recharge - 0.5
-	Les autres stats – 0
-	Options :
-	lvl: Compare à un niveau d’artefact spécifique(Défaut: < artifact_level >)
-	-rate_fr lvl=20
-	<stat> : Personnalise la valeur par défaut (valeur entre 0 et 1)
-	-rate_fr def%=1 hp%=1 atk=0
-	<stat> peut être utilisé sur toutes les statistiques : PV, PV%, ATQ, ATQ%, RE (Recharge d’énergie), ME (Maîtrise élémentaire), %CRT (Taux Critique), CRTDMG (DGT Critique),  PHYS (DGT Physique), ELEM (DGT élémentaire%), Soins, DEF, DEF%
-	Translated by Miloki#3998 | Traduit par Miloki#3998
-	'''
+		`-rate <image/url>  [lvl=<niveau>][<stat>=<valeur par défaut> ...]`
+		Évaluez votre artefact grâce à un artefact optimal de 5 étoiles. Entrez la commande avec l’image dans le même message.
+		Si vous utilisez Windows 10 vous pouvez utiliser utiliser shift + Windows +S et vous pouvez passer votre curseur par-dessus l'artefact, puis allez sur discord et le coller avec Ctrl+V.
+
+		Valeur par défaut :
+		ATQ%, DMG%, Crit - 1
+		ATK, EM, Recharge - 0.5
+		Les autres stats – 0
+		Options :
+		lvl: Compare à un niveau d’artefact spécifique(Défaut: < artifact_level >)
+		-rate lvl=20
+		<stat> : Personnalise la valeur par défaut (valeur entre 0 et 1)
+		-rate def%=1 hp%=1 atk=0
+		{self.help_stats}
+
+		`-feedback <message> [image]`
+		Envoyez un feedback avec les problèmes ou les idées pour le bot. Il peut être envoyé jusqu\'à une image à la fois.
+		'''
+
+		self.help_footer = 'Pour changer la langue du bot, cliquez sur le drapeau correspondant'
 
 class vi(translation):
 	id = 'vi'
