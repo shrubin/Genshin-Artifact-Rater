@@ -1551,42 +1551,134 @@ class idn(translation):
 		self.main_score = 'Nilai Main Stat'
 		self.sub_score = 'Nilai Substat'
 		self.art_level = 'Level Artefak'
-		self.join = f'Untuk masalah, silahkan bergabung [Artifact Rater Server]({self.SERVER_URL})'
+		self.join = f'Jika ada masalah, silahkan bergabung [Artifact Rater Server]({self.SERVER_URL})'
 		self.feedback = f'Tanggapan diterima, silahkan bergabung {self.SERVER_URL} jika kamu ingin menambahkan detail'
+		self.deprecated = 'Sudah usang, tolong gunakan command `-user lang <bahasa>` untuk mengatur bahasa'
+		self.set_lang = 'Bahasa diubah ke Inggris'
+		self.set_prefix = 'Prefix diubah ke %s'
+		self.del_preset = 'Preset %s telah dihapus'
+		self.set_preset = 'Preset %s diubah ke %s'
+		self.no_presets = 'Preset tidak ditemukan'
 
 		self.err = 'Error'
 		self.err_not_found = 'Error: Gambar atau url tidak ditemukan, pastikan keduanya dikirim dalam satu pesan'
 		self.err_parse = 'Error: Command tidak bisa di proses, tolong periksa ulang format dan penulisan'
 		self.err_try_again = 'Coba lagi dalam beberapa menit'
-		self.err_unknown_ocr = 'Error: OCR gagal dengan error yang tidak diketahui'
-		self.err_unknown = 'Error tidak diketahui, coba gunakan gambar dari inventori artefak'
+		self.err_unknown_ocr = 'Error: OCR gagal, error tidak diketahui'
+		self.err_unknown = 'Error tidak diketahui, coba gunakan gambar yang berasal dari inventori artefak'
+		self.err_admin_only = 'Error: Hanya admin server yang dapat melakukan aksi ini'
+		self.err_server_only = 'Error: Aksi ini hanya dapat dilakukan dalam server'
 
-		self.help_stats = '`stat` adalah apapun dari `hp`, `hp%`, `def`, `def%`, `atk`, `atk%`, `er` (Energy Recharge), `em` (Elemental Mastery), `phys` (Physical DMG), `elem` (Elemental DMG), `cr` (Crit Rate), `cd` (Crit Damage), `heal` (Healing Bonus).'
+		self.help_stats = '`stat` bisa diantara `hp`, `hp%`, `def`, `def%`, `atk`, `atk%`, `er` (Energy Recharge), `em` (Elemental Mastery), `phys` (Physical DMG), `elem` (Elemental DMG), `cr` (Crit Rate), `cd` (Crit Damage), `heal` (Healing Bonus).'
 
-		self.help_title = 'Bantuan Bot Artifact Rater'
+		self.help_commands = {
+			'rate': [
+				'-rate <url gambar> [preset] [lvl=<level>] [nilai]',
+				f'''
+				Nilai sebuah artefak dengan *5 artefak yang optimal. Kirim command dan gambar dalam satu pesan. Gunakan screenshot yang jelas untuk hasil terbaik.
+				Jika kamu menggunakan Windows 10, Kamu bisa melakukan Shift + Windows + S dan kemudian drag cursor ke gambar artefak, lalu ke discord and paste gambar dengan Ctrl+V.
+				Bot ini akan menggunakan nilai default (lihat dibawah) kecuali jika kamu ingin mengatur sesuai keinginan. Kamu juga bisa menentukan level untuk membandingkan artefak.
+
+				**Nilai Default**
+				ATK%, DMG%, Crit - 1
+				ATK, EM, Recharge – 0.5
+				Everything else - 0
+
+				**Parameter**
+				`url gambar`
+				Gambar yang akan dinilai, bisa dengan file yang dilampirkan atau dengan menaruh url gambar dalam pesan. [Contoh]({self.SAMPLE_URL})
+
+				`preset`
+				Pilihan preset untuk nilai yang akan digunakan. Lihat `-presets` untuk menunjukkan preset yang tersedia, atau `-help` untuk cara mengatur pilihan sendiri.
+
+				`lvl`
+				Level artefak untuk dibandingkan, dari 0 sampai 20. terkadang auto-koreksi untuk level bisa salah, gunakan ini untuk memperbaikinya.
+
+				`nilai`
+				Nilai yang digunakan untuk artefak. Untuk setiap nilai formatnya adalah `stat=value`, dengan `value` adalah angka antara 0 dan 1.
+				{self.help_stats}
+
+				**Contoh**
+				`-rate <gambar> atk%=0 hp=1 er=0.5`
+				`-rate <url> support lvl=4`
+				'''
+			],
+
+			'feedback': [
+				'-feedback <pesan> [gambar]',
+				'Kirim pesan langsung sampi dengan satu gambar. Gunakan ini untuk memberi ide atau melaporkan masalah untuk membantu kami memperbaiki bot.'
+			],
+
+			'sets': [
+				'-sets',
+				'''
+				Melihat preset yang tersedia. Termasuk personal, server, dan preset default.
+				Command ini akan menampilkan daftar nama dari preset, dimana asalnya, dan nilai yang telah di set.
+				'''
+			],
+
+			'lang': [
+				'-[user/server] lang <bahasa>',
+				'''
+				Atur bahasa dengan command yang terdiri dari dua huruf untuk `lang`.
+				Artifact Rater akan menggunakan bahasa ini untuk gambar yang kamu kirim dengan command `-rate`.
+				Bahasa yang tersedia : Inggris (en), Spanyol (es), Jerman (de), Perancis (fr), Portugis (pt), Polandia (pl), Itali (it), Rusia (ru), Indonesia (id), Vietnam (vi), Jepang (ja), Cina (tw), Mandarin (cn)
+				'''
+			],
+
+			'prefix': [
+				'-server prefix ,prefix.',
+				'Mengubah prefix bot untuk server ini.'
+			],
+
+			'preset': [
+				'-[users/erver] preset <nama> <nilai>',
+				f'''
+				Membuat preset `nama` untuk digunakan ketika menilai artefak.
+				Jika kamu ingin mengecek beberapa artefak dengan nilai yang sama, kamu bisa menggukanan commannd ini untuk membuat preset yang di inginkan.
+				`nilai` akan digunakan dalam command `-rate` ketika preset digunakan. `nilai` harus dalam format `stat=value`, dimana `value` adalah angka antara 0 dan 1.
+				{self.help_stats}
+				**Contoh**
+				`-user preset healer hp=0.5 hp%=1 atk%=0`
+				`-rate <gambar> healer`
+				`-[user/server] preset delete <nama>`
+				Menghapus preset pada `nama` (dipisahkan oleh spasi).
+				'''
+			]
+		}
+
+		self.help_title = 'Bantuan Artefak Rater'
 
 		self.help_description = f'''
-		Jika ingin menggunakan bot di server privat, gunakan [link]({self.BOT_URL})
-		Kamu juga bisa menggunakan bot dengan mengririm command dalam DM ke Artifact Rater#6924.
-
-		`-rate <gambar/url> [lvl=<level>] [<stat>=<nilai> ...]`
-		Nilai sebuah artefak dengan sebuah *5 artefak yang optimal. Kirim command dan gambar dalam satu pesan.
-		Jika kamu menggunakan Windows 10, Kamu bisa melakukan Shift + Windows + S dan kemudian drag cursor ke gambar artefak, lalu ke discord and paste gambar dengan Ctrl+V.
-
-		Nilai standar
-		ATK%, DMG%, Crit - 1
-		ATK, EM, Recharge - 0.5
-		Yang lainnya - 0
-
-		Opsi
-		lvl: Bandingkan dengan artefak spesifik (default: <artifact_level>)
-		-rate lvl=20
-		<stat>: Taruh nilai khusus (antara 0 dan 1)
-		-rate atk=1 er=0 atk%=0.5
-		{self.help_stats}
-
-		`-feedback <pesan> [gambar]`
-		Kirim masukan terkait masalah atau ide ke bot. Hingga satu gambar dapat dikirim.
+		**Command**
+		`{self.help_commands['rate'][0]}`
+		Nilai artefakmu dengan mengirim gambar. Lihat `-help rate` untuk detil lebih lanjut.
+		`{self.help_commands['feedback'][0]}`
+		{self.help_commands['feedback'][1]}
+		`{self.help_commands['sets'][0]}`
+		Melihat preset yang tersedia.
+		`-help <command>`
+		Menunjukkan pesan bantuan untuk command tersebut. Command {', '.join([f'`{command}`' for command in self.help_commands])}.
+		**Pengaturan**
+		`-user` Untuk mengubah pengaturan personal. Mengabaikan pengaturan server default.
+		`-server` Hanya admin, mengubah default server.
+		`{self.help_commands['prefix'][0]}`
+		{self.help_commands['prefix'][1]}
+		`{self.help_commands['lang'][0]}`
+		Atur bahasa dengan command yang terdiri dari dua huruf untuk `lang`. Kamu juga bisa mengklik bendera untuk mengubah bahasa.
+		`{self.help_commands['preset'][0]}`
+		Create a preset to be used when rating artifacts. `weights` will be used in the `-rate` command when the preset is used.
+		`-[user/server] preset delete <nama>`
+		Menghapus preset.
 		'''
+
+		self.source = 'Source Code'
+		self.invite = 'Undang bot'
+		self.support = 'Bantuan'
+		self.github = f'[GitHub]({self.GITHUB_URL})'
+		self.discord = f'[Link]({self.BOT_URL})'
+		self.server = f'[Discord]({self.SERVER_URL})'
+
+		self.help_footer = 'Untuk mengganti bahasa, klik bendera sesuai dengan bahasa yang di inginkan'
 
 languages = {lang.id: lang for lang in [en(), es(), de(), fr(), vi(), pt(), ja(), pl(), ru(), tw(), cn(), it(), idn()]}
