@@ -160,14 +160,25 @@ def validate(value, max_stat, percent):
 		value += 10
 	return value
 
-def rate(level, results, options={}, lang=tr.en()):
-	main = True
+
+def convert_results_to_stats(results_, lang=tr.en()):
+	elements = [lang.anemo, lang.elec, lang.pyro, lang.hydro, lang.cryo, lang.geo, lang.dend]
+	main_ = results_[0][0]
+	main_ = main_ if main_[:-1] not in elements else f'{lang.elem}%'
+
+	stats = {}
+	for result in results_:
+		key, value = result
+		key = key if key[:-1] not in elements else f'{lang.elem}%'
+		stats.update({key: value})
+	return stats, main_
+
+
+def rate(level, stats, main, options={}, lang=tr.en()):
 	main_score = 0.0
 	sub_score = 0.0
 	sub_weight = 0
 	main_weight = 3 + level / 4
-
-	elements = [lang.anemo, lang.elec, lang.pyro, lang.hydro, lang.cryo, lang.geo, lang.dend]
 
 	min_mains = {lang.hp: 717.0, lang.atk: 47.0, f'{lang.atk}%': 7.0, f'{lang.er}%': 7.8, lang.em: 28.0,
 				 f'{lang.phys}%': 8.7, f'{lang.cr}%': 4.7, f'{lang.cd}%': 9.3, f'{lang.elem}%': 7.0,
@@ -184,11 +195,9 @@ def rate(level, results, options={}, lang=tr.en()):
 	# Replaces weights with options
 	weights = {**weights, **options}
 
-	for result in results:
-		stat, value = result
-		key = stat if stat[:-1] not in elements else f'{lang.elem}%'
-		if main:
-			main = False
+	for key in stats:
+		value = stats[key]
+		if key == main:
 			max_main = max_mains[key] - (max_mains[key] - min_mains[key]) * (1 - level / 20.0)
 			value = validate(value, max_main, '%' in key)
 			main_score = value / max_main * weights[key] * main_weight
@@ -208,7 +217,7 @@ def rate(level, results, options={}, lang=tr.en()):
 		else:
 			value = validate(value, max_subs[key] * 6, '%' in key)
 			sub_score += value / max_subs[key] * weights[key]
-		result[1] = value
+		stats[key] = value
 
 	score = (main_score + sub_score) / (main_weight + sub_weight) * 100 if main_weight + sub_weight > 0 else 100
 	main_score = main_score / main_weight * 100 if main_weight > 0 else 100
