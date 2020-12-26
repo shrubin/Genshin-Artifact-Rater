@@ -7,6 +7,7 @@ import os
 import sys
 import traceback
 import validators
+import math
 
 from discord.ext import commands, tasks
 from dotenv import load_dotenv
@@ -46,7 +47,7 @@ def get_lang(ctx):
 		lang = db.get_lang(ctx.message.author.id, guild_id)
 		if lang:
 			return tr.languages[lang]
-	return tr.en
+	return tr.en()
 
 def get_presets(ctx):
 	if DATABASE_URL:
@@ -261,15 +262,8 @@ def create_opt_to_key(lang):
 			'phys': f'{lang.phys}%', 'cr': f'{lang.cr}%', 'cd': f'{lang.cd}%', 'elem': f'{lang.elem}%',
 			'hp%': f'{lang.hp}%', 'def%': f'{lang.df}%', 'heal': f'{lang.heal}%', 'def': lang.df, 'lvl': lang.lvl}
 
-@bot.command()
-@commands.cooldown(RATE_LIMIT_N, RATE_LIMIT_TIME, commands.BucketType.user)
-async def rate(ctx):
-	global calls, crashes
 
-	if DEVELOPMENT and not (ctx.channel and ctx.channel.id == DEV_CHANNEL_ID):
-		return
-
-	lang = get_lang(ctx)
+async def parse_url(ctx, lang):
 	presets = get_presets(ctx) or []
 	presets = {preset.name: preset.command for preset in presets}
 
@@ -300,6 +294,10 @@ async def rate(ctx):
 		await send(ctx, msg=lang.err_not_found)
 		return
 
+	return url, options
+
+
+async def parse_options(ctx, options):
 	opt_to_key = create_opt_to_key(lang)
 	try:
 		options = {opt_to_key[option.split('=')[0].lower()] : float(option.split('=')[1]) for option in options}
@@ -307,12 +305,16 @@ async def rate(ctx):
 		print(f'Error: Could not parse "{ctx.message.content}"')
 		await send(ctx, msg=lang.err_parse)
 		return
+	return options
+
+
+async def image_to_text(ctx, url):
+	global crashes
 
 	print(url)
 	for i in range(RETRIES + 1):
 		try:
-			calls += 1
-			suc, text = await ra.ocr(url, i+1, lang)
+			suc, text = await ra.ocr(url, i + 1, lang)
 
 			if not suc:
 				if 'Timed out' in text:
@@ -325,14 +327,62 @@ async def rate(ctx):
 				if crashes >= MAX_CRASHES and HEROKU_API_KEY and HEROKU_APP_ID:
 					print(f'Crashed {MAX_CRASHES} times, restarting')
 					app.restart()
-				return
+				return suc, None
+			else:
+				return suc, text
 
-			level, results = ra.parse(text, lang)
-			if lang.lvl in options:
-				level = int(options[lang.lvl])
-			elif level == None:
-				level = 20
-			score, main_score, main_weight, sub_score, sub_weight = ra.rate(level, results, options, lang)
+		except Exception:
+			print(f'Uncaught exception\n{traceback.format_exc()}')
+			if i < RETRIES:
+				continue
+			await send(ctx, msg=lang.err_unknown)
+			if ERR_CHANNEL_ID:
+				channel = bot.get_channel(ERR_CHANNEL_ID)
+				await channel.send(f'Uncaught exception in {ctx.guild} #{ctx.channel}\n{ctx.message.content}\n{url}\n{traceback.format_exc()}')
+			crashes += 1
+			if crashes >= MAX_CRASHES and HEROKU_API_KEY and HEROKU_APP_ID:
+				print(f'Crashed {MAX_CRASHES} times, restarting')
+				app.restart()
+			return False, None
+
+
+async def parse_level(ctx, url, suc, text, options):
+	global crashes
+
+	for i in range(RETRIES + 1):
+		try:
+			if not suc:
+				return
+			else:
+				level, results = ra.parse(text, lang)
+				if lang.lvl in options:
+					level = int(options[lang.lvl])
+				elif level == None:
+					level = 20
+				return level, results
+
+		except Exception:
+			print(f'Uncaught exception\n{traceback.format_exc()}')
+			if i < RETRIES:
+				continue
+			await send(ctx, msg=lang.err_unknown)
+			if ERR_CHANNEL_ID:
+				channel = bot.get_channel(ERR_CHANNEL_ID)
+				await channel.send(f'Uncaught exception in {ctx.guild} #{ctx.channel}\n{ctx.message.content}\n{url}\n{traceback.format_exc()}')
+			crashes += 1
+			if crashes >= MAX_CRASHES and HEROKU_API_KEY and HEROKU_APP_ID:
+				print(f'Crashed {MAX_CRASHES} times, restarting')
+				app.restart()
+			return
+
+
+async def rate_helper(ctx, lang, url, options, level, stats, main):
+	global calls, crashes
+
+	for i in range(RETRIES + 1):
+		try:
+			calls += 1
+			score, main_score, main_weight, sub_score, sub_weight = ra.rate(level, stats, main, options, lang)
 			crashes = 0
 			break
 
@@ -349,23 +399,126 @@ async def rate(ctx):
 				print(f'Crashed {MAX_CRASHES} times, restarting')
 				app.restart()
 			return
+	return score, main_weight, sub_weight, main_score, sub_score
 
-	if score <= 50:
-		color = discord.Color.blue()
-	elif score > 50 and score <= 75:
-		color = discord.Color.purple()
-	else:
-		color = discord.Color.orange()
 
-	msg = f'\n\n**{results[0][0]}: {results[0][1]}**'
-	for result in results[1:]:
-		msg += f'\n{result[0]}: {result[1]}'
-	msg += f'\n\n**{lang.score}: {int(score * (main_weight + sub_weight))} ({score:.2f}%)**'
-	msg += f'\n{lang.main_score}: {int(main_score * main_weight)} ({main_score:.2f}%)'
-	msg += f'\n{lang.sub_score}: {int(sub_score * sub_weight)} ({sub_score:.2f}%)'
-	msg += f'\n\n{lang.join}'
+@bot.command()
+@commands.cooldown(RATE_LIMIT_N, RATE_LIMIT_TIME, commands.BucketType.user)
+async def rate(ctx):
+	if DEVELOPMENT and not (ctx.channel and ctx.channel.id == DEV_CHANNEL_ID):
+		return
 
-	embed = discord.Embed(color=color)
+	lang = get_lang(ctx)
+
+	try:
+		url, options = await parse_url(ctx, lang)
+		options = await parse_options(ctx, options)
+		suc, text = await image_to_text(ctx, url)
+		level, results = await parse_level(ctx, url, suc, text, options)
+		stats, main = ra.convert_results_to_stats(results, lang)
+		score, main_weight, sub_weight, main_score, sub_score = await rate_helper(ctx, lang, url, options, level, stats, main)
+		if score <= 50:
+			color = discord.Color.blue()
+		elif score > 50 and score <= 75:
+			color = discord.Color.purple()
+		else:
+			color = discord.Color.orange()
+
+		msg = f'\n\n**{results[0][0]}: {results[0][1]}**'
+		for result in results[1:]:
+			msg += f'\n{result[0]}: {result[1]}'
+		msg += f'\n\n**{lang.score}: {int(score * (main_weight + sub_weight))} ({score:.2f}%)**'
+		msg += f'\n{lang.main_score}: {int(main_score * main_weight)} ({main_score:.2f}%)'
+		msg += f'\n{lang.sub_score}: {int(sub_score * sub_weight)} ({sub_score:.2f}%)'
+		msg += f'\n\n{lang.join}'
+
+		embed = discord.Embed(color=color)
+		embed.set_author(name=ctx.message.author.display_name, icon_url=ctx.message.author.avatar_url)
+		embed.add_field(name=f'{lang.art_level}: {level}', value=msg)
+	except Exception as e:
+		print(e)
+		return
+
+	await send(ctx, embed=embed)
+	if not DEVELOPMENT and ERR_CHANNEL_ID:
+		channel = bot.get_channel(ERR_CHANNEL_ID)
+		await channel.send(embed=embed)
+
+@bot.command()
+@commands.cooldown(RATE_LIMIT_N, RATE_LIMIT_TIME, commands.BucketType.user)
+async def potential(ctx):
+	if DEVELOPMENT and not (ctx.channel and ctx.channel.id == DEV_CHANNEL_ID):
+		return
+
+	lang = get_lang(ctx)
+
+	url, options = await parse_url(ctx, lang)
+	options = await parse_options(ctx, options)
+	suc, text = await image_to_text(ctx, url)
+	level, results = await parse_level(ctx, url, suc, text, options)
+	stats, main = ra.convert_results_to_stats(results, lang)
+	del stats[main]
+
+	lvl_remaining = 20 - level
+	if lvl_remaining == 0:
+		await ctx.channel.send("Artifact already at level 20!")
+		return
+
+	weights = {lang.hp: 0, lang.atk: 0.5, f'{lang.atk}%': 1, f'{lang.er}%': 0.5, lang.em: 0.5,
+			   f'{lang.phys}%': 1, f'{lang.cr}%': 1, f'{lang.cd}%': 1, f'{lang.elem}%': 1,
+			   f'{lang.hp}%': 0, f'{lang.df}%': 0, lang.df: 0, f'{lang.heal}%': 0}
+	max_subs = {lang.atk: 19.0, lang.em: 23.0, f'{lang.er}%': 6.5, f'{lang.atk}%': 5.8,
+				f'{lang.cr}%': 3.9, f'{lang.cd}%': 7.8, lang.df: 23.0, lang.hp: 299.0, f'{lang.df}%': 7.3, f'{lang.hp}%': 5.8}
+	worst_stat_ratio = [f'{lang.er}%', lang.hp, f'{lang.df}%', f'{lang.cr}%', f'{lang.cd}%', lang.df, lang.em, f'{lang.hp}%', f'{lang.atk}%', lang.atk]
+
+	# Replaces weights with options
+	weights = {**weights, **options}
+
+	num_upgrades_remaining = math.ceil(lvl_remaining/4)
+	try:
+		if len(results) <= 4:
+			selection = max_subs.copy()
+			for stat in stats:
+				del selection[stat]
+			max_sub = await find_highest_weighted_stat_from_selection(selection, weights, worst_stat_ratio)
+			min_sub = await find_lowest_weighted_stat_from_selection(selection, weights, worst_stat_ratio)
+			good_stats = dict(stats.copy(), **{max_sub: 0})
+			bad_stats = dict(stats.copy(), **{min_sub: 0})
+			max_sub = await find_highest_weighted_stat_from_selection(good_stats, weights, worst_stat_ratio)
+			min_sub = await find_lowest_weighted_stat_from_selection(bad_stats, weights, worst_stat_ratio)
+		else:
+			selection = stats
+			max_sub = await find_highest_weighted_stat_from_selection(selection, weights, worst_stat_ratio)
+			min_sub = await find_lowest_weighted_stat_from_selection(selection, weights, worst_stat_ratio)
+			good_stats = stats
+			bad_stats = stats
+
+		best_stats, worst_stats, main_stat = await calculate_potential_stats(max_sub, min_sub, num_upgrades_remaining, good_stats, bad_stats, main)
+
+		max_score, main_weight, sub_weight, main_score, sub_score = await rate_helper(ctx, lang, url, options, 20, dict(best_stats, **{main: main_stat[main]}), main)
+		msg = f'**Best Potential Stats**\n**{main}: {main_stat[main]}**'
+		for k, v in best_stats.items():
+			msg += f'\n{k}: {v}'
+		msg += f'\n\n**{lang.score}: {int(max_score * (main_weight + sub_weight))} ({max_score:.2f}%)**'
+		msg += f'\n{lang.main_score}: {int(main_score * main_weight)} ({main_score:.2f}%)'
+		msg += f'\n{lang.sub_score}: {int(sub_score * sub_weight)} ({sub_score:.2f}%)\n\n'
+
+		min_score, main_weight, sub_weight, main_score, sub_score = await rate_helper(ctx, lang, url, options, 20, dict(worst_stats, **{main: main_stat[main]}), main)
+		msg += f'**Worst Potential Stats**\n**{main}: {main_stat[main]}**'
+		for k, v in worst_stats.items():
+			msg += f'\n{k}: {v}'
+		msg += f'\n\n**{lang.score}: {int(min_score * (main_weight + sub_weight))} ({min_score:.2f}%)**'
+		msg += f'\n{lang.main_score}: {int(main_score * main_weight)} ({main_score:.2f}%)'
+		msg += f'\n{lang.sub_score}: {int(sub_score * sub_weight)} ({sub_score:.2f}%)'
+		msg += f'\n\n{lang.join}'
+
+	except Exception as e:
+		exc_type, exc_obj, exc_tb = sys.exc_info()
+		fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+		print(exc_type, fname, exc_tb.tb_lineno)
+		return
+
+	embed = discord.Embed(color=discord.Color.dark_green())
 	embed.set_author(name=ctx.message.author.display_name, icon_url=ctx.message.author.avatar_url)
 	embed.add_field(name=f'{lang.art_level}: {level}', value=msg)
 
@@ -373,6 +526,54 @@ async def rate(ctx):
 	if not DEVELOPMENT and ERR_CHANNEL_ID:
 		channel = bot.get_channel(ERR_CHANNEL_ID)
 		await channel.send(embed=embed)
+
+
+async def find_highest_weighted_stat_from_selection(selection: dict, weights: dict, ratio: list):
+	ratio_ = ratio.copy()
+	ratio_.reverse()
+	stats = selection.copy()
+	max_weighted_stat = stats.popitem()[0]
+
+	for key in stats:
+		if weights[key] > weights[max_weighted_stat]:
+			max_weighted_stat = key
+		elif weights[key] == weights[max_weighted_stat] and ratio_.index(key) > ratio_.index(max_weighted_stat):
+			max_weighted_stat = key
+	return max_weighted_stat
+
+
+async def find_lowest_weighted_stat_from_selection(selection: dict, weights: dict, ratio: list):
+	stats = selection.copy()
+	min_weighted_stat = stats.popitem()[0]
+
+	for key in stats:
+		if weights[key] < weights[min_weighted_stat]:
+			min_weighted_stat = key
+		elif weights[key] == weights[min_weighted_stat] and ratio.index(key) < ratio.index(min_weighted_stat):
+			min_weighted_stat = key
+	return min_weighted_stat
+
+
+async def calculate_potential_stats(max_weighted_stat, min_weighted_stat, num_upgrades_remaining, good_stats, bad_stats, main):
+	tier4_sub = {lang.hp: 299, lang.atk: 19, f'{lang.atk}%': 5.8, f'{lang.er}%': 6.5, lang.em: 23,
+			   f'{lang.phys}%': 0, f'{lang.cr}%': 3.9, f'{lang.cd}%': 7.8, f'{lang.elem}%': 0,
+			   f'{lang.hp}%': 5.8, f'{lang.df}%': 7.3, lang.df: 23, f'{lang.heal}%': 0}
+	tier1_sub = {lang.hp: 167, lang.atk: 11, f'{lang.atk}%': 3.3, f'{lang.er}%': 3.6, lang.em: 13,
+			   f'{lang.phys}%': 0, f'{lang.cr}%': 2.2, f'{lang.cd}%': 4.4, f'{lang.elem}%': 0,
+			   f'{lang.hp}%': 3.3, f'{lang.df}%': 4.1, lang.df: 13, f'{lang.heal}%': 0}
+	max_mains = {lang.hp: 4780, lang.atk: 311.0, f'{lang.atk}%': 46.6, f'{lang.er}%': 51.8, lang.em: 187.0,
+				 f'{lang.phys}%': 58.3, f'{lang.cr}%': 31.1, f'{lang.cd}%': 62.2, f'{lang.elem}%': 46.6,
+				 f'{lang.hp}%': 46.6, f'{lang.df}%': 58.3, f'{lang.heal}%': 35.9}
+
+	main_value = max_mains[main]
+
+	best_sub_amt = round(good_stats[max_weighted_stat] + (tier4_sub[max_weighted_stat] * num_upgrades_remaining), 1)
+	worst_sub_amt = round(bad_stats[min_weighted_stat] + (tier1_sub[min_weighted_stat] * num_upgrades_remaining), 1)
+
+	max_stats = dict(good_stats, **{max_weighted_stat: best_sub_amt})
+	min_stats = dict(bad_stats, **{min_weighted_stat: worst_sub_amt})
+	return max_stats, min_stats, {main: main_value}
+
 
 @bot.command()
 @commands.cooldown(RATE_LIMIT_N, RATE_LIMIT_TIME, commands.BucketType.user)
@@ -419,8 +620,11 @@ if __name__ == '__main__':
 	def interrupt():
 		raise KeyboardInterrupt
 
-	loop.add_signal_handler(SIGINT, interrupt)
-	loop.add_signal_handler(SIGTERM, interrupt)
+	try:
+		loop.add_signal_handler(SIGINT, interrupt)
+		loop.add_signal_handler(SIGTERM, interrupt)
+	except NotImplementedError:
+		pass
 
 	try:
 		loop.run_until_complete(bot.start(TOKEN))
