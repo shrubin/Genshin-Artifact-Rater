@@ -300,7 +300,7 @@ async def parse_url(ctx, lang):
 	return url, options
 
 
-async def parse_options(ctx, options):
+async def parse_options(ctx, options, lang):
 	opt_to_key = create_opt_to_key(lang)
 	try:
 		options = {opt_to_key[option.split('=')[0].lower()] : float(option.split('=')[1]) for option in options}
@@ -311,7 +311,7 @@ async def parse_options(ctx, options):
 	return options
 
 
-async def image_to_text(ctx, url):
+async def image_to_text(ctx, url, lang):
 	global crashes
 
 	print(url)
@@ -349,7 +349,7 @@ async def image_to_text(ctx, url):
 			return False, None
 
 
-async def parse_level(ctx, url, suc, text, options):
+async def parse_level(ctx, url, suc, text, options, lang):
 	global crashes
 
 	for i in range(RETRIES + 1):
@@ -415,9 +415,9 @@ async def rate(ctx):
 
 	try:
 		url, options = await parse_url(ctx, lang)
-		options = await parse_options(ctx, options)
-		suc, text = await image_to_text(ctx, url)
-		level, results = await parse_level(ctx, url, suc, text, options)
+		options = await parse_options(ctx, options, lang)
+		suc, text = await image_to_text(ctx, url, lang)
+		level, results = await parse_level(ctx, url, suc, text, options, lang)
 		stats, main = ra.convert_results_to_stats(results, lang)
 		score, main_weight, sub_weight, main_score, sub_score = await rate_helper(ctx, lang, url, options, level, stats, main)
 		if score <= 50:
@@ -456,9 +456,9 @@ async def potential(ctx):
 	lang = get_lang(ctx)
 
 	url, options = await parse_url(ctx, lang)
-	options = await parse_options(ctx, options)
-	suc, text = await image_to_text(ctx, url)
-	level, results = await parse_level(ctx, url, suc, text, options)
+	options = await parse_options(ctx, options, lang)
+	suc, text = await image_to_text(ctx, url, lang)
+	level, results = await parse_level(ctx, url, suc, text, options, lang)
 	stats, main = ra.convert_results_to_stats(results, lang)
 	del stats[main]
 
@@ -487,6 +487,8 @@ async def potential(ctx):
 			min_sub = await find_lowest_weighted_stat_from_selection(selection, weights, worst_stat_ratio)
 			good_stats = dict(stats.copy(), **{max_sub: 0})
 			bad_stats = dict(stats.copy(), **{min_sub: 0})
+			good_stats, bad_stats, m = await calculate_potential_stats(max_sub, min_sub, 1, good_stats, bad_stats, main, lang)
+			num_upgrades_remaining -= 1
 			max_sub = await find_highest_weighted_stat_from_selection(good_stats, weights, worst_stat_ratio)
 			min_sub = await find_lowest_weighted_stat_from_selection(bad_stats, weights, worst_stat_ratio)
 		else:
@@ -496,7 +498,7 @@ async def potential(ctx):
 			good_stats = stats
 			bad_stats = stats
 
-		best_stats, worst_stats, main_stat = await calculate_potential_stats(max_sub, min_sub, num_upgrades_remaining, good_stats, bad_stats, main)
+		best_stats, worst_stats, main_stat = await calculate_potential_stats(max_sub, min_sub, num_upgrades_remaining, good_stats, bad_stats, main, lang)
 
 		max_score, main_weight, sub_weight, main_score, sub_score = await rate_helper(ctx, lang, url, options, 20, dict(best_stats, **{main: main_stat[main]}), main)
 		msg = f'**Best Potential Stats**\n**{main}: {main_stat[main]}**'
@@ -579,7 +581,7 @@ async def find_lowest_weighted_stat_from_selection(selection: dict, weights: dic
 # max_stats: Dictionary[stat, value] that would yield the highest score
 # min_stats: Dictionary[stat, value] that would yield the lowest score
 # main_stats: Dictionary[main stat, main stat value]
-async def calculate_potential_stats(max_weighted_stat, min_weighted_stat, num_upgrades_remaining, good_stats, bad_stats, main):
+async def calculate_potential_stats(max_weighted_stat, min_weighted_stat, num_upgrades_remaining, good_stats, bad_stats, main, lang):
 	tier4_sub = {lang.hp: 299, lang.atk: 19, f'{lang.atk}%': 5.8, f'{lang.er}%': 6.5, lang.em: 23,
 			   f'{lang.phys}%': 0, f'{lang.cr}%': 3.9, f'{lang.cd}%': 7.8, f'{lang.elem}%': 0,
 			   f'{lang.hp}%': 5.8, f'{lang.df}%': 7.3, lang.df: 23, f'{lang.heal}%': 0}
