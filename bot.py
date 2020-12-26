@@ -528,6 +528,13 @@ async def potential(ctx):
 		await channel.send(embed=embed)
 
 
+# Get one type of stat with the highest weighting from a selection of dictionary[stat, value]
+# PARAMETERS:
+# selection: Dictionary[stat, value] to find highest weighted stat from
+# weights: Dictionary[stat, value] weighting to use
+# ratio: List[stat] list of stats sorted from lowest score ratio to highest score ratio
+# RETURN
+# max_weighted_stat: stat from selection with highest weight
 async def find_highest_weighted_stat_from_selection(selection: dict, weights: dict, ratio: list):
 	ratio_ = ratio.copy()
 	ratio_.reverse()
@@ -542,6 +549,13 @@ async def find_highest_weighted_stat_from_selection(selection: dict, weights: di
 	return max_weighted_stat
 
 
+# Get one type of stat with the lowest weighting from a selection of dictionary[stat, value]
+# PARAMETERS:
+# selection: Dictionary[stat, value] to find lowest weighted stat from
+# weights: Dictionary[Stat, value] weighting to use
+# ratio: List[stat] list of stats sorted from lowest score ratio to highest score ratio
+# RETURN:
+# min_weighted_stat: stat from selection with lowest weight
 async def find_lowest_weighted_stat_from_selection(selection: dict, weights: dict, ratio: list):
 	stats = selection.copy()
 	min_weighted_stat = stats.popitem()[0]
@@ -554,6 +568,17 @@ async def find_lowest_weighted_stat_from_selection(selection: dict, weights: dic
 	return min_weighted_stat
 
 
+# PARAMETERS:
+# max_weighted_stat: stat on artifact with highest weighting
+# min_weighted_stat: stat on artifact with lowest weighting
+# num_upgrades_reminaing: number of stat upgrades from current level to lvl 20
+# good_stats: Dictionary[stat, value] of potential good stats artifact has
+# bad_stats: Dictionary[stat, value] of potential bad stats artifact has
+# main: main stat type
+# RETURN:
+# max_stats: Dictionary[stat, value] that would yield the highest score
+# min_stats: Dictionary[stat, value] that would yield the lowest score
+# main_stats: Dictionary[main stat, main stat value]
 async def calculate_potential_stats(max_weighted_stat, min_weighted_stat, num_upgrades_remaining, good_stats, bad_stats, main):
 	tier4_sub = {lang.hp: 299, lang.atk: 19, f'{lang.atk}%': 5.8, f'{lang.er}%': 6.5, lang.em: 23,
 			   f'{lang.phys}%': 0, f'{lang.cr}%': 3.9, f'{lang.cd}%': 7.8, f'{lang.elem}%': 0,
