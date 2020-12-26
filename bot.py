@@ -536,15 +536,13 @@ async def potential(ctx):
 # RETURN
 # max_weighted_stat: stat from selection with highest weight
 async def find_highest_weighted_stat_from_selection(selection: dict, weights: dict, ratio: list):
-	ratio_ = ratio.copy()
-	ratio_.reverse()
 	stats = selection.copy()
 	max_weighted_stat = stats.popitem()[0]
 
 	for key in stats:
 		if weights[key] > weights[max_weighted_stat]:
 			max_weighted_stat = key
-		elif weights[key] == weights[max_weighted_stat] and ratio_.index(key) > ratio_.index(max_weighted_stat):
+		elif weights[key] == weights[max_weighted_stat] and ratio.index(key) > ratio.index(max_weighted_stat):
 			max_weighted_stat = key
 	return max_weighted_stat
 
