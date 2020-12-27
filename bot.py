@@ -39,6 +39,8 @@ SHARDS = 10
 
 calls = 0
 crashes = 0
+started = False
+running = False
 
 def get_lang(ctx):
 	if DATABASE_URL:
@@ -83,19 +85,29 @@ async def send_internal(msg, channel_id=CHANNEL_ID):
 
 @bot.event
 async def on_ready():
-	await send_internal(f'{bot.user.name} has connected to {len(bot.guilds)} servers')
-	count.start()
+	global started, running
+	if not running:
+		await send_internal(f'{bot.user.name} has connected to {len(bot.guilds)} servers')
+		running = True
+	if not started:
+		count.start()
+		started = True
 
 @bot.event
 async def on_resumed():
-	await send_internal(f'{bot.user.name} reconnected')
+	global running
+	if not running:
+		await send_internal(f'{bot.user.name} reconnected')
+		running = True
 
 @bot.event
 async def on_disconnect():
-	try:
-		await send_internal(f'{bot.user.name} disconnected')
-	except:
-		pass
+	global running
+	if running:
+		try:
+			await send_internal(f'{bot.user.name} disconnected')
+		finally:
+			running = False
 
 @bot.event
 async def on_error(event, *args, **kwargs):
