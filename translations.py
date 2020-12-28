@@ -391,7 +391,7 @@ class de(translation):
 		self.phys = 'Physischer SCH-Bonus'
 		self.elem = 'Elementarer Schaden'
 		self.anemo = 'Anemo SCH-Bonus'
-		self.elec = 'Elek SCH-Bonus'
+		self.elec = 'Elektro SCH-Bonus'
 		self.pyro = 'Pyro SCH-Bonus'
 		self.hydro = 'Hydro SCH-Bonus'
 		self.cryo = 'Cryo SCH-Bonus'

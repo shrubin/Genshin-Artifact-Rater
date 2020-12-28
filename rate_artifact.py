@@ -103,7 +103,7 @@ def parse(text, lang=tr.en()):
 			stat = None
 			continue
 
-		extract = process.extractOne(line, list(choices), scorer=fuzz.partial_ratio)
+		extract = process.extractOne(line, list(choices))
 		if ((extract[1] > 80) and len(line.replace(' ','')) > 1) or stat:
 			print('3', line)
 			if (extract[1] > 80):
@@ -220,8 +220,8 @@ def rate(level, results, options={}, lang=tr.en()):
 if __name__ == '__main__':
 	if sys.version_info[0] == 3 and sys.version_info[1] >= 8 and sys.platform.startswith('win'):
 		asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-	url = 'https://cdn.discordapp.com/attachments/774366322788007996/790771087293546526/unknown.png'
-	lang = tr.ja()
+	url = 'https://cdn.discordapp.com/attachments/787751400326823946/789431731798540289/unknown.png'
+	lang = tr.de()
 	suc, text = asyncio.run(ocr(url, 2, lang))
 	print(text)
 	if suc:
