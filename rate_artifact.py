@@ -15,8 +15,8 @@ from unidecode import unidecode
 load_dotenv()
 OCR_API_KEY = os.getenv('OCR_SPACE_API_KEY')
 
-reg = re.compile(r'\d+(?:\.\d+)?')
-hp_reg = re.compile(r'\d,\d{3}')
+reg = re.compile(r'\d+(?:[.,]\d+)?')
+hp_reg = re.compile(r'\d[.,]\d{3}')
 lvl_reg = re.compile(r'^\+\d\d?$')
 bad_lvl_reg_1 = re.compile(r'^\+?\d\d?$')
 bad_lvl_reg_2 = re.compile(r'^\d{4}\d*$')
@@ -92,24 +92,26 @@ def parse(text, lang=tr.en()):
 		if value:
 			if level == None or (len(results) == 1 and not stat):
 				print('1', line)
-				level = int(value[0].replace('+', ''))
+				level = int(value[0].replace('+',''))
 			continue
 
 		value = hp_reg.search(line.replace(' ',''))
 		if value:
 			print('2', line)
-			value = int(value[0].replace(',', ''))
+			value = int(value[0].replace(',','').replace('.',''))
 			results += [[lang.hp, value]]
 			stat = None
 			continue
 
 		extract = process.extractOne(line, list(choices))
+		if extract[1] <= 80:
+			extract = process.extractOne(line, list(choices), scorer=fuzz.partial_ratio)
+
 		if ((extract[1] > 80) and len(line.replace(' ','')) > 1) or stat:
 			print('3', line)
 			if (extract[1] > 80):
 				stat = choices[extract[0]]
-			line = line.replace(',','')
-			value = reg.findall(line.replace(' ',''))
+			value = reg.findall(line.replace(' ','').replace(',','.'))
 			if not value:
 				if not prev:
 					continue
@@ -220,7 +222,7 @@ def rate(level, results, options={}, lang=tr.en()):
 if __name__ == '__main__':
 	if sys.version_info[0] == 3 and sys.version_info[1] >= 8 and sys.platform.startswith('win'):
 		asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-	url = 'https://cdn.discordapp.com/attachments/787751400326823946/789431731798540289/unknown.png'
+	url = 'https://cdn.discordapp.com/attachments/790417874409750549/793035090035867678/unknown.png'
 	lang = tr.de()
 	suc, text = asyncio.run(ocr(url, 2, lang))
 	print(text)
