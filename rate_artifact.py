@@ -90,7 +90,7 @@ def parse(text, lang=tr.en()):
 
 		value = lvl_reg.search(line.replace(' ',''))
 		if value:
-			if level == None:
+			if level == None or (len(results) == 1 and not stat):
 				print('1', line)
 				level = int(value[0].replace('+', ''))
 			continue
