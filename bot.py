@@ -294,6 +294,7 @@ async def rate(ctx):
 
 	msg = ctx.message.content.split()[1:]
 	options = []
+	preset = None
 	for word in msg:
 		if not url and validators.url(word):
 			url = word
@@ -303,7 +304,7 @@ async def rate(ctx):
 				else:
 					url += '.png'
 		elif word in presets:
-			options += presets[word].split()
+			preset = word
 		elif '=' in word:
 			options.append(word)
 		else:
@@ -314,6 +315,9 @@ async def rate(ctx):
 	if not url:
 		await send(ctx, msg=lang.err_not_found)
 		return
+
+	if preset:
+		options = presets[preset].split() + options
 
 	opt_to_key = create_opt_to_key(lang)
 	try:
