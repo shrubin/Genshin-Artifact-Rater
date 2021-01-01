@@ -16,6 +16,7 @@ load_dotenv()
 OCR_API_KEY = os.getenv('OCR_SPACE_API_KEY')
 
 reg = re.compile(r'\d+(?:[.,]\d+)?')
+bad_reg = re.compile(r'\d+/1000$')
 hp_reg = re.compile(r'\d[.,]\d{3}')
 lvl_reg = re.compile(r'^\+\d\d?$')
 bad_lvl_reg_1 = re.compile(r'^\+?\d\d?$')
@@ -83,7 +84,7 @@ def parse(text, lang=tr.en()):
 			line = line.replace(k,v)
 		line = unidecode(line).lower()
 		line = line.replace(':','.').replace('-','').replace('0/0','%')
-		if line.replace(' ','') in lang.ignore:
+		if line.replace(' ','') in lang.ignore or bad_reg.search(line.replace(' ','')):
 			continue
 		if  fuzz.partial_ratio(line, unidecode(lang.piece_set).lower()) > 80 and len(line) > 4:
 			break
@@ -222,8 +223,8 @@ def rate(level, results, options={}, lang=tr.en()):
 if __name__ == '__main__':
 	if sys.version_info[0] == 3 and sys.version_info[1] >= 8 and sys.platform.startswith('win'):
 		asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-	url = 'https://cdn.discordapp.com/attachments/790417874409750549/793035090035867678/unknown.png'
-	lang = tr.de()
+	url = 'https://cdn.discordapp.com/attachments/787747793228922910/794556364059705374/image0.png'
+	lang = tr.vi()
 	suc, text = asyncio.run(ocr(url, 2, lang))
 	print(text)
 	if suc:
