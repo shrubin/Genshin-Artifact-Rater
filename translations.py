@@ -1795,7 +1795,7 @@ class kor(translation):
 		self.art_level = '성유물 레벨'
 		self.join = f'이슈가 있다면, 성유물 평가기 서버에 참여해주세요. ({self.SERVER_URL})'
 		self.feedback = f'피드백이 있다면, 디스코드 서버 {self.SERVER_URL} 에 가입하여 도움을 주세요.'
-		self.deprecated = '사용되지 않음, `-user lang <idioma>` 를 입력해서 언어를 설정해주세요.'
+		self.deprecated = '사용되지 않음, `-user lang <언어>` 를 입력해서 언어를 설정해주세요.'
 		self.set_lang = '언어가 한국어로 설정되었습니다.'
 		self.set_prefix = '명령어 접두사가 %s 로 설정되었습니다.'
 		self.del_preset = '프리셋 %s 삭제되었습니다.'
@@ -1822,9 +1822,9 @@ class kor(translation):
 				사용자가 직접 지정하거나 사전 설정을 선택하지 않는 한 봇은 기본 가중치를 사용합니다(아래 참고). 성유물을 비교할 수준을 지정할 수도 있습니다.
 
 				**기본 가중치**
-				ATK%, DMG%, Crit - 1
-				ATK, EM, Recharge ? 0.5
-				Everything else - 0
+				공격력%, 데미지%, 치명타 - 1
+				공격력, 원소마스터리, 원소충전효율 ? 0.5
+				나머지 - 0
 
 				**매개 변수**
 				`이미지/url`
@@ -1840,14 +1840,14 @@ class kor(translation):
 				성유물을 평가하는데 사용할 가중치입니다. 각 가중치는 `<스탯>=<값>` 형태이며, 여기서 값은 0 에서 1 사이의 숫자입니다.
 				{self.help_stats}
 
-				**Ejemplos**
+				**예시**
 				`-rate <이미지> atk%=0 hp=1 er=0.5`
 				`-rate <url> support lvl=4`
 				'''
 			],
 
 			'feedback': [
-				'-feedback <메시지> [임지ㅣ]',
+				'-feedback <메시지> [이미지]',
 				'최대 하나의 이미지로 피드백을 보냅니다. 이를 통해 아이디어를 보내거나 오류를 보고해서 봇을 개선하도록 도와주세요.'
 			],
 
@@ -1936,6 +1936,6 @@ class kor(translation):
 		self.discord = f'[Link]({self.BOT_URL})'
 		self.server = f'[Discord]({self.SERVER_URL})'
 
-		self.help_footer = '언어를 변경하려면 아래 반응'
+		self.help_footer = '언어를 변경하려면 아래에 있는 해당 국기를 클릭해주세요.'
 
 languages = {lang.id: lang for lang in [en(), es(), de(), fr(), vi(), pt(), ja(), pl(), ru(), tw(), cn(), it(), idn(), kor()]}
