@@ -1766,7 +1766,7 @@ class kor(translation):
 		self.id = 'kr'
 		self.code = 'kor'
 		self.flags = ['🇰🇷']
-		self.supported = True
+		self.supported = False
 
 		self.hp = 'HP'
 		self.heal = '치유 보너스'
