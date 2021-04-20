@@ -70,7 +70,7 @@ def prefix(bot, message):
 			return prefix
 	return '-'
 
-bot = commands.AutoShardedBot(command_prefix=prefix, activity=discord.Game(name='-help'), help_command=None)
+bot = commands.AutoShardedBot(command_prefix=prefix, max_messages=None, activity=discord.Game(name='-help'), help_command=None)
 
 async def send_internal(msg, channel_id=CHANNEL_ID):
 	print(msg)
