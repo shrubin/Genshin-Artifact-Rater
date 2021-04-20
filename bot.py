@@ -22,6 +22,7 @@ DEVELOPMENT = os.getenv('DEVELOPMENT', 'False') == 'True'
 HEROKU_API_KEY = os.getenv('HEROKU_API_KEY')
 HEROKU_APP_ID = os.getenv('HEROKU_APP_ID')
 DATABASE_URL = os.getenv('DATABASE_URL')
+SHARDS = int(os.getenv('SHARDS', 10))
 
 if HEROKU_API_KEY and HEROKU_APP_ID:
 	import heroku3
@@ -35,7 +36,6 @@ RETRIES = 1
 MAX_CRASHES = 10
 RATE_LIMIT_N = 5
 RATE_LIMIT_TIME = 10
-SHARDS = 5
 
 calls = 0
 crashes = 0
