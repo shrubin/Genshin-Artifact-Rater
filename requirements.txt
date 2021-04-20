@@ -1,5 +1,5 @@
 aiohttp==3.6.3
-discord.py==1.5.1
+discord.py==1.7.1
 fuzzywuzzy==0.18.0
 heroku3==4.2.3
 numpy==1.19.4
