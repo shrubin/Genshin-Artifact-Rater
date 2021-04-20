@@ -35,7 +35,6 @@ RETRIES = 1
 MAX_CRASHES = 10
 RATE_LIMIT_N = 5
 RATE_LIMIT_TIME = 10
-SHARDS = 10
 
 calls = 0
 crashes = 0
@@ -71,7 +70,7 @@ def prefix(bot, message):
 			return prefix
 	return '-'
 
-bot = commands.AutoShardedBot(command_prefix=prefix, shard_count=SHARDS, max_messages=None, activity=discord.Game(name='-help'), help_command=None)
+bot = commands.AutoShardedBot(command_prefix=prefix, activity=discord.Game(name='-help'), help_command=None)
 
 async def send_internal(msg, channel_id=CHANNEL_ID):
 	print(msg)
