@@ -71,7 +71,7 @@ def prefix(bot, message):
 			return prefix
 	return '-'
 
-bot = commands.AutoShardedBot(command_prefix=prefix, shard_count=SHARDS, activity=discord.Game(name='-help'), help_command=None)
+bot = commands.AutoShardedBot(command_prefix=prefix, shard_count=SHARDS, max_messages=None, activity=discord.Game(name='-help'), help_command=None)
 
 async def send_internal(msg, channel_id=CHANNEL_ID):
 	print(msg)
@@ -448,4 +448,4 @@ if __name__ == '__main__':
 		pass
 	finally:
 		loop.run_until_complete(bot.on_termination())
-		loop.run_until_complete(bot.logout())
+		loop.run_until_complete(bot.close())
