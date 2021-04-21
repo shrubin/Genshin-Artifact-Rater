@@ -1,5 +1,5 @@
 class translation:
-	def __init__(self):
+    	def __init__(self):
 		# 2-digit language code
 		self.id = 'en'
 		# 3-digit language code
@@ -1758,4 +1758,184 @@ class idn(translation):
 
 		self.help_footer = 'Untuk mengganti bahasa, klik bendera sesuai dengan bahasa yang di inginkan'
 
-languages = {lang.id: lang for lang in [en(), es(), de(), fr(), vi(), pt(), ja(), pl(), ru(), tw(), cn(), it(), idn()]}
+# Text only, no game translation
+class kor(translation):
+	def __init__(self):
+		super().__init__()
+
+		self.id = 'kr'
+		self.code = 'kor'
+		self.flags = ['🇰🇷']
+		self.supported = False
+
+		self.hp = 'HP'
+		self.heal = '치유'
+		self.df = '방어력'
+		self.er = '원소 충전 효율'
+		self.em = '원소 마스터리'
+		self.atk = '공격력'
+		self.cd = '치명타 피해'
+		self.cr = '치명타 확률'
+		self.phys = '물리 피해'
+		self.elem = '원소 피해'
+		self.anemo = '바람 원소 피해'
+		self.elec = '번개 원소 피해'
+		self.pyro = '불 원소 피해'
+		self.hydro = '물 원소 피해'
+		self.cryo = '얼음 원소 피해'
+		self.geo = '바위 원소 피해'
+		self.dend = '풀 원소 피해'
+
+		self.piece_set = '세트'
+
+		self.lvl = '레벨'
+		self.score = '성유물 점수'
+		self.main_score = '주 옵션'
+		self.sub_score = '부 옵션'
+		self.art_level = '성유물 레벨'
+		self.join = f'이슈가 있다면, 성유물 평가기 서버에 참여해주세요. ({self.SERVER_URL})'
+		self.feedback = f'피드백이 있다면, 디스코드 서버 {self.SERVER_URL} 에 가입하여 도움을 주세요.'
+		self.deprecated = '사용되지 않음, `-user lang <언어>` 를 입력해서 언어를 설정해주세요.'
+		self.set_lang = '언어가 한국어로 설정되었습니다.'
+		self.set_prefix = '명령어 접두사가 %s 로 설정되었습니다.'
+		self.del_preset = '프리셋 %s 이(가) 삭제되었습니다.'
+		self.set_preset = '프리셋 %s 이(가) %s 로 설정되었습니다.'
+		self.no_presets = '프리셋이 발견되지 않았습니다.'
+
+		self.err = '에러'
+		self.err_not_found = '에러: 이미지 혹은 url이 발견되지 않았습니다. 메시지 안에 이미지/url이 포함되어있는지 확인해주세요.'
+		self.err_parse = '에러: 명령어를 읽을 수 없습니다. 형식이나 철자를 확인해주세요.'
+		self.err_try_again = '잠시 후 다시 시도해주세요.'
+		self.err_unknown_ocr = '에러: OCR이 알 수 없는 이유로 실패하였습니다.'
+		self.err_unknown = '알 수 없는 에러. 언어가 제대로 설정되어있는지 확인하고, 배낭의 성유물 페이지에서의 이미지를 사용해주세요.'
+		self.err_admin_only = '에러: 서버 관리자만 수행할 수 있는 동작입니다.'
+		self.err_server_only = '에러: 이 동작은 서버에 의해서만 수행될 수 있습니다.'
+
+		self.help_stats = '`스탯` 은 다음 중 하나만 될 수 있습니다: `hp`, `hp%`, `def`, `def%`, `atk`, `atk%`, `er` (원소 충전 효율), `em` (원소 마스터리), `phys` (물리 피해 보너스), `elem` (원소 피해 보너스), `cr` (치명타 확률), `cd` (치명타 피해), `heal` (치유 보너스).'
+
+		self.help_commands = {
+			'rate': [
+				'-rate <이미지/url> [프리셋] [레벨=<level>] [가중치]',
+				f'''
+				최적의 5성 성유물을 기준으로 평가합니다. 명령어와 이미지를 같은 메시지 않에 넣습니다. 최상의 결과를 위해 선명한 스크린샷으로 시도해주세요.
+				만약 윈도우 10을 사용하는 경우, Shift+윈도우+S로 성유물 상태창을 드래그한 후 디스코드에 Ctrl+V 로 붙여넣을 수 있습니다.
+				사용자가 직접 지정하거나 프리셋을 선택하지 않는 한 봇은 기본 가중치를 사용합니다(아래 참고). 비교할 성유물의 레벨을 특정할 수도 있습니다.
+
+				**기본 가중치**
+				공격력%, 데미지%, 치명타 - 1
+				공격력, 원소마스터리, 원소충전효율 ? 0.5
+				나머지 - 0
+
+				**매개 변수**
+				`이미지/url`
+				평가를 매길 이미지입니다. 파일로 첨부하거나 메시지에 URL을 첨부하면 됩니다. [예시]({self.SAMPLE_URL})
+
+				`프리셋`
+				사용할 가중치의 프리셋입니다. `-presets` 명령어로 사용 가능한 프리셋을 볼 수 있거나, `-help`로 어떻게 설정하는지 볼 수 있습니다.
+
+				`레벨`
+				비교할 성유물의 레벨(0~20)입니다. 만약 레벨 자동 탐지가 정확하지 않다면, 이것으로 레벨을 고칠 수 있습니다.
+
+				`가중치`
+				성유물을 평가하는데 사용할 가중치입니다. 각 가중치는 `<스탯>=<값>` 형태이며, 여기서 값은 0 에서 1 사이의 숫자입니다.
+				{self.help_stats}
+
+				**예시**
+				`-rate <이미지> atk%=0 hp=1 er=0.5`
+				`-rate <url> support lvl=4`
+				'''
+			],
+
+			'feedback': [
+				'-feedback <메시지> [이미지]',
+				'최대 하나의 이미지로 피드백을 보냅니다. 이를 통해 아이디어를 보내거나 오류를 보고해서 봇을 개선하도록 도와주세요.'
+			],
+
+			'sets': [
+				'-sets',
+				'''
+				사용 가능한 모든 프리셋을 봅니다. 개인용, 서버용, 기본 프리셋을 모두 포함합니다.
+				이 명령어는 프리셋의 이름, 출처, 프리셋이 가진 가중치를 포함합니다.
+				'''
+			],
+
+			'lang': [
+				'-[user/server] lang <lang>',
+				'''
+				모든 명령에 대한 언어를 2-문자 언어 코드 `lang` 으로 설정합니다.
+				성유물 평가기는 -rate 명령어를 보내면 이것으로 설정된 언어를 사용할 것입니다.
+
+				언어들: 영어 (en), 에스파냐어 (es), 독일어 (de), 프랑스어 (fr), 포르투갈어 (pt), 폴란드어 (pl), 이탈리아어 (it), 러시아어 (ru), 인도네시아어 (id), 베트남어 (vi), 일본어 (ja), 중국어 번체 (tw), 중국어 간체(cn), 한국어(kr)
+				'''
+			],
+
+			'prefix': [
+				'-server prefix <접두사>',
+				'해당 서버에서의 봇의 접두사를 변경합니다.'
+			],
+
+			'preset': [
+				'-[user/server] preset <이름> <가중치>',
+				f'''
+				성유물을 평가할 때 사용할 프리셋을 만듭니다. 프리셋은 주어진 `이름`을 사용합니다.
+				여러 성유물을 동일한 가중치 집합으로 평가하고자 한다면, 이 명령어로 원하는 가중치를 설정하여 프리셋을 만들 수 있습니다.
+				프리셋이 사용될 때 `가중치`는 `-rate` 명령어에 사용됩니다. `가중치`는 다음과 같은 형식이 되어야합니다. `<스탯>=<값>`, 그리고 `값`은 0에서 1 사이의 숫자가 되어야 합니다.
+				{self.help_stats}
+
+				**예시**
+				`-user preset healer hp=0.5 hp%=1 atk%=0`
+				`-rate <이미지> healer`
+
+				`-[user/server] preset delete <이름>`
+
+				`이름` 프리셋을 삭제합니다 (띄어쓰기로 구분됩니다).
+				'''
+			]
+		}
+
+		self.help_title = '성유물 평가기 도움말'
+
+		self.help_description = f'''
+		**명령어**
+
+		`{self.help_commands['rate'][0]}`
+		성유물 이미지를 전송하여 평가합니다. 자세한 내용은 `-help rate`를 참조하세요.
+
+		`{self.help_commands['feedback'][0]}`
+		{self.help_commands['feedback'][1]}
+
+		`{self.help_commands['sets'][0]}`
+		모든 사용가능한 프리셋을 봅니다.
+
+		`-help <명령어>`
+		해당 명령어에 해당되는 도움말을 봅니다. 명령어: {', '.join([f'`{command}`' for command in self.help_commands])}.
+
+		**Config**
+
+		`-user` 당신의 개인 설정을 변경합니다. 서버의 기본 설정을 덮어씁니다.
+		`-server` 관리자 전용입니다. 서버 기본 설정을 변경합니다.
+
+		`{self.help_commands['prefix'][0]}`
+		{self.help_commands['prefix'][1]}
+
+		`{self.help_commands['lang'][0]}`
+		모든 명령에 대한 언어를 2-문자 언어 코드 `lang` 으로 설정합니다.
+		나라별 국기 반응을 눌러서 언어를 변경할 수도 있습니다.
+
+		`{self.help_commands['preset'][0]}`
+		성유물 점수를 매길 때 사용할 프리셋을 만듭니다. 프리셋이 사용될 때 `가중치`는 `-rate` 명령어에 사용됩니다.
+
+		`-[user/server] preset delete <이름>`
+		가중치를 삭제합니다.
+		'''
+
+		self.source = '소스 코드'
+		self.invite = '봇 초대'
+		self.support = '지원'
+		self.github = f'[GitHub]({self.GITHUB_URL})'
+		self.discord = f'[Link]({self.BOT_URL})'
+		self.server = f'[Discord]({self.SERVER_URL})'
+
+		self.help_footer = '언어를 변경하려면 아래에 있는 해당 국기를 클릭해주세요.'
+
+languages = {lang.id: lang for lang in [en(), es(), de(), fr(), vi(), pt(), ja(), pl(), ru(), tw(), cn(), it(), idn(), kor()]}
