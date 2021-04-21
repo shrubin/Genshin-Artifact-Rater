@@ -207,16 +207,42 @@ async def sets(ctx):
 		await send(ctx, msg=lang.no_presets)
 		return
 
-	embed = discord.Embed(title='Presets', colour=discord.Colour.blue())
-	for preset in presets:
-		if preset.entry_id == ctx.message.author.id:
-			source = ctx.message.author.display_name
-		elif ctx.guild and preset.entry_id == ctx.guild.id:
-			source = ctx.guild.name
+	index = 0
+	msg = None
+
+	while True:
+		embed = discord.Embed(title='Presets', colour=discord.Colour.blue())
+		for i in range(index, min(len(presets), index + 10)):
+			preset = presets[i]
+			if preset.entry_id == ctx.message.author.id:
+				source = ctx.message.author.display_name
+			elif ctx.guild and preset.entry_id == ctx.guild.id:
+				source = ctx.guild.name
+			else:
+				source = 'Artifact Rater'
+			embed.add_field(name=f'{preset.name} - {source}', value=preset.command, inline=False)
+		embed.set_footer(text=f'page {index//10 + 1}')
+		if msg:
+			await msg.edit(embed=embed)
 		else:
-			source = 'Artifact Rater'
-		embed.add_field(name=f'{preset.name} - {source}', value=preset.command, inline=False)
-	await send(ctx, embed=embed)
+			msg = await send(ctx, embed=embed)
+		await asyncio.gather(
+			msg.add_reaction('◀️'),
+			msg.add_reaction('▶️')
+		)
+		try:
+			response, user = await bot.wait_for('reaction_add', check=lambda r, u: r.emoji in ['◀️', '▶️'] and u == ctx.message.author, timeout=180.0)
+			if response.emoji == '◀️':
+				if index - 10 >= 0:
+					index -= 10
+			elif response.emoji == '▶️':
+				if index + 10 < len(presets):
+					index += 10
+		except asyncio.TimeoutError:
+			if msg:
+				await msg.clear_reactions()
+			return
+
 
 def create_embed(lang):
 	embed = discord.Embed(title=lang.help_title, description=lang.help_description, colour=discord.Colour.red())
@@ -439,8 +465,11 @@ if __name__ == '__main__':
 	def interrupt():
 		raise KeyboardInterrupt
 
-	loop.add_signal_handler(SIGINT, interrupt)
-	loop.add_signal_handler(SIGTERM, interrupt)
+	try:
+		loop.add_signal_handler(SIGINT, interrupt)
+		loop.add_signal_handler(SIGTERM, interrupt)
+	except NotImplementedError:
+		pass
 
 	try:
 		loop.run_until_complete(bot.start(TOKEN))
