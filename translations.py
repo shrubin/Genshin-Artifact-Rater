@@ -1,5 +1,5 @@
 class translation:
-	def __init__(self):
+    	def __init__(self):
 		# 2-digit language code
 		self.id = 'en'
 		# 3-digit language code
@@ -1769,22 +1769,22 @@ class kor(translation):
 		self.supported = False
 
 		self.hp = 'HP'
-		self.heal = '치유 보너스'
+		self.heal = '치유'
 		self.df = '방어력'
 		self.er = '원소 충전 효율'
 		self.em = '원소 마스터리'
 		self.atk = '공격력'
 		self.cd = '치명타 피해'
 		self.cr = '치명타 확률'
-		self.phys = '물리 피해 보너스'
-		self.elem = '원소 피해 보너스'
-		self.anemo = '바람'
-		self.elec = '번개'
-		self.pyro = '불'
-		self.hydro = '물'
-		self.cryo = '얼음'
-		self.geo = '바위'
-		self.dend = '풀'
+		self.phys = '물리 피해'
+		self.elem = '원소 피해'
+		self.anemo = '바람 원소 피해'
+		self.elec = '번개 원소 피해'
+		self.pyro = '불 원소 피해'
+		self.hydro = '물 원소 피해'
+		self.cryo = '얼음 원소 피해'
+		self.geo = '바위 원소 피해'
+		self.dend = '풀 원소 피해'
 
 		self.piece_set = '세트'
 
