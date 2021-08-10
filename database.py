@@ -9,7 +9,7 @@ load_dotenv()
 DATABASE_URL = os.getenv('DATABASE_URL')
 SERVER_ID = int(os.getenv('SERVER_ID', 0))
 
-engine = create_engine(DATABASE_URL)
+engine = create_engine(DATABASE_URL, connect_args={'check_same_thread': False})
 
 Base = declarative_base()
 
@@ -35,7 +35,8 @@ class Preset(Base):
 		self.entry_id = entry_id
 		self.name = name
 
-# Base.metadata.create_all(engine)
+# For DB creation
+#Base.metadata.create_all(engine)
 
 Session = sessionmaker()
 Session.configure(bind=engine)

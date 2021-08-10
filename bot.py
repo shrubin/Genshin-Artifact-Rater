@@ -30,6 +30,9 @@ if HEROKU_API_KEY and HEROKU_APP_ID:
 	app = heroku_conn.apps()[HEROKU_APP_ID]
 
 if DATABASE_URL:
+	print('Database info:')
+	print('File list: ', os.listdir('/data'))
+	# print('File size: ', os.path.getsize('/data/bot.db'))
 	import database as db
 
 RETRIES = 1
