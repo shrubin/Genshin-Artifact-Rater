@@ -1,4 +1,4 @@
-# Genshin Artifact Rater - https://discord.gg/SyGmBxds3M
+# Genshin Artifact Rater
 
 Discord bot that rates an artifact against an optimal 5* artifact. Put the command and image in the same message.
 
@@ -8,6 +8,8 @@ https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permission
 You can also use the bot by sending the command in a DM to Artifact Rater#6924.
 
 If you have any issues, please contact shrubin#1866 on discord or use the `-feedback` command.
+
+## Join the support server: https://discord.gg/SyGmBxds3M
 
 ## Usage
 
