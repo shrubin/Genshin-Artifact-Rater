@@ -37,15 +37,15 @@ if HEROKU_API_KEY and HEROKU_APP_ID:
 if DATABASE_URL:
 	import database as db
 
-RETRIES = 1
-MAX_CRASHES = 10
-RATE_LIMIT_N = 5
-RATE_LIMIT_TIME = 10
+#RETRIES = 1
+#MAX_CRASHES = 10
+#RATE_LIMIT_N = 5
+#RATE_LIMIT_TIME = 10
 
-calls = 0
-crashes = 0
-started = False
-running = False
+#calls = 0
+#crashes = 0
+#started = False
+#running = False
 
 def get_lang(ctx):
 	if DATABASE_URL:
