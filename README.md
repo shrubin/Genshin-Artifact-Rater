@@ -54,6 +54,7 @@ Store environment variables for OCR Space and Discord in `.env`
 ```
 DISCORD_TOKEN=<token>
 OCR_SPACE_API_KEY=<key>
+
 ```
 
 ## Cogs
