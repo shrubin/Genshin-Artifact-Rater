@@ -12,17 +12,22 @@ from discord.ext import commands, tasks
 from dotenv import load_dotenv
 from signal import SIGINT, SIGTERM
 
+import toml
+
+config = toml.load(open("config.toml"))
+
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 AUTHOR_ID = int(os.getenv('AUTHOR_ID', 0))
 CHANNEL_ID = int(os.getenv('CHANNEL_ID', 0))
+SHARD_CHANNEL_ID = int(os.getenv('SHARD_CHANNEL_ID', 0))
 DEV_CHANNEL_ID = int(os.getenv('DEV_CHANNEL_ID', 0))
 ERR_CHANNEL_ID = int(os.getenv('ERR_CHANNEL_ID', 0))
 DEVELOPMENT = os.getenv('DEVELOPMENT', 'False') == 'True'
 HEROKU_API_KEY = os.getenv('HEROKU_API_KEY')
 HEROKU_APP_ID = os.getenv('HEROKU_APP_ID')
 DATABASE_URL = os.getenv('DATABASE_URL')
-SHARDS = int(os.getenv('SHARDS', 10))
+SHARDS = int(os.getenv('SHARDS', 1))
 
 if HEROKU_API_KEY and HEROKU_APP_ID:
 	import heroku3
@@ -71,7 +76,7 @@ def prefix(bot, message):
 			return prefix
 	return '-'
 
-bot = commands.AutoShardedBot(command_prefix=prefix, shard_count=SHARDS, max_messages=None, activity=discord.Game(name='-help'), help_command=None)
+bot = commands.AutoShardedBot(command_prefix=prefix, shard_count=SHARDS, max_messages=None, help_command=None)
 
 async def send_internal(msg, channel_id=CHANNEL_ID):
 	print(msg)
@@ -83,6 +88,8 @@ async def send_internal(msg, channel_id=CHANNEL_ID):
 		channel = bot.get_channel(channel_id)
 		await channel.send(msg)
 
+
+
 @bot.event
 async def on_ready():
 	global started, running
@@ -92,6 +99,20 @@ async def on_ready():
 	if not started:
 		count.start()
 		started = True
+
+for cogs in config['cogs']:
+	try:
+		bot.load_extension(cogs)
+		print(f'[Loaded] {cogs}')
+	except Exception as e:
+		print(f'[Error] {cogs} | {e}')
+
+
+
+
+
+
+
 
 @bot.event
 async def on_resumed():
@@ -108,6 +129,30 @@ async def on_disconnect():
 			await send_internal(f'{bot.user.name} disconnected')
 		finally:
 			running = False
+
+@bot.event
+async def on_shard_connect(shard_id):
+
+	print(f"[Shard] {shard_id+1} Connected")
+
+
+
+@bot.event
+async def on_shard_disconnect(shard_id):
+	print(f"[Shard] {shard_id+1} Disconnected")
+
+
+
+
+@bot.event
+async def on_shard_ready(shard_id):
+	print(f"[Shard] {shard_id+1} Ready")
+
+
+
+
+
+	
 
 @bot.event
 async def on_error(event, *args, **kwargs):
@@ -131,6 +176,8 @@ async def send(ctx, msg=None, embed=None):
 	elif DEVELOPMENT and dev_only:
 		channel = bot.get_channel(DEV_CHANNEL_ID)
 		return await channel.send(msg, embed=embed)
+
+
 
 @bot.command(name='user', aliases=['server'])
 @commands.cooldown(RATE_LIMIT_N, RATE_LIMIT_TIME, commands.BucketType.user)
@@ -269,6 +316,7 @@ async def help(ctx):
 	elif len(command) == 2:
 		help_command = lang.help_commands[command[1]]
 		embed = discord.Embed(title=f'`{help_command[0]}`', description=help_command[1], colour=discord.Colour.red())
+		embed.set_footer(text=f"Created by Shrubin#1866 & Chizy#0303")
 		await send(ctx, embed=embed)
 
 def create_opt_to_key(lang):
@@ -362,7 +410,9 @@ async def rate(ctx):
 			await send(ctx, msg=lang.err_unknown)
 			if ERR_CHANNEL_ID:
 				channel = bot.get_channel(ERR_CHANNEL_ID)
-				await channel.send(f'Uncaught exception in {ctx.guild} #{ctx.channel}\n{ctx.message.content}\n{url}\n{traceback.format_exc()}')
+				emb = discord.Embed(title=f"Uncaught exception in {ctx.guild} #{ctx.channel}",description=f"""```{ctx.author} [{ctx.author.id}] • {ctx.message.content}\n\n{traceback.format_exc()}```""", color=discord.Colour.from_rgb(133, 149, 255))
+				await channel.send(embed=emb)
+				await channel.send(f"URL: {url}")
 			crashes += 1
 			if crashes >= MAX_CRASHES and HEROKU_API_KEY and HEROKU_APP_ID:
 				print(f'Crashed {MAX_CRASHES} times, restarting')
