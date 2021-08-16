@@ -11,6 +11,8 @@ If you have any issues, please contact shrubin#1866 on discord or use the `-feed
 
 ## Join the support server: https://discord.gg/SyGmBxds3M
 
+
+
 ## Usage
 
 ```
@@ -52,6 +54,12 @@ Store environment variables for OCR Space and Discord in `.env`
 ```
 DISCORD_TOKEN=<token>
 OCR_SPACE_API_KEY=<key>
+```
+
+## Cogs
+To load cogs, make sure to create a config.toml and put the cogs in a list.
+```
+cogs = ["<cog name>"]
 ```
 
 Optional: \
