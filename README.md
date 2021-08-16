@@ -7,7 +7,7 @@ https://discord.com/api/oauth2/authorize?client_id=774612459692621834&permission
 
 You can also use the bot by sending the command in a DM to Artifact Rater#6924.
 
-If you have any issues, please contact shrubin#1866 on discord or use the `-feedback` command.
+If you have any issues, please contact shrubin#1866 or Chizy#0303 on discord or use the `-feedback` command.
 
 ## Join the support server: https://discord.gg/SyGmBxds3M
 
@@ -40,7 +40,7 @@ Set custom weights (valued between 0 and 1)
 \<stat> is any of HP, HP%, ATK, ATK%, ER (Recharge), EM, PHYS, CR (Crit Rate), CD (Crit Damage), ELEM (Elemental DMG%), Heal, DEF, DEF%
 
 ## Development
-If you need help or want to contribute, feel free to DM shrubin#1866 or join https://discord.gg/SyGmBxds3M
+If you need help or want to contribute, feel free to DM shrubin#1866 or Chizy#0303 and join https://discord.gg/SyGmBxds3M
 
 ### Setup
 ```
